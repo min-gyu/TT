@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
 
+
 <section class="home">
 	<div class="container">
 		<div class="row" >
 			<div class="center-block">
 				<div class="line">
 					<div>인기 방송</div>
+
 				</div>
 				<div class="row" style="text-align: center">
 					<div class="col-md-6 col-sm-6 col-xs-12" style="margin-left: 26%">
