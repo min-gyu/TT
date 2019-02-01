@@ -78,7 +78,7 @@
 					</div>
 					<div id="menu-list">
 						<ul class="nav-list">
-							<li><a href="#">구독</a></li>	
+							<li><a href="/goBroadCast.bc">효훈(방송)</a></li>	
 							<li><a href="#">전체</a></li>	
 							<li><a href="#">스포츠</a></li>	
 							<li><a href="#">먹방</a></li>	
