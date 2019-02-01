@@ -85,6 +85,7 @@
 							<li><a href="#">뷰티</a></li>	
 							<li><a href="#">VLOG</a></li>	
 							<li><a href="#">VOD</a></li>	
+							<li><a href="goChannel.ch">Channel</a></li>
 							<li class="dropdown magz-dropdown">
 								<a href="#">고객센터 <i class="ion-ios-arrow-right"></i></a>
 								<ul class="dropdown-menu">
