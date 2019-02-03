@@ -20,4 +20,12 @@ public class MemberController {
 	public String showJoinView() {
 		return "member/join";
 	}
+	
+	@RequestMapping("subscribe.me")
+	public String subscribeView() {
+		return "main/subscribe";
+	}
+	
+	
+	
 }

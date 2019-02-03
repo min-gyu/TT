@@ -39,7 +39,7 @@
 					<div class="row">
 						<div class="col-md-3 col-sm-12">
 							<div class="brand">
-								<a href="#">
+								<a href="goMain.me">
 									<img src="/resources/images/logo.png" alt="Today's TV">
 								</a>
 							</div>						
