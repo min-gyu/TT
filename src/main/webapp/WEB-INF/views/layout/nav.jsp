@@ -32,21 +32,24 @@
 					<ul class="dropdown-menu">
 						<li><a href="#">신고하기</a></li>
 						<li><a href="#">문의하기</a></li>
-					</ul></li>
 
-				<!-- 	
-			<li class="dropdown magz-dropdown"><a href="#">Dropdown Icons <i class="ion-ios-arrow-right"></i></a>
-				<ul class="dropdown-menu">
-					<li><a href="#"><i class="icon ion-person"></i> My Account</a></li>
-					<li><a href="#"><i class="icon ion-heart"></i> Favorite</a></li>
-					<li><a href="#"><i class="icon ion-chatbox"></i> Comments</a></li>
-					<li><a href="#"><i class="icon ion-key"></i> Change Password</a></li>
-					<li><a href="#"><i class="icon ion-settings"></i> Settings</a></li>
-					<li class="divider"></li>
-					<li><a href="#"><i class="icon ion-log-out"></i> Logout</a></li>
-				</ul>
-			</li>
-			 -->
+					</ul>
+				</li>
+				
+			<li class="dropdown magz-dropdown"><a href="#">My Page<i class="ion-ios-arrow-right"></i></a>
+                     <ul class="dropdown-menu">
+                        <li><a href="#"><i class="leaf icon"></i> 클로버 충전하기</a></li>
+                        <li><a href="#"><i class="leaf icon"></i> 계좌 인증하기</a></li>
+                        <li><a href="#"><i class="leaf icon"></i> 환전 신청하기</a></li>
+                        <li><a href="#"><i class="leaf icon"></i> My문의 페이지</a></li>
+                        <li><a href="#"><i class="leaf icon"></i>My신고 페이지</a></li>
+                        <li><a href="#"><i class="leaf icon"></i>방송 통계</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon ion-person"></i> 내 정보 수정</a></li>
+                        <li><a href="#"><i class="icon ion-log-out"></i> 로그아웃</a></li>
+                     </ul>
+                  </li>
+
 			</ul>
 		</div>
 	</div>
