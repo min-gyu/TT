@@ -11,4 +11,9 @@ public String goChannel() {
 	return "channel/channel";
 }
 
+@RequestMapping("manage_C.ch")
+public String manage_C() {
+	return "channel/manageC";
+}
+
 }
