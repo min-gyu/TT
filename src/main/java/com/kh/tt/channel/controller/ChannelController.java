@@ -13,7 +13,12 @@ public String goChannel() {
 
 @RequestMapping("manage_C.ch")
 public String manage_C() {
-	return "channel/manageC";
+	return "channel_admin/channel_admin";
+}
+
+@RequestMapping("manage_black.ch")
+public String manage_Black() {
+	return "channel_admin/channel_black";
 }
 
 }

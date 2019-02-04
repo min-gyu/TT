@@ -1214,7 +1214,7 @@ h1, h2, h3, h4, h5, h6 {
 .progress-table {
 	background: #f9f9ff;
 	padding: 15px 0px 30px 0px;
-	min-width: 800px;
+	min-width:700px;;
 }
 
 .progress-table .serial {
@@ -2207,10 +2207,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Nav Meu Styling */
 .nav-menu a {
+	font-family: Lato;
 	padding: 0px 8px 0px 20px;
 	text-decoration: none;
 	display: inline-block;
-	color: #28a745;
+	color: #212529;
 	font-weight: 500;
 	font-size: 18px;
 	text-transform: uppercase;

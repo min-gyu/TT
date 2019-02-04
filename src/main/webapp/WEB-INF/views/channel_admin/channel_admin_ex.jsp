@@ -85,6 +85,7 @@
 							<div class="feature-img"></div>
 						</div>
 						<div class="col-lg-12"></div>
+
 						<div class="col-lg-9 col-md-9">
 							<div class="row"></div>
 							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
@@ -107,7 +108,7 @@
 						<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
 							<ul class="cat-list">
-								<li><a href="#" class="" style="text-align: center;">
+								<li><a href="" class="" style="text-align: center;">
 										<p>채널 소개 설정</p>
 								</a></li>
 								<li><a href="#" class="" style="text-align: center;">
@@ -134,7 +135,7 @@
 										<p>채팅 필터 관리</p>
 
 								</a></li>
-								<li><a href="manage_black.ch" class="" style="text-align: center;">
+								<li><a href="#" class="" style="text-align: center;">
 										<p>블랙 리스트</p>
 
 								</a></li>
