@@ -9,4 +9,20 @@ public class Controller {
 	public String goBroadCast() {
 		return "broadcast/board";
 	}
+	@RequestMapping("addBanWord.bc")
+	public String addBanWord(){
+		return "broadcast/addBanWord";
+	}
+	@RequestMapping("addManager.bc")
+	public String addManager(){
+		return "broadcast/addManager";
+	}
+	@RequestMapping("userList.bc")
+	public String userList(){
+		return "broadcast/userList";
+	}
+	@RequestMapping("broadCastSetting.bc")
+	public String broadCastSetting(){
+		return "broadcast/broadCastSetting";
+	}
 }
