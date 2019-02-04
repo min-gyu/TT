@@ -45,7 +45,7 @@
                         <li><a href="#"><i class="leaf icon"></i>My신고 페이지</a></li>
                         <li><a href="#"><i class="leaf icon"></i>방송 통계</a></li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="icon ion-person"></i> 내 정보 수정</a></li>
+                        <li><a href="modify_myPage.me"><i class="icon ion-person"></i> 내 정보 수정</a></li>
                         <li><a href="#"><i class="icon ion-log-out"></i> 로그아웃</a></li>
                      </ul>
                   </li>
