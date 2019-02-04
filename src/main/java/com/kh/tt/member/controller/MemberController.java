@@ -8,7 +8,7 @@ public class MemberController {
 
 	@RequestMapping("goMain.me")
 	public String goMain() {
-		return "main/main";
+		return "main/mainPage";
 	}
 	
 	@RequestMapping("loginView.me")
@@ -20,4 +20,22 @@ public class MemberController {
 	public String showJoinView() {
 		return "member/join";
 	}
+	
+	@RequestMapping("subscribe.me")
+	public String showSubscribe() {
+		return "main/subscribe";
+	}
+	
+	@RequestMapping("reportView.me")
+	public String showReportView() {
+		return "member/report";
+	}
+	
+	@RequestMapping("inquireView.me")
+	public String showInquireView() {
+		return "member/inquire";
+	}
+
+	
 }
+

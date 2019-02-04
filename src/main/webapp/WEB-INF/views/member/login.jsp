@@ -9,26 +9,26 @@
 						<h4>로그인</h4>
 						<form>
 							<div class="form-group">
-								<label>ID</label>
+								<label>아이디</label>
 								<input type="text" name="username" class="form-control">
 							</div>
 							<div class="form-group">
-								<label class="fw">Password
-									<a href="#" class="pull-right">Forgot Password?</a>
+								<label class="fw">비밀번호
+									<a href="#" class="pull-right">비밀번호 찾기</a>
 								</label>
 								<input type="password" name="password" class="form-control">
 							</div>
 							<div class="form-group text-right">
-								<button class="btn btn-primary btn-block">Login</button>
+								<button class="btn btn-primary btn-block">로그인</button>
 							</div>
 							<div class="form-group text-center">
-								<span class="text-muted">Don't have an account?</span> <a href="joinView.me">Create one</a>
+								<span class="text-muted">계정이 없으신가요?</span> <a href="joinView.me">회원가입</a>
 							</div>
 							<div class="title-line">or</div>
 							
 							<!-- API -->
-             				<a href="#" class="btn btn-social btn-block facebook">Login with Google</a>
-             				<a href="#" class="btn btn-social btn-block facebook" style="background:#F4FA58">Login with KaKao</a>
+             				<a href="#" class="btn btn-social btn-block facebook">구글로 로그인</a>
+             				<a href="#" class="btn btn-social btn-block facebook" style="background:#F4FA58">카카오로 로그인</a>
 						</form>
 					</div>
 				</div>
