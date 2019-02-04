@@ -19,7 +19,7 @@
 		</div>
 		<div id="menu-list">
 			<ul class="nav-list">
-				<li><a href="#">구독</a></li>
+				<li><a href="subscribe.me">구독</a></li>
 				<li><a href="#">전체</a></li>
 				<li><a href="#">스포츠</a></li>
 				<li><a href="#">먹방</a></li>
@@ -27,11 +27,10 @@
 				<li><a href="#">VLOG</a></li>
 				<li><a href="#">VOD</a></li>
 				<li><a href="goChannel.ch">Channel</a></li>
-				<li class="dropdown magz-dropdown"><a href="#">고객센터 <i
-						class="ion-ios-arrow-right"></i></a>
+				<li class="dropdown magz-dropdown"><a href="#">고객센터 <iclass="ion-ios-arrow-right"></i></a>
 					<ul class="dropdown-menu">
-						<li><a href="#">신고하기</a></li>
-						<li><a href="#">문의하기</a></li>
+						<li><a href="reportView.me">신고하기</a></li>
+						<li><a href="inquireView.me">문의하기</a></li>
 
 					</ul>
 				</li>

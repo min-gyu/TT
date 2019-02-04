@@ -30,7 +30,6 @@
 	<link rel="stylesheet" href="/resources/assets/css/demo.css">
 
 	<!-- TT 추가 -->
-	<!-- <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -73,7 +72,5 @@
 				</div>
 			</div>
 		</div>
-
-		<jsp:include page="/WEB-INF/views/layout/nav.jsp" />
-
+		<hr style="border:thin solid #0B610B">
 	</header>
