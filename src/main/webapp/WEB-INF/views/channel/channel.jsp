@@ -46,34 +46,28 @@
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
 </head>
 <body>
+
+
+	<!-- header -->
 	<header id="header">
 		<div class="container main-menu" style="background: #f9f9ff";>
 			<div class="row align-items-center justify-content-between d-flex">
 				<a href="index.html"><img src="/resources/images/logo.png"
 					alt="Today's TV" style="width: 300px;"></a>
-
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
 						<li class="menu-active"></li>
-						<ul>
-						</ul>
-						</li>
-
 						<li><a href="elements.html"
-							style="padding-right: 50px; padding-left: 500px;">
-								<div>
-									<i class="ion-person"></i>Login
-								</div>
+							style="padding-right: 50px; padding-left: 500px;"> <i
+								class="ion-person"></i>Login
 						</a></li>
-
 					</ul>
 				</nav>
-				<!-- #nav-menu-container -->
 			</div>
 		</div>
 	</header>
-	<!-- #header -->
-
+	
+	<!-- header -->
 
 
 	<!-- start banner Area -->
@@ -146,9 +140,9 @@
 											<p>Donec consequat, arcu at ultrices sodales, quam erat
 												aliquet diam, sit amet interdum libero nunc accumsan nisi.</p>
 											<footer>
-												<a href="#" class="love"><i
-													class="ion-android-favorite-outline"></i>
-													<div>273</div></a> <a class="btn btn-primary more"
+												<a href="#" class="love active"><i
+													class="ion-android-favorite"></i>
+													<div>302</div></a> <a class="btn btn-primary more"
 													href="single.html">
 													<div>More</div>
 													<div>
@@ -183,9 +177,9 @@
 												Proin eu nisl et arcu iaculis placerat sollicitudin ut est.
 												In fringilla dui.</p>
 											<footer>
-												<a href="#" class="love"><i
-													class="ion-android-favorite-outline"></i>
-													<div>4209</div></a> <a class="btn btn-primary more"
+												<a href="#" class="love active"><i
+													class="ion-android-favorite"></i>
+													<div>302</div></a> <a class="btn btn-primary more"
 													href="single.html">
 													<div>More</div>
 													<div>
@@ -269,9 +263,9 @@
 												<p>Donec consequat, arcu at ultrices sodales, quam erat
 													aliquet diam, sit amet interdum libero nunc accumsan nisi.</p>
 												<footer>
-													<a href="#" class="love"><i
-														class="ion-android-favorite-outline"></i>
-														<div>273</div></a> <a class="btn btn-primary more"
+													<a href="#" class="love active"><i
+														class="ion-android-favorite"></i>
+														<div>302</div></a> <a class="btn btn-primary more"
 														href="single.html">
 														<div>More</div>
 														<div>
@@ -305,9 +299,9 @@
 												<p>Donec consequat, arcu at ultrices sodales, quam erat
 													aliquet diam, sit amet interdum libero nunc accumsan nisi.</p>
 												<footer>
-													<a href="#" class="love"><i
-														class="ion-android-favorite-outline"></i>
-														<div>273</div></a> <a class="btn btn-primary more"
+													<a href="#" class="love active"><i
+														class="ion-android-favorite"></i>
+														<div>302</div></a> <a class="btn btn-primary more"
 														href="single.html">
 														<div>More</div>
 														<div>
@@ -341,9 +335,9 @@
 												<p>Donec consequat, arcu at ultrices sodales, quam erat
 													aliquet diam, sit amet interdum libero nunc accumsan nisi.</p>
 												<footer>
-													<a href="#" class="love"><i
-														class="ion-android-favorite-outline"></i>
-														<div>273</div></a> <a class="btn btn-primary more"
+													<a href="#" class="love active"><i
+														class="ion-android-favorite"></i>
+														<div>302</div></a><a class="btn btn-primary more"
 														href="single.html">
 														<div>More</div>
 														<div>
@@ -513,15 +507,19 @@
 				</div>
 
 				<!-- 오른쪽 사이드바 이동 -->
+
 				<div class="col-lg-4 sidebar-widgets">
 					<div class="widget-wrap">
 						<div class="single-sidebar-widget user-info-widget">
 							<img src="/resources/channel/img/blog/user-info.png" alt="">
-							<a><h4>채널 주인 이름</h4></a>
+							<a><h4>감스트</h4></a>
+							<p>@abc123</p>
+							<p>아 이렇게 제 채널에 방문해 주셔서 감사합니다. 이렇게 소개창이 기니 정말 할말이 많습니다. 방송을 한지
+								어언 10년쨰 모든 분들께 감사드리고 앞으로 더 재밌는</p>
 						</div>
 						<div class="single-sidebar-widget popular-post-widget">
 							<a href="manage_C.ch" style="color: #6ac169;"><h4
-									class="popular-title">Channel Manage</h4></a>
+									class="popular-title">방송국 관리</h4></a>
 						</div>
 
 
@@ -538,7 +536,11 @@
 							</div>
 						</div>
 						<div class="single-sidebar-widget post-category-widget">
-							<h4 class="category-title">순위</h4>
+							<div class="single-sidebar-widget newsletter-widget">
+
+
+								<p class="text-bottom">순위</p>
+							</div>
 							<ul class="cat-list">
 								<li><a href="#" class="d-flex justify-content-between">
 										<p>회장</p>
