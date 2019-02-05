@@ -62,20 +62,20 @@
 }
 
 #broadCastWarpper {
-	overflow: auto;
+	overflow-y: scroll;
 	height: 800px;
 }
 
 #chattingDiv {
-	overflow: auto;
-	background: gray;
+	overflow-y: scroll;
+	border: 1px solid black;
 	height: 83%;
 	margin-left: -25px;
 }
 
 #inputChat {
 	height: 100%;
-	width: 70%;
+	width: 100%;
 	margin-right: -15px;
 	margin-top: 5px;
 }
@@ -102,8 +102,8 @@
 }
 
 #inputChatDiv {
+	height:10%;
 	margin-left: -25px;
-	height: 12%;
 }
 
 #optionDiv {
@@ -118,9 +118,13 @@
 .icons:hover {
 	cursor: pointer;
 }
+.pull-right{
+	margin-right: 10px;
+}
 </style>
 <!-- jQuery CDN -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body class="skin-orange">
 	<header class="primary">
@@ -162,7 +166,7 @@
 				<!-- Header의 1번째 ROW -->
 				<hr>
 				<div class="row">
-					<div class="col-md-9 col-sm-12">
+					<div class="col-lg-9 col-md-9 col-sm-12">
 						<div id="broadCastWarpper">
 							<div id="broadCastDiv"></div>
 							<hr>
@@ -180,27 +184,27 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3 col-sm-12 visible-lg-* visible-md-*">
+					<div class="col-lg-3 col-md-3 col-sm-12 hidden-sm hidden-xs">
 						<div id="chatWrapper">
-							<div id="optionDiv">
-								<div class=" pull-right">
+							<div id="optionDiv" class="row">
+								<div class="pull-right">
 									<i class="ion-person-add icons" id="addManager"></i> &nbsp; <i
 										class="ion-ios-people icons" id=userList></i> &nbsp; <i
-										class="ion-android-remove-circle icons" id="addBanWord"></i> &nbsp; <i
-										class="ion-android-settings icons" id="broadCastSetting"></i>
+										class="ion-android-remove-circle icons" id="addBanWord"></i>
+									&nbsp; <i class="ion-android-settings icons"
+										id="broadCastSetting"></i>
 								</div>
 							</div>
-							<div id="chattingDiv"></div>
-
-							<div id="inputChatDiv">
-								<div class="row" style="height: 100%; width: 100%">
-									<div class="col-md-9 col-sm-12" id="inputChat">
-										<textarea id="inputTextArea"></textarea>
-									</div>
-									<div class="col-md-3 col-sm-12" id="inputBtnDiv">
-										<button type="button" class="btn btn-success" id="inputBtn">보내기</button>
-									</div>
+							<div id="chattingDiv" class="row"></div>
+							<hr style="margin-top: 5px;margin-bottom: 5px">
+							<div id="inputChatDiv" class="row">
+								<div class="col-lg-9 col-md-9 col-sm-8" style="padding-left:0px; padding-right:0px; black;height: 100%">
+									<textarea class="form-control" rows="4" width="100%" style="height: 80px;resize: none">									
+									</textarea> 
 								</div>
+								<div class="col-lg-3 col-md-3 col-sm-4" style="padding-left:0px; padding-right:0px; height:100%">
+									<button type="button" class="btn btn-success" style="padding:0px;height:100%;width:100%">전송</button>
+								</div>							
 							</div>
 						</div>
 					</div>
@@ -210,17 +214,25 @@
 	</header>
 </body>
 <script type="text/javascript">
-	$("#addManager").click(function(){
-		window.open("/addManager.bc", "매니저 추가", "width=1250, height=1200, left=100, top=50"); 
-	});
-	$("#userList").click(function(){
-		window.open("/userList.bc", "방송 시청자 목록", "width=1250, height=1200, left=100, top=50"); 
-	});
-	$("#addBanWord").click(function(){
-		window.open("/addBanWord.bc", "금지단어 추가", "width=1250, height=1200, left=100, top=50"); 
-	});
-	$("#broadCastSetting").click(function(){
-		window.open("/broadCastSetting.bc", "방송 설정", "width=1250, height=1200, left=100, top=50"); 
-	});
+	$("#addManager").click(
+			function() {
+				window.open("/addManager.bc", "매니저 추가",
+						"width=1250, height=1200, left=100, top=50");
+			});
+	$("#userList").click(
+			function() {
+				window.open("/userList.bc", "방송 시청자 목록",
+						"width=1250, height=1200, left=100, top=50");
+			});
+	$("#addBanWord").click(
+			function() {
+				window.open("/addBanWord.bc", "금지단어 추가",
+						"width=1250, height=1200, left=100, top=50");
+			});
+	$("#broadCastSetting").click(
+			function() {
+				window.open("/broadCastSetting.bc", "방송 설정",
+						"width=1250, height=1200, left=100, top=50");
+			});
 </script>
 </html>

@@ -44,6 +44,8 @@
 <link rel="stylesheet"
 	href="/resources/channel/channel2/css/skins/all.css">
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
+
+</style>
 </head>
 <body>
 	<!-- header -->
@@ -55,11 +57,10 @@
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-					<!-- 공간 비율때문에 넣음 -->
+						<!-- 공간 비율때문에 넣음 -->
 						<li><a style="color: #f9f9ff;">방송하기</a>
 						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<!-- 공간 비율때문에 넣음 end -->
+						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
 						<li class="menu-has-children"><a href="">abc123</a>
 							<ul>
 								<li><a href="blog-home.html">로그아웃</a></li>
@@ -80,19 +81,38 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-					<div class="single-post row">
-						<div class="col-lg-12">
-							<div class="feature-img"></div>
-						</div>
-						<div class="col-lg-12"></div>
-						<div class="col-lg-9 col-md-9">
-							<div class="row"></div>
-							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
-								<div class="row"></div>
-							</div>
-						</div>
+					<div class="row">
+						<h5>채널 소개 설정</h5>
 					</div>
-				
+					<div class="row">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th scope="col" style="width: 20%; text-align: center; vertical-align:middle;"><div
+											>제목</div></th>
+									<td style="vertical-align: middle">
+										<div class="input-group mb-3">
+											<input type="text" class="form-control" aria-label="Default"
+												aria-describedby="inputGroup-sizing-default">
+										</div>
+
+									</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th style="width: 20%; text-align: center"><div
+											style="margin-top: 40%;">내용</div></th>
+									<td><textarea class="form-control col-mb-5" rows="7"
+											width="100%"></textarea></td>
+
+								</tr>
+								<tr>
+									<td colspan="2" align="center"><button type="button" class="btn btn-dark" id="saveBtn">저장</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 
 
@@ -149,7 +169,6 @@
 
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 	<!-- End post-content Area -->
-
 
 
 	<script src="/resources/channel/js/vendor/jquery-2.2.4.min.js"></script>
