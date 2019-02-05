@@ -25,4 +25,8 @@ public class Controller {
 	public String broadCastSetting(){
 		return "broadcast/broadCastSetting";
 	}
+	@RequestMapping("note.bc")
+	public String notesend() {
+		return "myPage/noteSend";
+	}
 }

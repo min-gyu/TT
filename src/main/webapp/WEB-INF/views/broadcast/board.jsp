@@ -118,9 +118,14 @@
 .icons:hover {
 	cursor: pointer;
 }
+
+#report:hover {
+	cursor: pointer;
+}
 </style>
 <!-- jQuery CDN -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body class="skin-orange">
 	<header class="primary">
@@ -165,6 +170,10 @@
 					<div class="col-md-9 col-sm-12">
 						<div id="broadCastWarpper">
 							<div id="broadCastDiv"></div>
+							<div align="right" style="margin-right:10px;">
+								<button id="note">쪽지보내기</button>
+								<img alt="s" src="/resources/images/siren.png" width="20" height="20" id="report">
+							</div>
 							<hr>
 							<div>
 								<h2>방송 제목 :</h2>
@@ -186,8 +195,9 @@
 								<div class=" pull-right">
 									<i class="ion-person-add icons" id="addManager"></i> &nbsp; <i
 										class="ion-ios-people icons" id=userList></i> &nbsp; <i
-										class="ion-android-remove-circle icons" id="addBanWord"></i> &nbsp; <i
-										class="ion-android-settings icons" id="broadCastSetting"></i>
+										class="ion-android-remove-circle icons" id="addBanWord"></i>
+									&nbsp; <i class="ion-android-settings icons"
+										id="broadCastSetting"></i>
 								</div>
 							</div>
 							<div id="chattingDiv"></div>
@@ -210,17 +220,37 @@
 	</header>
 </body>
 <script type="text/javascript">
-	$("#addManager").click(function(){
-		window.open("/addManager.bc", "매니저 추가", "width=1250, height=1200, left=100, top=50"); 
-	});
-	$("#userList").click(function(){
-		window.open("/userList.bc", "방송 시청자 목록", "width=1250, height=1200, left=100, top=50"); 
-	});
-	$("#addBanWord").click(function(){
-		window.open("/addBanWord.bc", "금지단어 추가", "width=1250, height=1200, left=100, top=50"); 
-	});
-	$("#broadCastSetting").click(function(){
-		window.open("/broadCastSetting.bc", "방송 설정", "width=1250, height=1200, left=100, top=50"); 
-	});
+	$("#addManager").click(
+			function() {
+				window.open("/addManager.bc", "매니저 추가",
+						"width=1250, height=1200, left=100, top=50");
+			});
+	$("#userList").click(
+			function() {
+				window.open("/userList.bc", "방송 시청자 목록",
+						"width=1250, height=1200, left=100, top=50");
+			});
+	$("#addBanWord").click(
+			function() {
+				window.open("/addBanWord.bc", "금지단어 추가",
+						"width=1250, height=1200, left=100, top=50");
+			});
+	$("#broadCastSetting").click(
+			function() {
+				window.open("/broadCastSetting.bc", "방송 설정",
+						"width=1250, height=1200, left=100, top=50");
+			});
+	$("#report").click(
+			function(){
+				var msg = confirm("신고작성 페이지로 이동 하시겠습니까?")
+				if(msg == true){
+					location.href="reportView.me";
+				}
+			});
+	$("#note").click(
+			function() {
+				window.open("/note.bc", "방송 설정",
+						"width=440, height=550, left=100, top=50");
+			});
 </script>
 </html>
