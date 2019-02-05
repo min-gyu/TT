@@ -2,6 +2,18 @@
 	pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/layout/mainHeader.jsp" />
 
+
+
+<script type="text/javascript">
+	
+	$(function(){
+		$("#fileName").on("click", function(){
+			$("#fileInput").trigger("click");
+		});
+	});
+
+</script>
+
 <section class="home">
 	<div class="container">
 		<div class="row">
@@ -10,15 +22,15 @@
 			</div>
 
 			<h3>01 고객 동의</h3>
-				<div class="line"></div>
-				<p>* 보내주신 신고를 확인 후 최대한 빠르게 답변해 드리겠습니다.</p>
-				<p>* 신고 [제목]과 [내용]란에는 절대 개인정보를 입력하지 마세요.</p>
-				<p>* 신고 [제목]과 [내용]란에 개인정보가 포함되어 있거나, 중복 신고인 경우에는 삭제될 수 있습니다.</p>
-				<p style="font-weight: bold">* 신고에 욕설, 인격침해, 성희롱 등 수치심을 유발하는 표현이 있다면 답변이 거부될 수 있습니다.</p>
-				<br><br>
+			<div class="line"></div>
+			<p>* 보내주신 신고를 확인 후 최대한 빠르게 답변해 드리겠습니다.</p>
+			<p>* 신고 [제목]과 [내용]란에는 절대 개인정보를 입력하지 마세요.</p>
+			<p>* 신고 [제목]과 [내용]란에 개인정보가 포함되어 있거나, 중복 신고인 경우에는 삭제될 수 있습니다.</p>
+			<p style="font-weight: bold">* 신고에 욕설, 인격침해, 성희롱 등 수치심을 유발하는 표현이 있다면 답변이 거부될 수 있습니다.</p>
+			<br><br>
 
-				<h3>02 신고 입력</h3>
-					<div class="line"></div>
+			<h3>02 신고 입력</h3>
+			<div class="line"></div>
 					
 		</div>
 		
@@ -67,36 +79,20 @@
 				<div class="form-group">
 					<label for="inputContent" class="col-sm-2 control-label">내용</label>
 					<div class="col-sm-8">
-						<textarea class="form-control" name="content" rows="3" placeholder="내용을 입력해주세요"></textarea>
+						<textarea class="form-control" id="content" name="content" rows="3" placeholder="내용을 입력해주세요"></textarea>
 					</div>
 				</div>
-				
 			
 				<div class="form-group">
-					<label for="inputFile" class="col-sm-2 control-label">내용</label>
-					<input id="fileInput" filestyle="" type="file" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
-					<div class="col-sm-7">
-						<input type="text" id="userfile" class="form-control" name="userfile" disabled="">
+					<label class="col-sm-2 control-label">파일첨부</label>
+					<div class="col-sm-8" style="text-align: left;">
+						<input type="text" id="fileName" class="form-control" name="fileName" style="width: 70%; display: inline;" readonly="readonly">
+						<input id="fileInput" type="file" style="display: none;">
 						<label for="fileInput" class="btn btn-success">
 							<i class="fas fa-file-upload"></i>
 						</label>
 					</div>
 				</div>
-				
-			<!-- 
-				<div class="form-group">
-					<label for="inputattach">파일첨부</label>
-					<input id="fileInput" name="fileInput" type="file" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
-						<div class="bootstrap-filestyle input-group">
-						<input type="text" id="userfile" class="form-control" name="userfile" disabled="">
-							<span class="group-span-filestyle input-group-btn" tabindex="0">
-							<label for="fileInput" class="btn btn-default ">
-								<span><i class="fas fa-file-upload"></i></span>
-							</label>
-						</span>
-					</div>
-				</div> 
-				-->
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-8">

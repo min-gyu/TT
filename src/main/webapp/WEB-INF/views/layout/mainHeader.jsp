@@ -72,5 +72,25 @@
 				</div>
 			</div>
 		</div>
-		<hr style="border:thin solid #0B610B">
+		<!-- <hr style="border:thin solid #0B610B"> -->
+
+		<!-- Start nav -->
+		<nav class="menu" style="    border-top: 0px;">
+			<div class="container">
+				<div class="brand">
+					<a href="#"> <img src="/resources/images/logo.png"
+						alt="Magz Logo">
+					</a>
+				</div>
+				<div class="mobile-toggle">
+					<a href="#" data-toggle="menu" data-target="#menu-list"><i
+						class="ion-navicon-round"></i></a>
+				</div>
+				<div class="mobile-toggle">
+					<a href="#" data-toggle="sidebar" data-target="#sidebar"><i
+						class="ion-ios-arrow-left"></i></a>
+				</div>
+			</div>
+		</nav>
+		<!-- End nav -->
 	</header>
