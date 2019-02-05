@@ -44,6 +44,11 @@
 <link rel="stylesheet"
 	href="/resources/channel/channel2/css/skins/all.css">
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
+<style type="text/css">
+#subsccriberNum{
+	display: inline-block;
+}
+</style>
 </head>
 <body>
 	<!-- header -->
@@ -55,11 +60,10 @@
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-					<!-- 공간 비율때문에 넣음 -->
+						<!-- 공간 비율때문에 넣음 -->
 						<li><a style="color: #f9f9ff;">방송하기</a>
 						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<!-- 공간 비율때문에 넣음 end -->
+						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
 						<li class="menu-has-children"><a href="">abc123</a>
 							<ul>
 								<li><a href="blog-home.html">로그아웃</a></li>
@@ -80,19 +84,57 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-					<div class="single-post row">
-						<div class="col-lg-12">
-							<div class="feature-img"></div>
-						</div>
-						<div class="col-lg-12"></div>
-						<div class="col-lg-9 col-md-9">
-							<div class="row"></div>
-							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
-								<div class="row"></div>
-							</div>
+					<div class="row">
+						<h5>매니저 관리</h5>
+					</div>
+					<div class="row">
+						<div class="col-ms-12">
+							<h6>매니저 목록</h6>
 						</div>
 					</div>
-				
+					<div class="row">
+						<table class="table table-bordered" style="text-align: center">
+							<thead>
+								<tr>
+									<th style="text-align: center">아이디</th>
+									<th style="text-align: center">닉네임</th>
+									<th style="text-align: center">날짜</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>글씨</td>
+									<td>이상해</td>
+									<td>ㅇㅇ</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="row">
+						<div class="col-ms-12">
+							<h6>매니저 활동내역</h6>
+						</div>
+					</div>
+					<div class="row">
+						<table class="table table-bordered" style="text-align: center">
+							<thead>
+								<tr>
+									<th style="text-align: center">매니저 아이디</th>
+									<th style="text-align: center">날짜</th>
+									<th style="text-align: center">시청자 아이디</th>
+									<th style="text-align: center">활동내역</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>비워두면</td>
+									<td>이상해</td>
+									<td>ㅇㅇ</td>
+									<td>ㅇㅇ</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 
 
@@ -104,7 +146,7 @@
 							<a><h4>감스트</h4></a>
 						</div>
 
-						<div class="single-sidebar-widget post-category-widget">
+							<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
 							<ul class="cat-list">
 								<li><a href="/goChannelIntro.ch" class="" style="text-align: center;">

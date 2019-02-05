@@ -44,6 +44,49 @@
 <link rel="stylesheet"
 	href="/resources/channel/channel2/css/skins/all.css">
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
+<style type="text/css">
+input.upload_text { /*읽기전용 인풋텍스트*/
+	float: left;
+	width: 230px; /* 버튼 포함 전체 가로 길이*/
+	height: 19px;
+	line-height: 19px;
+	padding: 0 3px;
+	border: 1px solid #bbb;
+}
+
+div.upload-btn_wrap input.input_file { /*파일찾기 폼 투명하게*/
+	position: absolute;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	-ms-filter: "alpha(opacity=0)";
+	-moz-opacity: 0;
+}
+
+div.upload-btn_wrap { /*버튼테두리 감싼 div*/
+	overflow: hidden;
+	position: relative;
+	float: left;
+	width: 70px; /*width, height 값은 button(찾아보기)값과 같아야함 */
+	height: 21px;
+	padding-left: 3px;
+}
+
+div.upload-btn_wrap button { /*버튼 div*/
+	width: 70px;
+	height: 21px;
+	font-weight: bold;
+	background: #333;
+	border: 1px solid #333;
+	color: #fff;
+}
+
+#saveBtn {
+	width: 20%;
+}
+</style>
 </head>
 <body>
 	<!-- header -->
@@ -55,11 +98,10 @@
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-					<!-- 공간 비율때문에 넣음 -->
+						<!-- 공간 비율때문에 넣음 -->
 						<li><a style="color: #f9f9ff;">방송하기</a>
 						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<!-- 공간 비율때문에 넣음 end -->
+						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
 						<li class="menu-has-children"><a href="">abc123</a>
 							<ul>
 								<li><a href="blog-home.html">로그아웃</a></li>
@@ -80,19 +122,58 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-					<div class="single-post row">
-						<div class="col-lg-12">
-							<div class="feature-img"></div>
-						</div>
-						<div class="col-lg-12"></div>
-						<div class="col-lg-9 col-md-9">
-							<div class="row"></div>
-							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
-								<div class="row"></div>
-							</div>
-						</div>
+					<div class="row">
+						<h5>배너 설정</h5>
 					</div>
-				
+					<div class="row">
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<th style="width: 20%; text-align: center">배너설정</th>
+									<td>
+										<!--input box--> <input type="text" class="upload_text"
+										readonly="readonly"> <!--button-->
+										<div class="upload-btn_wrap">
+											<button type="button" title="파일찾기">
+												<span>파일찾기</span>
+											</button>
+											<input type="file" class="input_file" title="파일찾기">
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" align="center"><button type="button"
+											class="btn btn-dark" id="saveBtn">저장</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="row">
+						<h5>프로필 사진 설정</h5>
+					</div>
+					<div class="row">
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<th style="width: 20%; text-align: center">배너설정</th>
+									<td>
+										<!--input box--> <input type="text" class="upload_text"
+										readonly="readonly"> <!--button-->
+										<div class="upload-btn_wrap">
+											<button type="button" title="파일찾기">
+												<span>파일찾기</span>
+											</button>
+											<input type="file" class="input_file" title="파일찾기">
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" align="center"><button type="button"
+											class="btn btn-dark" id="saveBtn">저장</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 
 
@@ -104,7 +185,7 @@
 							<a><h4>감스트</h4></a>
 						</div>
 
-						<div class="single-sidebar-widget post-category-widget">
+							<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
 							<ul class="cat-list">
 								<li><a href="/goChannelIntro.ch" class="" style="text-align: center;">
@@ -149,7 +230,15 @@
 
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 	<!-- End post-content Area -->
-
+	<script type="text/javascript">
+		$(function() {
+			$('.upload_text').val('미리보여줄 텍스트.');
+			$('.input_file').change(function() {
+				var i = $(this).val();
+				$('.upload_text').val(i);
+			});
+		});
+	</script>
 
 
 	<script src="/resources/channel/js/vendor/jquery-2.2.4.min.js"></script>
