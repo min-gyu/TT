@@ -44,6 +44,11 @@
 <link rel="stylesheet"
 	href="/resources/channel/channel2/css/skins/all.css">
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
+<style type="text/css">
+#subsccriberNum{
+	display: inline-block;
+}
+</style>
 </head>
 <body>
 	<!-- header -->
@@ -55,11 +60,10 @@
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-					<!-- 공간 비율때문에 넣음 -->
+						<!-- 공간 비율때문에 넣음 -->
 						<li><a style="color: #f9f9ff;">방송하기</a>
 						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<!-- 공간 비율때문에 넣음 end -->
+						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
 						<li class="menu-has-children"><a href="">abc123</a>
 							<ul>
 								<li><a href="blog-home.html">로그아웃</a></li>
@@ -80,19 +84,29 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-					<div class="single-post row">
-						<div class="col-lg-12">
-							<div class="feature-img"></div>
-						</div>
-						<div class="col-lg-12"></div>
-						<div class="col-lg-9 col-md-9">
-							<div class="row"></div>
-							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
-								<div class="row"></div>
-							</div>
-						</div>
+					<div class="row">
+						<h5>구독자 관리</h5>
 					</div>
-				
+					<div class="row">
+						<table class="table table-bordered" style="text-align: center">
+							<thead>
+								<tr>
+									<th colspan="2" style="text-align: right;">총 구독자 수 : <div id="subsccriberNum">값 구해오세요</div></th>
+								</tr>
+								<tr>
+									<th style="text-align: center">아이디</th>
+									<th style="text-align: center">닉네임</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>비워두면</td>
+									<td>이상해</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
 				</div>
 
 
@@ -104,7 +118,7 @@
 							<a><h4>감스트</h4></a>
 						</div>
 
-						<div class="single-sidebar-widget post-category-widget">
+							<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
 							<ul class="cat-list">
 								<li><a href="/goChannelIntro.ch" class="" style="text-align: center;">

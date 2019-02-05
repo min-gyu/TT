@@ -55,11 +55,10 @@
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-					<!-- 공간 비율때문에 넣음 -->
+						<!-- 공간 비율때문에 넣음 -->
 						<li><a style="color: #f9f9ff;">방송하기</a>
 						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<!-- 공간 비율때문에 넣음 end -->
+						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
 						<li class="menu-has-children"><a href="">abc123</a>
 							<ul>
 								<li><a href="blog-home.html">로그아웃</a></li>
@@ -80,19 +79,57 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-					<div class="single-post row">
-						<div class="col-lg-12">
-							<div class="feature-img"></div>
-						</div>
-						<div class="col-lg-12"></div>
-						<div class="col-lg-9 col-md-9">
-							<div class="row"></div>
-							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
-								<div class="row"></div>
+					<div class="row">
+						<div class="col-md-offset-9">
+							<div class="info"
+								style="padding-top: 20px; padding-bottom: 20px;">
+								<a href="/vodAdd.ch" class="genric-btn info circle arrow">VOD 추가<span
+									class="lnr lnr-arrow-right"></span></a>
 							</div>
+
 						</div>
 					</div>
-				
+					<div class="col-lg-9 col-md-9">
+
+						<div class="row">
+							<article class="col-md-12 article-list">
+								<div class="inner">
+									<figure>
+										<a href="single.html"> <img
+											src="/resources/channel/channel2/images/news/img11.jpg"
+											alt="Sample Article">
+										</a>
+									</figure>
+									<div class="details"
+										style="width: 410px; border-bottom: 1px solid #eee;">
+										<div class="detail">
+											<div class="category">
+												<a href="#">Film</a>
+											</div>
+											<div class="time">December 19, 2016</div>
+										</div>
+										<h1>
+											<a href="single.html">Donec consequat arcu at ultrices
+												sodales quam erat aliquet diam</a>
+										</h1>
+										<p>Donec consequat, arcu at ultrices sodales, quam erat
+											aliquet diam, sit amet interdum libero nunc accumsan nisi.</p>
+										<footer>
+											<a href="#" class="love active"><i
+												class="ion-android-favorite"></i>
+												<div>302</div></a> <a class="btn btn-primary more"
+												href="/vodRevise.ch">
+												<div>수정</div>
+												<div>
+													<i class="ion-ios-arrow-thin-right"></i>
+												</div>
+											</a>
+										</footer>
+									</div>
+								</div>
+							</article>
+						</div>
+					</div>
 				</div>
 
 
@@ -104,7 +141,7 @@
 							<a><h4>감스트</h4></a>
 						</div>
 
-						<div class="single-sidebar-widget post-category-widget">
+							<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
 							<ul class="cat-list">
 								<li><a href="/goChannelIntro.ch" class="" style="text-align: center;">
