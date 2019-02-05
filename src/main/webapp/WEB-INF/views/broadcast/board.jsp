@@ -118,8 +118,14 @@
 .icons:hover {
 	cursor: pointer;
 }
+
+#report:hover {
+	cursor: pointer;
+  }
+  
 .pull-right{
 	margin-right: 10px;
+
 }
 </style>
 <!-- jQuery CDN -->
@@ -169,6 +175,10 @@
 					<div class="col-lg-9 col-md-9 col-sm-12">
 						<div id="broadCastWarpper">
 							<div id="broadCastDiv"></div>
+							<div align="right" style="margin-right:10px;">
+								<button id="note">쪽지보내기</button>
+								<img alt="s" src="/resources/images/siren.png" width="20" height="20" id="report">
+							</div>
 							<hr>
 							<div>
 								<h2>방송 제목 :</h2>
@@ -234,5 +244,19 @@
 				window.open("/broadCastSetting.bc", "방송 설정",
 						"width=1250, height=1200, left=100, top=50");
 			});
+
+	$("#report").click(
+			function(){
+				var msg = confirm("신고작성 페이지로 이동 하시겠습니까?")
+				if(msg == true){
+					location.href="reportView.me";
+				}
+			});
+	$("#note").click(
+			function() {
+				window.open("/note.bc", "방송 설정",
+						"width=440, height=550, left=100, top=50");
+			});
+
 </script>
 </html>
