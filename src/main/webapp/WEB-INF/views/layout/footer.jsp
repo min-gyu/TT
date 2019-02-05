@@ -22,7 +22,7 @@
 		<script src="/resources/assets/scripts/bootstrap/bootstrap.min.js"></script>
 		<script>var $target_end=$(".best-of-the-week");</script>
 		<script src="/resources/assets/scripts/jquery-number/jquery.number.min.js"></script>
-		<script src="/resources/assets/resources/assets/scripts/owlcarousel/dist/owl.carousel.min.js"></script>
+		<script src="/resources/assets/scripts/owlcarousel/dist/owl.carousel.min.js"></script>
 		<script src="/resources/assets/scripts/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
 		<script src="/resources/assets/scripts/easescroll/jquery.easeScroll.js"></script>
 		<script src="/resources/assets/scripts/sweetalert/dist/sweetalert.min.js"></script>
