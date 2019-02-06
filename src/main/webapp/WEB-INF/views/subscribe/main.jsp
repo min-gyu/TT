@@ -63,18 +63,6 @@
 	    content: "";
 	    display: block;
 	}
-	
-	.sub-nav-top{
-		position: fixed;
-	    bottom: 300px;
-	    right: 50px;
-	    height: 40px;
-	    width: 40px;
-	    text-align: center;
-	}
-	.sub-nav-top img{
-		width: 100%;
-	}
 </style>
 
 <jsp:include page="/WEB-INF/views/subscribe/live.jsp" />
