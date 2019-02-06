@@ -2265,7 +2265,7 @@ pre code {
 		width: 75%
 	}
 	.col-md-8 {
-		width: 66.66666667%
+		width: 100% !important;
 	}
 	.col-md-7 {
 		width: 58.33333333%
@@ -2592,7 +2592,7 @@ th {
 	.table>thead>tr>td, .table>thead>tr>th {
 	padding: 8px;
 	line-height: 1.42857143;
-	vertical-align: top;
+	vertical-align: center;
 	border-top: 1px solid #ddd
 }
 

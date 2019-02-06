@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta charset="UTF-8">
-<title>Channel</title>
+<title>Board_List</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
@@ -83,26 +83,17 @@
 				<div class="col-lg-8 posts-list" style="background-color: white;">
 					<div class="single-post row">
 						<div class="col-lg-12">
-							<div class="feature-img">
-								<img class="img-fluid"
-									src="/resources/channel/img/blog/feature-img1.jpg"
-									style="padding-left: 0%;">
+							<div class="line transparent little"></div>
+							<div class="line top">
+								<div>게시판</div>
 							</div>
-						</div>
-						<div class="col-lg-12">
-							<div class="info"
-								style="padding-top: 20px; padding-bottom: 20px;">
-								<button onclick="location.href='vod_List.ch'"
-									class="genric-btn info circle arrow">
-									VOD<span class="lnr lnr-arrow-right"></span>
-								</button>
-							</div>
+
 						</div>
 
 
 						<!-- 편집부분 -->
 						<div class="col-lg-9 col-md-9">
-
+							<button class="btn btn-danger btn-sm" onclick="location.href='board_write.ch'">게시글 작성</button>
 							<div class="row">
 								<article class="col-md-12 article-list">
 									<div class="inner">
@@ -115,10 +106,11 @@
 										<div class="details"
 											style="width: 410px; border-bottom: 1px solid #eee;">
 											<div class="detail">
-												<div class="category">
-													<a href="#">Film</a>
-												</div>
+												
 												<div class="time">December 19, 2016</div>
+												<div class="category">
+													<a href="board_report.ch">신고</a>
+												</div>
 											</div>
 											<h1>
 												<a href="single.html">Donec consequat arcu at ultrices
@@ -130,7 +122,7 @@
 												<a href="#" class="love active"><i
 													class="ion-android-favorite"></i>
 													<div>302</div></a> <a class="btn btn-primary more"
-													href="vod_oneList.ch">
+													href="board_oneList.ch">
 													<div>More</div>
 													<div>
 														<i class="ion-ios-arrow-thin-right"></i>
@@ -216,17 +208,7 @@
 							</div>
 
 							<!-- 게시글 3개 아이콘 -->
-							<div class="col-lg-12">
-								<div class="info"
-									style="padding-top: 30px; padding-bottom: 20px;">
-
-									<button onclick="location.href='board_List.ch'"
-										class="genric-btn info circle arrow">
-										게시글<span class="lnr lnr-arrow-right"></span>
-									</button>
-								</div>
-
-							</div>
+							<div class="col-lg-12"></div>
 							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
 
 								<div class="row">
@@ -494,6 +476,7 @@
 							</div>
 						</div>
 					</div> -->
+
 				</div>
 
 				<!-- 오른쪽 사이드바 이동 -->
