@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta charset="UTF-8">
-<title>Board_List</title>
+<title>Channel</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
@@ -44,96 +44,104 @@
 <link rel="stylesheet"
 	href="/resources/channel/channel2/css/skins/all.css">
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
+<style type="text/css">
+#subsccriberNum{
+	display: inline-block;
+}
+</style>
 </head>
 <body>
-
-
 	<!-- header -->
+
 	<header id="header">
-		<div class="container main-menu" style="background: #f9f9ff";>
+		<div class="container main-menu">
 			<div class="row align-items-center justify-content-between d-flex">
 				<a href="index.html"><img src="/resources/images/logo.png"
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li class="menu-active"></li>
-						<li><a href="elements.html"
-							style="padding-right: 50px; padding-left: 500px;"> <i
-								class="ion-person"></i>Login
-						</a></li>
+						<!-- 공간 비율때문에 넣음 -->
+						<li><a style="color: #f9f9ff;">방송하기</a>
+						<li><a style="color: #f9f9ff;">방송하기</a>
+						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
+						<li class="menu-has-children"><a href="">abc123</a>
+							<ul>
+								<li><a href="blog-home.html">로그아웃</a></li>
+								<li><a href="blog-single.html">마이페이지</a></li>
+							</ul></li>
+						<li><a href="elements.html">방송하기</a></li>
 					</ul>
 				</nav>
+				<!-- #nav-menu-container -->
 			</div>
 		</div>
 	</header>
 
 	<!-- header -->
 
-
 	<!-- Start post-content Area -->
 	<section class="post-content-area single-post-area">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8 posts-list" style="background-color: white;">
-					<div class="single-post row">
-						<div class="col-lg-12">
-							<div class="line transparent little"></div>
-							<div >
-								<div class="row">
-									<h5>채널 소개 설정하기</h5>
-								</div>
-								<div class="row">
-									<table class="table table-bordered">
-										<tbody>
-											<tr>
-												<th style="width: 20%; text-align: center"><div
-														style="margin-top: 40%;">내용</div></th>
-												<td><textarea class="form-control col-mb-5" rows="7"
-														width="100%"></textarea></td>
-
-											</tr>
-											<tr>
-												<td colspan="2" align="center"><button type="button"
-														class="btn btn-danger btn-sm" id="saveBtn">저장</button></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-
-						</div>
-
-
-						<!-- 편집부분 -->
-						<div class="col-lg-9 col-md-9">
-
-							<div class="row"></div>
-
-							<!-- 게시글 3개 아이콘 -->
-							<div class="col-lg-12"></div>
-							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
-
-								<div class="row"></div>
-							</div>
-
-
-						</div>
-
+				<div class="col-lg-8 posts-list">
+					<div class="row">
+						<h5>채팅 필터 관리</h5>
 					</div>
-
-
+					<div class="row">
+						<div class="col-ms-12">
+							<h6 >금칙어</h6>
+							<input type="text">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-ms-12">
+							<h6 >대체어</h6>
+							<input type="text">
+							<button class="btn btn-danger btn-sm" >추가</button>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<table class="table table-bordered" style="text-align: center">
+							<thead>
+								<tr>
+									<th style="text-align: center">금지어</th>
+									<th style="text-align: center">대체어</th>
+									<th style="text-align: center">날짜</th>
+									<th style="text-align: center">상태</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>글씨</td>
+									<td>이상해</td>
+									<td>ㅇㅇ</td>
+									<td><button class="btn btn-danger btn-sm">삭제</button></td>
+								</tr>
+								<tr>
+									<td>글씨</td>
+									<td>이상해</td>
+									<td>ㅇㅇ</td>
+									<td><button class="btn btn-danger btn-sm">삭제</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					
 				</div>
 
-				<!-- 오른쪽 사이드바 이동 -->
 
-					<div class="col-lg-4 sidebar-widgets">
+				<!-- 오른쪽 사이드바 이동 -->
+				<div class="col-lg-4 sidebar-widgets">
 					<div class="widget-wrap">
 						<div class="single-sidebar-widget user-info-widget">
 							<img src="/resources/channel/img/blog/user-info.png" alt="">
 							<a><h4>감스트</h4></a>
 						</div>
 
-						<div class="single-sidebar-widget post-category-widget">
+							<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
 							<ul class="cat-list">
 								<li><a href="/goChannelIntro.ch" class="" style="text-align: center;">

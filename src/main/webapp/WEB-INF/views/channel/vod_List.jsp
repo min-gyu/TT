@@ -83,22 +83,13 @@
 				<div class="col-lg-8 posts-list" style="background-color: white;">
 					<div class="single-post row">
 						<div class="col-lg-12">
-							<div class="feature-img">
-								<img class="img-fluid"
-									src="/resources/channel/img/blog/feature-img1.jpg"
-									style="padding-left: 0%;">
+							<div class="line transparent little"></div>
+							<div class="line top">
+								<div>VOD</div>
 							</div>
+						
 						</div>
-						<div class="col-lg-12">
-							<div class="info"
-								style="padding-top: 20px; padding-bottom: 20px;">
-								<button onclick="location.href='vod_List.ch'"
-									class="genric-btn info circle arrow">
-									VOD<span class="lnr lnr-arrow-right"></span>
-								</button>
-							</div>
-						</div>
-
+						
 
 						<!-- 편집부분 -->
 						<div class="col-lg-9 col-md-9">
@@ -130,7 +121,7 @@
 												<a href="#" class="love active"><i
 													class="ion-android-favorite"></i>
 													<div>302</div></a> <a class="btn btn-primary more"
-													href="vod_oneList.ch">
+													href="single.html">
 													<div>More</div>
 													<div>
 														<i class="ion-ios-arrow-thin-right"></i>
@@ -216,17 +207,7 @@
 							</div>
 
 							<!-- 게시글 3개 아이콘 -->
-							<div class="col-lg-12">
-								<div class="info"
-									style="padding-top: 30px; padding-bottom: 20px;">
-
-									<button onclick="location.href='board_List.ch'"
-										class="genric-btn info circle arrow">
-										게시글<span class="lnr lnr-arrow-right"></span>
-									</button>
-								</div>
-
-							</div>
+							<div class="col-lg-12"></div>
 							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
 
 								<div class="row">

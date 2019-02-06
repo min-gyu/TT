@@ -56,11 +56,17 @@
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li class="menu-active"></li>
-						<li><a href="elements.html"
-							style="padding-right: 50px; padding-left: 500px;"> <i
-								class="ion-person"></i>Login
-						</a></li>
+					<!-- 공간 비율때문에 넣음 -->
+						<li><a style="color: #f9f9ff;">방송하기</a>
+						<li><a style="color: #f9f9ff;">방송하기</a>
+						<li><a style="color: #f9f9ff;">방송하기</a>
+						<!-- 공간 비율때문에 넣음 end -->
+						<li class="menu-has-children"><a href="">abc123</a>
+							<ul>
+								<li><a href="blog-home.html">로그아웃</a></li>
+								<li><a href="blog-single.html">마이페이지</a></li>
+							</ul></li>
+						<li><a href="elements.html">방송하기</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -78,12 +84,29 @@
 					<div class="single-post row">
 						<div class="col-lg-12">
 							<div class="line transparent little"></div>
+							<div class="line top">
+								<div>게시판</div>
+							</div>
 							<div >
 								<div class="row">
-									<h5>채널 소개 설정하기</h5>
+									<h5>게시글 업로드</h5>
 								</div>
 								<div class="row">
 									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th scope="col" style="width: 20%; text-align: center"><div
+														style="margin-bottom: 15%;">제목</div></th>
+												<td>
+													<div class="input-group mb-3" style="margin-top: 2%">
+														<input type="text" class="form-control"
+															aria-label="Default"
+															aria-describedby="inputGroup-sizing-default">
+													</div>
+
+												</td>
+											</tr>
+										</thead>
 										<tbody>
 											<tr>
 												<th style="width: 20%; text-align: center"><div
@@ -91,6 +114,19 @@
 												<td><textarea class="form-control col-mb-5" rows="7"
 														width="100%"></textarea></td>
 
+											</tr>
+											<tr>
+												<th style="width: 20%; text-align: center">첨부사진</th>
+												<td>
+													<!--input box--> <input type="text" class="upload_text"
+													readonly="readonly"> <!--button-->
+													<div class="upload-btn_wrap">
+														<button type="button" title="파일찾기">
+															<span>파일찾기</span>
+														</button>
+														<input type="file" class="input_file" title="파일찾기">
+													</div>
+												</td>
 											</tr>
 											<tr>
 												<td colspan="2" align="center"><button type="button"
@@ -126,48 +162,84 @@
 
 				<!-- 오른쪽 사이드바 이동 -->
 
-					<div class="col-lg-4 sidebar-widgets">
+				<div class="col-lg-4 sidebar-widgets">
 					<div class="widget-wrap">
 						<div class="single-sidebar-widget user-info-widget">
 							<img src="/resources/channel/img/blog/user-info.png" alt="">
 							<a><h4>감스트</h4></a>
+							<p>@abc123</p>
+							<p>아 이렇게 제 채널에 방문해 주셔서 감사합니다. 이렇게 소개창이 기니 정말 할말이 많습니다. 방송을 한지
+								어언 10년쨰 모든 분들께 감사드리고 앞으로 더 재밌는</p>
+						</div>
+						<div class="single-sidebar-widget popular-post-widget">
+							<a href="manage_C.ch" style="color: #6ac169;"><h4
+									class="popular-title">방송국 관리</h4></a>
 						</div>
 
+
+						<div class="single-sidebar-widget ads-widget">
+							<a href="#"><img class="img-fluid"
+								src="/resources/channel/img/blog/ads-banner.jpg" alt=""
+								style="width: 250px"></a>
+						</div>
+						<div class="single-sidebar-widget popular-post-widget">
+							<h4 class="popular-title">Write board</h4>
+							<div class="popular-post-list">
+								<div class="single-post-list d-flex flex-row align-items-center">
+								</div>
+							</div>
+						</div>
 						<div class="single-sidebar-widget post-category-widget">
-							<h4 class="category-title">방송국 관리</h4>
+							<div class="single-sidebar-widget newsletter-widget">
+
+
+								<p class="text-bottom">순위</p>
+							</div>
 							<ul class="cat-list">
-								<li><a href="/goChannelIntro.ch" class="" style="text-align: center;">
-										<p>채널 소개 설정</p>
+								<li><a href="#" class="d-flex justify-content-between">
+										<p>회장</p>
+										<p>내이름은</p>
 								</a></li>
-								<li><a href="#" class="" style="text-align: center;">
-										<p>주력 카테고리 설정</p>
-
+								<li><a href="#" class="d-flex justify-content-between">
+										<p>1등</p>
+										<p>내가 1등이다</p>
 								</a></li>
-								<li><a href="/goBannerProfile.ch" class="" style="text-align: center;">
-										<p>베너 & 프로필 사진 설정</p>
-
+								<li><a href="#" class="d-flex justify-content-between">
+										<p>2등</p>
+										<p>아앗2등</p>
 								</a></li>
-								<li><a href="/goVodAdmin.ch" class="" style="text-align: center;">
-										<p>VOD 관리</p>
-
+								<li><a href="#" class="d-flex justify-content-between">
+										<p>3등</p>
+										<p>29</p>
 								</a></li>
-								<li><a href="/subscriberAdmin.ch" class="" style="text-align: center;">
-										<p>구독자 관리</p>
-
+								<li><a href="#" class="d-flex justify-content-between">
+										<p>4등</p>
+										<p>15</p>
 								</a></li>
-								<li><a href="/managerAdmin.ch" class="" style="text-align: center;">
-										<p>매니저 관리</p>
-
+								<li><a href="#" class="d-flex justify-content-between">
+										<p>5등</p>
+										<p>09</p>
 								</a></li>
-								<li><a href="#" class="" style="text-align: center;">
-										<p>채팅 필터 관리</p>
-
+								<li><a href="#" class="d-flex justify-content-between">
+										<p>6등</p>
+										<p>44</p>
 								</a></li>
-								<li><a href="manage_black.ch" class="" style="text-align: center;">
-										<p>블랙 리스트</p>
-
+								<li><a href="#" class="d-flex justify-content-between">
+										<p>7등</p>
+										<p>44</p>
 								</a></li>
-
+								<li><a href="#" class="d-flex justify-content-between">
+										<p>8등</p>
+										<p>44</p>
+								</a></li>
+								<li><a href="#" class="d-flex justify-content-between">
+										<p>9등</p>
+										<p>44</p>
+								</a></li>
+								<li><a href="#" class="d-flex justify-content-between">
+										<p>10등</p>
+										<p>44</p>
+								</a></li>
 							</ul>
 						</div>
 					</div>
