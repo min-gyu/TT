@@ -44,6 +44,11 @@
 <link rel="stylesheet"
 	href="/resources/channel/channel2/css/skins/all.css">
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
+<style type="text/css">
+#subsccriberNum{
+	display: inline-block;
+}
+</style>
 </head>
 <body>
 	<!-- header -->
@@ -55,11 +60,10 @@
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-					<!-- 공간 비율때문에 넣음 -->
+						<!-- 공간 비율때문에 넣음 -->
 						<li><a style="color: #f9f9ff;">방송하기</a>
 						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<!-- 공간 비율때문에 넣음 end -->
+						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
 						<li class="menu-has-children"><a href="">abc123</a>
 							<ul>
 								<li><a href="blog-home.html">로그아웃</a></li>
@@ -80,125 +84,44 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-				
-					<!-- 제목 부분 -->
-				<div class="navigation-area">
-						<div class="row">
-							<div
-								class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center"
-								style="border-bottom: 1px solid #b5bcc3;">
-								<div class="detials">
-									<a><h4>블랙리스트 관리</h4></a>
-								</div>
-							</div>
-							
+					<div class="row">
+						<h5>블랙리스트 관리</h5>
+					</div>
+					<div class="row">
+						<div class="col-ms-12">
+							<h6>블랙회원 추가</h6>
+							<input type="text" placeholder="회원 아이디를 입력하세요"><button class="btn btn-danger btn-sm">추가</button>
 						</div>
 					</div>
-						<!-- 제목 부분 -->
-						
-					<div class="single-post row">
-						<div class="col-lg-12">
-							<div class="feature-img"></div>
-						</div>
-						<div class="col-lg-12"></div>
-						<div class="col-lg-9 col-md-9">
-							<div class="progress-table-wrap">
-							<div class="progress-table">
-								<div class="table-head" style="background-color:#ffff0054;">
-									<div class="serial">#</div>
-									<div class="country">Countries</div>
-									<div class="visit">Visits</div>
-									<div class="percentage">Percentages</div>
-								</div>
-								<div class="table-row">
-									<div class="serial">01</div>
-									<div class="country">Canada</div>
-									<div class="visit">645032</div>
-									<div class="percentage">
-										<div class="progress">
-											<div class="progress-bar color-1" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</div>
-								<div class="table-row">
-									<div class="serial">02</div>
-									<div class="country">Canada</div>
-									<div class="visit">645032</div>
-									<div class="percentage">
-										<div class="progress">
-											<div class="progress-bar color-2" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</div>
-								<div class="table-row">
-									<div class="serial">03</div>
-									<div class="country"> Canada</div>
-									<div class="visit">645032</div>
-									<div class="percentage">
-										<div class="progress">
-											<div class="progress-bar color-3" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</div>
-								<div class="table-row">
-									<div class="serial">04</div>
-									<div class="country"> Canada</div>
-									<div class="visit">645032</div>
-									<div class="percentage">
-										<div class="progress">
-											<div class="progress-bar color-4" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</div>
-								<div class="table-row">
-									<div class="serial">05</div>
-									<div class="country"> Canada</div>
-									<div class="visit">645032</div>
-									<div class="percentage">
-										<div class="progress">
-											<div class="progress-bar color-5" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</div>
-								<div class="table-row">
-									<div class="serial">06</div>
-									<div class="country"> Canada</div>
-									<div class="visit">645032</div>
-									<div class="percentage">
-										<div class="progress">
-											<div class="progress-bar color-6" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</div>
-								<div class="table-row">
-									<div class="serial">07</div>
-									<div class="country">Canada</div>
-									<div class="visit">645032</div>
-									<div class="percentage">
-										<div class="progress">
-											<div class="progress-bar color-7" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</div>
-								<div class="table-row">
-									<div class="serial">08</div>
-									<div class="country">Canada</div>
-									<div class="visit">645032</div>
-									<div class="percentage">
-										<div class="progress">
-											<div class="progress-bar color-8" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-							<div class="row"></div>
-							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
-								<div class="row"></div>
-							</div>
-						</div>
+					
+					<div class="row">
+						<table class="table table-bordered" style="text-align: center">
+							<thead>
+								<tr>
+									<th style="text-align: center">아이디</th>
+									<th style="text-align: center">닉네임</th>
+									<th style="text-align: center">날짜</th>
+									<th style="text-align: center">상태</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>글씨</td>
+									<td>이상해</td>
+									<td>ㅇㅇ</td>
+									<td><button class="btn btn-danger btn-sm">삭제</button></td>
+								</tr>
+								<tr>
+									<td>글씨</td>
+									<td>이상해</td>
+									<td>ㅇㅇ</td>
+									<td><button class="btn btn-danger btn-sm">삭제</button></td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-				
+					
+					
 				</div>
 
 
@@ -210,33 +133,33 @@
 							<a><h4>감스트</h4></a>
 						</div>
 
-						<div class="single-sidebar-widget post-category-widget">
+							<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
 							<ul class="cat-list">
-								<li><a href="#" class="" style="text-align: center;">
+								<li><a href="/goChannelIntro.ch" class="" style="text-align: center;">
 										<p>채널 소개 설정</p>
 								</a></li>
 								<li><a href="#" class="" style="text-align: center;">
 										<p>주력 카테고리 설정</p>
 
 								</a></li>
-								<li><a href="#" class="" style="text-align: center;">
+								<li><a href="/goBannerProfile.ch" class="" style="text-align: center;">
 										<p>베너 & 프로필 사진 설정</p>
 
 								</a></li>
-								<li><a href="#" class="" style="text-align: center;">
+								<li><a href="/goVodAdmin.ch" class="" style="text-align: center;">
 										<p>VOD 관리</p>
 
 								</a></li>
-								<li><a href="#" class="" style="text-align: center;">
+								<li><a href="/subscriberAdmin.ch" class="" style="text-align: center;">
 										<p>구독자 관리</p>
 
 								</a></li>
-								<li><a href="#" class="" style="text-align: center;">
+								<li><a href="/managerAdmin.ch" class="" style="text-align: center;">
 										<p>매니저 관리</p>
 
 								</a></li>
-								<li><a href="#" class="" style="text-align: center;">
+								<li><a href="manage_Chat.ch" class="" style="text-align: center;">
 										<p>채팅 필터 관리</p>
 
 								</a></li>

@@ -152,7 +152,7 @@
 								<li><a href="/goChannelIntro.ch" class="" style="text-align: center;">
 										<p>채널 소개 설정</p>
 								</a></li>
-								<li><a href="#" class="" style="text-align: center;">
+								<li><a href="manage_Cate.ch" class="" style="text-align: center;">
 										<p>주력 카테고리 설정</p>
 
 								</a></li>
