@@ -78,6 +78,11 @@ public class MyPageController {
 		return "myPage/broadcastTotal";
 	}
 	
+	@RequestMapping("note.me")
+	public String goNote() {
+		return "myPage/note";
+	}
+	
 	
 	
 	
