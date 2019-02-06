@@ -20,6 +20,11 @@
 							</div>
 							
 							<div class="form-group">
+								<label>닉네임</label>
+								<input type="text" name="nickName" class="form-control">
+							</div>
+							
+							<div class="form-group">
 								<label class="fw">비밀번호</label>
 								<input type="password" name="userPwd" class="form-control">
 							</div>

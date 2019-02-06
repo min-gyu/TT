@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +29,7 @@
 	<link rel="stylesheet" href="/resources/assets/css/skins/all.css">
 	<link rel="stylesheet" href="/resources/assets/css/demo.css">
 
+
 	<!-- TT 추가 -->
 	<!-- <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -36,6 +37,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
+<body>
 
 <body class="skin-green">
 	<header class="primary">
@@ -44,36 +46,15 @@
 				<div class="row">
 					<div class="col-md-3 col-sm-12">
 						<div class="brand">
-							<a href="goMain.me"> <img src="/resources/images/logo.png" alt="Today's TV" style="width: 300px;">
-							</a>
+							<a href="goMain.me"> <img src="/resources/images/logo.png" alt="Today's TV" style="width: 300px;"></a>
+							<span><h4 style="color:#088A29; text-align:center">Management</h4></span>
 						</div>
-					</div>
-					<div class="col-md-6 col-sm-12">
-						<form class="search" autocomplete="off">
-							<div class="form-group">
-								<div class="input-group">
-									<input type="text" name="q" class="form-control" placeholder="검색어를 입력해주세요">
-									<div class="input-group-btn">
-										<button class="btn btn-primary">
-											<i class="ion-search"></i>
-										</button>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="col-md-3 col-sm-12 text-right">
-						<ul class="nav-icons">
-							<li><a href="adminMain.ad"><i class="ion-person-add"></i>
-								<div>Admin</div></a></li>
-							<li><a href="loginView.me"><i class="ion-person"></i>
-								<div>Login</div></a></li>
-						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<jsp:include page="/WEB-INF/views/layout/nav.jsp" />
-
+		
+		<jsp:include page="/WEB-INF/views/layout/admin/ad_nav.jsp" />
 	</header>
+</body>
+</html>

@@ -1,19 +1,4 @@
 $(function() {
-	/*  
-	expandIcon: "glyphicon glyphicon-stop",
-    collapseIcon: "glyphicon glyphicon-unchecked",
-    nodeIcon: "glyphicon glyphicon-user",
-    color: "yellow",
-    backColor: "purple",
-    onhoverColor: "orange",
-    borderColor: "red",
-    showBorder: false,
-    showTags: true,
-    highlightSelected: true,
-    selectedColor: "yellow",
-    selectedBackColor: "darkorange",
-    data: alternateData
-	*/
 	
 	var treeOptionData = {
 			data: jsonData
