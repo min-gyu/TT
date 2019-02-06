@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<!-- Start nav -->
 <nav class="menu">
 	<div class="container">
 		<div class="brand">
@@ -56,4 +55,3 @@
 		</div>
 	</div>
 </nav>
-<!-- End nav -->
