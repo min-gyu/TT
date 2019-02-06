@@ -29,6 +29,8 @@
 	<link rel="stylesheet" href="/resources/assets/css/skins/all.css">
 	<link rel="stylesheet" href="/resources/assets/css/demo.css">
 
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	
 	<!-- TT 추가 -->
 	<!-- <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
