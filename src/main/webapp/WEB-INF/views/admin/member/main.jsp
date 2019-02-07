@@ -4,15 +4,15 @@
 
 <script>
 	function memberList(){
-		location.href="memberList.ad";
+		location.href="/admin/memberList.ad";
 	}
 	
 	function banList(){
-		location.href="banList.ad";
+		location.href="/admin/banList.ad";
 	}
 	
 	function leaveList(){
-		location.href="leaveList.ad";
+		location.href="/admin/leaveList.ad";
 	}
 </script>
 

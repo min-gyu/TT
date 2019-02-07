@@ -46,7 +46,7 @@
 				<div class="row">
 					<div class="col-md-3 col-sm-12">
 						<div class="brand">
-							<a href="goMain.me"> <img src="/resources/images/logo.png" alt="Today's TV" style="width: 300px;">
+							<a href="/goMain.me"> <img src="/resources/images/logo.png" alt="Today's TV" style="width: 300px;">
 							</a>
 						</div>
 					</div>
@@ -66,9 +66,9 @@
 					</div>
 					<div class="col-md-3 col-sm-12 text-right">
 						<ul class="nav-icons">
-							<li><a href="adminMain.ad"><i class="ion-person-add"></i>
+							<li><a href="/admin/adminMain.ad"><i class="ion-person-add"></i>
 								<div>Admin</div></a></li>
-							<li><a href="loginView.me"><i class="ion-person"></i>
+							<li><a href="/loginView.me"><i class="ion-person"></i>
 								<div>Login</div></a></li>
 						</ul>
 					</div>
