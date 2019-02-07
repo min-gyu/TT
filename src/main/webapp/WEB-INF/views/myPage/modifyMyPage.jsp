@@ -22,6 +22,12 @@
 							</div>
 							
 							<div class="form-group">
+								<label>닉네임</label>
+								<a href="#" class="pull-right">닉네임 중복 체크</a>
+								<input type="text" name="nickName" class="form-control">
+							</div>
+							
+							<div class="form-group">
 								<label class="fw">비밀번호</label>
 								<input type="password" name="userPwd" class="form-control">
 							</div>
