@@ -10,12 +10,6 @@ public class CategoryController {
 
 	private final String jspPath = "/category/";
 	
-	@RequestMapping(value="main")
-	public String main(){
-		
-		return jspPath + "/main";
-	}
-	
 	@RequestMapping(value="{kind}")
 	public String views(@PathVariable Integer kind){
 		String resultJsp = ""; 
@@ -25,5 +19,10 @@ public class CategoryController {
 			break;
 		}
 		return resultJsp;
+	}
+	
+	@RequestMapping("main.ca")
+	public String goCategoryMain() {
+		return jspPath + "main";
 	}
 }

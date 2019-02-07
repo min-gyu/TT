@@ -32,19 +32,17 @@
 	   	width: 100%;
 	}
 </style>
+
 <!-- Sidebar -->
 <div class=" border-right" id="sidebar-wrapper">
   <div class="sidebar-heading">Category </div>
   <div class="list-group list-group-flush">
     <a href="#" class="list-group-item list-group-item-action ">전체</a>
-    <a href="#" class="list-group-item list-group-item-action ">게임</a>
     <a href="#" class="list-group-item list-group-item-action ">스포츠</a>
-    <a href="#" class="list-group-item list-group-item-action ">보이는라디오</a>
-    
+    <a href="#" class="list-group-item list-group-item-action ">변경</a>
     <hr>
-    
-    <a href="#" class="list-group-item list-group-item-action ">스타BJ</a>
-    <a href="#" class="list-group-item list-group-item-action ">신인BJ</a>
+    <a href="#" class="list-group-item list-group-item-action ">변경</a>
+    <a href="#" class="list-group-item list-group-item-action ">변경</a>
   </div>
 </div>
 
