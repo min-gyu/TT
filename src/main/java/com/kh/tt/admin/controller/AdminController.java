@@ -26,5 +26,25 @@ public class AdminController {
 		return "admin/member/leaveList";
 	}
 	
+	@RequestMapping("adminInquiry.ad")
+	public String InquiryView() {
+		return "admin/inquiry/inquiry";
+	}
+	
+	@RequestMapping("adminStatistics.ad")
+	public String Statistics() {
+		return "admin/statistics/statisticsday";
+	}
+	
+	@RequestMapping("adminVod.ad")
+	public String Vod() {
+		return "admin/vod/vod";
+	}
+	
+	@RequestMapping("adminBoard.ad")
+	public String Board() {
+		return "admin/board/board";
+	}
+	
 	
 }

@@ -12,7 +12,7 @@
 						<br>
 						<div>
 						 	<button>삭제</button><button>신고</button>
-						  <table class="ui green table">
+						  <table class="ui green table"  style="text-align:center;">
 						  <thead>
 						    <tr><th>&nbsp;</th>
 						    <th>No.</th>
