@@ -26,5 +26,18 @@ public class AdminController {
 		return "admin/member/leaveList";
 	}
 	
+	//클로버 충전내역
+	@RequestMapping("chargeClover.ad")
+	public String goCloverCharge() {
+		return "admin/clover/chargeClover";
+	}
+	
+	//클로버 환전내역
+	@RequestMapping("exchangeClover.ad")
+	public String goCloverExchange() {
+		return "admin/clover/exchangeClover";
+	}
+	
+	
 	
 }
