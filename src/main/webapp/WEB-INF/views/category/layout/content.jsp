@@ -41,7 +41,6 @@
     color: #fff;
     background: #686e7e;
 }
-
 </style>
 
 <link rel="stylesheet" href="/resources/css/recommend.css">
@@ -99,13 +98,18 @@
 		</ul>
 	</div>
 	
-	
+<!-- 	
 	<div class="more_list" style="display: block;">
 		<a href="javascript:;">
 			<span>더보기
 			<i class="fas fa-angle-down"></i>
 			</span>
 		</a>
+	</div>
+	 -->
+	 
+	<div class="line">
+		<div>더보기<i class="fas fa-angle-down"></i></div>
 	</div>
 	
 </div>

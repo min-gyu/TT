@@ -4,26 +4,35 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/admin/")
 public class AdminController {
 
+	private final String memberP = "/admin/member/";
+	
+	/*
+	private final String categP = "/admin/category/";
+	private final String cloverP = "/admin/clover/";
+	private final String ClaimP = "/admin/claim/";
+	*/
+	
 	@RequestMapping("adminMain.ad")
 	public String goAdminMain() {
-		return "admin/member/main";
+		return memberP + "main";
 	}
 	
 	@RequestMapping("memberList.ad")
 	public String memberListView() {
-		return "admin/member/memberList";
+		return memberP + "memberList";
 	}
 	
 	@RequestMapping("banList.ad")
 	public String BanListView() {
-		return "admin/member/banList";
+		return memberP + "banList";
 	}
 	
 	@RequestMapping("leaveList.ad")
 	public String LeaveListView() {
-		return "admin/member/leaveList";
+		return memberP + "leaveList";
 	}
 	
 	
