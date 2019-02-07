@@ -27,7 +27,14 @@
 				<li><a href="/adminMain.ad">회원 관리</a></li>
 				<li><a href="#">신고 관리</a></li>
 				<li><a href="#">카테고리 관리</a></li>
+
 				<li><a href="/chargeClover.ad">클로버 관리</a></li>
+				<li><a href="/adminInquiry.ad">문의관리</a></li>
+				<li><a href="/adminBoard.ad">게시글 관리</a></li>
+				<li><a href="/adminVod.ad">VOD관리</a></li>
+				<li><a href="/adminStatistics.ad">통계관리</a></li>
+
+				
 			</ul>
 		</div>
 	</div>
