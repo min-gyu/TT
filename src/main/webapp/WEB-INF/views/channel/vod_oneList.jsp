@@ -56,11 +56,10 @@
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-					<!-- 공간 비율때문에 넣음 -->
+						<!-- 공간 비율때문에 넣음 -->
 						<li><a style="color: #f9f9ff;">방송하기</a>
 						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<!-- 공간 비율때문에 넣음 end -->
+						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
 						<li class="menu-has-children"><a href="">abc123</a>
 							<ul>
 								<li><a href="blog-home.html">로그아웃</a></li>
@@ -91,104 +90,127 @@
 						</div>
 
 						<div class="col-lg-9 col-md-9">
-							<a class="posts-title" href="#"><h3>Title</h3></a>
-							<p class="excert">Context</p>
+							<a class="posts-title"><h3>제목을 입력합니다</h3></a>
 
 						</div>
+						<!-- 신고하기 -->
+						<div>
+							<a id="report"><img
+								src="/resources/channel/channel2/images/channel_report.png"
+								style="padding-left: 150px; width: 174px; padding-top: 10px;">
+								</a>
+						</div>
+						<!-- 신고하기  end-->
 
 					</div>
+					<div class="col-md-8" style="max-width: 100% !important";>
+						<!-- <div>
+						
+							<button onclick="location.href='update_board.ch'" class="btn btn-danger btn-sm">수정</button>
+							<button class="btn btn-danger btn-sm">삭제</button>
+						</div> -->
 
-					<div class="comments-area">
-						<h4>댓글란</h4>
-						<div class="comment-list">
-							<div class="single-comment justify-content-between d-flex">
-								<div class="user justify-content-between d-flex">
-									<div class="thumb">
-										<img src="/resources/channel/img/blog/c1.jpg" alt="">
-									</div>
-									<div class="desc">
-										<h5>
-											<a>나야나</a> <a>@abc123</a>
-										</h5>
-										<p class="date">December 4, 2017 at 3:12 pm</p>
-										<p class="comment">너무재밋다아!!</p>
+						<div>
+							<!-- ion-ios-bell -->
+							<a href="#"> <i class="ion-ios-bell-outline"
+								style="font-size: 28px; padding-left: 2px;"></i> 구독
+							</a>
+						</div>
+						<div>
+							<a href="#" class="love active"><i
+								class="ion-android-favorite"></i>
+								<div>좋아요 개수</div></a>
+						</div>
+
+						<div class="line thin"></div>
+
+
+						<div class="comments">
+							<h3 class="title">댓글란</h3>
+							<div class="comment-list">
+								<div class="item">
+									<div class="user">
+										<figure>
+											<img src="images/img01.jpg">
+										</figure>
+										<div class="details">
+											<h5 class="name">Mark Otto</h5>
+											<h5 class="name">@abc123</h5>
+											<div class="time">24 Hours</div>
+											<div class="description">Lorem ipsum dolor sit amet,
+												consectetur adipisicing elit, sed do eiusmod tempor
+												incididunt ut labore et dolore</div>
+										</div>
 									</div>
 								</div>
-								<!-- <div class="reply-btn">
-									<a href="" class="btn-reply text-uppercase">reply</a>
+								<div class="item">
+									<div class="user">
+										<figure>
+											<img src="images/img01.jpg">
+										</figure>
+										<div class="details">
+											<h5 class="name">Mark Otto</h5>
+											<h5 class="name">@abc123</h5>
+											<div class="time">24 Hours</div>
+											<div class="description">Lorem ipsum dolor sit amet,
+												consectetur adipisicing elit, sed do eiusmod tempor
+												incididunt ut labore et dolore</div>
+
+										</div>
+									</div>
+								</div>
+								<div class="item">
+									<div class="user">
+										<figure>
+											<img src="images/img01.jpg">
+										</figure>
+										<div class="details">
+											<h5 class="name">Mark Otto</h5>
+											<h5 class="name">@abc123</h5>
+											<div class="time">24 Hours</div>
+											<div class="description">Lorem ipsum dolor sit amet,
+												consectetur adipisicing elit, sed do eiusmod tempor
+												incididunt ut labore et dolore</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 댓글란 : 로그인 했을때 보이기! -->
+
+							<form class="row">
+								<div class="col-md-12">
+									<h3 class="title">
+										댓글 한줄 작성 <a href="#" class="love active"><i
+											class="ion-android-favorite"></i> </a>
+									</h3>
+								</div>
+								<!-- <div class="form-group col-md-4">
+									<label for="name">닉네임 <span class="required"></span></label> <input
+										type="text" id="name" name="" class="form-control">
+								</div>
+								<div class="form-group col-md-4">
+									<label for="name">아이디 <span class="required"></span></label> <input
+										type="text" id="name" name="" class="form-control">
 								</div> -->
-							</div>
-						</div>
-						<div class="comment-list">
-							<div class="single-comment justify-content-between d-flex">
-								<div class="user justify-content-between d-flex">
-									<div class="thumb">
-										<img src="/resources/channel/img/blog/c1.jpg" alt="">
-									</div>
-									<div class="desc">
-										<h5>
-											<a>나야나</a> <a>@abc123</a>
-										</h5>
-										<p class="date">December 4, 2017 at 3:12 pm</p>
-										<p class="comment">너무재밋다아!!</p>
-									</div>
+								<div class="form-group col-md-12">
+									<label for="message">댓글 <span class="required"></span></label>
+									<textarea class="form-control" name="message"
+										placeholder="댓글 입력란"></textarea>
 								</div>
-
-							</div>
-						</div>
-						<div class="comment-list">
-							<div class="single-comment justify-content-between d-flex">
-								<div class="user justify-content-between d-flex">
-									<div class="thumb">
-										<img src="/resources/channel/img/blog/c1.jpg" alt="">
-									</div>
-									<div class="desc">
-										<h5>
-											<a>나야나</a> <a>@abc123</a>
-										</h5>
-										<p class="date">December 4, 2017 at 3:12 pm</p>
-										<p class="comment">너무재밋다아!!</p>
-									</div>
+								<div class="form-group col-md-12">
+									<button class="btn btn-primary">댓글 작성</button>
 								</div>
+							</form>
 
-							</div>
-						</div>
-						<div class="comment-list">
-							<div class="single-comment justify-content-between d-flex">
-								<div class="user justify-content-between d-flex">
-									<div class="thumb">
-										<img src="/resources/channel/img/blog/c1.jpg" alt="">
-									</div>
-									<div class="desc">
-										<h5>
-											<a>나야나</a> <a>@abc123</a>
-										</h5>
-										<p class="date">December 4, 2017 at 3:12 pm</p>
-										<p class="comment">너무재밋다아!!</p>
-									</div>
-								</div>
+							<!-- 댓글란 end : 로그인 했을때 보이기! -->
 
-							</div>
 						</div>
-						<div class="comment-list">
-							<div class="single-comment justify-content-between d-flex">
-								<div class="user justify-content-between d-flex">
-									<div class="thumb">
-										<img src="/resources/channel/img/blog/c1.jpg" alt="">
-									</div>
-									<div class="desc">
-										<h5>
-											<a>나야나</a> <a>@abc123</a>
-										</h5>
-										<p class="date">December 4, 2017 at 3:12 pm</p>
-										<p class="comment">너무재밋다아!!</p>
-									</div>
-								</div>
 
-							</div>
-						</div>
 					</div>
 				</div>
+
 
 				<!-- 오른쪽 사이드바 이동 -->
 
@@ -276,6 +298,7 @@
 				</div>
 			</div>
 		</div>
+
 	</section>
 
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
@@ -301,4 +324,12 @@
 	<script src="/resources/channel/js/mail-script.js"></script>
 	<script src="/resources/channel/js/main.js"></script>
 </body>
+<script type="text/javascript">
+	$("#report").click(
+			function() {
+				window.open("/report.ch", "신고하기",
+						"width=550, height=550, left=100, top=100");
+			}); 
+	
+</script>
 </html>
