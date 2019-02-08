@@ -37,7 +37,7 @@
 						<li class="divider"></li>                     
                         <li><a href="/chargeClover.me"><i class="leaf icon"></i> 클로버 충전하기</a></li>
                         <li><a href="/bankChk.me"><i class="leaf icon"></i> 계좌 인증하기</a></li>
-                        <li><a href="/exchange.me"><i class="leaf icon"></i> 환전 신청하기</a></li>
+                        <li><a href="/exchangeClover.me"><i class="leaf icon"></i> 환전 신청하기</a></li>
                         <li><a href="/question.me"><i class="leaf icon"></i> My문의 페이지</a></li>
                         <li><a href="/claim.me"><i class="leaf icon"></i>My신고 페이지</a></li>
                         <li><a href="/broadcastTotal.me"><i class="leaf icon"></i>방송 통계</a></li>

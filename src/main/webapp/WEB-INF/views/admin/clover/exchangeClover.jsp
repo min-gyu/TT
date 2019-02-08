@@ -9,6 +9,14 @@
 <section class="home">
 	<div class="container">
 		<div class="row" >
+			<div class="col-lg-8 posts-list">
+			<div class="single-post row">
+			<div class="ui tabular menu">
+			  <a href="chargeClover.ad" class=" item" >충전 내역</a>
+			  <a href="exchangeClover.ad" class="active item" >환전 내역</a>
+			</div>
+			<br>
+			
 			<div class="form-inline">
 				<h3><image src="/resources/images/clover/clover.jpg" width="50px" height="50px">
 				환전 관리</h3>

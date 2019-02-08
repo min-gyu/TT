@@ -9,17 +9,12 @@
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
 						<!-- 소 nav -->
-						<div class="col-lg-12">
-							<div class="info" style="padding-top: 20px; padding-bottom: 20px;">
-								<a href="chargeClover.me" class="genric-btn info circle arrow">클로버 충전
-								<a href="chargeClover2.me" class="genric-btn info circle arrow">  / 클로버 충전 내역
-								<a href="presentClover.me" class="genric-btn info circle arrow">  / 클로버 선물한 내역
-								<a href="presentClover2.me" class="genric-btn info circle arrow">  / 클로버 선물받은 내역
-								<span class="lnr lnr-arrow-right"></span></a>
-							</div>
+						<div class="ui tabular menu">
+						  <a href="chargeClover.me" class="item" >클로버 충전</a>
+						  <a href="chargeClover2.me" class="active item" >클로버 충전 내역</a>
+						  <a href="presentClover.me" class="item">클로버 선물한 내역</a>
+						  <a href="presentClover2.me" class="item">클로버 선물받은 내역</a>
 						</div>
-						
-						<br><br><br>
 						<!-- 보유클로버 현황 -->
 						<div class="ui segment">
 							<div class="ui segment">user01님이 보유중인 클로버는 3개 입니다.
