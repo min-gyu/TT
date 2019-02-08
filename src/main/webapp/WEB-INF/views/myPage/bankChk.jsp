@@ -44,6 +44,8 @@
 		function checkBank(){
 			alert("함수작동!");
 		}
+		
+		
 	</script>
 	
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />

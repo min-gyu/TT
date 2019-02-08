@@ -176,7 +176,7 @@
 						<div id="broadCastWarpper">
 							<div id="broadCastDiv"></div>
 							<div align="right" style="margin-right:10px;">
-								<button id="note">쪽지보내기</button>
+								
 								<img alt="s" src="/resources/images/siren.png" width="20" height="20" id="report">
 							</div>
 							<hr>
@@ -252,11 +252,7 @@
 					location.href="reportView.me";
 				}
 			});
-	$("#note").click(
-			function() {
-				window.open("/note.bc", "방송 설정",
-						"width=440, height=550, left=100, top=50");
-			});
+	
 
 </script>
 </html>
