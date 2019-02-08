@@ -66,7 +66,7 @@
 					</div>
 					<div class="col-md-3 col-sm-12 text-right">
 						<ul class="nav-icons">
-							<li><a href="/admin/adminMain.ad"><i class="ion-person-add"></i>
+							<li><a href="/adminMain.ad"><i class="ion-person-add"></i>
 								<div>Admin</div></a></li>
 							<li><a href="/loginView.me"><i class="ion-person"></i>
 								<div>Login</div></a></li>
