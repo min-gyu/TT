@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,14 +65,22 @@
 							</div>
 						</form>
 					</div>
+					
 					<div class="col-md-3 col-sm-12 text-right">
 						<ul class="nav-icons">
-							<li><a href="/adminMain.ad"><i class="ion-person-add"></i>
-								<div>Admin</div></a></li>
-							<li><a href="/loginView.me"><i class="ion-person"></i>
-								<div>Login</div></a></li>
+						<li><a href="/adminMain.ad"><i class="ion-person-add"></i>
+							<div>Admin</div></a></li>
+						<li><a href="/loginView.me"><i class="ion-person"></i>
+							<div>Login</div></a></li>
 						</ul>
 					</div>
+					
+					<c:if test="${ !empty sessionScope.loginUser }">
+						<div class="col-md-3 col-sm-12 text-right">
+							<button class="btn btn-primary">로그아웃</button>
+						</div>
+					</c:if>	
+					
 				</div>
 			</div>
 		</div>

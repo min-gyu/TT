@@ -7,46 +7,55 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Member implements java.io.Serializable{
-	private int mid;
+	private int uno;
 	private String userId;
-	private String userPwd;
+	private String nickName;
 	private String userName;
-	private String email;
-	private String birthDay;
+	private String userPwd;
+	private Date birth;
 	private String gender;
-	private String phone;
-	private String address;
+	private String email;
 	private Date enrollDate;
-	private Date modifyDate;
+	private String bankNo;
+	private String bank;
+	private int warningNo;
 	private String status;
+	private String banStatus;
+	private String reason;
+	private String btYN;
+	private int totalClover;
 	
-	public Member() {
-		
-	}
+	public Member() {}
 
-	public Member(int mid, String userId, String userPwd, String userName, String email, String birthDay, String gender,
-			String phone, String address, Date enrollDate, Date modifyDate, String status) {
+	public Member(int uno, String userId, String nickName, String userName, String userPwd, Date birth, String gender,
+			String email, Date enrollDate, String bankNo, String bank, int warningNo, String status, String banStatus,
+			String reason, String btYN, int totalClover) {
 		super();
-		this.mid = mid;
+		this.uno = uno;
 		this.userId = userId;
-		this.userPwd = userPwd;
+		this.nickName = nickName;
 		this.userName = userName;
-		this.email = email;
-		this.birthDay = birthDay;
+		this.userPwd = userPwd;
+		this.birth = birth;
 		this.gender = gender;
-		this.phone = phone;
-		this.address = address;
+		this.email = email;
 		this.enrollDate = enrollDate;
-		this.modifyDate = modifyDate;
+		this.bankNo = bankNo;
+		this.bank = bank;
+		this.warningNo = warningNo;
 		this.status = status;
+		this.banStatus = banStatus;
+		this.reason = reason;
+		this.btYN = btYN;
+		this.totalClover = totalClover;
 	}
 
-	public int getMid() {
-		return mid;
+	public int getUno() {
+		return uno;
 	}
 
-	public void setMid(int mid) {
-		this.mid = mid;
+	public void setUno(int uno) {
+		this.uno = uno;
 	}
 
 	public String getUserId() {
@@ -57,12 +66,12 @@ public class Member implements java.io.Serializable{
 		this.userId = userId;
 	}
 
-	public String getUserPwd() {
-		return userPwd;
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setUserPwd(String userPwd) {
-		this.userPwd = userPwd;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public String getUserName() {
@@ -73,20 +82,20 @@ public class Member implements java.io.Serializable{
 		this.userName = userName;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUserPwd() {
+		return userPwd;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
 	}
 
-	public String getBirthDay() {
-		return birthDay;
+	public Date getBirth() {
+		return birth;
 	}
 
-	public void setBirthDay(String birthDay) {
-		this.birthDay = birthDay;
+	public void setBirth(Date birth) {
+		this.birth = birth;
 	}
 
 	public String getGender() {
@@ -97,20 +106,12 @@ public class Member implements java.io.Serializable{
 		this.gender = gender;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Date getEnrollDate() {
@@ -121,12 +122,28 @@ public class Member implements java.io.Serializable{
 		this.enrollDate = enrollDate;
 	}
 
-	public Date getModifyDate() {
-		return modifyDate;
+	public String getBankNo() {
+		return bankNo;
 	}
 
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
+	public void setBankNo(String bankNo) {
+		this.bankNo = bankNo;
+	}
+
+	public String getBank() {
+		return bank;
+	}
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+	public int getWarningNo() {
+		return warningNo;
+	}
+
+	public void setWarningNo(int warningNo) {
+		this.warningNo = warningNo;
 	}
 
 	public String getStatus() {
@@ -137,12 +154,46 @@ public class Member implements java.io.Serializable{
 		this.status = status;
 	}
 
+	public String getBanStatus() {
+		return banStatus;
+	}
+
+	public void setBanStatus(String banStatus) {
+		this.banStatus = banStatus;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getBtYN() {
+		return btYN;
+	}
+
+	public void setBtYN(String btYN) {
+		this.btYN = btYN;
+	}
+
+	public int getTotalClover() {
+		return totalClover;
+	}
+
+	public void setTotalClover(int totalClover) {
+		this.totalClover = totalClover;
+	}
+
 	@Override
 	public String toString() {
-		return "Member [mid=" + mid + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
-				+ ", email=" + email + ", birthDay=" + birthDay + ", gender=" + gender + ", phone=" + phone
-				+ ", address=" + address + ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status="
-				+ status + "]";
+		return "Member [uno=" + uno + ", userId=" + userId + ", nickName=" + nickName + ", userName=" + userName
+				+ ", userPwd=" + userPwd + ", birth=" + birth + ", gender=" + gender + ", email=" + email
+				+ ", enrollDate=" + enrollDate + ", bankNo=" + bankNo + ", bank=" + bank + ", warningNo=" + warningNo
+				+ ", status=" + status + ", banStatus=" + banStatus + ", reason=" + reason + ", btYN=" + btYN
+				+ ", totalClover=" + totalClover + "]";
 	}
+	
 	
 }

@@ -7,22 +7,22 @@
 				<div class="box box-border">
 					<div class="box-body">
 						<h4>로그인</h4>
-						<form>
+						<form action="login.me" method="post">
 							<div class="form-group">
 								<label>아이디</label>
-								<input type="text" name="username" class="form-control">
+								<input type="text" name="userId" class="form-control">
 							</div>
 							<div class="form-group">
 								<label class="fw">비밀번호
 									<a href="#" class="pull-right">비밀번호 찾기</a>
 								</label>
-								<input type="password" name="password" class="form-control">
+								<input type="password" name="userPwd" class="form-control">
 							</div>
 							<div class="form-group text-right">
 								<button class="btn btn-primary btn-block">로그인</button>
 							</div>
 							<div class="form-group text-center">
-								<span class="text-muted">계정이 없으신가요?</span> <a href="joinView.me">회원가입</a>
+								<span class="text-muted">계정이 없으신가요?</span> <a href="/joinView.me">회원가입</a>
 							</div>
 							<div class="title-line">or</div>
 							
