@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/layout/mainHeader.jsp" />
 
-
-
 <script type="text/javascript">
 	
 	$(function(){

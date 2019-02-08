@@ -7,17 +7,31 @@
 <mapper namespace="Member">
 	<resultMap type="com.kh.tt.member.model.vo.Member" id="memberResultSet">
 		<!-- property 필드명, column 컬럼명과 일치해야 한다 -->
-		<id property="mid" column="MID"/>
-		<result property="userId" column="USER_ID"/>
-		<result property="userPwd" column="USER_PWD"/>
-		<result property="userName" column="USER_NAME"/>
-		<result property="email" column="EMAIL"/>
-		<result property="birthDay" column="BIRTHDAY"/>
-		<result property="gender" column="GENDER"/>
-		<result property="phone" column="PHONE"/>
-		<result property="address" column="ADDRESS"/>
-		<result property="enrollDate" column="ENROLL_DATE"/>
-		<result property="modifyDate" column="MODIFY_DATE"/>
-		<result property="status" column="STATUS"/>
+		<id property="uno" column="M_UNO"/>
+		<result property="userId" column="M_ID"/>
+		<result property="nickName" column="M_NICKNAME"/>
+		<result property="userName" column="M_NAME"/>
+		<result property="userPwd" column="M_PWD"/>
+		<result property="birth" column="M_BIRTH"/>
+		<result property="gender" column="M_GENDER"/>
+		<result property="email" column="M_EMAIL"/>
+		<result property="enrollDate" column="M_ENROLL_DATE"/>
+		<result property="bankNO" column="M_BANK_NO"/>
+		<result property="back" column="M_BANK"/>
+		<result property="warningNo" column="M_WARNING_NO"/>
+		<result property="status" column="M_STATUS"/>
+		<result property="banStatus" column="M_BAN_STATUS"/>
+		<result property="reason" column="M_REASON"/>
+		<result property="btYN" column="M_BT_YN"/>
+		<result property="totalClover" column="M_TOTAL_CLOVER"/>
 	</resultMap>
+	
+	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
+		SELECT * 
+		FROM MEMBER
+		WHERE M_ID = #{userId}
+		AND M_PWD = #{userPwd}
+		AND M_STATUS = 'Y'
+		AND M_BAN_STATUS = 'N'
+	</select>
 </mapper>

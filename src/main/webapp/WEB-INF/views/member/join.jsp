@@ -70,7 +70,7 @@
 							</div>
 							
 							<div class="form-group text-center">
-								<span class="text-muted">이미 계정이 있으신가요?</span> <a href="loginView.me">로그인</a>
+								<span class="text-muted">이미 계정이 있으신가요?</span> <a href="/loginView.me">로그인</a>
 							</div>
 							
 						</form>
