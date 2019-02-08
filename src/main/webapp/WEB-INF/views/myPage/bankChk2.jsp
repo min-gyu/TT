@@ -4,14 +4,14 @@
 	
 	<section class="login first grey">
 		<div class="container">
-			<div class="box-wrapper">				
+			<div class="box-wrapper">		
+				<!-- 카테고리 -->	
+				<div class="ui top attached tabular menu">
+				  <a href="bankChk.me" class=" item">계좌 인증</a>
+				  <a href="bankChk2.me" class="active item">계좌 조회</a>
+				 </div>			
 				<div class="box box-border">
 					<div class="box-body">
-						<div>
-						<a href="bankChk2.me"><h4>계좌 조회 / 
-						<a href="bankChk.me">계좌 인증</h4>
-						</div> </a>
-						
 						<!-- 계좌인증 입력폼 -->
 						<form>
 							<div class="form-group">

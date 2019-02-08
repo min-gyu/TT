@@ -55,7 +55,7 @@ public class MyPageController {
 	}
 	
 	//환전신청 페이지
-	@RequestMapping("exchange.me")
+	@RequestMapping("exchangeClover.me")
 	public String goexchange() {
 		return "myPage/exchange";
 	}

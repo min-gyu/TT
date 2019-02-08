@@ -1,22 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
+<br><br></b>
 
 <style>
+	.clover{
+		width:30px;
+		height:300px;
+	}
 </style>		
 	<section class="post-content-area single-post-area">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
-						<div class="col-lg-12">
-							<div class="info" style="padding-top: 20px; padding-bottom: 20px;">
-								<a href="chargeClover.me" class="genric-btn info circle arrow">클로버 충전
-								<a href="chargeClover2.me" class="genric-btn info circle arrow">  / 클로버 충전 내역
-								<a href="presentClover.me" class="genric-btn info circle arrow">  / 클로버 선물한 내역
-								<a href="presentClover2.me" class="genric-btn info circle arrow">  / 클로버 선물받은 내역
-								<span class="lnr lnr-arrow-right"></span></a>
-							</div>
-						</div>
+					<div class="ui tabular menu">
+					  <a href="chargeClover.me" class="active item" >클로버 충전</a>
+					  <a href="chargeClover2.me" class="item" >클로버 충전 내역</a>
+					  <a href="presentClover.me" class="item">클로버 선물한 내역</a>
+					  <a href="presentClover2.me" class="item">클로버 선물받은 내역</a>
+					</div>
 						
 						<h4><img src="/resources/images/clover/clover.jpg" width="30px" height="30px">선물 가능한 클로버 : 1개</h4><br>
 						
@@ -27,7 +29,7 @@
 								<article class="col-md-12 article-list">
 									<div class="inner">
 										<figure>
-											<img src="/resources/images/clover/clover.jpg">
+											<img src="/resources/images/clover/10.JPG" width="100px" height="200px">
 										</figure>
 										<div class="details"
 											style="width: 410px; border-bottom: 1px solid #eee;">
@@ -53,7 +55,7 @@
 								<article class="col-md-12 article-list">
 									<div class="inner">
 										<figure>
-											<img src="/resources/images/clover/clover.jpg">
+											<img src="/resources/images/clover/30.JPG" width="100px" height="200px">
 										</figure>
 										<div class="details"
 											style="width: 410px; border-bottom: 1px solid #eee;">
@@ -78,7 +80,7 @@
 								<article class="col-md-12 article-list">
 									<div class="inner">
 										<figure>
-											<img src="/resources/images/clover/clover.jpg">
+											<img src="/resources/images/clover/50.JPG" width="100px" height="200px">
 										</figure>
 										<div class="details"
 											style="width: 410px; border-bottom: 1px solid #eee;">
@@ -103,7 +105,7 @@
 								<article class="col-md-12 article-list">
 									<div class="inner">
 										<figure>
-											<img src="/resources/images/clover/clover.jpg">
+											<img src="/resources/images/clover/100.JPG" width="100px" height="200px">
 										</figure>
 										<div class="details"
 											style="width: 410px; border-bottom: 1px solid #eee;">
@@ -128,7 +130,7 @@
 								<article class="col-md-12 article-list">
 									<div class="inner">
 										<figure>
-											<img src="/resources/images/clover/clover.jpg">
+											<img src="/resources/images/clover/300.JPG" width="100px" height="200px">
 										</figure>
 										<div class="details"
 											style="width: 410px; border-bottom: 1px solid #eee;">
@@ -154,7 +156,7 @@
 								<article class="col-md-12 article-list">
 									<div class="inner">
 										<figure>
-											<img src="/resources/images/clover/clover.jpg">
+											<img src="/resources/images/clover/500.JPG" width="100px" height="200px">
 										</figure>
 										<div class="details"
 											style="width: 410px; border-bottom: 1px solid #eee;">

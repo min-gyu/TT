@@ -14,24 +14,24 @@
 						<div>
 						  <table class="ui green table">
 						  <thead>
-						    <tr><th>&nbsp;</th>
 						    <th>No.</th>
 						    <th>문의유형</th>
 						    <th>제목</th>
 						    <th>내용</th>
+						    <th>문의날짜</th>
 						    <tr>
-						      <td><input type="checkbox"></td>
 						      <td>1</td>
 						      <td>장애/버그</td>
 						      <td>동영상끊김</td>
 						      <td>동영상이끊겨서 보기가 너무 힘들어요.</td>
+						      <td>2019/01/15</td>
 						    </tr>
 						    <tr>
-						      <td><input type="checkbox"></td>
 						      <td>2</td>
 						      <td>클로버 환전</td>
 						      <td>충전개수 제한</td>
 						      <td>10000개 이상은 불가능한가요?</td>
+						      <td>2019/01/25</td>
 						    </tr>
 						  </tbody>
 						</table>
