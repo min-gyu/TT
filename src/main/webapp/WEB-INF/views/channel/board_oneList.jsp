@@ -56,11 +56,10 @@
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-					<!-- 공간 비율때문에 넣음 -->
+						<!-- 공간 비율때문에 넣음 -->
 						<li><a style="color: #f9f9ff;">방송하기</a>
 						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<!-- 공간 비율때문에 넣음 end -->
+						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
 						<li class="menu-has-children"><a href="">abc123</a>
 							<ul>
 								<li><a href="blog-home.html">로그아웃</a></li>
@@ -95,15 +94,36 @@
 							<p class="excert">Context</p>
 
 						</div>
+						<!-- 신고하기 -->
+						<div>
+							<a id="report"><img
+								src="/resources/channel/channel2/images/channel_report.png"
+								style="padding-left: 150px; width: 174px; padding-top: 10px;">
+							</a>
+						</div>
+						<!-- 신고하기  end-->
 
 
 
 					</div>
 					<div class="col-md-8" style="max-width: 100% !important";>
-						<div>
-						
-							<button onclick="location.href='update_board.ch'" class="btn btn-danger btn-sm">수정</button>
+						<div style="width: 300px">
+							<button onclick="location.href='update_board.ch'"
+								class="btn btn-danger btn-sm">수정</button>
 							<button class="btn btn-danger btn-sm">삭제</button>
+						</div>
+						<div>
+							<!-- ion-ios-bell -->
+							<div style="padding-top: 20px;">
+								<a href="#"> <i class="ion-ios-bell-outline"
+									style="font-size: 28px; padding-left: 2px;"></i> 구독
+								</a>
+							</div>
+							<div>
+								<a href="#" class="love active"><i
+									class="ion-android-favorite"></i>
+									<div>좋아요 개수</div></a>
+							</div>
 						</div>
 
 						<div class="line thin"></div>
@@ -160,16 +180,19 @@
 							</div>
 							<form class="row">
 								<div class="col-md-12">
-									<h3 class="title">Leave Your Response</h3>
+									<h3 class="title">
+										댓글 한줄 작성 <a href="#" class="love active"><i
+											class="ion-android-favorite"></i> </a>
+									</h3>
 								</div>
-								<div class="form-group col-md-4">
+								<!-- <div class="form-group col-md-4">
 									<label for="name">닉네임 <span class="required"></span></label> <input
 										type="text" id="name" name="" class="form-control">
 								</div>
 								<div class="form-group col-md-4">
 									<label for="name">아이디 <span class="required"></span></label> <input
 										type="text" id="name" name="" class="form-control">
-								</div>
+								</div> -->
 								<div class="form-group col-md-12">
 									<label for="message">댓글 <span class="required"></span></label>
 									<textarea class="form-control" name="message"
@@ -296,4 +319,11 @@
 	<script src="/resources/channel/js/mail-script.js"></script>
 	<script src="/resources/channel/js/main.js"></script>
 </body>
+<script type="text/javascript">
+	$("#report").click(
+			function() {
+				window.open("/report.ch", "신고하기",
+						"width=550, height=550, left=100, top=100");
+			});
+</script>
 </html>

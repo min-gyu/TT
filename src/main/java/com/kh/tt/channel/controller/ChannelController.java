@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ChannelController {
 	//---------채널 ----------------
 	
+
+	@RequestMapping("sidebar.ch")
+	public String NewFile() {
+		return "channel/channel_header";
+	}
 	//채널 메인
 	@RequestMapping("goChannel.ch")
 	public String goChannel() {
@@ -49,10 +54,11 @@ public class ChannelController {
 	}
 
 	//게시판 신고하기 팝업 페이지
-	@RequestMapping("board_report.ch")
-	public String board_report () {
-		return "channel/board_report";
+	@RequestMapping("report.ch")
+	public String report () {
+		return "channel/reportMessage";
 	}
+	
 	
 
 

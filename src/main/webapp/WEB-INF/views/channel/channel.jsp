@@ -52,7 +52,7 @@
 	<header id="header">
 		<div class="container main-menu" style="background: #f9f9ff";>
 			<div class="row align-items-center justify-content-between d-flex">
-				<a href="index.html"><img src="/resources/images/logo.png"
+				<a href="sidebar.ch"><img src="/resources/images/logo.png"
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
