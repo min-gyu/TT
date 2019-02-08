@@ -47,6 +47,7 @@
                         <li><a href="#"><i class="icon ion-log-out"></i> 로그아웃</a></li>
                      </ul>
                  </li>
+                 <li><a href="/broadTest.bc">BroadTest</a>
 			</ul>
 		</div>
 	</div>

@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="row" >
 			<div class="form-inline">
-				<h3>문의 관리</h3>
+				<h3>게시글 관리</h3>
 			</div>
 			<div class="line"></div>
 			<div align="right">

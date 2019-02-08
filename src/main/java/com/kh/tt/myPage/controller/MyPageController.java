@@ -78,11 +78,17 @@ public class MyPageController {
 		return "myPage/broadcastTotal";
 	}
 	
+	//쪽지함 페이지
 	@RequestMapping("note.me")
 	public String goNote() {
 		return "myPage/note";
 	}
 	
+	//쪽지보내기 페이지
+	@RequestMapping("noteSend.me")
+	public String notesend() {
+		return "myPage/noteSend";
+	}
 	
 	
 	
