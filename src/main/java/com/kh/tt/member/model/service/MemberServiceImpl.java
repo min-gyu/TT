@@ -17,12 +17,10 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public Member loginMember(Member m) throws LoginException {
-		
+
 		System.out.println(sqlSession.hashCode());
 
 		Member loginUser = md.loginCheck(sqlSession, m);
-		
-		System.out.println("Service Member > "+ loginUser);
 		
 		return loginUser;
 	}

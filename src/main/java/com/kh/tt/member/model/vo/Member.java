@@ -24,12 +24,13 @@ public class Member implements java.io.Serializable{
 	private String reason;
 	private String btYN;
 	private int totalClover;
+	private String adminYN;
 	
 	public Member() {}
 
 	public Member(int uno, String userId, String nickName, String userName, String userPwd, Date birth, String gender,
 			String email, Date enrollDate, String bankNo, String bank, int warningNo, String status, String banStatus,
-			String reason, String btYN, int totalClover) {
+			String reason, String btYN, int totalClover, String adminYN) {
 		super();
 		this.uno = uno;
 		this.userId = userId;
@@ -48,6 +49,7 @@ public class Member implements java.io.Serializable{
 		this.reason = reason;
 		this.btYN = btYN;
 		this.totalClover = totalClover;
+		this.adminYN = adminYN;
 	}
 
 	public int getUno() {
@@ -186,14 +188,22 @@ public class Member implements java.io.Serializable{
 		this.totalClover = totalClover;
 	}
 
+	public String getAdminYN() {
+		return adminYN;
+	}
+
+	public void setAdminYN(String adminYN) {
+		this.adminYN = adminYN;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [uno=" + uno + ", userId=" + userId + ", nickName=" + nickName + ", userName=" + userName
 				+ ", userPwd=" + userPwd + ", birth=" + birth + ", gender=" + gender + ", email=" + email
 				+ ", enrollDate=" + enrollDate + ", bankNo=" + bankNo + ", bank=" + bank + ", warningNo=" + warningNo
 				+ ", status=" + status + ", banStatus=" + banStatus + ", reason=" + reason + ", btYN=" + btYN
-				+ ", totalClover=" + totalClover + "]";
+				+ ", totalClover=" + totalClover + ", adminYN=" + adminYN + "]";
 	}
-	
+
 	
 }

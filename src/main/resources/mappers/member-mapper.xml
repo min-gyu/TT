@@ -16,17 +16,18 @@
 		<result property="gender" column="M_GENDER"/>
 		<result property="email" column="M_EMAIL"/>
 		<result property="enrollDate" column="M_ENROLL_DATE"/>
-		<result property="bankNO" column="M_BANK_NO"/>
-		<result property="back" column="M_BANK"/>
+		<result property="bankNo" column="M_BANK_NO"/>
+		<result property="bank" column="M_BANK"/>
 		<result property="warningNo" column="M_WARNING_NO"/>
 		<result property="status" column="M_STATUS"/>
 		<result property="banStatus" column="M_BAN_STATUS"/>
 		<result property="reason" column="M_REASON"/>
 		<result property="btYN" column="M_BT_YN"/>
 		<result property="totalClover" column="M_TOTAL_CLOVER"/>
+		<result property="adminYN" column="M_ADMIN_YN"/>
 	</resultMap>
 	
-	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
+	<select id="loginCheck" parameterType="Member" resultMap="memberResultSet" >
 		SELECT * 
 		FROM MEMBER
 		WHERE M_ID = #{userId}

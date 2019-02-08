@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.tt.member.model.exception.LoginException;
 import com.kh.tt.member.model.service.MemberService;
@@ -51,7 +52,6 @@ public class MemberController {
 
 	@RequestMapping("login.me")
 	public String loginCheck(Member m, Model model) {
-		
 		try {
 			Member loginUser = ms.loginMember(m);
 			model.addAttribute("loginUser", loginUser);
@@ -61,6 +61,14 @@ public class MemberController {
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorPage";
 		}
+	}
+	
+	@RequestMapping("logout.me")
+	public String logout(SessionStatus status) {
+		// 세션의 상태를 확정지어주는 메소드
+		status.setComplete();
+		
+		return "redirect:goMain.me";
 	}
 
 }
