@@ -35,4 +35,44 @@
 		AND M_STATUS = 'Y'
 		AND M_BAN_STATUS = 'N'
 	</select>
+	
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES(
+		SEQ_M_UNO.NEXTVAL
+		, #{userId}
+		, #{nickName}
+		, #{userName}
+		, #{userPwd}
+		, #{birth}
+		, #{gender}
+		, #{email}
+		, SYSDATE
+		, NULL
+		, NULL
+		, DEFAULT
+		, DEFAULT
+		, DEFAULT
+		, NULL
+		, DEFAULT
+		, DEFAULT
+		, DEFAULT
+		)
+	</insert>
+	
+	<!-- 암호화 된 비밀번호 조회용 메소드 -->
+	<select id="selectPwd" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT M_PWD
+		FROM MEMBER
+		WHERE M_ID = #{userId}
+		AND M_STATUS = 'Y'
+	</select>
+	
+	<!-- 로그인 정보 조회용 메소드 -->
+	<select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
+		SELECT *
+		FROM MEMBER
+		WHERE M_ID = #{userId}
+		AND M_STATUS = 'Y'
+	</select>
 </mapper>

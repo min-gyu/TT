@@ -1,27 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
 
+<style type="text/css">
+.btn-warning {
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+.join_div {
+	text-align: center;
+	margin-bottom: 25px;
+}
+</style>
+
 	<section class="login first grey">
 		<div class="container">
 			<div class="box-wrapper">				
 				<div class="box box-border">
 					<div class="box-body">
-						<h4>회원가입</h4>
-						<form class="form-horizontal">
+						<h3>회원가입</h3>
+						
+						<form action="insertMember.me" method="post" class="form-horizontal">
 							<div class="form-group">
 								<label>아이디</label>
-								<a href="#" class="pull-right">아이디 중복 체크</a>
-								<input type="text" name="userId" class="form-control">
+								<input type="text" id="userId" name="userId" class="form-control">
+							</div>
+							
+							<div class="form-group">
+								<label>닉네임</label>
+								<input type="text" id="nickName" name="nickName" class="form-control">
 							</div>
 							
 							<div class="form-group">
 								<label>이름</label>
 								<input type="text" name="userName" class="form-control">
-							</div>
-							
-							<div class="form-group">
-								<label>닉네임</label>
-								<input type="text" name="nickName" class="form-control">
 							</div>
 							
 							<div class="form-group">
@@ -51,7 +62,6 @@
 							
 							<div class="form-group">
 								<label>이메일</label>
-								<a href="#" class="pull-right">이메일 중복 체크</a>
 								<input type="email" name="email" class="form-control">
 							</div>
 							
@@ -60,20 +70,20 @@
 								<input type="text" name="cNum" class="form-control">
 							</div>
 							
-							<div class="join_div" style="text-align: center; margin-bottom: 25px;">
+							<div class="join_div">
 								<button type="button" class="btn btn-success">인증</button>
 								<button type="button" class="btn btn-secondary">확인</button>
 							</div>
 							
 							<div class="form-group text-right">
-								<button class="btn btn-primary btn-block">회원가입</button>
+								<button type="submit" class="btn btn-primary btn-block">회원가입</button>
 							</div>
 							
 							<div class="form-group text-center">
 								<span class="text-muted">이미 계정이 있으신가요?</span> <a href="/loginView.me">로그인</a>
 							</div>
-							
 						</form>
+						
 					</div>
 				</div>
 			</div>
