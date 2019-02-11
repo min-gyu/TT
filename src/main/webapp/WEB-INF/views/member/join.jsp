@@ -11,7 +11,27 @@
 	margin-bottom: 25px;
 }
 </style>
-
+	<script> 
+		$("#idCheck").click(function(){
+			var query = {userId : $("#userId").val()};
+		$.ajax({
+		url : "/idCheck.me",
+		type : "post",
+		data : query,
+		success : function(data) {
+		  
+			if(data == 1) {
+			    $(".result .msg").text("사용 불가");
+			    $(".result .msg").attr("style", "color:#f00");    
+	 	    } else {
+			    $(".result .msg").text("사용 가능");
+			    $(".result .msg").attr("style", "color:#00f");
+		    }
+			
+	  	  }
+		});  
+	});
+	</script>
 	<section class="login first grey">
 		<div class="container">
 			<div class="box-wrapper">				
@@ -22,6 +42,8 @@
 						<form action="insertMember.me" method="post" class="form-horizontal">
 							<div class="form-group">
 								<label>아이디</label>
+								<a href="#" class="pull-right result"><span class="msg">아이디를 확인해주세요</span></a>
+								<button type="button" id="idCheck" class="btn btn-warning bt-sm">중복체크</button>
 								<input type="text" id="userId" name="userId" class="form-control">
 							</div>
 							
