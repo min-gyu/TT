@@ -48,6 +48,7 @@
                      </ul>
                  </li>
                  <li><a href="/broadTest.bc">BroadTest</a>
+                 <li><a href="/broadTest2.bc">BroadTest2</a>
 			</ul>
 		</div>
 	</div>

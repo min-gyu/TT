@@ -45,8 +45,6 @@
 	href="/resources/channel/channel2/css/skins/all.css">
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
 <style type="text/css">
-
-
 input.upload_text { /*읽기전용 인풋텍스트*/
 	float: left;
 	width: 230px; /* 버튼 포함 전체 가로 길이*/
@@ -84,10 +82,12 @@ div.upload-btn_wrap button { /*버튼 div*/
 	border: 1px solid #333;
 	color: #fff;
 }
-#saveBtn{
-	width:20%;
+
+#saveBtn {
+	width: 20%;
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<!-- header -->
@@ -127,44 +127,43 @@ div.upload-btn_wrap button { /*버튼 div*/
 						<h5>VOD 업로드</h5>
 					</div>
 					<div class="row">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th scope="col" style="width: 20%; text-align: center"><div
-											style="margin-bottom: 15%;">제목</div></th>
-									<td>
-										<div class="input-group mb-3" style="margin-top: 2%">
-											<input type="text" class="form-control" aria-label="Default"
-												aria-describedby="inputGroup-sizing-default">
-										</div>
+						<form action="insertvod.ch" method="post" id="frm" name="frm" enctype="multipart/form-data">
+							<table class="table table-bordered"
+								style="width: 702px; height: 502px;">
+								<thead>
+									<tr>
+										<th scope="col" style="width: 20%; text-align: center"><div
+												style="margin-bottom: 15%;">제목</div></th>
+										<td>
+											<div class="input-group mb-3" style="margin-top: 2%">
+												<input type="text" name="bTitle" class="form-control" aria-label="Default"
+													aria-describedby="inputGroup-sizing-default">
+											</div>
 
-									</td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th style="width: 20%; text-align: center"><div
-											style="margin-top: 40%;">내용</div></th>
-									<td><textarea class="form-control col-mb-5" rows="7"
-											width="100%"></textarea></td>
+										</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th style="width: 20%; text-align: center"><div
+												style="margin-top: 40%;">내용</div></th>
+										<td><textarea name="bContent" class="form-control col-mb-5" rows="7"
+												width="100%"></textarea></td>
 
-								</tr>
-								<tr>
-									<th style="width: 20%; text-align: center">첨부동영상</th>
-									<td><!--input box--> <input type="text"
-										class="upload_text" readonly="readonly"> <!--button-->
-										<div class="upload-btn_wrap">
-											<button type="button" title="파일찾기">
-												<span>파일찾기</span>
-											</button>
-											<input type="file" class="input_file" title="파일찾기">
-										</div></td>
-								</tr>
-								<tr>
-									<td colspan="2" align="center"><button type="button" class="btn btn-dark" id="saveBtn">저장</button></td>
-								</tr>
-							</tbody>
-						</table>
+									</tr>
+									<tr>
+										<th
+											style="width: 20%; text-align: center; padding-bottom: 0px; height: 50px;">첨부동영상</th>
+										<td><input type="file" name="video"
+											title="파일찾기"></td>
+									</tr>
+									<tr>
+										<td colspan="2" align="center"><button type="submit"
+												class="btn btn-dark" id="saveBtn">저장</button></td>
+									</tr>
+								</tbody>
+							</table>
+						</form>
 					</div>
 				</div>
 
@@ -177,29 +176,34 @@ div.upload-btn_wrap button { /*버튼 div*/
 							<a><h4>감스트</h4></a>
 						</div>
 
-							<div class="single-sidebar-widget post-category-widget">
+						<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
 							<ul class="cat-list">
-								<li><a href="/goChannelIntro.ch" class="" style="text-align: center;">
+								<li><a href="/goChannelIntro.ch" class=""
+									style="text-align: center;">
 										<p>채널 소개 설정</p>
 								</a></li>
 								<li><a href="#" class="" style="text-align: center;">
 										<p>주력 카테고리 설정</p>
 
 								</a></li>
-								<li><a href="/goBannerProfile.ch" class="" style="text-align: center;">
+								<li><a href="/goBannerProfile.ch" class=""
+									style="text-align: center;">
 										<p>베너 & 프로필 사진 설정</p>
 
 								</a></li>
-								<li><a href="/goVodAdmin.ch" class="" style="text-align: center;">
+								<li><a href="/goVodAdmin.ch" class=""
+									style="text-align: center;">
 										<p>VOD 관리</p>
 
 								</a></li>
-								<li><a href="/subscriberAdmin.ch" class="" style="text-align: center;">
+								<li><a href="/subscriberAdmin.ch" class=""
+									style="text-align: center;">
 										<p>구독자 관리</p>
 
 								</a></li>
-								<li><a href="/managerAdmin.ch" class="" style="text-align: center;">
+								<li><a href="/managerAdmin.ch" class=""
+									style="text-align: center;">
 										<p>매니저 관리</p>
 
 								</a></li>
@@ -207,7 +211,8 @@ div.upload-btn_wrap button { /*버튼 div*/
 										<p>채팅 필터 관리</p>
 
 								</a></li>
-								<li><a href="manage_black.ch" class="" style="text-align: center;">
+								<li><a href="manage_black.ch" class=""
+									style="text-align: center;">
 										<p>블랙 리스트</p>
 
 								</a></li>
@@ -222,14 +227,9 @@ div.upload-btn_wrap button { /*버튼 div*/
 
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 	<!-- End post-content Area -->
+
 	<script type="text/javascript">
-		$(function() {
-			$('.upload_text').val('미리보여줄 텍스트.');
-			$('.input_file').change(function() {
-				var i = $(this).val();
-				$('.upload_text').val(i);
-			});
-		});
+		
 	</script>
 
 
