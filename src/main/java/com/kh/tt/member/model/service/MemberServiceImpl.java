@@ -21,17 +21,6 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
 	
-	/*	
-	// 로그인 - 세션에 저장
-	@Override
-	public Member loginMember(Member m) throws LoginException {
-
-		System.out.println(sqlSession.hashCode());
-
-		Member loginUser = md.loginCheck(sqlSession, m);
-		
-		return loginUser;
-	}*/
 	
 	//암호화 후 로그인용 메소드
 	@Override
