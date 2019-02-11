@@ -1,7 +1,14 @@
 package com.kh.tt.channel.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.support.MultipartFilter;
+
+import com.kh.tt.channel.model.vo.Board;
 
 @Controller
 public class ChannelController {
@@ -60,7 +67,31 @@ public class ChannelController {
 	}
 	
 	
+	
+	
+	
+	
+	
+	//VOD업로드 메소드
+	@RequestMapping("insertvod.ch")
+	public String insertVod(Model model , Board b,
+			HttpServletRequest request,
+			@RequestParam(value="video",required=false) MultipartFilter video) {
+				System.out.println("Board"+b);
+				System.out.println("Video"+video);
+		
+		
+		
+		
+		return null;
+		
+	}
+	
 
+	
+	
+	
+	
 
 	//---------관리자------------
 	@RequestMapping("manage_C.ch")
