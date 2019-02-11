@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Payment">
+	<resultMap type="com.kh.tt.myPage.model.vo.Payment" id="paymentResultSet">
+		<!-- property 필드명, column 컬럼명과 일치해야 한다 -->
+		<id property="pNo" column="P_NO"/>
+		<result property="pUno" column="P_UNO"/>
+		<result property="pCloverCnt" column="P_CLOVER_CNT"/>
+		<result property="pDate" column="P_DATE"/>
+	</resultMap>
+	
+	<!-- <select id="cloverInfo" resultMap="cloverResultSet" >
+		SELECT * 
+		FROM CLOVER
+	</select>  -->
+</mapper>  
+  
+  
+  

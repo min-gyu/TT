@@ -7,10 +7,12 @@
 	<typeAliases>
 		<typeAlias type="com.kh.tt.member.model.vo.Member" alias="Member" />
 		<typeAlias type="com.kh.tt.myPage.model.vo.Clover" alias="Clover" />
+		<typeAlias type="com.kh.tt.myPage.model.vo.Payment" alias="Payment" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/clover-mapper.xml" />
+		<mapper resource="mappers/payment-mapper.xml" />
 	</mappers>
 	
 </configuration>

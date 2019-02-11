@@ -1,7 +1,5 @@
 package com.kh.tt.myPage.controller;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -13,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.kh.tt.member.model.service.MemberService;
 import com.kh.tt.myPage.model.vo.Clover;
 
+
+
 @Controller
 public class CloverController {
 	
@@ -21,13 +21,10 @@ public class CloverController {
 	private MemberService ms;
 		
 	//클로버 충전버튼 클릭시
-	@RequestMapping("chargeEx.me")
+	@RequestMapping("payment.me")
 	public String chargeEx(HttpServletRequest request, HttpServletResponse response) {
 		String cno = request.getParameter("cno");
 		System.out.println(cno);
-		
-		/*int result = ms.selectClover(cno);*/
-		
 		
 		
 		return  "redirect:goMain.me";

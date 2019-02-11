@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.tt.myPage.model.exception.MyPageException;
@@ -26,17 +27,20 @@ public class MyPageController {
 	}
 	
 	//클로버 충전하기 페이지
+	//클로버 개수-충전금액 DB에서 가져와서 띄워주기
 	@RequestMapping("chargeClover.me")
-	public String goChageClover() {
-		
-		//여기서 개수, 가격 띄워주는거고 cloverController에서는 충전
+	public String goChageClover(Model model) {
 
 		List<Clover> list;
 		try {
 			list = mps.selectClover();
 			
-
-			System.out.println(list);
+			/* model에 담아서 jsp페이지로 넘겨주기 > jsp에서는 ${ list.get(0).getCloverCnt} 이런식으로 불러다 쓰기 */
+			model.addAttribute("list", list);
+			
+			/*System.out.println(list.get(0).getCloverCnt());*/
+			
+			
 		} catch (MyPageException e) {
 			e.printStackTrace();
 		} 
