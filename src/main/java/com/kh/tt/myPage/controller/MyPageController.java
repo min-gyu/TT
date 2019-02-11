@@ -1,10 +1,23 @@
 package com.kh.tt.myPage.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.tt.myPage.model.exception.MyPageException;
+import com.kh.tt.myPage.model.service.MyPageService;
+import com.kh.tt.myPage.model.vo.Clover;
+
 @Controller
 public class MyPageController {
+	
+	//의존성 주입용 필드선언
+	@Autowired
+	private MyPageService mps;
+
 	
 	//개인정보 수정페이지 - 비밀번호 확인 후 진행
 	@RequestMapping("modify_myPage.me")
@@ -15,6 +28,19 @@ public class MyPageController {
 	//클로버 충전하기 페이지
 	@RequestMapping("chargeClover.me")
 	public String goChageClover() {
+		
+		//여기서 개수, 가격 띄워주는거고 cloverController에서는 충전
+
+		List<Clover> list;
+		try {
+			list = mps.selectClover();
+			
+
+			System.out.println(list);
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		} 
+		
 		return "myPage/chargeClover";
 	}
 	
@@ -89,6 +115,9 @@ public class MyPageController {
 	public String notesend() {
 		return "myPage/noteSend";
 	}
+	
+	
+
 	
 	
 	

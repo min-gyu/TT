@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
-<br><br></b>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<br><br>
 
 <style>
 	.clover{
@@ -31,19 +33,29 @@
 										<figure>
 											<img src="/resources/images/clover/10.JPG" width="100px" height="200px">
 										</figure>
-										<div class="details"
+										<div class="details" id = "clovar01"
 											style="width: 410px; border-bottom: 1px solid #eee;">
 											
-											<h2>클로버 10개	</h2>
-											<h1>1,100원</h1>
-											<a class="btn btn-primary more" href="#">
-												<div>충전하기</div>
+											<h2>클로버 ${ listName.cloverCnt }개	</h2>
+											<h1>${ listName.cloverMoney }원</h1>
+										
+											
+											<a class="btn btn-primary more" id="clover10" href = "chargeEx.me?cno=1">
+											<!-- <input type = "hidden" id = "cno" value = "1"> -->
+												<div >충전하기</div>
 												<div>
 													<i class="ion-ios-arrow-thin-right"></i>
 												</div>
 											</a>
 										</div>
 									</div>
+									<script>
+										$("#clover10").click(function(){
+											var cno = $(this).find("input").val(); //id 가 cnt인 input의 value값을 받는다.
+											console.log(cno);
+											location.href="chargeEx.me?cno="+cno; // 회원번호 추가하기
+										});
+									</script>
 								</article>
 								</div>
 							</div>
@@ -57,7 +69,7 @@
 										<figure>
 											<img src="/resources/images/clover/30.JPG" width="100px" height="200px">
 										</figure>
-										<div class="details"
+										<div class="details" id = "clovar02"
 											style="width: 410px; border-bottom: 1px solid #eee;">
 											
 											<h2>클로버 30개	</h2>
