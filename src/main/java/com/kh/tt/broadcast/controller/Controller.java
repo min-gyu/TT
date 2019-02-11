@@ -29,4 +29,8 @@ public class Controller {
 	public String broadtest() {
 		return "broadcast/broadtest";
 	}
+	@RequestMapping("broadTest2.bc")
+	public String broadtest2() {
+		return "broadcast/resolution/test";
+	}
 }

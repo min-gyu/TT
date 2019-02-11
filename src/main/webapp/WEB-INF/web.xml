@@ -13,9 +13,11 @@
 			/WEB-INF/config/spring-security.xml
 		</param-value>
 	</context-param>
+
 	
 	<!-- 
 	<security-constraint>
+
 		<web-resource-collection>
 			<web-resource-name>my-secure-app</web-resource-name>
 			<url-pattern>/*</url-pattern>
@@ -23,9 +25,11 @@
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
-	</security-constraint>
- 	-->
- 
+
+	</security-constraint> -->
+
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
