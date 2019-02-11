@@ -1,10 +1,14 @@
 package com.kh.tt.member.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -88,5 +92,25 @@ public class MemberController {
 			return "common/errorPage";
 		}
 	}
+	
+	// 회원 확인
+	@ResponseBody
+	@RequestMapping(value = "/idCheck.me", method = RequestMethod.POST)
+	public int postIdCheck(HttpServletRequest req) throws Exception {
+	 
+	 String userId = req.getParameter("userId");
+	 Member idCheck = ms.idCheck(userId);
+	 
+	 int result = 0;
+	 
+	 if(idCheck != null) {
+		 result = 1;
+	 } 
+	 
+	 return result;
+	}
+	
+	
+	
 
 }

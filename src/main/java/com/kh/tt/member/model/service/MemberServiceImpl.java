@@ -46,4 +46,10 @@ public class MemberServiceImpl implements MemberService {
 		
 		return md.insertMember(sqlSession, m);
 	}
+
+	// 아이디 중복 체크
+	@Override
+	public Member idCheck(String userId) {
+		return null;
+	}
 }
