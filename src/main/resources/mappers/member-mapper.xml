@@ -16,22 +16,63 @@
 		<result property="gender" column="M_GENDER"/>
 		<result property="email" column="M_EMAIL"/>
 		<result property="enrollDate" column="M_ENROLL_DATE"/>
-		<result property="bankNO" column="M_BANK_NO"/>
-		<result property="back" column="M_BANK"/>
+		<result property="bankNo" column="M_BANK_NO"/>
+		<result property="bank" column="M_BANK"/>
 		<result property="warningNo" column="M_WARNING_NO"/>
 		<result property="status" column="M_STATUS"/>
 		<result property="banStatus" column="M_BAN_STATUS"/>
 		<result property="reason" column="M_REASON"/>
 		<result property="btYN" column="M_BT_YN"/>
 		<result property="totalClover" column="M_TOTAL_CLOVER"/>
+		<result property="adminYN" column="M_ADMIN_YN"/>
 	</resultMap>
 	
-	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
+	<select id="loginCheck" parameterType="Member" resultMap="memberResultSet" >
 		SELECT * 
 		FROM MEMBER
 		WHERE M_ID = #{userId}
 		AND M_PWD = #{userPwd}
 		AND M_STATUS = 'Y'
 		AND M_BAN_STATUS = 'N'
+	</select>
+	
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES(
+		SEQ_M_UNO.NEXTVAL
+		, #{userId}
+		, #{nickName}
+		, #{userName}
+		, #{userPwd}
+		, #{birth}
+		, #{gender}
+		, #{email}
+		, SYSDATE
+		, NULL
+		, NULL
+		, DEFAULT
+		, DEFAULT
+		, DEFAULT
+		, NULL
+		, DEFAULT
+		, DEFAULT
+		, DEFAULT
+		)
+	</insert>
+	
+	<!-- 암호화 된 비밀번호 조회용 메소드 -->
+	<select id="selectPwd" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT M_PWD
+		FROM MEMBER
+		WHERE M_ID = #{userId}
+		AND M_STATUS = 'Y'
+	</select>
+	
+	<!-- 로그인 정보 조회용 메소드 -->
+	<select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
+		SELECT *
+		FROM MEMBER
+		WHERE M_ID = #{userId}
+		AND M_STATUS = 'Y'
 	</select>
 </mapper>
