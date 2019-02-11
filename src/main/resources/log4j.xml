@@ -6,7 +6,16 @@
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+			<param name="ConversionPattern" value="%-5p: %c{1} - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="fileLogger" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="C:/TT/LOG/system.log" />
+		<param name="Appender" value="true"/>
+		<param name="DataPattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{HH:mm:ss}][%-5p](%F:%L) - %m%n"/>
 		</layout>
 	</appender>
 	
@@ -15,7 +24,8 @@
 		<level value="info" />
 	</logger>
 	
-	<!-- 3rdparty Loggers -->
+	<!-- 
+	3rdparty Loggers
 	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>
@@ -31,11 +41,12 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+	 -->
 
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />
-		<appender-ref ref="console" />
+		<appender-ref ref="fileLogger" />
 	</root>
 	
 </log4j:configuration>
