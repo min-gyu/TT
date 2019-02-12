@@ -4,9 +4,35 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<!-- <mapper namespace="Channel">
-  	<reultMap type="com.kh.tt.channel.model.vo.Channel" id="channelResultSet">
-  		<id property="muno" column="M_UNO"/>
-  		<result property="userId" column="USER_ID"/>
-  	</reultMap>
-  </mapper>  -->
+<mapper namespace="Board">
+	<resultMap type="com.kh.tt.channel.model.vo.Board" id="channelResultSet">
+	<id property="bNo" column="B_NO" />
+		<result property="buNo" column="B_UNO" />
+		<result property="bCate" column="B_CATEG" />
+		<result property="bTitle" column="B_TITLE" />
+		<result property="bContent" column="B_CONTENT" />
+		<result property="bwDate" column="B_WRITE_DATE" />
+		<result property="bmDate" column="B_MODIFY_DATE" />
+		<result property="bCount" column="B_COUNT" />
+		<result property="bLevel" column="B_LEVEL" />
+		<result property="bupNo" column="B_UPPER_NO" />
+		<result property="bAttachs" column="B_ATTACH_YN" />
+		<result property="bDels" column="B_DEL_STATUS" />
+		<result property="bType" column="B_TYPE" />
+	</resultMap>
+	
+
+	<insert id="insertVod" parameterType="Board">
+		INSERT INTO BOARD
+		VALUES(
+		SEQ_B_NO.NEXTVAL,
+		'2',
+		'3',
+		#{bTitle},
+		#{bContent},
+		SYSDATE,
+		SYSDATE,
+		'3','1','1','Y','Y','VOD')
+
+	</insert>
+</mapper>  
