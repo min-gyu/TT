@@ -4,10 +4,10 @@ import java.sql.Date;
 
 public class Payment implements java.io.Serializable{
 	
-	private String pNo;
-	private int pUno;
-	private int pCloverCnt;
-	private Date pDate;
+	private String pNo; //결제 승인번호
+	private int pUno;  //회원번호
+	private int pCloverCnt; //클로버 번호
+	private Date pDate; //날짜
 	
 	public Payment() {}
 
