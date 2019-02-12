@@ -239,8 +239,21 @@
 		    <version>1.0.2</version>
 		</dependency>
 		
+		<!-- JavaMail API (compat) -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${org.springframework-version}</version>
+        </dependency>
 		 
 	</dependencies>
+	
     <build>
         <plugins>
             <plugin>
@@ -257,6 +270,7 @@
                     <downloadJavadocs>true</downloadJavadocs>
                 </configuration>
             </plugin>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -269,6 +283,7 @@
                     <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
+            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.tt.common.CommonUtils;
 import com.kh.tt.common.LoginLoggin;
 import com.kh.tt.member.model.exception.LoginException;
 import com.kh.tt.member.model.service.MemberService;
@@ -35,6 +38,8 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
+	private CommonUtils commonUtils = new CommonUtils();
+	
 	private final String jspPath = "/member/";
 
 	@RequestMapping("goMain.me")
@@ -104,18 +109,52 @@ public class MemberController {
 		}
 	}
 		
-	
-	@RequestMapping(value = "/idCheck.me", method = RequestMethod.POST)
-	public @ResponseBody HashMap<String, Object> idCheck(@RequestBody Map<String, Object> requestBody){
+	/**
+	 * @author jy
+	 * @since 2019.02.12
+	 * @category 중복 체크 로직
+	 * @param type: 구분용
+	 * 		 ,resultValue: jsp value
+	 * */
+	@RequestMapping(value = "/overlayCheck/{type}.me", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> overlayCheck(@RequestBody Map<String, Object> requestBody
+															,@PathVariable String type){
 		Map<String, Object> reqMap = (Map)requestBody.get("params");
-		String userId = (String) reqMap.get("userId");
-		logger.info("userId : " + userId);
-		return ms.idCheck(userId);
+		String resultValue = (String) reqMap.get("resultValue");
+		
+		HashMap<String, Object> resultMap = new HashMap<>();
+		
+		switch(type) {
+			case "id" : 
+				resultMap =  ms.idCheck(resultValue);
+			break;
+			
+			case "nickName" : 
+				resultMap =  ms.nickNameCheck(resultValue);
+			break;
+		}
+
+		logger.info("resultValue : " + resultValue);
+		
+		return resultMap;
 	}
 	
-	/*@RequestMapping(value="/nickNameCheck.me", method=RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> nickNameCheck(@RequestParam("nickName") String nickName){
-		System.out.println("nickNameCheck!");
-		return null;
-	}*/
+	/**
+	 * @author jy
+	 * @since 2019.02.12
+	 * @category 이메일 인증
+	 * */
+	
+	  @RequestMapping(value = "/register", method = RequestMethod.POST)
+	    public @ResponseBody HashMap<String, Object> RegisterPost(Member m, Model model,RedirectAttributes rttr) throws Exception{
+		  HashMap<String, Object> resultMap = new HashMap<>();
+		  
+		  String keyCode = commonUtils.getEmailKeyCode();
+		  
+		  resultMap.put("keyCode", keyCode);
+		  
+		  return resultMap;
+	      
+	    }
+	
 }

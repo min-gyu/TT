@@ -19,4 +19,6 @@ public interface MemberDao {
 
 	int idCheck(SqlSessionTemplate sqlSession, String userId);
 
+	int nickNameCheck(SqlSessionTemplate sqlSession, String nickName);
+
 }

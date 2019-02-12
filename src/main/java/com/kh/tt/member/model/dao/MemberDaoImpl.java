@@ -42,9 +42,16 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.selectOne("Member.selectLoginUser", m);
 	}
 
+	// 아이디 중복 체크
 	@Override
 	public int idCheck(SqlSessionTemplate sqlSession, String userId) {
-		return sqlSession.selectOne("Member.idcheck", userId);
+		return sqlSession.selectOne("Member.idCheck", userId);
+	}
+
+	// 닉네임 중복 체크
+	@Override
+	public int nickNameCheck(SqlSessionTemplate sqlSession, String nickName) {
+		return sqlSession.selectOne("Member.nickNameCheck", nickName);
 	}
 
 }

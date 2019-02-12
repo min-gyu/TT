@@ -11,61 +11,56 @@
 	margin-bottom: 25px;
 }
 </style>
-	<script type="text/javascript"> 
-		function fn_nickNameCheck(){
-			var nickName = $("#nickName").val();
-			console.log(nickName);
+	<script type="text/javascript">
+		// 중복 체크
+		function fn_overlayCheck(type){
+			var resultValue = "";
 			
-			$.ajax({
-		         type			:"get"
-		        ,url			: "/nickNameCheck.me"
-			  	,data			: {nickName : nickName} 
-		        ,contentType	: "application/json; charset=UTF-8"
-		        ,success		: function(resultData, status, headers, config){
-							        }
-		        ,error 			: function(request,status,error){ alert(error); }
-				,complete		: function(jqXHR){  } // 요청의 실패, 성공과 상관 없이 완료 될 경우 호출
-		    });
+			if(type === "id")		{resultValue = $("#userId").val();}
+			if(type === "nickName") {resultValue = $("#nickName").val();}
 			
-		};
-
-		
-		function fn_idCheck(){
-			var userId = $("#userId").val();
+			if(resultValue == ""){
+				if(type == "id"){
+					$("#userId").focus();
+				}
+				if(type == "nickName"){
+					$("#nickName").focus();
+				}
+				return alert("입력 값이 없습니다.");
+			}
 			
-			var url = "/idCheck.me";
-			var data = {
+			var url = "/overlayCheck/" + type + ".me"
+			   ,data = {
 					     params : {
-					    	 			userId 	: userId
+					    	 			resultValue 	: resultValue
 									}
-			};
+					};
 			
 			data = JSON.stringify(data);
 			
 			$.ajax({
-			         type			:"post"
-			        ,url			: url
-				  	,data			: data
-			        ,contentType	: "application/json; charset=UTF-8"
-			        ,success		: function(resultData, status, headers, config){
-								        	var ret_code 	= resultData.ret_code;
-								        	var ret_message = resultData.ret_message;
-								        	
-								        	switch (ret_code) {
-												case "E":
-													alert("에러가 발생했습니다. : \n" + ret_message);
-												break;
-												
-												case "S":
-													alert(ret_message);
-												break;
-											}
-								        }
-			        ,error 			: function(request,status,error){ alert(error); }
-					,complete		: function(jqXHR){  } // 요청의 실패, 성공과 상관 없이 완료 될 경우 호출
-			    });
+		         type			:"post"
+		        ,url			: url
+			  	,data			: data
+		        ,contentType	: "application/json; charset=UTF-8"
+		        ,success		: function(resultData, status, headers, config){
+							        	var ret_code 	= resultData.ret_code;
+							        	var ret_message = resultData.ret_message;
+							        	
+							        	switch (ret_code) {
+											case "E":
+												alert("에러가 발생했습니다. : \n" + ret_message);
+											break;
+											
+											case "S":
+												alert(ret_message);
+											break;
+										}
+							        }
+		        ,error 			: function(request,status,error){ alert(error); }
+				,complete		: function(jqXHR){  } // 요청의 실패, 성공과 상관 없이 완료 될 경우 호출
+		    });
 		}
-		
 	</script>
 	
 	<section class="login first grey">
@@ -79,13 +74,13 @@
 							<div class="form-group">
 								<label>아이디</label>
 								<!-- <a href="#" class="pull-right result"><span class="msg">아이디를 확인해주세요</span></a> -->
-								<button type="button" id="checkBtn1" class="btn btn-warning bt-sm" onclick="fn_idCheck();">중복체크</button>
+								<button type="button" id="checkBtn1" class="btn btn-warning bt-sm" onclick="fn_overlayCheck('id');">중복체크</button>
 								<input type="text" id="userId" name="userId" class="form-control">
 							</div>
 							
 							<div class="form-group">
 								<label>닉네임</label>
-								<button type="button" id="checkBtn2" class="btn btn-warning bt-sm" onclick="fn_nickNameCheck();">중복체크</button>
+								<button type="button" id="checkBtn2" class="btn btn-warning bt-sm" onclick="fn_overlayCheck('nickName');">중복체크</button>
 								<input type="text" id="nickName" name="nickName" class="form-control">
 							</div>
 							
