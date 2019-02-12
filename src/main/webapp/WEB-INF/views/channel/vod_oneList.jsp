@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -90,7 +91,8 @@
 						</div>
 
 						<div class="col-lg-9 col-md-9">
-							<a class="posts-title"><h3>제목을 입력합니다</h3></a>
+							<a class="posts-title"><h3>${b.bTitle }</h3></a>
+							<p class="excert">${b.bContent }</p>
 
 						</div>
 						<!-- 신고하기 -->
@@ -119,7 +121,7 @@
 						<div>
 							<a href="#" class="love active"><i
 								class="ion-android-favorite"></i>
-								<div>좋아요 개수</div></a>
+								<div>${b.bCount }</div></a>
 						</div>
 
 						<div class="line thin"></div>
