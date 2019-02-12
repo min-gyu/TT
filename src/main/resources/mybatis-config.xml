@@ -8,11 +8,13 @@
 		<typeAlias type="com.kh.tt.member.model.vo.Member" alias="Member" />
 		<typeAlias type="com.kh.tt.myPage.model.vo.Clover" alias="Clover" />
 		<typeAlias type="com.kh.tt.myPage.model.vo.Payment" alias="Payment" />
+		<typeAlias type="com.kh.tt.channel.model.vo.Board" alias="Board"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/clover-mapper.xml" />
 		<mapper resource="mappers/payment-mapper.xml" />
+		<mapper resource="mappers/channel-mapper.xml" />
 	</mappers>
 	
 </configuration>

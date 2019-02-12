@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Board implements java.io.Serializable{
 	 private int bNo; //게시물 번호
 	 private int buNo; //작성자 번호
+	 private int bCate;//카테고리 번호
 	 private String bTitle; //제목
 	 private String bContent; //내용
 	 private Date bwDate;//작성일
@@ -32,6 +33,14 @@ public class Board implements java.io.Serializable{
 
 	public void setBuNo(int buNo) {
 		this.buNo = buNo;
+	}
+
+	public int getbCate() {
+		return bCate;
+	}
+
+	public void setbCate(int bCate) {
+		this.bCate = bCate;
 	}
 
 	public String getbTitle() {
@@ -114,11 +123,19 @@ public class Board implements java.io.Serializable{
 		this.bType = bType;
 	}
 
-	public Board(int bNo, int buNo, String bTitle, String bContent, Date bwDate, Date bmDate, int bCount, int bLevel,
-			int bupNo, String bAttachs, String bDels, String bType) {
+	@Override
+	public String toString() {
+		return "Board [bNo=" + bNo + ", buNo=" + buNo + ", bCate=" + bCate + ", bTitle=" + bTitle + ", bContent="
+				+ bContent + ", bwDate=" + bwDate + ", bmDate=" + bmDate + ", bCount=" + bCount + ", bLevel=" + bLevel
+				+ ", bupNo=" + bupNo + ", bAttachs=" + bAttachs + ", bDels=" + bDels + ", bType=" + bType + "]";
+	}
+
+	public Board(int bNo, int buNo, int bCate, String bTitle, String bContent, Date bwDate, Date bmDate, int bCount,
+			int bLevel, int bupNo, String bAttachs, String bDels, String bType) {
 		super();
 		this.bNo = bNo;
 		this.buNo = buNo;
+		this.bCate = bCate;
 		this.bTitle = bTitle;
 		this.bContent = bContent;
 		this.bwDate = bwDate;
@@ -131,12 +148,5 @@ public class Board implements java.io.Serializable{
 		this.bType = bType;
 	}
 
-	@Override
-	public String toString() {
-		return "Board [bNo=" + bNo + ", buNo=" + buNo + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bwDate="
-				+ bwDate + ", bmDate=" + bmDate + ", bCount=" + bCount + ", bLevel=" + bLevel + ", bupNo=" + bupNo
-				+ ", bAttachs=" + bAttachs + ", bDels=" + bDels + ", bType=" + bType + "]";
-	}
-	 
-	 
+	
 }
