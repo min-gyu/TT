@@ -12,4 +12,6 @@ public interface MemberService {
 	int insertMember(Member m);
 
 	HashMap<String, Object> idCheck(String userId);
+
+	HashMap<String, Object> nickNameCheck(String nickName);
 }
