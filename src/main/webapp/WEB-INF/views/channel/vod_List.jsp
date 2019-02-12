@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -46,7 +48,7 @@
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
 </head>
 <body>
-
+	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 
 	<!-- header -->
 	<header id="header">
@@ -56,11 +58,10 @@
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-					<!-- 공간 비율때문에 넣음 -->
+						<!-- 공간 비율때문에 넣음 -->
 						<li><a style="color: #f9f9ff;">방송하기</a>
 						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<!-- 공간 비율때문에 넣음 end -->
+						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
 						<li class="menu-has-children"><a href="">abc123</a>
 							<ul>
 								<li><a href="blog-home.html">로그아웃</a></li>
@@ -87,123 +88,52 @@
 							<div class="line top">
 								<div>VOD</div>
 							</div>
-						
+
 						</div>
-						
+
 
 						<!-- 편집부분 -->
 						<div class="col-lg-9 col-md-9">
 
 							<div class="row">
-								<article class="col-md-12 article-list">
-									<div class="inner">
-										<figure>
-											<a href="single.html"> <img
-												src="/resources/channel/channel2/images/news/img11.jpg"
-												alt="Sample Article">
-											</a>
-										</figure>
-										<div class="details"
-											style="width: 410px; border-bottom: 1px solid #eee;">
-											<div class="detail">
-												<div class="category">
-													<a href="#">Film</a>
-												</div>
-												<div class="time">December 19, 2016</div>
-											</div>
-											<h1>
-												<a href="single.html">Donec consequat arcu at ultrices
-													sodales quam erat aliquet diam</a>
-											</h1>
-											<p>Donec consequat, arcu at ultrices sodales, quam erat
-												aliquet diam, sit amet interdum libero nunc accumsan nisi.</p>
-											<footer>
-												<a href="#" class="love active"><i
-													class="ion-android-favorite"></i>
-													<div>302</div></a> <a class="btn btn-primary more"
-													href="single.html">
-													<div>More</div>
-													<div>
-														<i class="ion-ios-arrow-thin-right"></i>
-													</div>
+								<c:forEach var="row" items="${list}">
+									<article class="col-md-12 article-list">
+										<div class="inner">
+											<figure>
+												<a href="single.html"> <img
+													src="/resources/channel/channel2/images/news/img11.jpg"
+													alt="Sample Article">
 												</a>
-											</footer>
-										</div>
-									</div>
-								</article>
-								<article class="col-md-12 article-list">
-									<div class="inner">
-										<figure>
-											<a href="single.html"> <img
-												src="/resources/channel/channel2/images/news/img02.jpg"
-												alt="Sample Article">
-											</a>
-										</figure>
-										<div class="details"
-											style="width: 410px; border-bottom: 1px solid #eee;">
-											<div class="detail">
-												<div class="category">
-													<a href="#">Travel</a>
-												</div>
-												<div class="time">December 18, 2016</div>
-											</div>
-											<h1>
-												<a href="single.html">Maecenas accumsan tortor ut velit
-													pharetra mollis</a>
-											</h1>
-											<p>Maecenas accumsan tortor ut velit pharetra mollis.
-												Proin eu nisl et arcu iaculis placerat sollicitudin ut est.
-												In fringilla dui.</p>
-											<footer>
-												<a href="#" class="love active"><i
-													class="ion-android-favorite"></i>
-													<div>302</div></a> <a class="btn btn-primary more"
-													href="single.html">
-													<div>More</div>
-													<div>
-														<i class="ion-ios-arrow-thin-right"></i>
+											</figure>
+											<div class="details"
+												style="width: 410px; border-bottom: 1px solid #eee;">
+												<div class="detail">
+													<div class="category">
+														<a href="#">Film</a>
 													</div>
-												</a>
-											</footer>
-										</div>
-									</div>
-								</article>
-								<article class="col-md-12 article-list">
-									<div class="inner"">
-										<figure>
-											<a href="single.html"> <img
-												src="/resources/channel/channel2/images/news/img03.jpg"
-												alt="Sample Article">
-											</a>
-										</figure>
-										<div class="details"
-											style="width: 410px; border-bottom: 1px solid #eee;">
-											<div class="detail">
-												<div class="category">
-													<a href="#">Travel</a>
+													<div class="time">${row.bwDate }
+													<input type="hidden" name="bNo" value="${row.bNo }"></div>
 												</div>
-												<div class="time">December 16, 2016</div>
+												<h1>
+													<a href="single.html">${row.bTitle }</a>
+												</h1>
+												<p>${row.bContent }</p>
+												<footer>
+													<a href="#" class="love active"><i
+														class="ion-android-favorite"></i>
+														<div>${row.bCount }</div></a> <a class="btn btn-primary more"
+														href="${contextPath}/vod_oneList.ch?bNo=${row.bNo}">
+														<div>More</div>
+														<div>
+															<i class="ion-ios-arrow-thin-right"></i>
+														</div>
+													</a>
+												</footer>
 											</div>
-											<h1>
-												<a href="single.html">Nulla facilisis odio quis gravida
-													vestibulum Proin venenatis pellentesque arcu</a>
-											</h1>
-											<p>Nulla facilisis odio quis gravida vestibulum. Proin
-												venenatis pellentesque arcu, ut mattis nulla placerat et.</p>
-											<footer>
-												<a href="#" class="love active"><i
-													class="ion-android-favorite"></i>
-													<div>302</div></a> <a class="btn btn-primary more"
-													href="single.html">
-													<div>More</div>
-													<div>
-														<i class="ion-ios-arrow-thin-right"></i>
-													</div>
-												</a>
-											</footer>
 										</div>
-									</div>
-								</article>
+									</article>
+
+								</c:forEach>
 							</div>
 
 							<!-- 게시글 3개 아이콘 -->
@@ -226,6 +156,7 @@
 														<a href="#">Film</a>
 													</div>
 													<div class="time">December 19, 2016</div>
+													
 												</div>
 												<h1>
 													<a href="single.html">Donec consequat arcu at ultrices
@@ -237,7 +168,7 @@
 													<a href="#" class="love active"><i
 														class="ion-android-favorite"></i>
 														<div>302</div></a> <a class="btn btn-primary more"
-														href="single.html">
+														href="vod_oneList.ch">
 														<div>More</div>
 														<div>
 															<i class="ion-ios-arrow-thin-right"></i>

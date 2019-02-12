@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -90,8 +91,9 @@
 						</div>
 					</div>
 					<div class="col-lg-9 col-md-9">
-
+					
 						<div class="row">
+						<c:forEach var="row" items="${list}">
 							<article class="col-md-12 article-list">
 								<div class="inner">
 									<figure>
@@ -106,14 +108,12 @@
 											<div class="category">
 												<a href="#">Film</a>
 											</div>
-											<div class="time">December 19, 2016</div>
+											<div class="time">${row.bwDate }</div>
 										</div>
 										<h1>
-											<a href="single.html">Donec consequat arcu at ultrices
-												sodales quam erat aliquet diam</a>
+											<a href="single.html">${row.bTitle }</a>
 										</h1>
-										<p>Donec consequat, arcu at ultrices sodales, quam erat
-											aliquet diam, sit amet interdum libero nunc accumsan nisi.</p>
+										<p>${row.bContent }</p>
 										<footer>
 											<a href="#" class="love active"><i
 												class="ion-android-favorite"></i>
@@ -128,6 +128,7 @@
 									</div>
 								</div>
 							</article>
+							</c:forEach>
 						</div>
 					</div>
 				</div>

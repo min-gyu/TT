@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tt.common.CommonUtils;
 import com.kh.tt.channel.model.service.ChannelService;
+import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
 
 @Controller
@@ -37,19 +40,35 @@ public class ChannelController {
 
 	// VOD리스트 페이지
 	@RequestMapping("vod_List.ch")
-	public String vod_List() {
-		return "channel/vod_List";
+	public ModelAndView vod_List() {
+		List<Board> list=cs.vodList();
+		System.out.println("list 확인"+list);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("channel/vod_List");
+		mav.addObject("list", list);
+		return mav;
+		/*return "channel/vod_List";*/
 	}
 
 	// VOD상세보기 페이지
 	@RequestMapping("vod_oneList.ch")
-	public String vod_oneList() {
-		return "channel/vod_oneList";
+	public ModelAndView vod_oneList(
+			@RequestParam int bNo,HttpSession session) {
+		System.out.println(bNo);
+		cs.increaseViewC(bNo,session);
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("channel/vod_oneList");
+		Board b=cs.vodOne(bNo);
+		mav.addObject("b", b);
+		/*return "channel/vod_oneList";*/
+		return mav;
 	}
 
 	// 게시판 리스트 페이지
 	@RequestMapping("board_List.ch")
 	public String board_List() {
+		
 		return "channel/board_List";
 	}
 
@@ -83,7 +102,7 @@ public class ChannelController {
 	
 	// VOD업로드 메소드
 	@RequestMapping("insertvod.ch")
-	public String insertvod(Model model, Board b, HttpServletRequest request,
+	public String insertvod(Model model, Board b, Attachment a,HttpServletRequest request,
 			@RequestParam(value = "video", required = false) MultipartFile video) {
 
 		System.out.println("Board" + b);
@@ -100,6 +119,8 @@ public class ChannelController {
 		String originFileName = video.getOriginalFilename();
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 		String changeName = CommonUtils.getRandomString();
+		
+	
 
 		System.out.println("changeName"+changeName);
 		
@@ -111,6 +132,18 @@ public class ChannelController {
 			System.out.println(video);
 			
 			cs.insertVod(b);
+			
+			a.setAtBno(b.getbNo());
+			a.setAtName(originFileName);
+			a.setAtMName(changeName);
+			a.setAtPath(filePath);
+			
+			System.out.println(originFileName);
+			System.out.println(changeName);
+			System.out.println(filePath);
+			cs.insertAt(a);
+			
+			
 			
 			return "redirect:goVodAdmin.ch";//VOD관리 페이지로 이동
 			
@@ -146,10 +179,15 @@ public class ChannelController {
 
 	// VOD 관리페이지로 이동시키는 메서드
 	@RequestMapping("goVodAdmin.ch")
-	public String goVodAdmin() {
+	public ModelAndView goVodAdmin() {
 		
 		List<Board> list=cs.vodList();
-		return "channel_admin/vodAdmin";
+		System.out.println("list 확인"+list);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("channel_admin/vodAdmin");
+		mav.addObject("list", list);
+		return mav;
+		/*return "channel_admin/vodAdmin";*/
 	}
 
 	// VOD 추가 페이지로 이동시키는 메서드
