@@ -1,5 +1,7 @@
 package com.kh.tt.member.model.dao;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.tt.member.model.exception.LoginException;
@@ -14,5 +16,7 @@ public interface MemberDao {
 	String selectEncPassword(SqlSessionTemplate sqlSession, Member m);
 
 	Member selectMember(SqlSessionTemplate sqlSession, Member m);
+
+	int idCheck(SqlSessionTemplate sqlSession, String userId);
 
 }

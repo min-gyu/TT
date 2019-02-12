@@ -1,5 +1,7 @@
 package com.kh.tt.member.model.service;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -43,13 +45,35 @@ public class MemberServiceImpl implements MemberService {
 	// AOP 설정 회원가입 - 암호화 포함
 	@Override
 	public int insertMember(Member m) {
-		
 		return md.insertMember(sqlSession, m);
 	}
 
-	// 아이디 중복 체크
 	@Override
-	public Member idCheck(String userId) {
-		return null;
+	public HashMap<String, Object> idCheck(String userId) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		// resultMap에 ret_code, ret_message를 키로 담음
+		resultMap.put("ret_code", "S");	
+		resultMap.put("ret_message", "");
+		
+		try {// 예외가 발생할 구문
+			int count = md.idCheck(sqlSession, userId);
+			switch (count) {
+				case 1 :
+					resultMap.put("ret_message", "이미 아이디가 존재합니다.");
+				break;
+				
+				case 0 :
+					resultMap.put("ret_message", "사용 가능한 아이디입니다.");
+				break;
+			}
+		} catch (Exception e) {
+			// 예외 발생시 catch 해주는 구문
+			e.printStackTrace();
+			resultMap.put("ret_code", "E");
+			resultMap.put("ret_message", "errors : " + e);
+		}
+		
+		return resultMap;
 	}
+
 }

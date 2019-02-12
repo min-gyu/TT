@@ -42,4 +42,9 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.selectOne("Member.selectLoginUser", m);
 	}
 
+	@Override
+	public int idCheck(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("Member.idcheck", userId);
+	}
+
 }

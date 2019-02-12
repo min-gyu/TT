@@ -1,5 +1,7 @@
 package com.kh.tt.member.model.service;
 
+import java.util.HashMap;
+
 import com.kh.tt.member.model.exception.LoginException;
 import com.kh.tt.member.model.vo.Member;
 
@@ -9,6 +11,5 @@ public interface MemberService {
 
 	int insertMember(Member m);
 
-	Member idCheck(String userId);
-
+	HashMap<String, Object> idCheck(String userId);
 }
