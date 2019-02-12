@@ -27,17 +27,20 @@ public class CloverController {
 	@RequestMapping("payment.me")
 	public String chargeEx(HttpServletRequest request, HttpServletResponse response, Model model) throws MyPageException {
 		String pno = request.getParameter("pno"); //결제번호
-		String pCloverCnt = request.getParameter("pCloverCnt"); //클로버번호
-		//회원번호 넣기
+		int pUno = Integer.parseInt(request.getParameter("pUno")); //회원번호
+		int pCloverCnt = Integer.parseInt(request.getParameter("pCloverCnt")); //클로버번호
+		System.out.println(pUno);
 		
 		int result;//결제정보 추가 성공여부 확인
 	
 		
 		/*System.out.println("pno : "+pno+", pCloverCnt : "+pCloverCnt);*/
+		System.out.println("pUno : "+pUno);
 		
 		Payment pay = new Payment();
 		pay.setpNo(pno);
-		pay.setpCloverCnt(Integer.parseInt(pCloverCnt));
+		pay.setpUno(pUno);
+		pay.setpCloverCnt(pCloverCnt);
 		
 	
 		result = mps.insertPayment(pay);

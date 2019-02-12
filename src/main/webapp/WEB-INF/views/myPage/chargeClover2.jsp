@@ -17,14 +17,15 @@
 						</div>
 						<!-- 보유클로버 현황 -->
 						<div class="ui segment">
-							<div class="ui segment">user01님이 보유중인 클로버는 3개 입니다.
+							<div class="ui segment">${ sessionScope.loginUser.userName}님이 보유중인 클로버는 ${ sessionScope.loginUser.totalClover} 개 입니다.
 	  						<div class="ui fitted divider"></div>
 	  						<br>▶ 이미 선물한 클로버 : 12개<br></div>
 						</div><br>
 						
 						<!-- 클로버 충전내역 -->
 						<div>
-							<h4>클로버 충전내역 &nbsp; &nbsp; (날짜 선택 : <input type="date" id="date1"> )</h4>
+							<h4>클로버 충전내역 &nbsp; &nbsp; (날짜 선택 : <input type="date" id="date1"> )
+							<button onclick="searchDate();">검색</button></h4>
 						  <table class="ui green table">
 						  <thead>
 						    <tr><th>구매일</th>
@@ -47,11 +48,19 @@
 						  </tbody>
 						</table>
 						
+						
+					
+						
 						<div align="center">
 							 <button class="ui green basic button">1</button>
 						</div>
 						</div>
 						
+						<script>
+							function searchDate(){
+								alert($("#date1").val());
+							}
+						</script>
 						
 					</div>	
 				</div>

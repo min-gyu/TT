@@ -22,7 +22,7 @@
 	<!-- 결제정보 추가 -->
 	<insert id="insertPayment" parameterType="Payment">
 		INSERT INTO PAYMENT
-		VALUES (#{pNo},1, #{pCloverCnt}, SYSDATE)		
+		VALUES (#{pNo},#{pUno}, #{pCloverCnt}, SYSDATE)		
 	</insert>
 	
 	

@@ -35,6 +35,9 @@
 					
 						
 						<!-- 클로버 10개 -->
+						
+			
+						
 						<div class="col-lg-9 col-md-9">
 							<div class="row">
 								<article class="col-md-12 article-list">
@@ -70,9 +73,11 @@
 		/* 결제 API */
 		function pay(payment, cnt, cno){
 			
-			console.log("결제금액 : "+payment);
+			/* console.log("결제금액 : "+payment);
 			console.log("클로버 개수 : "+cnt);
 			console.log("클로버 번호 : "+cno);
+			console.log(${ sessionScope.loginUser.uno}); */
+			var pUno = ${ sessionScope.loginUser.uno}; //접속중인 유저 회원번호
 			
 			
 			var IMP = window.IMP; // 생략가능
@@ -85,7 +90,7 @@
 			    name : '클로버 '+cnt+'개 결제',
 			    amount : 10, //금액 payment
 			    buyer_email : '425wlstlf@naver.com',
-			    buyer_name : '구매자이름'/* ,
+			    buyer_name : pUno/* ,
 			    m_redirect_url : 'https://www.yourdomain.com/payments/complete' */
 			}, function(rsp) {
 			    if ( rsp.success ) {
@@ -98,9 +103,10 @@
 			        //결제번호 담기
 			        var pay = rsp.apply_num;
 			        
+			        
 			        //결제번호, 클로버번호, 회원번호 
 			        /* 회원번호도 넘기기 */
-			        location.href="payment.me?pno="+pay+"&pCloverCnt="+cno;
+			        location.href="payment.me?pno="+pay+"&pCloverCnt="+cno+"&pUno="+pUno;
 			        
 			    } else {
 			        var msg = '결제에 실패하였습니다.';
