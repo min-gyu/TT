@@ -1,17 +1,26 @@
 package com.kh.tt.member.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.kh.tt.common.LoginLoggin;
 import com.kh.tt.member.model.exception.LoginException;
 import com.kh.tt.member.model.service.MemberService;
 import com.kh.tt.member.model.vo.Member;
@@ -19,6 +28,8 @@ import com.kh.tt.member.model.vo.Member;
 @SessionAttributes("loginUser")
 @Controller
 public class MemberController {
+	private static final Logger logger = LoggerFactory.getLogger(LoginLoggin.class);
+	
 	@Autowired
 	private MemberService ms;
 	@Autowired
@@ -92,25 +103,19 @@ public class MemberController {
 			return "common/errorPage";
 		}
 	}
+		
 	
-	// 회원 확인
-	@ResponseBody
 	@RequestMapping(value = "/idCheck.me", method = RequestMethod.POST)
-	public int postIdCheck(HttpServletRequest req) throws Exception {
-	 
-	 String userId = req.getParameter("userId");
-	 Member idCheck = ms.idCheck(userId);
-	 
-	 int result = 0;
-	 
-	 if(idCheck != null) {
-		 result = 1;
-	 } 
-	 
-	 return result;
+	public @ResponseBody HashMap<String, Object> idCheck(@RequestBody Map<String, Object> requestBody){
+		Map<String, Object> reqMap = (Map)requestBody.get("params");
+		String userId = (String) reqMap.get("userId");
+		logger.info("userId : " + userId);
+		return ms.idCheck(userId);
 	}
 	
-	
-	
-
+	/*@RequestMapping(value="/nickNameCheck.me", method=RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> nickNameCheck(@RequestParam("nickName") String nickName){
+		System.out.println("nickNameCheck!");
+		return null;
+	}*/
 }

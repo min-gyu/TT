@@ -75,4 +75,12 @@
 		WHERE M_ID = #{userId}
 		AND M_STATUS = 'Y'
 	</select>
+	
+	<!-- 아이디 중복 체크 -->
+	<select id="idcheck" parameterType="String" resultType="Integer">
+	    SELECT COUNT(*)
+	    FROM MEMBER
+	    WHERE M_ID = #{userId}
+	</select>
+	
 </mapper>

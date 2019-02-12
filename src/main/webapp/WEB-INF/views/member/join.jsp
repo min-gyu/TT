@@ -11,27 +11,63 @@
 	margin-bottom: 25px;
 }
 </style>
-	<script> 
-		$("#idCheck").click(function(){
-			var query = {userId : $("#userId").val()};
-		$.ajax({
-		url : "/idCheck.me",
-		type : "post",
-		data : query,
-		success : function(data) {
-		  
-			if(data == 1) {
-			    $(".result .msg").text("사용 불가");
-			    $(".result .msg").attr("style", "color:#f00");    
-	 	    } else {
-			    $(".result .msg").text("사용 가능");
-			    $(".result .msg").attr("style", "color:#00f");
-		    }
+	<script type="text/javascript"> 
+		function fn_nickNameCheck(){
+			var nickName = $("#nickName").val();
+			console.log(nickName);
 			
-	  	  }
-		});  
-	});
+			$.ajax({
+		         type			:"get"
+		        ,url			: "/nickNameCheck.me"
+			  	,data			: {nickName : nickName} 
+		        ,contentType	: "application/json; charset=UTF-8"
+		        ,success		: function(resultData, status, headers, config){
+							        }
+		        ,error 			: function(request,status,error){ alert(error); }
+				,complete		: function(jqXHR){  } // 요청의 실패, 성공과 상관 없이 완료 될 경우 호출
+		    });
+			
+		};
+
+		
+		function fn_idCheck(){
+			var userId = $("#userId").val();
+			
+			var url = "/idCheck.me";
+			var data = {
+					     params : {
+					    	 			userId 	: userId
+									}
+			};
+			
+			data = JSON.stringify(data);
+			
+			$.ajax({
+			         type			:"post"
+			        ,url			: url
+				  	,data			: data
+			        ,contentType	: "application/json; charset=UTF-8"
+			        ,success		: function(resultData, status, headers, config){
+								        	var ret_code 	= resultData.ret_code;
+								        	var ret_message = resultData.ret_message;
+								        	
+								        	switch (ret_code) {
+												case "E":
+													alert("에러가 발생했습니다. : \n" + ret_message);
+												break;
+												
+												case "S":
+													alert(ret_message);
+												break;
+											}
+								        }
+			        ,error 			: function(request,status,error){ alert(error); }
+					,complete		: function(jqXHR){  } // 요청의 실패, 성공과 상관 없이 완료 될 경우 호출
+			    });
+		}
+		
 	</script>
+	
 	<section class="login first grey">
 		<div class="container">
 			<div class="box-wrapper">				
@@ -42,13 +78,14 @@
 						<form action="insertMember.me" method="post" class="form-horizontal">
 							<div class="form-group">
 								<label>아이디</label>
-								<a href="#" class="pull-right result"><span class="msg">아이디를 확인해주세요</span></a>
-								<button type="button" id="idCheck" class="btn btn-warning bt-sm">중복체크</button>
+								<!-- <a href="#" class="pull-right result"><span class="msg">아이디를 확인해주세요</span></a> -->
+								<button type="button" id="checkBtn1" class="btn btn-warning bt-sm" onclick="fn_idCheck();">중복체크</button>
 								<input type="text" id="userId" name="userId" class="form-control">
 							</div>
 							
 							<div class="form-group">
 								<label>닉네임</label>
+								<button type="button" id="checkBtn2" class="btn btn-warning bt-sm" onclick="fn_nickNameCheck();">중복체크</button>
 								<input type="text" id="nickName" name="nickName" class="form-control">
 							</div>
 							
