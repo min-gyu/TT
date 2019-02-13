@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
 
-<style type="text/css">
-.btn-warning {
-    margin-left: 10px;
-    margin-bottom: 5px;
-}
-.join_div {
-	text-align: center;
-	margin-bottom: 25px;
-}
-</style>
+	<style type="text/css">
+	.btn-warning {
+	    margin-left: 10px;
+	    margin-bottom: 5px;
+	}
+	.join_div {
+		text-align: center;
+		margin-bottom: 25px;
+	}
+	</style>
+	
 	<script type="text/javascript">
 		// 중복 체크
 		function fn_overlayCheck(type){
@@ -61,6 +62,10 @@
 				,complete		: function(jqXHR){  } // 요청의 실패, 성공과 상관 없이 완료 될 경우 호출
 		    });
 		}
+		
+		function fn_sendEmail(){
+			alert("이메일을 확인해주세요.");
+		};
 	</script>
 	
 	<section class="login first grey">
@@ -69,7 +74,6 @@
 				<div class="box box-border">
 					<div class="box-body">
 						<h3>회원가입</h3>
-						
 						<form action="insertMember.me" method="post" class="form-horizontal">
 							<div class="form-group">
 								<label>아이디</label>
@@ -125,11 +129,12 @@
 							</div>
 							
 							<div class="join_div">
-								<button type="button" class="btn btn-success">인증</button>
+								<button type="button" class="btn btn-success" onclick="fn_sendEmail();">인증</button>
 								<button type="button" class="btn btn-secondary">확인</button>
 							</div>
 							
 							<div class="form-group text-right">
+								<input type="submit" value="회원가입">
 								<button type="submit" class="btn btn-primary btn-block">회원가입</button>
 							</div>
 							
