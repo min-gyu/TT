@@ -1,7 +1,10 @@
+<%@page import="com.kh.tt.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <nav class="menu">
 	<div class="container">
@@ -48,9 +51,15 @@
                         <li><a href="#"><i class="icon ion-log-out"></i> 로그아웃</a></li>
                      </ul>
                  </li>
-                 <li><a href="/broadTest.bc">BroadTest</a>
-                 <li><a href="/broadTest2.bc">BroadTest2</a>
-                 <li><a href="/broadTest2.bc">BroadTest3</a>
+                 <li><a href="/broadTest.bc">BroadTest</a></li>
+                 <li><a href="/broadTest2.bc">BroadTest2</a></li>
+                 <li><a href="/goBroadCast.bc?owner=user01">user01의 방송으로</a></li>
+                 <c:if test="${ (!empty loginUser) and (!empty loginUser.bank) }">
+                 	<c:url var="broadUrl" value="/goBroadCast.bc">
+                 		<c:param name="owner" value="${ sessionScope.loginUser.userId }"/>     	
+                 	</c:url>
+                	 <li><a href="${ broadUrl }">Chatting</a></li>
+                 </c:if>
 			</ul>
 		</div>
 	</div>
