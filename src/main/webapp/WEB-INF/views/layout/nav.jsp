@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 
 <nav class="menu">
 	<div class="container">
@@ -39,8 +42,8 @@
                         <li><a href="/chargeClover.me"><i class="leaf icon"></i> 클로버 충전하기</a></li>
                         <li><a href="/bankChk.me"><i class="leaf icon"></i> 계좌 인증하기</a></li>
                         <li><a href="/exchangeClover.me"><i class="leaf icon"></i> 환전 신청하기</a></li>
-                        <li><a href="/question.me"><i class="leaf icon"></i> My문의 페이지</a></li>
-                        <li><a href="/claim.me"><i class="leaf icon"></i>My신고 페이지</a></li>
+                        <li><a href="/question.me?cqUno=${sessionScope.loginUser.uno}"><i class="leaf icon"></i> My문의 페이지</a></li>
+                        <li><a href="/claim.me?cqUno=${sessionScope.loginUser.uno}"><i class="leaf icon"></i>My신고 페이지</a></li>
                         <li><a href="/broadcastTotal.me"><i class="leaf icon"></i>방송 통계</a></li>
                         <li><a href="/note.me"><i class="leaf icon"></i>내 쪽지</a></li>
                         <li class="divider"></li>
