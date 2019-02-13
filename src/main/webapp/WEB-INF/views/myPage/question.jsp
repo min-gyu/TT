@@ -20,7 +20,7 @@
 						    <th>내용</th>
 						    <th>문의날짜</th>
 						    <tr>
-						      <td>1</td>
+						      <td>${questionList.get(0).getCqNo() }</td>
 						      <td>장애/버그</td>
 						      <td>동영상끊김</td>
 						      <td>동영상이끊겨서 보기가 너무 힘들어요.</td>

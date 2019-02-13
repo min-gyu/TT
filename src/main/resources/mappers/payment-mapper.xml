@@ -25,6 +25,11 @@
 		VALUES (#{pNo},#{pUno}, #{pCloverCnt}, SYSDATE)		
 	</insert>
 	
+	<!-- <select id="selectLog" resultMap="cloverResultSet"  >
+		SELECT P_NO, P_DATE, CLOVER_CNT, CLOVER_
+		FROM CLOVER
+	</select>  -->
+	
 	
 	
 	

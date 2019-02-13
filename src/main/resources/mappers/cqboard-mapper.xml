@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CQBoard">
+	<resultMap type="com.kh.tt.myPage.model.vo.CQBoard" id="cqBoardResultSet">
+		<!-- property 필드명, column 컬럼명과 일치해야 한다 -->
+		<id property="cqNo" column="CQ_NO"/>
+		<result property="cqUno" column="CQ_UNO"/>
+		<result property="cqTargetId" column="CQ_TARGET_ID"/>
+		<result property="cqClass" column="CQ_CLASS"/>
+		<result property="cqTitle" column="CQ_TITLE"/>
+		<result property="cqContent" column="CQ_CONTENT"/>
+		<result property="cqDate" column="CQ_DATE"/>
+		<result property="cqLevel" column="CQ_LEVEL"/>
+		<result property="cqUpperNo" column="CQ_UPPER_NO"/>
+		<result property="cqAttachYn" column="CQ_ATTACH_YN"/>
+		<result property="cqDelStatus" column="CQ_DEL_STATUS"/>
+		<result property="cqType" column="CQ_TYPE"/>
+	</resultMap>
+	
+	<!-- My문의 내역 조회 -->
+	<select id="selectQuestion" resultMap="cqBoardResultSet" >
+		SELECT *
+		FROM CQBOARD
+	</select> 
+	
+	
+	
+</mapper>
+
+
+
+

@@ -13,8 +13,25 @@
 		<result property="cloverMoney" column="CLOVER_MONEY"/>
 	</resultMap>
 	
+	<!-- <resultMap type="com.kh.tt.myPage.model.vo.Payment" id="paymentResultSet">
+		property 필드명, column 컬럼명과 일치해야 한다
+		<id property="pNo" column="P_NO"/>
+		<result property="pUno" column="P_UNO"/>
+		<result property="pCloverCnt" column="P_CLOVER_CNT"/>
+		<result property="pDate" column="P_DATE"/>
+	</resultMap> -->
+	
 	<select id="cloverInfo" resultMap="cloverResultSet" >
 		SELECT * 
 		FROM CLOVER
 	</select> 
+	
+	<!-- 클로버 충전내역 조회 -->
+	<!-- <select id="selectLog" resultMap="cloverResultSet" >
+		SELECT  P.P_NO, P.P_DATE, C.CLOVER_CNT, C.CLOVER_ㅡMONEY
+		FROM CLOVER C JOIN PAYMENT P
+		WHERE C.CLOVER_NO = P.P_CLOVER_CNT
+	</select> --> 
+	
+	
 </mapper>
