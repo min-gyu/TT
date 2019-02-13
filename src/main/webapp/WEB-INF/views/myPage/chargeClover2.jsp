@@ -59,6 +59,9 @@
 						<script>
 							function searchDate(){
 								alert($("#date1").val());
+								
+								var date = $("#date1");
+								
 							}
 						</script>
 						

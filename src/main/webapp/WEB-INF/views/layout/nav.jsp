@@ -30,6 +30,7 @@
 						<li><a href="/inquireView.me">문의하기</a></li>
 					</ul>
 				</li>
+				
 				<li class="dropdown magz-dropdown"><a href="#">My Page<i class="ion-ios-arrow-right"></i></a>
                      <ul class="dropdown-menu">
                       	<li><a href="checkPwd.me"><i class="leaf icon"></i> My채널</a></li>

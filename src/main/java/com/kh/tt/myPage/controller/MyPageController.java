@@ -1,7 +1,9 @@
 package com.kh.tt.myPage.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.tt.myPage.model.exception.MyPageException;
 import com.kh.tt.myPage.model.service.MyPageService;
+import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
+import com.kh.tt.myPage.model.vo.Payment;
 
 @Controller
 public class MyPageController {
@@ -26,7 +30,9 @@ public class MyPageController {
 		return "myPage/modifyMyPage";
 	}
 	
-	//클로버 충전하기 페이지
+	
+	
+	/*클로버 충전하기 페이지*/
 	//클로버 개수-충전금액 DB에서 가져와서 띄워주기
 	@RequestMapping("chargeClover.me")
 	public String goChageClover(Model model) {
@@ -48,9 +54,24 @@ public class MyPageController {
 		return "myPage/chargeClover";
 	}
 	
+	
+	
 	//클로버 충전내역 조회 페이지
 	@RequestMapping("chargeClover2.me")
 	public String goChageClover2() {
+		
+		//2개의 Object에 담아와야함
+		//Payment - 결제날짜, 승인번호
+		//Clover - 클로버 개수, 클로버 가격
+		Map<Object, Object> hmap = new HashMap<Object, Object>();
+		
+		/*try {
+			hmap = mps.selectChargeLog();
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}*/
+		
+		
 		return "myPage/chargeClover2";
 	}
 	
@@ -90,9 +111,23 @@ public class MyPageController {
 		return "myPage/exchange";
 	}
 	
+	
+	
 	//My문의 페이지
 	@RequestMapping("question.me")
-	public String goquestion() {
+	public String goquestion(Model model) {
+		
+		List<CQBoard> questionList;
+		try {
+			questionList = mps.selectQuestion();
+			
+			/* model에 담아서 jsp페이지로 넘겨주기 > jsp에서는 ${ list.get(0).getCloverCnt} 이런식으로 불러다 쓰기 */
+			model.addAttribute("questionList", questionList);
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		} 
+		
 		return "myPage/question";
 	}
 	

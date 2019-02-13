@@ -1,6 +1,8 @@
 package com.kh.tt.myPage.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.tt.myPage.model.dao.MyPageDao;
 import com.kh.tt.myPage.model.exception.MyPageException;
+import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
 import com.kh.tt.myPage.model.vo.Payment;
 
@@ -41,6 +44,29 @@ public class MyPageServiceImpl implements MyPageService{
 		int result = mpd.insertPayment(sqlSession,pay);
 		
 		return result;
+	}
+
+
+	
+	//클로버 충전내역 조회
+	@Override
+	public Map<Object, Object> selectChargeLog() throws MyPageException {
+		
+		Map<Object, Object> hmap = new HashMap<Object, Object>();
+		
+		hmap = mpd.selectChargeLog(sqlSession);
+		
+		return hmap;
+	}
+
+	//My문의 페이지
+	@Override
+	public List<CQBoard> selectQuestion() throws MyPageException {
+
+		List<CQBoard> questionList = mpd.selectQuesion(sqlSession);
+		
+		
+		return questionList;
 	}
 
 }
