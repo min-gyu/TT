@@ -223,9 +223,9 @@
 										class="ion-android-remove-circle icons" id="addBanWord"></i>
 									&nbsp; <i class="ion-android-settings icons"
 										id="broadCastSetting"></i>
-									<button id="RoomBtn">Room</button>
+									<button id="RoomBtn" onclick="roomFunc();">Room</button>
 									<button id="ChatBtn" onclick="chatFunc();">Chat</button>
-									<button id="CloseRoomBtn">CloseRoomBtn</button>
+									<button id="CloseRoomBtn">방송시작</button>
 								</div>
 								</c:if>
 							</div>
@@ -237,7 +237,7 @@
 									<c:choose>
 										<c:when test="${ !empty loginUser }">
 										<textarea class="form-control" rows="4" width="100%"
-										style="height: 80px; resize: none" id="msg" name="msg" onkeyup="fc_chk_byte(this,20);" onkeypress="fc_chk2()" >								
+										style="height: 80px; resize: none" id="msg" name="msg" onkeyup="fc_chk_byte(this,20);" onkeypress="fc_chk2();" >								
 										</textarea>
 										</c:when>
 										<c:otherwise>
@@ -366,10 +366,11 @@
 	//textarea 엔터 사용 금지하는 메서드
  	function fc_chk2(){
   		if(event.keyCode == 13){
-		send();
+		$("#sendBtn").click();
    		event.returnValue=false;
 		}
 	}
+	
  
 
 </script>
@@ -391,30 +392,157 @@
 			console.log("방송채널 주인이 아닌 유저!");
 			chatFunc();
 		}else if("${ loginUser.userId }"=="${ param.owner }"){
-			console.log("방송채널 주인인 유저!");
-			
+			console.log("방송채널 주인인 유저!");		
 		}
 	});
+		$("#CloseRoomBtn").click(()=>{
+			roomFunc();
+			setTimeout(() => {
+				chatFunc();
+			}, 1000);
+		})
+	
 	
 	//방만들기, 방송시작과 같음 채팅 방을 만드는 메서드
-		$("#RoomBtn").click(function() {
+		function roomFunc() {
 			var socket = io.connect('http://localhost:8010/room', {
 				path : '/socket.io'	}); //localhost에 연결합니다.
 				axios({
 				    method: 'post',
 				    url: 'http://localhost:8010/room',
 				    params: {
-				      title:title,	
-				      owner:owner
+				      title:$("#title").val(),	
+				      owner:$("#creator").val()
+				    }
+				  })
+				  .then(function (response) {
+				    console.log(response.data);
+				  })
+				  .catch(function (error) {
+				  });
+		};
+		//채팅방 입장하기
+		function chatFunc(){
+			console.log("채팅창 연결");
+			var socket = io.connect('http://localhost:8010/chat', {
+				path : '/socket.io'	}); //localhost에 연결합니다.
+				
+			/* var userListSocket = io.connect('http://localhost:8010/userList',{
+				path : '/socket.io' });	 */
+			
+			socket.on('join',(data)=>{
+					console.log("join 이벤트 확인!")
+			 	  	console.log(data);
+			 		var $div = $("<div>");
+					$div.addClass("system");
+			      	$div.text(data.chat);
+			      $("#chattingDiv").append($div);
+			    });
+			
+			    socket.on('exit', function (data) {
+			    	console.log("exit 이벤트 확인!")
+			    	console.log(data);
+			    	var $div = $("<div>");
+					$div.addClass("system");
+			      	$div.text(data.chat);
+				    $("#chattingDiv").append($div);
+			    });
+			    
+			    socket.on('chat',(data)=>{
+			      console.log("chat 이벤트 확인!")
+			      console.log(data);
+			      var $div = $("<div>");
+			      if (data.user === $("#user").val()) {
+			    	  $div.addClass('mine');
+			      } else {
+			    	  $div.addClass('other');
+			      }
+			      var $divId = $("<div>").text(data.user);
+			      var $divChat = $("<div>").text(data.chat);
+			      $div.append($divId);
+			      $div.append($divChat);
+			      $("#chattingDiv").append($div);
+			      //스크롤을 아래로 따라가게 만드는 스크립트
+			      $("#chattingDiv").scrollTop($("#chattingDiv")[0].scrollHeight);
+			    });
+			    //axios를 이용해서 RoomId를 조회해서 response.data로 받음
+			    socket.on('joinRoom', function (data) {
+			    	console.log("joinRoom 신호받음")
+			    	axios({
+					    method: 'get',
+					    url: 'http://localhost:8010/chat/joinRoom/'+"${ param.owner }",	
+					    params: {
+					    	userSocketId:data,
+					    }
+					  })
+					  .then(function (response) {
+						  if(response.data.roomId==null){
+							  socket.disconnect();
+							  console.log("채팅창 연결 종료!");
+							  $("#sendBtn").attr('onclick', 'notSend()');
+							  swal({
+								  title: "경고",
+								  text: "방송이 종료 되었습니다.",
+								  icon: "warning",
+							}).then(()=>{
+								$("#msg").focus();
+							});					  
+						  }else{
+					   		//서버에 참여할 RoomId를 전송하면서 joinRoom 이벤트를 실행하라고 전달함.
+					  		socket.emit('joinRoom',{roomId:response.data.roomId, owner:$("#creator").val(),userSocketId:response.data.userSocketId,userId:$("#user").val()});		  		
+					  		var $conDiv = $("<div>").text("<<채팅방에 입장했습니다.>>");
+					  		$conDiv.addClass("system");
+					  		$("#chattingDiv").append($conDiv);
+					  		$("#chattingDiv").append("<br>");
+						  }
+					  })
+					  .catch(function (error) {
+						  console.log(error);
+					  });
+				});
+			};
+			function notSend(){
+				swal({
+					  title: "경고",
+					  text: "방송이 종료 되어 채팅을 보낼 수 없습니다.",
+					  icon: "warning",
+				}).then(()=>{
+					$("#msg").focus();
+				});
+			}
+			function send(){
+				console.log("send 메서드 메세지 전달!")
+				var msg = $("#msg").val();
+				if($("#msg").val().trim() != ""){
+				$("#msg").val("");
+				axios({
+				    method: 'post',
+				    url: 'http://localhost:8010/room/chat',
+				    params: {
+				    	owner:$("#creator").val(),
+				    	user:$("#user").val(),
+				    	msg:msg   	
 				    }
 				  })
 				  .then(function (response) {
 				    console.log(response);
 				  })
 				  .catch(function (error) {
+					  console.log(error);
+					  console.log("채팅전달 error");
 				  });
-		});
-		//방 제거하기, 방송종료 메서드, 몽구스DB에서도 방을 삭제해서 이걸 지워야하나 말아야하나 고민중 
+				}else{
+					swal({
+						  title: "경고",
+						  text: "공백 메세지는 보낼 수 없습니다.",
+						  icon: "warning",
+					}).then(()=>{
+						$("#msg").focus();
+					});
+					
+				}
+			}
+		/*방 제거하기, 방송종료 메서드, 몽구스DB에서도 방을 삭제해서 이걸 지워야하나 말아야하나 고민중 
 		$("#CloseRoomBtn").click(function(){
 			axios({
 			    method: 'delete',
@@ -430,15 +558,15 @@
 				  console.log(error);
 				  console.log("방 삭제 error");
 			  });
-		});
+		}); */
 		//채팅입장 메서드, axios로 크리에이터 아이디로 RoomId를 조회하고 그값으로 그방에 room()한다.
-			$("#ChatBtn").click(function(){
+			/* $("#ChatBtn").click(function(){
 			console.log("채팅창 연결");
 			var socket = io.connect('http://localhost:8010/chat', {
 				path : '/socket.io'	}); //localhost에 연결합니다.
 				
-			/* var userListSocket = io.connect('http://localhost:8010/userList',{
-				path : '/socket.io' });	 */
+			 var userListSocket = io.connect('http://localhost:8010/userList',{
+				path : '/socket.io' });	 
 			
 			var $conDiv = $("<div>").text("<<채팅방에 입장했습니다.>>");
 			$conDiv.addClass("system");
@@ -494,7 +622,7 @@
 					  .catch(function (error) {
 						  
 					  });
-				});
+				}); */
 			    //유저 방떠나기 기능, 굳이 없어도 돼서 주석처리 / 이유 : 유저가 채팅방을 선택해서 나가지 않고 disconnect로 나가기 때문에 disconnect로 처리함
 			   /*  socket.on('leaveRoom', function (data) {
 			    	axios({
@@ -525,101 +653,8 @@
 					  .catch(function (error) {
 						  
 					  });
-			    }) */
-		});	
-	function send(){
-			var msg = $("#msg").val();
-			if($("#msg").val().trim() != ""){
-			$("#msg").val("");
-			axios({
-			    method: 'post',
-			    url: 'http://localhost:8010/room/'+owner+'/chat',
-			    params: {
-			    	user:$("#user").val(),
-			    	msg:msg
-			    }
-			  })
-			  .then(function (response) {
-			    console.log(response);
-			  })
-			  .catch(function (error) {
-				  console.log(error);
-				  console.log("방 삭제 error");
-			  });
-			}else{
-				swal({
-					  title: "경고",
-					  text: "공백 메세지는 보낼 수 없습니다.",
-					  icon: "warning",
-				}).then(()=>{
-					$("#msg").focus();
-				});
-				
-			}
-		}
-	function chatFunc(){
-		console.log("채팅창 연결");
-		var socket = io.connect('http://localhost:8010/chat', {
-			path : '/socket.io'	}); //localhost에 연결합니다.
-			
-		/* var userListSocket = io.connect('http://localhost:8010/userList',{
-			path : '/socket.io' });	 */
-		
-		var $conDiv = $("<div>").text("<<채팅방에 입장했습니다.>>");
-		$conDiv.addClass("system");
-		$("#chattingDiv").append($conDiv);
-		$("#chattingDiv").append("<br>");
-		
-		socket.on('join',(data)=>{
-		 	  	console.log(data);
-		 		var $div = $("<div>");
-				$div.addClass("system");
-		      	$div.text(data.chat);
-		      $("#chattingDiv").append($div);
-		    });
-		
-		    socket.on('exit', function (data) {
-		    	console.log(data);
-		    	var $div = $("<div>");
-				$div.addClass("system");
-		      	$div.text(data.chat);
-			    $("#chattingDiv").append($div);
-		    });
-		    
-		    socket.on('chat',(data)=>{
-		      console.log(data);
-		      var $div = $("<div>");
-		      if (data.user === $("#user").val()) {
-		    	  $div.addClass('mine');
-		      } else {
-		    	  $div.addClass('other');
-		      }
-		      var $divId = $("<div>").text(data.user);
-		      var $divChat = $("<div>").text(data.chat);
-		      $div.append($divId);
-		      $div.append($divChat);
-		      $("#chattingDiv").append($div);
-		      //스크롤을 아래로 따라가게 만드는 스크립트
-		      $("#chattingDiv").scrollTop($("#chattingDiv")[0].scrollHeight);
-		    });
-		    //axios를 이용해서 RoomId를 조회해서 response.data로 받음
-		    socket.on('joinRoom', function (data) {
-		    	console.log("joinRoom 신호받음")
-		    	axios({
-				    method: 'get',
-				    url: 'http://localhost:8010/chat/joinRoom/'+"${ param.owner }",	
-				    params: {
-				    	userSocketId:data,
-				    }
-				  })
-				  .then(function (response) {
-				    //서버에 참여할 RoomId를 전송하면서 joinRoom 이벤트를 실행하라고 전달함.
-				    socket.emit('joinRoom',{roomId:response.data.roomId, owner:$("#creator").val(),userSocketId:response.data.userSocketId,userId:$("#user").val()});
-				  })
-				  .catch(function (error) {
-					  
-				  });
-			});
+			    }) 
+		});	*/	
 		    //유저 방떠나기 기능, 굳이 없어도 돼서 주석처리 / 이유 : 유저가 채팅방을 선택해서 나가지 않고 disconnect로 나가기 때문에 disconnect로 처리함
 		   /*  socket.on('leaveRoom', function (data) {
 		    	axios({
@@ -651,6 +686,5 @@
 					  
 				  });
 		    }) */
-	}
 </script>
 </html>
