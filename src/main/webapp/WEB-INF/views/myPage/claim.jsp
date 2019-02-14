@@ -2,6 +2,7 @@
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		
 	<section class="post-content-area single-post-area">
 		<div class="container">
@@ -12,27 +13,23 @@
 						<br>
 						<!-- My신고 내역 조회 -->
 						<div>
-						  <table class="ui green table">
+						  <table class="ui green table" id="claimTable">
 						  <thead>
 						    <th>No.</th>
 						    <th>신고유형</th>
 						    <th>제목</th>
 						    <th>내용</th>
 						    <th>신고날짜</th>
-						    <tr>
-						      <td>1</td>
-						      <td>저작권 침해</td>
-						      <td>저작권</td>
-						      <td>제가 올린 VOD를 일부분만 수정하여 게시하였습니다.</td>
-						      <td>2019/01/15</td>
-						    </tr>
-						    <tr>
-						      <td>2</td>
-						      <td>청소년 유해</td>
-						      <td>음란</td>
-						      <td>미성년자가 시청하기에 매우 음란합니다.</td>
-						      <td>2019/01/27</td>
-						    </tr>
+						    <!-- ** jstl 반복문 ** - jstl 선언문 반드시 쓰기!! -->  
+						 <c:forEach items="${ claimList }" var="cl"> 
+						   <tr>
+						      <td>${cl.cqNo }</td>
+						      <td>${cl.cqClass }</td>
+						      <td>${cl.cqTitle }</td>
+						      <td>${cl.cqContent}</td>
+						      <td>${cl.cqDate }</td>
+						    </tr> 
+						 </c:forEach>
 						  </tbody>
 						</table>
 						
@@ -41,6 +38,21 @@
 						</div>
 						</div>
 						
+						
+						<!-- 게시판 클릭시 -->
+						<script>
+							$(function(){
+								$("#claimTable").find("td").mouseenter(function(){
+									$(this).parents("tr").css({"background":"green","color":"white","cursor":"pointer"});
+								}).mouseout(function(){
+									$(this).parents("tr").css({"background":"white","color":"black"});
+								}).click(function(){
+									var bid=$(this).parents().children("td").eq(0).text();
+									/* console.log(bid2); */
+									location.href="selectClaimOne.me?bid="+bid;
+								});
+							});
+						</script>
 						
 						
 					</div>	

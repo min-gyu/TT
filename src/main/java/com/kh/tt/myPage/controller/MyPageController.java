@@ -1,9 +1,11 @@
 package com.kh.tt.myPage.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -115,27 +117,87 @@ public class MyPageController {
 	
 	//My문의 페이지
 	@RequestMapping("question.me")
-	public String goquestion(Model model) {
+	public String goquestion(Model model, HttpServletRequest request, HttpServletResponse response) {
 		
 		List<CQBoard> questionList;
+
+		int cqUno = Integer.parseInt(request.getParameter("cqUno"));
+		
 		try {
-			questionList = mps.selectQuestion();
+			questionList = mps.selectQuestion(cqUno);
 			
 			/* model에 담아서 jsp페이지로 넘겨주기 > jsp에서는 ${ list.get(0).getCloverCnt} 이런식으로 불러다 쓰기 */
 			model.addAttribute("questionList", questionList);
 			
 		} catch (MyPageException e) {
 			e.printStackTrace();
-		} 
+		}
 		
 		return "myPage/question";
 	}
 	
+	
+	//My문의 페이지 상세보기
+		@RequestMapping("selectQuestionOne.me")
+		public String selectQuestionOne(Model model, HttpServletRequest request, HttpServletResponse response) {
+			
+			int bid = Integer.parseInt(request.getParameter("bid"));
+			
+			try {
+				CQBoard questionOne = mps.selectQuestionOne(bid);
+				
+				model.addAttribute("questionOne", questionOne);
+				
+			} catch (MyPageException e) {
+				e.printStackTrace();
+			}
+			
+			return "myPage/selectQuestionOne";
+		}
+	
+	
+	
 	//My신고 페이지
 	@RequestMapping("claim.me")
-	public String goclaim() {
+	public String goclaim(Model model,HttpServletRequest request, HttpServletResponse response) {
+		
+		List<CQBoard> claimList;
+		
+		int cqUno = Integer.parseInt(request.getParameter("cqUno"));
+		
+		try {
+			claimList = mps.selectClaim(cqUno);
+			
+			/* model에 담아서 jsp페이지로 넘겨주기 > jsp에서는 ${ list.get(0).getCloverCnt} 이런식으로 불러다 쓰기 */
+			model.addAttribute("claimList", claimList);
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		} 
+		
 		return "myPage/claim";
 	}
+	
+	//My신고 페이지 상세보기
+	@RequestMapping("selectClaimOne.me")
+	public String selectClaimOne(Model model,HttpServletRequest request, HttpServletResponse response) {
+		
+		int bid = Integer.parseInt(request.getParameter("bid"));
+		
+		try {
+			CQBoard claimOne = mps.selectClaimOne(bid);
+			
+			model.addAttribute("claimOne", claimOne);
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "myPage/selectClaimOne";
+	}
+	
+	
 	
 	//방송통계 페이지
 	@RequestMapping("broadcastTotal.me")

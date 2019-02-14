@@ -23,6 +23,15 @@ public interface MyPageDao {
 	Map<Object, Object> selectChargeLog(SqlSessionTemplate sqlSession) throws MyPageException;
 
 	//My문의 페이지
-	List<CQBoard> selectQuesion(SqlSessionTemplate sqlSession) throws MyPageException;
+	List<CQBoard> selectQuesion(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException;
+
+	//My문의 게시물 상세보기
+	CQBoard selectQuestionOne(SqlSessionTemplate sqlSession, int bid) throws MyPageException;
+
+	//My신고 페이지
+	List<CQBoard> selectClaim(SqlSessionTemplate sqlSession,int cqUno) throws MyPageException;
+
+	//My신고 게시물 상세보기
+	CQBoard selectClaimOne(SqlSessionTemplate sqlSession, int bid) throws MyPageException;
 
 }

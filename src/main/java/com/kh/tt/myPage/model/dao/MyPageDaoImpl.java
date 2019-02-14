@@ -64,9 +64,10 @@ public class MyPageDaoImpl implements MyPageDao{
 	
 	//My문의 페이지
 	@Override
-	public List<CQBoard> selectQuesion(SqlSessionTemplate sqlSession) throws MyPageException {
+	public List<CQBoard> selectQuesion(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException {
 		
-		List<CQBoard> questionList = sqlSession.selectList("CQBoard.selectQuestion");
+		List<CQBoard> questionList = sqlSession.selectList("CQBoard.selectQuestion", cqUno);
+		System.out.println("Dao결과 : "+questionList);
 		
 		if(questionList == null) {
 			throw new MyPageException("My문의 페이지 조회 실패!");
@@ -75,5 +76,49 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		return questionList;
 	}
+
+	//My문의 게시글 상세보기
+	@Override
+	public CQBoard selectQuestionOne(SqlSessionTemplate sqlSession, int bid) throws MyPageException {
+		
+		CQBoard questionOne = sqlSession.selectOne("CQBoard.selectQuestionOne",bid);
+		
+		if(questionOne == null) {
+			throw new MyPageException("My문의 게시글 상세보기 실패!");
+		}
+		
+		return questionOne;
+	}
+	
+	
+	
+	
+	//My신고 페이지
+	@Override
+	public List<CQBoard> selectClaim(SqlSessionTemplate sqlSession,int cqUno) throws MyPageException {
+
+		List<CQBoard> claimList = sqlSession.selectList("CQBoard.selectClaim",cqUno);
+		
+		if(claimList == null) {
+			throw new MyPageException("My신고 페이지 조회 실패!");
+		}
+		
+		
+		return claimList;
+	}
+
+	//My문의 게시글 상세보기
+	@Override
+	public CQBoard selectClaimOne(SqlSessionTemplate sqlSession, int bid) throws MyPageException {
+
+		CQBoard claimOne = sqlSession.selectOne("CQBoard.selectClaimOne",bid);
+		
+		if(claimOne == null) {
+			throw new MyPageException("My신고 게시글 상세보기 실패!");
+		}
+		return claimOne;
+	}
+
+
 
 }

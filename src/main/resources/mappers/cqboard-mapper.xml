@@ -22,11 +22,35 @@
 	</resultMap>
 	
 	<!-- My문의 내역 조회 -->
-	<select id="selectQuestion" resultMap="cqBoardResultSet" >
+	<select id="selectQuestion" parameterType="_int"  resultMap="cqBoardResultSet" >
 		SELECT *
 		FROM CQBOARD
+		WHERE CQ_TYPE = 'QUESTION' AND CQ_UNO=#{cqUno}
 	</select> 
 	
+	<!-- My문의 게시물 상세보기 -->
+	<select id="selectQuestionOne" parameterType="_int" resultMap="cqBoardResultSet" >
+		SELECT *
+		FROM CQBOARD
+		WHERE CQ_NO=#{bid}
+	</select> 
+	
+	
+	
+	<!-- My신고 내역 조회 -->
+	<select id="selectClaim"  parameterType="_int" resultMap="cqBoardResultSet" >
+		SELECT *
+		FROM CQBOARD
+		WHERE CQ_TYPE = 'CLAIM' AND CQ_UNO=#{cqUno}
+	</select> 
+	
+	<!-- My신고 게시물 상세보기 -->
+	<select id="selectClaimOne" parameterType="_int" resultMap="cqBoardResultSet" >
+		SELECT *
+		FROM CQBOARD
+		WHERE CQ_NO=#{bid}
+	</select> 
+
 	
 	
 </mapper>

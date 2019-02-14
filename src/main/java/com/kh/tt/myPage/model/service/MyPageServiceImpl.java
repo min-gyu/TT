@@ -61,12 +61,42 @@ public class MyPageServiceImpl implements MyPageService{
 
 	//My문의 페이지
 	@Override
-	public List<CQBoard> selectQuestion() throws MyPageException {
+	public List<CQBoard> selectQuestion(int cqUno) throws MyPageException {
 
-		List<CQBoard> questionList = mpd.selectQuesion(sqlSession);
+		List<CQBoard> questionList = mpd.selectQuesion(sqlSession,cqUno);
 		
 		
 		return questionList;
 	}
+
+	//My문의 게시글 상세보기
+	@Override
+	public CQBoard selectQuestionOne(int bid) throws MyPageException {
+		
+		CQBoard questionOne = mpd.selectQuestionOne(sqlSession, bid);
+		
+		return questionOne;
+	}
+	
+	
+	
+	//My신고 페이지
+		@Override
+		public List<CQBoard> selectClaim(int cqUno) throws MyPageException {
+			
+			List<CQBoard> claimList = mpd.selectClaim(sqlSession, cqUno);
+			
+			return claimList;
+		}
+
+		//My신고 게시글 상세보기
+		@Override
+		public CQBoard selectClaimOne(int bid) throws MyPageException {
+			
+			CQBoard claimOne = mpd.selectClaimOne(sqlSession, bid);
+			
+			return claimOne;
+		}
+
 
 }
