@@ -14,7 +14,10 @@
 		http://www.springframework.org/schema/aop 
 	  	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
-	<!-- <annotation-driven /> -->
+	<!-- 
+	<annotation-driven /> 
+	<mvc:annotation-driven /> 
+	-->
 	
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 
@@ -37,7 +40,7 @@
 	
 	<!-- jsonView 설정 -->
 	<beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView" >
-		<beans:property name="contentType" value="application/json;charset=UTF-8" />
+		<!-- <beans:property name="contentType" value="application/json;charset=UTF-8" /> -->
 	</beans:bean>
 	
 	<!-- BeanNameViewResolver는 없는 자원에 대해 논리적 이름을 가지고 view를 지정한다. -->
@@ -58,6 +61,6 @@
 
 	<context:component-scan base-package="com.kh.tt" />
 	
-	<mvc:annotation-driven />
+	<annotation-driven />
 	
 </beans:beans>

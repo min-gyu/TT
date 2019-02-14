@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javax.mail.MessagingException;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,6 +22,7 @@ public class MailUtils {
 	private CommonUtils commonUtils = new CommonUtils();
 	private FileIO fileIO 			= new FileIOImpl();
 	
+	@Autowired
 	private MailHandler mailHandler;
 	
 	public MailUtils() { }
@@ -31,9 +33,10 @@ public class MailUtils {
 	
 	public String sendAuthEmail(String toEmail) throws UnsupportedEncodingException, MessagingException {
 		StringBuilder fileSB =  fileIO.read("auth.html");
+		logger.info("fileSB > " + fileSB.toString());
 		String keyCode 		 = commonUtils.getEmailKeyCode();
 		String contentHtml 	 = fileSB.toString().replace("####", keyCode);
-		String subject 		 = "인증번호를 확인해주세요.";
+		String subject 		 = "[Today's TV] 인증번호 입니다.";
 		mailHandler.sendEmail(fromEmail, toEmail, subject, contentHtml);
 		return keyCode;
 	}

@@ -1,6 +1,9 @@
 package com.kh.tt.common;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.Properties;
 
 import javax.mail.MessagingException;
@@ -22,6 +25,7 @@ public class CommonUtilsTest {
 	private JavaMailSenderImpl javaMailSender;
 	
 	@Before
+	@Ignore
 	public void init() throws MessagingException {
 		common = new CommonUtils();
 		javaMailSender = new JavaMailSenderImpl();
@@ -42,11 +46,20 @@ public class CommonUtilsTest {
 	}
 	
 	@Test
+	public void test() {
+		String path = FileSystems.getDefault().getPath(".").toAbsolutePath().toString();
+        System.out.println("현재 프로젝트의 경로 : " + path );
+	}
+	
+	@Test
+	@Ignore
 	public void mailContent() {
 		
 		FileIO fileIO = new FileIOImpl();
-		String projectPath = System.getProperty("user.dir");
-		
+		//String projectPath = System.getProperty("user.dir");
+		//C:\Users\cstonny\eclipse\jee-oxygen\eclipse\src\main\webapp\WEB-INF\views\common\email\auth.html
+		//C:\Users\cstonny\eclipse\jee-oxygen\eclipse\src\main\webapp\WEB-INF\views\common\email\auth.html
+		//C:\Users\cstonny\git\TT\src\main\webapp\WEB-INF\views\common\email
 		StringBuilder fileSB =  fileIO.read("auth.html");
 		
 		String convertStr = "####";
@@ -54,7 +67,6 @@ public class CommonUtilsTest {
 		
 		String contentHtml = fileSB.toString().replace(convertStr, key);
 
-		logger.info(projectPath);
 		logger.info(contentHtml);
 	}
 	

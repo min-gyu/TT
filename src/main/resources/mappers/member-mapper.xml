@@ -5,7 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="Member">
-	<resultMap type="com.kh.tt.member.model.vo.Member" id="memberResultSet">
+	<resultMap type="com.kh.tt.member.model.vo.Member" id="memberVO">
 		<!-- property 필드명, column 컬럼명과 일치해야 한다 -->
 		<id property="uno" column="M_UNO"/>
 		<result property="userId" column="M_ID"/>
@@ -16,18 +16,19 @@
 		<result property="gender" column="M_GENDER"/>
 		<result property="email" column="M_EMAIL"/>
 		<result property="enrollDate" column="M_ENROLL_DATE"/>
-		<result property="bankNo" column="M_BANK_NO"/>
 		<result property="bank" column="M_BANK"/>
+		<result property="bankNo" column="M_BANK_NO"/>
 		<result property="warningNo" column="M_WARNING_NO"/>
-		<result property="status" column="M_STATUS"/>
 		<result property="banStatus" column="M_BAN_STATUS"/>
+		<result property="status" column="M_STATUS"/>
 		<result property="reason" column="M_REASON"/>
+		<result property="leaveDate" column="M_LEAVE_DATE"/>
 		<result property="btYN" column="M_BT_YN"/>
 		<result property="totalClover" column="M_TOTAL_CLOVER"/>
 		<result property="adminYN" column="M_ADMIN_YN"/>
 	</resultMap>
 	
-	<select id="loginCheck" parameterType="Member" resultMap="memberResultSet" >
+	<select id="loginCheck" parameterType="com.kh.tt.member.model.vo.Member" resultMap="memberVO" >
 		SELECT * 
 		FROM MEMBER
 		WHERE M_ID = #{userId}
@@ -36,7 +37,7 @@
 		AND M_BAN_STATUS = 'N'
 	</select>
 	
-	<insert id="insertMember" parameterType="Member">
+	<insert id="insertMember" parameterType="com.kh.tt.member.model.vo.Member" >
 		INSERT INTO MEMBER
 		VALUES(
 		SEQ_M_UNO.NEXTVAL
@@ -54,6 +55,7 @@
 		, DEFAULT
 		, DEFAULT
 		, NULL
+		, NULL
 		, DEFAULT
 		, DEFAULT
 		, DEFAULT
@@ -69,7 +71,7 @@
 	</select>
 	
 	<!-- 로그인 정보 조회용 메소드 -->
-	<select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
+	<select id="selectLoginUser" resultMap="memberVO" parameterType="com.kh.tt.member.model.vo.Member">
 		SELECT *
 		FROM MEMBER
 		WHERE M_ID = #{userId}
@@ -91,7 +93,7 @@
 	</select>
 	
 	<!-- 회원 전체 조회  -->
-	<select id="memberList" resultMap="memberResultSet">
+	<select id="memberList" resultMap="memberVO">
 		SELECT M_UNO
 		 , M_NAME
 	     , M_ID
@@ -107,7 +109,7 @@
 	</select>
 	
 	<!-- 정지 회원 조회 -->
-	<select id="memberBanList" resultMap="memberResultSet">
+	<select id="memberBanList" resultMap="memberVO">
 		SELECT M_UNO
 	     , M_NAME
 	     , M_ID

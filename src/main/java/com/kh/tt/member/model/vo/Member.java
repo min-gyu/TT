@@ -1,7 +1,6 @@
 package com.kh.tt.member.model.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
@@ -12,25 +11,26 @@ public class Member implements java.io.Serializable{
 	private String nickName;
 	private String userName;
 	private String userPwd;
-	private Date birth;
+	private String birth;
 	private String gender;
 	private String email;
-	private Date enrollDate;
-	private String bankNo;
+	private String enrollDate;
 	private String bank;
+	private String bankNo;
 	private int warningNo;
-	private String status;
 	private String banStatus;
+	private String status;
 	private String reason;
+	private String leaveDate;
 	private String btYN;
 	private int totalClover;
 	private String adminYN;
 	
 	public Member() {}
 
-	public Member(int uno, String userId, String nickName, String userName, String userPwd, Date birth, String gender,
-			String email, Date enrollDate, String bankNo, String bank, int warningNo, String status, String banStatus,
-			String reason, String btYN, int totalClover, String adminYN) {
+	public Member(int uno, String userId, String nickName, String userName, String userPwd, String birth, String gender,
+			String email, String enrollDate, String bank, String bankNo, int warningNo, String banStatus, String status,
+			String reason, String leaveDate, String btYN, int totalClover, String adminYN) {
 		super();
 		this.uno = uno;
 		this.userId = userId;
@@ -41,12 +41,13 @@ public class Member implements java.io.Serializable{
 		this.gender = gender;
 		this.email = email;
 		this.enrollDate = enrollDate;
-		this.bankNo = bankNo;
 		this.bank = bank;
+		this.bankNo = bankNo;
 		this.warningNo = warningNo;
-		this.status = status;
 		this.banStatus = banStatus;
+		this.status = status;
 		this.reason = reason;
+		this.leaveDate = leaveDate;
 		this.btYN = btYN;
 		this.totalClover = totalClover;
 		this.adminYN = adminYN;
@@ -92,11 +93,11 @@ public class Member implements java.io.Serializable{
 		this.userPwd = userPwd;
 	}
 
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
 
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 
@@ -116,20 +117,12 @@ public class Member implements java.io.Serializable{
 		this.email = email;
 	}
 
-	public Date getEnrollDate() {
+	public String getEnrollDate() {
 		return enrollDate;
 	}
 
-	public void setEnrollDate(Date enrollDate) {
+	public void setEnrollDate(String enrollDate) {
 		this.enrollDate = enrollDate;
-	}
-
-	public String getBankNo() {
-		return bankNo;
-	}
-
-	public void setBankNo(String bankNo) {
-		this.bankNo = bankNo;
 	}
 
 	public String getBank() {
@@ -140,20 +133,20 @@ public class Member implements java.io.Serializable{
 		this.bank = bank;
 	}
 
+	public String getBankNo() {
+		return bankNo;
+	}
+
+	public void setBankNo(String bankNo) {
+		this.bankNo = bankNo;
+	}
+
 	public int getWarningNo() {
 		return warningNo;
 	}
 
 	public void setWarningNo(int warningNo) {
 		this.warningNo = warningNo;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public String getBanStatus() {
@@ -164,12 +157,28 @@ public class Member implements java.io.Serializable{
 		this.banStatus = banStatus;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public String getReason() {
 		return reason;
 	}
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+
+	public String getLeaveDate() {
+		return leaveDate;
+	}
+
+	public void setLeaveDate(String leaveDate) {
+		this.leaveDate = leaveDate;
 	}
 
 	public String getBtYN() {
@@ -200,10 +209,11 @@ public class Member implements java.io.Serializable{
 	public String toString() {
 		return "Member [uno=" + uno + ", userId=" + userId + ", nickName=" + nickName + ", userName=" + userName
 				+ ", userPwd=" + userPwd + ", birth=" + birth + ", gender=" + gender + ", email=" + email
-				+ ", enrollDate=" + enrollDate + ", bankNo=" + bankNo + ", bank=" + bank + ", warningNo=" + warningNo
-				+ ", status=" + status + ", banStatus=" + banStatus + ", reason=" + reason + ", btYN=" + btYN
-				+ ", totalClover=" + totalClover + ", adminYN=" + adminYN + "]";
+				+ ", enrollDate=" + enrollDate + ", bank=" + bank + ", bankNo=" + bankNo + ", warningNo=" + warningNo
+				+ ", banStatus=" + banStatus + ", status=" + status + ", reason=" + reason + ", leaveDate=" + leaveDate
+				+ ", btYN=" + btYN + ", totalClover=" + totalClover + ", adminYN=" + adminYN + "]";
 	}
 
+	
 	
 }

@@ -3,30 +3,20 @@ package com.kh.tt.member.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.tt.common.CommonUtils;
 import com.kh.tt.common.LoginLoggin;
@@ -42,6 +32,10 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService ms;
+	
+	@Autowired
+	private MailUtils mailUtils;
+	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
@@ -95,8 +89,8 @@ public class MemberController {
 		return "redirect:goMain.me";
 	}
 	
-	@PostMapping(value = "insertMember.me")
-	public String insertMember(Model model, Member m) {
+	@RequestMapping(value = "insertMember.me", method=RequestMethod.POST)
+	public String insertMember(Member m, Model model) {
 		System.out.println("member > " + m);
 		try {
 			String encPassword = passwordEncoder.encode(m.getUserPwd());
@@ -104,15 +98,19 @@ public class MemberController {
 			
 			m.setUserPwd(encPassword);
 			
-			int result = ms.insertMember(m);
+			ms.insertMember(m);
 			
 			return "redirect:goMain.me";
 			
 		} catch (Exception e) {
+			logger.info("error : > " + e);
+			System.out.println("member > " + e.toString());
+			
 			model.addAttribute("msg", "회원 가입 실패 8ㅁ8");
 			return "common/errorPage";
 		}
 	}
+	
 		
 	/**
 	 * @author jy
@@ -156,7 +154,6 @@ public class MemberController {
 		 String toEmail = (String)reqMap.get("email");
 		 HashMap<String, Object> resultMap = new HashMap<>();
 		 
-		 MailUtils mailUtils = new MailUtils();
 		 String keyCode = mailUtils.sendAuthEmail(toEmail);
 		 resultMap.put("keyCode", keyCode);
 		 return resultMap;

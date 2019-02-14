@@ -2,14 +2,14 @@
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
 
 	<style type="text/css">
-	.btn-warning {
-	    margin-left: 10px;
-	    margin-bottom: 5px;
-	}
-	.join_div {
-		text-align: center;
-		margin-bottom: 25px;
-	}
+		.btn-warning {
+		    margin-left: 10px;
+		    margin-bottom: 5px;
+		}
+		.join_div {
+			text-align: center;
+			margin-bottom: 25px;
+		}
 	</style>
 	
 	<script type="text/javascript">
@@ -36,31 +36,22 @@
 					    	 			resultValue 	: resultValue
 									}
 					};
-			
-			data = JSON.stringify(data);
-
-			$.ajax({
-		         type			:"post"
-		        ,url			: url
-			  	,data			: data
-		        ,contentType	: "application/json; charset=UTF-8"
-		        ,success		: function(resultData, status, headers, config){
-							        	var ret_code 	= resultData.ret_code;
-							        	var ret_message = resultData.ret_message;
-							        	
-							        	switch (ret_code) {
-											case "E":
-												alert("에러가 발생했습니다. : \n" + ret_message);
-											break;
-											
-											case "S":
-												alert(ret_message);
-											break;
-										}
-							        }
-		        ,error 			: function(request,status,error){ alert(error); }
-				,complete		: function(jqXHR){  } // 요청의 실패, 성공과 상관 없이 완료 될 경우 호출
-		    }); 
+			var afterFn = function(resultData, status, headers, config){
+					        	var ret_code 	= resultData.ret_code;
+					        	var ret_message = resultData.ret_message;
+					        	
+					        	switch (ret_code) {
+									case "E":
+										alert("에러가 발생했습니다. : \n" + ret_message);
+									break;
+									
+									case "S":
+										alert(ret_message);
+									break;
+								}
+					       };
+					       
+			fn_callAjax(url, data, afterFn);
 		}
 		
 		function fn_sendEmail(){
@@ -71,37 +62,30 @@
 									}
 					};
 
-			data = JSON.stringify(data);
 			var afterFn = function(resultData, status, headers, config){
 						  	alert("이메일을 확인해주세요.");
+						  	var keyCode = resultData["keyCode"];
+						  	$("#cNum").attr("keyCode", keyCode);
+						  	
 					      };
-			
 			fn_callAjax(url, data, afterFn);
+		};
+		
+		function fn_confirm(){
+			var input = $("#cNum").val();
+			var keyCode = $("#cNum").attr("keyCode");
+			
+			console.log(input);
+			console.log(keyCode);
+			
+			if (keyCode == input){
+				alert("인증되었습니다.")
+				$("#submitBtn").focus();
+			} else{
+				alert("입력한 값이 일치하지 않습니다.")
+			}
 			
 		};
-		var formData = JSON.stringify($("#myForm").serializeArray());
-		
-
-		$(function(){
-			jQuery.fn.serializeObject = function() { var obj = null; try { if(this[0].tagName && this[0].tagName.toUpperCase() == "FORM" ) { var arr = this.serializeArray(); if(arr){ obj = {}; jQuery.each(arr, function() { obj[this.name] = this.value; }); } } }catch(e) { alert(e.message); }finally {} return obj; }
-			
-			$("#submitBtn").bind("click",function(){
-				var data = $("#myForm").serializeObject();
-				
-				$.ajax({
-			         type			:"post"
-			        ,url			:"insertMember.me"
-				  	,data			: data
-			        ,contentType	: "application/json; charset=UTF-8"
-			        ,success		: function(resultData, status, headers, config){  }
-			        ,error 			: function(request,status,error){ alert(error); }
-					,complete		: function(jqXHR){  } // 요청의 실패, 성공과 상관 없이 완료 될 경우 호출
-			    }); 
-				
-			})
-		})
-		
-		
 	</script>
 	
 	<section class="login first grey">
@@ -110,7 +94,7 @@
 				<div class="box box-border">
 					<div class="box-body">
 						<h3>회원가입</h3>
-						<form id="myForm" action="insertMember.me" method="post" class="form-horizontal" >
+						<form id="myForm" action="/insertMember.me" method="post" class="form-horizontal">
 							<div class="form-group">
 								<label>아이디</label>
 								<!-- <a href="#" class="pull-right result"><span class="msg">아이디를 확인해주세요</span></a> -->
@@ -128,7 +112,7 @@
 								<label>이름</label>
 								<input type="text" name="userName" class="form-control">
 							</div>
-							
+							 
 							<div class="form-group">
 								<label class="fw">비밀번호</label>
 								<input type="password" name="userPwd" class="form-control">
@@ -136,13 +120,14 @@
 							
 							<div class="form-group">
 								<label class="fw">비밀번호 확인</label>
-								<input type="password" name="userPwdCheck" class="form-control">
+								<input type="password" id="userPwdCheck" class="form-control">
 							</div>
-							
+							 
 							<div class="form-group">
 								<label class="fw">생년월일</label>
 								<input type="date" class="form-control onlyNumber" name="birth" placeholder="YYYY-MM-DD">
 							</div>
+							
 							
 							<div class="form-group">
 								<label class="fw">성별</label>
@@ -165,15 +150,15 @@
 							
 							<div class="form-group">
 								<label>인증번호</label>
-								<input type="text" name="cNum" class="form-control">
+								<input type="text" id="cNum" class="form-control">
 							</div>
 							
 							<div class="join_div">
-								<button type="button" class="btn btn-secondary bt-lg">확인</button>
+								<button type="button" class="btn btn-secondary bt-lg" onclick="fn_confirm();">확인</button>
 							</div>
 							
 							<div class="form-group text-right">
-								<button type="button" class="btn btn-primary btn-block" id="submitBtn">회원가입</button>
+								<button type="submit" class="btn btn-primary btn-block" id="submitBtn">회원가입</button>
 							</div>
 							
 							<div class="form-group text-center">
