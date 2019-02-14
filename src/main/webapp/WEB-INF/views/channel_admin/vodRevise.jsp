@@ -45,8 +45,6 @@
 	href="/resources/channel/channel2/css/skins/all.css">
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
 <style type="text/css">
-
-
 input.upload_text { /*읽기전용 인풋텍스트*/
 	float: left;
 	width: 230px; /* 버튼 포함 전체 가로 길이*/
@@ -84,39 +82,14 @@ div.upload-btn_wrap button { /*버튼 div*/
 	border: 1px solid #333;
 	color: #fff;
 }
-#saveBtn{
-	width:20%;
+
+#saveBtn {
+	width: 20%;
 }
 </style>
 </head>
 <body>
-	<!-- header -->
-
-	<header id="header">
-		<div class="container main-menu">
-			<div class="row align-items-center justify-content-between d-flex">
-				<a href="index.html"><img src="/resources/images/logo.png"
-					alt="Today's TV" style="width: 300px;"></a>
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-						<!-- 공간 비율때문에 넣음 -->
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
-						<li class="menu-has-children"><a href="">abc123</a>
-							<ul>
-								<li><a href="blog-home.html">로그아웃</a></li>
-								<li><a href="blog-single.html">마이페이지</a></li>
-							</ul></li>
-						<li><a href="elements.html">방송하기</a></li>
-					</ul>
-				</nav>
-				<!-- #nav-menu-container -->
-			</div>
-		</div>
-	</header>
-
-	<!-- header -->
+	<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
 
 	<!-- Start post-content Area -->
 	<section class="post-content-area single-post-area">
@@ -151,17 +124,20 @@ div.upload-btn_wrap button { /*버튼 div*/
 								</tr>
 								<tr>
 									<th style="width: 20%; text-align: center">첨부동영상</th>
-									<td><!--input box--> <input type="text"
-										class="upload_text" readonly="readonly"> <!--button-->
+									<td>
+										<!--input box--> <input type="text" class="upload_text"
+										readonly="readonly"> <!--button-->
 										<div class="upload-btn_wrap">
 											<button type="button" title="파일찾기">
 												<span>파일찾기</span>
 											</button>
 											<input type="file" class="input_file" title="파일찾기">
-										</div></td>
+										</div>
+									</td>
 								</tr>
 								<tr>
-									<td colspan="2" align="center"><button type="button" class="btn btn-dark" id="saveBtn">수정</button></td>
+									<td colspan="2" align="center"><button type="button"
+											class="btn btn-dark" id="saveBtn">수정</button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -177,29 +153,34 @@ div.upload-btn_wrap button { /*버튼 div*/
 							<a><h4>감스트</h4></a>
 						</div>
 
-							<div class="single-sidebar-widget post-category-widget">
+						<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
 							<ul class="cat-list">
-								<li><a href="/goChannelIntro.ch" class="" style="text-align: center;">
+								<li><a href="/goChannelIntro.ch" class=""
+									style="text-align: center;">
 										<p>채널 소개 설정</p>
 								</a></li>
 								<li><a href="#" class="" style="text-align: center;">
 										<p>주력 카테고리 설정</p>
 
 								</a></li>
-								<li><a href="/goBannerProfile.ch" class="" style="text-align: center;">
+								<li><a href="/goBannerProfile.ch" class=""
+									style="text-align: center;">
 										<p>베너 & 프로필 사진 설정</p>
 
 								</a></li>
-								<li><a href="/goVodAdmin.ch" class="" style="text-align: center;">
+								<li><a href="/goVodAdmin.ch" class=""
+									style="text-align: center;">
 										<p>VOD 관리</p>
 
 								</a></li>
-								<li><a href="/subscriberAdmin.ch" class="" style="text-align: center;">
+								<li><a href="/subscriberAdmin.ch" class=""
+									style="text-align: center;">
 										<p>구독자 관리</p>
 
 								</a></li>
-								<li><a href="/managerAdmin.ch" class="" style="text-align: center;">
+								<li><a href="/managerAdmin.ch" class=""
+									style="text-align: center;">
 										<p>매니저 관리</p>
 
 								</a></li>
@@ -207,7 +188,8 @@ div.upload-btn_wrap button { /*버튼 div*/
 										<p>채팅 필터 관리</p>
 
 								</a></li>
-								<li><a href="manage_black.ch" class="" style="text-align: center;">
+								<li><a href="manage_black.ch" class=""
+									style="text-align: center;">
 										<p>블랙 리스트</p>
 
 								</a></li>

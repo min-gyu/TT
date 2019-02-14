@@ -7,10 +7,13 @@ import javax.servlet.http.HttpSession;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
 
+
 public interface ChannelService{
 
 	//채널관리-VOD 추가 메소드
 	int insertVod(Board b);
+	Board selectbNo(Board b);
+	
 	//채널관리-VOD추가시 첨부파일 추가 메소드
 	int insertAt(Attachment a);
 
@@ -18,12 +21,20 @@ public interface ChannelService{
 	List<Board> vodList();
 
 	
-	
 	//VOD상세보기-조회수 메소드
 	void increaseViewC(int bNo, HttpSession session);
 
 	//VOD상세보기-내용 메소드
 	Board vodOne(int bNo);
+	//VOD상세보기-영상 메소드
+	Attachment vodOneR(int bNo);
+	
+	int getLisCount();
+	
+	
+	
+	
+	
 
 	
 

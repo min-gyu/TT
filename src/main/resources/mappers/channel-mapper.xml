@@ -36,6 +36,13 @@
 		'3','1','1','Y','Y','VOD')
 
 	</insert>
+	
+	<select id="selectbNo" parameterType="Board" resultMap="channelResultSet">
+	SELECT B_NO
+	FROM BOARD
+	WHERE B_TITLE=#{bTitle} AND B_CONTENT=#{bContent}
+	
+	</select>
 
 	<select id="vodList" parameterType="Board"
 		resultMap="channelResultSet">

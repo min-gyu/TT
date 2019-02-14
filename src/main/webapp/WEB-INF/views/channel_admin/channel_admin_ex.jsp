@@ -47,33 +47,7 @@
 </head>
 <body>
 	<!-- header -->
-
-	<header id="header">
-		<div class="container main-menu">
-			<div class="row align-items-center justify-content-between d-flex">
-				<a href="index.html"><img src="/resources/images/logo.png"
-					alt="Today's TV" style="width: 300px;"></a>
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-					<!-- 공간 비율때문에 넣음 -->
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<!-- 공간 비율때문에 넣음 end -->
-						<li class="menu-has-children"><a href="">abc123</a>
-							<ul>
-								<li><a href="blog-home.html">로그아웃</a></li>
-								<li><a href="blog-single.html">마이페이지</a></li>
-							</ul></li>
-						<li><a href="elements.html">방송하기</a></li>
-					</ul>
-				</nav>
-				<!-- #nav-menu-container -->
-			</div>
-		</div>
-	</header>
-
-	<!-- header -->
+<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
 
 	<!-- Start post-content Area -->
 	<section class="post-content-area single-post-area">

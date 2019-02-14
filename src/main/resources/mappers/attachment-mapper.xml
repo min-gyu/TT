@@ -26,11 +26,18 @@
 		#{atBno},
 		NULL,
 		NULL,
-		#{atName}
+		#{atName},
 		#{atMName},
 		#{atPath},
 		SYSDATE,
 		'BOARD',
 		'VOD')
 	</insert>
+	
+	<select id="vodOneR" parameterType="Board" resultMap="attachmentResultSet">
+		SELECT * 
+		FROM ATTACHMENT
+		WHERE AT_B_NO=#{bNo}
+	
+	</select>
 	</mapper>

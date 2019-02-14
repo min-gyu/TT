@@ -12,6 +12,7 @@ import com.kh.tt.channel.model.dao.ChannelDao;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
 
+
 @Service
 public class ChannelServiceImpl implements ChannelService{
 
@@ -24,14 +25,17 @@ public class ChannelServiceImpl implements ChannelService{
 	@Override
 	public int insertVod(Board b) {
 		
-		
 		int result=cd.insertVod(sqlSession, b);
-		
 		System.out.println("service"+result);
-		
 		return result;
-		
 	}
+	
+	////채널 관리 - 첨부파일 위한 bNo추출
+	@Override
+	public Board selectbNo(Board b) {
+		return cd.selectbNo(sqlSession,b);
+		}
+	
 	//채널 관리 - VOD업로드시 첨부파일 업로드 메소드
 	@Override
 	public int insertAt(Attachment a) {
@@ -41,12 +45,14 @@ public class ChannelServiceImpl implements ChannelService{
 	}
 
 	//채널 관리 - VOD 리스트 메소드
+	
 	@Override
 	public List<Board> vodList() {
 		
 		
 		return cd.vodList(sqlSession);
 	}
+	
 	
 	//VOD상세보기-조회수 추가
 	@Override
@@ -75,10 +81,28 @@ public class ChannelServiceImpl implements ChannelService{
 	public Board vodOne(int bNo) {
 		return cd.vodOne(bNo, sqlSession);
 	}
+	//VOD상세보기-영상 메소드
+	@Override
+	public Attachment vodOneR(int bNo) {
+		
+		return cd.vodOneR(bNo,sqlSession);
+	}
+
+	@Override
+	public int getLisCount() {
+		return cd.getListCount(sqlSession);
+	}
+
+
+
+	
+	
+	
+	}
 
 	
 
 	
 
 
-}
+

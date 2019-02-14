@@ -19,6 +19,7 @@ import com.kh.tt.common.CommonUtils;
 import com.kh.tt.channel.model.service.ChannelService;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
+import com.kh.tt.channel.model.vo.PageInfo;
 
 @Controller
 public class ChannelController {
@@ -29,24 +30,36 @@ public class ChannelController {
 
 	@RequestMapping("sidebar.ch")
 	public String NewFile() {
-		return "channel/channel_header";
+		return "channel/NewFile";
 	}
 
 	// 채널 메인
 	@RequestMapping("goChannel.ch")
 	public String goChannel() {
+		
 		return "channel/channel";
 	}
 
 	// VOD리스트 페이지
 	@RequestMapping("vod_List.ch")
-	public ModelAndView vod_List() {
+	public ModelAndView vod_List( PageInfo p,HttpServletRequest request) {
+		p.setCurrentPage(1);
+		
+		p.setLimit(10);
+		
 		List<Board> list=cs.vodList();
-		System.out.println("list 확인"+list);
+		
+		int listCount = cs.getLisCount();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("channel/vod_List");
 		mav.addObject("list", list);
 		return mav;
+		/*List<Board> list=cs.vodList();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("channel/vod_List");
+		
+		long totalCnt = cs.getListTCount(p);
+		return null;*/
 		/*return "channel/vod_List";*/
 	}
 
@@ -60,7 +73,13 @@ public class ChannelController {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("channel/vod_oneList");
 		Board b=cs.vodOne(bNo);
+		
+		Attachment a=cs.vodOneR(bNo);
 		mav.addObject("b", b);
+		System.out.println("경로뽑기  "+a.getAtPath());
+		System.out.println("바뀐이름  "+a.getAtMName());
+		mav.addObject("a", a);
+		
 		/*return "channel/vod_oneList";*/
 		return mav;
 	}
@@ -133,16 +152,25 @@ public class ChannelController {
 			
 			cs.insertVod(b);
 			
-			a.setAtBno(b.getbNo());
-			a.setAtName(originFileName);
-			a.setAtMName(changeName);
-			a.setAtPath(filePath);
-			
+
 			System.out.println(originFileName);
 			System.out.println(changeName);
 			System.out.println(filePath);
-			cs.insertAt(a);
 			
+			
+			//게시물 번호 뽑아오기 --start
+			cs.selectbNo(b);
+			Board boardOne=cs.selectbNo(b);
+			int bNo=boardOne.getbNo();
+			//게시물 번호 뽑아오기 --end
+			
+			a.setAtName(originFileName);
+			a.setAtMName(changeName);
+			a.setAtPath(filePath);
+			a.setAtBno(bNo);
+			
+			
+			cs.insertAt(a);
 			
 			
 			return "redirect:goVodAdmin.ch";//VOD관리 페이지로 이동
