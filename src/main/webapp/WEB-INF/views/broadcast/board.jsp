@@ -1,8 +1,6 @@
-<%@page import="com.kh.tt.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<% Member loginUser = (Member) session.getAttribute("loginUser"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -168,10 +166,14 @@
 
 					<div class="col-md-6 visible-lg-* visible-md-* pull-right">
 						<ul class="nav-icons">
+						 	<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner) }">
 							<li><a href="#"><i class="ion-person-add"></i>
 									<div>Register</div></a></li>
+							</c:if>
+							<c:if test="${ empty loginUser }">
 							<li><a href="loginView.me"><i class="ion-person"></i>
 									<div>Login</div></a></li>
+							</c:if>
 							<li id="searchLi">
 								<form class="search" autocomplete="off" id="searchForm">
 									<div class="form-group" id="searchDiv">
@@ -193,7 +195,7 @@
 				<!-- Header의 1번째 ROW -->
 				<hr>
 				<div class="row">
-					<div class="col-lg-9 col-md-9 col-sm-12">
+					<div class="col-lg-9 col-md-9 col-sm-9">
 						<div id="broadCastWarpper">
 							<div id="broadCastDiv"></div>
 							<div align="right" style="margin-right: 10px;">
@@ -204,19 +206,17 @@
 								<span>방제목 : </span><input type="text" id="title">
 							</div>
 							<div>
-								<span>크리에이터 아이디 : </span><input type="text" id="creator" value="">
+								<span>크리에이터 아이디 : </span><input type="text" id="creator" value="${ param.owner }">
 							</div>
 							<div>
-								<span>유저 아이디 : </span><input type="text" id="user">
-							</div>		
-							<div>
-								<span>room 아이디 : </span><input type="text" id="rooid" value="5c621b39f44e6e3778d8a395">
+								<span>유저 아이디 : </span><input type="text" id="user" value="${ loginUser.userId }">
 							</div>					
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-3 col-sm-12 hidden-sm hidden-xs">
+					<div class="col-lg-3 col-md-3 col-sm-3 hidden-sm hidden-xs">
 						<div id="chatWrapper">
 							<div id="optionDiv" class="row">
+								<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner) }">
 								<div class="pull-right">
 									<i class="ion-person-add icons" id="addManager"></i> &nbsp; <i
 										class="ion-ios-people icons" id=userList></i> &nbsp; <i
@@ -224,24 +224,43 @@
 									&nbsp; <i class="ion-android-settings icons"
 										id="broadCastSetting"></i>
 									<button id="RoomBtn">Room</button>
-									<button id="ChatBtn">Chat</button>
+									<button id="ChatBtn" onclick="chatFunc();">Chat</button>
 									<button id="CloseRoomBtn">CloseRoomBtn</button>
 								</div>
+								</c:if>
 							</div>
 							<div id="chattingDiv" class="row"></div>
 							<hr style="margin-top: 5px; margin-bottom: 5px">
 							<div id="inputChatDiv" class="row">
 								<div class="col-lg-9 col-md-9 col-sm-8"
 									style="padding-left: 0px; padding-right: 0px; black; height: 100%">
-									<textarea class="form-control" rows="4" width="100%"
-										style="height: 80px; resize: none" id="msg" name="msg" onkeyup="fc_chk_byte(this,20);" onkeypress="fc_chk2()">								
-									</textarea>
+									<c:choose>
+										<c:when test="${ !empty loginUser }">
+										<textarea class="form-control" rows="4" width="100%"
+										style="height: 80px; resize: none" id="msg" name="msg" onkeyup="fc_chk_byte(this,20);" onkeypress="fc_chk2()" >								
+										</textarea>
+										</c:when>
+										<c:otherwise>
+										<textarea class="form-control" rows="4" width="100%"
+										style="height: 80px; resize: none" id="msg" name="msg" maxlength="0">								
+										</textarea>
+										</c:otherwise>
+									</c:choose>
 								</div>
 								<div class="col-lg-3 col-md-3 col-sm-4"
 									style="padding-left: 0px; padding-right: 0px; height: 100%">
-									<button type="button" class="btn btn-success"
+									<c:choose>
+										<c:when test="${ !empty loginUser }">
+										<button type="button" class="btn btn-success"
 										style="padding: 0px; height: 100%; width: 100%" id="sendBtn"
 										onclick="send();">전송</button>
+										</c:when>
+										<c:otherwise>
+										<button type="button" class="btn btn-success"
+										style="padding: 0px; height: 100%; width: 100%" id="sendBtn"
+										onclick="loginMsg();">전송</button>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 						</div>
@@ -284,6 +303,14 @@
 				window.open("/note.bc", "방송 설정",
 						"width=440, height=550, left=100, top=50");
 			});
+	//비회원이 메세지 전송 버튼을 눌렀을시 로그인을 유도하는 alert를 띄우는 메서드
+	function loginMsg(){
+		swal({
+			  title: "경고",
+			  text: "로그인 회원만 채팅이 가능합니다.",
+			  icon: "warning",
+		  });
+	}
 	//textarea 글자 수 제한하는 메서드
 	function fc_chk_byte(aro_name,ari_max)
 	{
@@ -351,53 +378,190 @@
 <script>
 	/* 소켓 통신 하는곳  */
 	$(function(){
-		$("#creator").val("방장님이셔");
+		//채팅 입력창 초기화
+		$("#msg").val("");
 		$("#title").val("제목이래");
-		$("#user").val("Test0212");
 		owner = $("#creator").val();
 		title =	$("#title").val();
 		user = $("#user").val();
-		$("#msg").val("");
-	})
+		
+		if("${ loginUser.userId }"==""){
+			console.log("로그인 하지 않은 유저!");
+		}else if("${ loginUser.userId }"!="" && "${loginUser.userId}"!="${ param.owner }"){
+			console.log("방송채널 주인이 아닌 유저!");
+			chatFunc();
+		}else if("${ loginUser.userId }"=="${ param.owner }"){
+			console.log("방송채널 주인인 유저!");
+			
+		}
+	});
+	
 	//방만들기, 방송시작과 같음 채팅 방을 만드는 메서드
-	$("#RoomBtn").click(function() {
-		var socket = io.connect('http://localhost:8010/room', {
-			path : '/socket.io'	}); //localhost에 연결합니다.
+		$("#RoomBtn").click(function() {
+			var socket = io.connect('http://localhost:8010/room', {
+				path : '/socket.io'	}); //localhost에 연결합니다.
+				axios({
+				    method: 'post',
+				    url: 'http://localhost:8010/room',
+				    params: {
+				      title:title,	
+				      owner:owner
+				    }
+				  })
+				  .then(function (response) {
+				    console.log(response);
+				  })
+				  .catch(function (error) {
+				  });
+		});
+		//방 제거하기, 방송종료 메서드, 몽구스DB에서도 방을 삭제해서 이걸 지워야하나 말아야하나 고민중 
+		$("#CloseRoomBtn").click(function(){
 			axios({
-			    method: 'post',
-			    url: 'http://localhost:8010/room',
+			    method: 'delete',
+			    url: 'http://localhost:8010/room/'+owner,
 			    params: {
-			      title:title,	
-			      owner:owner
+			    	
 			    }
 			  })
 			  .then(function (response) {
 			    console.log(response);
 			  })
 			  .catch(function (error) {
+				  console.log(error);
+				  console.log("방 삭제 error");
 			  });
-	});
-	//방 제거하기, 방송종료 메서드, 몽구스DB에서도 방을 삭제해서 이걸 지워야하나 말아야하나 고민중 
-	$("#CloseRoomBtn").click(function(){
-		axios({
-		    method: 'delete',
-		    url: 'http://localhost:8010/room/'+owner,
-		    params: {
-		    	
-		    }
-		  })
-		  .then(function (response) {
-		    console.log(response);
-		  })
-		  .catch(function (error) {
-			  console.log(error);
-			  console.log("방 삭제 error");
-		  });
-	});
-	//채팅입장 메서드, axios로 크리에이터 아이디로 RoomId를 조회하고 그값으로 그방에 room()한다.
-	$("#ChatBtn").click(function(){
+		});
+		//채팅입장 메서드, axios로 크리에이터 아이디로 RoomId를 조회하고 그값으로 그방에 room()한다.
+			$("#ChatBtn").click(function(){
+			console.log("채팅창 연결");
+			var socket = io.connect('http://localhost:8010/chat', {
+				path : '/socket.io'	}); //localhost에 연결합니다.
+				
+			/* var userListSocket = io.connect('http://localhost:8010/userList',{
+				path : '/socket.io' });	 */
+			
+			var $conDiv = $("<div>").text("<<채팅방에 입장했습니다.>>");
+			$conDiv.addClass("system");
+			$("#chattingDiv").append($conDiv);
+			$("#chattingDiv").append("<br>");
+			
+			socket.on('join',(data)=>{
+			 	  	console.log(data);
+			 		var $div = $("<div>");
+					$div.addClass("system");
+			      	$div.text(data.chat);
+			      $("#chattingDiv").append($div);
+			    });
+			
+			    socket.on('exit', function (data) {
+			    	console.log(data);
+			    	var $div = $("<div>");
+					$div.addClass("system");
+			      	$div.text(data.chat);
+				    $("#chattingDiv").append($div);
+			    });
+			    
+			    socket.on('chat',(data)=>{
+			      console.log(data);
+			      var $div = $("<div>");
+			      if (data.user === $("#user").val()) {
+			    	  $div.addClass('mine');
+			      } else {
+			    	  $div.addClass('other');
+			      }
+			      var $divId = $("<div>").text(data.user);
+			      var $divChat = $("<div>").text(data.chat);
+			      $div.append($divId);
+			      $div.append($divChat);
+			      $("#chattingDiv").append($div);
+			      //스크롤을 아래로 따라가게 만드는 스크립트
+			      $("#chattingDiv").scrollTop($("#chattingDiv")[0].scrollHeight);
+			    });
+			    //axios를 이용해서 RoomId를 조회해서 response.data로 받음
+			    socket.on('joinRoom', function (data) {
+			    	console.log("joinRoom 신호받음")
+			    	axios({
+					    method: 'get',
+					    url: 'http://localhost:8010/chat/joinRoom/'+"${ param.owner }",	
+					    params: {
+					    	userSocketId:data,
+					    }
+					  })
+					  .then(function (response) {
+					    //서버에 참여할 RoomId를 전송하면서 joinRoom 이벤트를 실행하라고 전달함.
+					    socket.emit('joinRoom',{roomId:response.data.roomId, owner:$("#creator").val(),userSocketId:response.data.userSocketId,userId:$("#user").val()});
+					  })
+					  .catch(function (error) {
+						  
+					  });
+				});
+			    //유저 방떠나기 기능, 굳이 없어도 돼서 주석처리 / 이유 : 유저가 채팅방을 선택해서 나가지 않고 disconnect로 나가기 때문에 disconnect로 처리함
+			   /*  socket.on('leaveRoom', function (data) {
+			    	axios({
+					    method: 'get',
+					    url: 'http://localhost:8010/chat/leaveRoom/'+owner,
+					  })
+					  .then(function (response) {
+					    //서버에 참여할 RoomId를 전송하면서 joinRoom 이벤트를 실행하라고 전달함.
+					    socket.emit('leaveRoom',{roomId:response.data,userId:$("#user").val()});
+					  })
+					  .catch(function (error) {
+						  
+					  });
+				}); */
+			    //유저리스트를 조회하기 위한 소켓에 이벤트 추가
+			   /*  userListSocket.on('searchUserList',()=>{
+			    	axios({
+					    method: 'get',
+					    url: 'http://localhost:8010/userList',
+					    params: {
+					    	owner:$("#creator").val(),
+					    	userId:$("#user").val(),
+					    }
+					  })
+					  .then(function (response) {
+					  	console.log(response);
+					  })
+					  .catch(function (error) {
+						  
+					  });
+			    }) */
+		});	
+	function send(){
+			var msg = $("#msg").val();
+			if($("#msg").val().trim() != ""){
+			$("#msg").val("");
+			axios({
+			    method: 'post',
+			    url: 'http://localhost:8010/room/'+owner+'/chat',
+			    params: {
+			    	user:$("#user").val(),
+			    	msg:msg
+			    }
+			  })
+			  .then(function (response) {
+			    console.log(response);
+			  })
+			  .catch(function (error) {
+				  console.log(error);
+				  console.log("방 삭제 error");
+			  });
+			}else{
+				swal({
+					  title: "경고",
+					  text: "공백 메세지는 보낼 수 없습니다.",
+					  icon: "warning",
+				}).then(()=>{
+					$("#msg").focus();
+				});
+				
+			}
+		}
+	function chatFunc(){
+		console.log("채팅창 연결");
 		var socket = io.connect('http://localhost:8010/chat', {
 			path : '/socket.io'	}); //localhost에 연결합니다.
+			
 		/* var userListSocket = io.connect('http://localhost:8010/userList',{
 			path : '/socket.io' });	 */
 		
@@ -440,9 +604,10 @@
 		    });
 		    //axios를 이용해서 RoomId를 조회해서 response.data로 받음
 		    socket.on('joinRoom', function (data) {
+		    	console.log("joinRoom 신호받음")
 		    	axios({
 				    method: 'get',
-				    url: 'http://localhost:8010/chat/joinRoom/'+owner,	
+				    url: 'http://localhost:8010/chat/joinRoom/'+"${ param.owner }",	
 				    params: {
 				    	userSocketId:data,
 				    }
@@ -486,36 +651,6 @@
 					  
 				  });
 		    }) */
-	});
-	function send(){
-		var msg = $("#msg").val();
-		if($("#msg").val().trim() != ""){
-		$("#msg").val("");
-		axios({
-		    method: 'post',
-		    url: 'http://localhost:8010/room/'+owner+'/chat',
-		    params: {
-		    	user:$("#user").val(),
-		    	msg:msg
-		    }
-		  })
-		  .then(function (response) {
-		    console.log(response);
-		  })
-		  .catch(function (error) {
-			  console.log(error);
-			  console.log("방 삭제 error");
-		  });
-		}else{
-			swal({
-				  title: "경고",
-				  text: "공백 메세지는 보낼 수 없습니다.",
-				  icon: "warning",
-			}).then(()=>{
-				$("#msg").focus();
-			});
-			
-		}
 	}
 </script>
 </html>
