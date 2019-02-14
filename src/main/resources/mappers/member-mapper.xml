@@ -90,4 +90,36 @@
 	    WHERE M_NICKNAME = #{nickName}
 	</select>
 	
+	<!-- 회원 전체 조회  -->
+	<select id="memberList" resultMap="memberResultSet">
+		SELECT M_UNO
+		 , M_NAME
+	     , M_ID
+	     , M_NICKNAME
+	     , M_GENDER
+	     , M_BANK
+	     , M_WARNING_NO
+	     , M_BAN_STATUS
+	     , M_STATUS
+		FROM MEMBER
+		WHERE M_ADMIN_YN = 'N'
+		ORDER BY M_UNO
+	</select>
+	
+	<!-- 정지 회원 조회 -->
+	<select id="memberList" resultMap="memberResultSet">
+		SELECT M_UNO
+	     , M_NAME
+	     , M_ID
+	     , M_NICKNAME
+	     , M_WARNING_NO
+	     , M_BAN_STATUS
+	     , M_STATUS
+	    FROM MEMBER
+	    WHERE M_ADMIN_YN = 'N'
+	    ORDER BY M_UNO;
+	</select>
+	
+
+	
 </mapper>

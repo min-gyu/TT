@@ -96,17 +96,22 @@ public class MemberController {
 	}
 	
 	@PostMapping(value = "insertMember.me")
-	public String insertMember(Member m) {
+	public String insertMember(Model model, Member m) {
 		System.out.println("member > " + m);
-		
-		String encPassword = passwordEncoder.encode(m.getUserPwd());
-		
-		System.out.println("변경 후 암호 > " + encPassword);
-		
-		m.setUserPwd(encPassword);
-		int result = ms.insertMember(m);
-		
-		return "redirect:goMain.me";
+		try {
+			String encPassword = passwordEncoder.encode(m.getUserPwd());
+			System.out.println("변경 후 암호 > " + encPassword);
+			
+			m.setUserPwd(encPassword);
+			
+			int result = ms.insertMember(m);
+			
+			return "redirect:goMain.me";
+			
+		} catch (Exception e) {
+			model.addAttribute("msg", "회원 가입 실패 8ㅁ8");
+			return "common/errorPage";
+		}
 	}
 		
 	/**
