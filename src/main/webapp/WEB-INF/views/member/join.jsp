@@ -38,7 +38,7 @@
 					};
 			
 			data = JSON.stringify(data);
-			
+
 			$.ajax({
 		         type			:"post"
 		        ,url			: url
@@ -60,12 +60,48 @@
 							        }
 		        ,error 			: function(request,status,error){ alert(error); }
 				,complete		: function(jqXHR){  } // 요청의 실패, 성공과 상관 없이 완료 될 경우 호출
-		    });
+		    }); 
 		}
 		
 		function fn_sendEmail(){
-			alert("이메일을 확인해주세요.");
+			var url = "/authEmail"
+			   ,data = {
+					     params : {
+					    	 			email 	: $("#email").val()
+									}
+					};
+
+			data = JSON.stringify(data);
+			var afterFn = function(resultData, status, headers, config){
+						  	alert("이메일을 확인해주세요.");
+					      };
+			
+			fn_callAjax(url, data, afterFn);
+			
 		};
+		var formData = JSON.stringify($("#myForm").serializeArray());
+		
+
+		$(function(){
+			jQuery.fn.serializeObject = function() { var obj = null; try { if(this[0].tagName && this[0].tagName.toUpperCase() == "FORM" ) { var arr = this.serializeArray(); if(arr){ obj = {}; jQuery.each(arr, function() { obj[this.name] = this.value; }); } } }catch(e) { alert(e.message); }finally {} return obj; }
+			
+			$("#submitBtn").bind("click",function(){
+				var data = $("#myForm").serializeObject();
+				
+				$.ajax({
+			         type			:"post"
+			        ,url			:"insertMember.me"
+				  	,data			: data
+			        ,contentType	: "application/json; charset=UTF-8"
+			        ,success		: function(resultData, status, headers, config){  }
+			        ,error 			: function(request,status,error){ alert(error); }
+					,complete		: function(jqXHR){  } // 요청의 실패, 성공과 상관 없이 완료 될 경우 호출
+			    }); 
+				
+			})
+		})
+		
+		
 	</script>
 	
 	<section class="login first grey">
@@ -74,7 +110,7 @@
 				<div class="box box-border">
 					<div class="box-body">
 						<h3>회원가입</h3>
-						<form action="insertMember.me" method="post" class="form-horizontal">
+						<form id="myForm" action="insertMember.me" method="post" class="form-horizontal" >
 							<div class="form-group">
 								<label>아이디</label>
 								<!-- <a href="#" class="pull-right result"><span class="msg">아이디를 확인해주세요</span></a> -->
@@ -120,7 +156,11 @@
 							
 							<div class="form-group">
 								<label>이메일</label>
-								<input type="email" name="email" class="form-control">
+								<input type="email" id="email" name="email" class="form-control">
+							</div>
+							
+							<div class="join_div">
+								<button type="button" class="btn btn-success bt-lg" onclick="fn_sendEmail();">인증</button>
 							</div>
 							
 							<div class="form-group">
@@ -129,13 +169,11 @@
 							</div>
 							
 							<div class="join_div">
-								<button type="button" class="btn btn-success" onclick="fn_sendEmail();">인증</button>
-								<button type="button" class="btn btn-secondary">확인</button>
+								<button type="button" class="btn btn-secondary bt-lg">확인</button>
 							</div>
 							
 							<div class="form-group text-right">
-								<input type="submit" value="회원가입">
-								<button type="submit" class="btn btn-primary btn-block">회원가입</button>
+								<button type="button" class="btn btn-primary btn-block" id="submitBtn">회원가입</button>
 							</div>
 							
 							<div class="form-group text-center">
