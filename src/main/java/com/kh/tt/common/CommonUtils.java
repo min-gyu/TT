@@ -20,8 +20,4 @@ public class CommonUtils {
 		String keyCode = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 6);//-라는 특수문자가 있을 경우 제거해주는 메소드
 		return keyCode;
 	}
-	
-	public void sendEmail(String keyCode, Member member) {
-		
-	}
 }

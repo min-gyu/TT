@@ -60,7 +60,7 @@
 	</aop:config>
 	
    <!-- 메일 보내기 (SEND) -->
-   	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="username" value="ljy960819@gmail.com" />
@@ -75,5 +75,13 @@
 				<prop key="mail.debug">true</prop>
 			</props>
 		</property>
+	</bean>
+	
+	<bean id="mailHandler" class="com.kh.tt.common.MailHandler">
+		<constructor-arg ref="mailSender" />
+	</bean>
+	
+	<bean id="mailUtils" class="com.kh.tt.common.MailUtils">
+		<constructor-arg ref="mailHandler" />
 	</bean>
 </beans>

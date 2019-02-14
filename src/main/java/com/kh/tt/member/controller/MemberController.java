@@ -30,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.tt.common.CommonUtils;
 import com.kh.tt.common.LoginLoggin;
+import com.kh.tt.common.MailUtils;
 import com.kh.tt.member.model.exception.LoginException;
 import com.kh.tt.member.model.service.MemberService;
 import com.kh.tt.member.model.vo.Member;
@@ -95,8 +96,7 @@ public class MemberController {
 	}
 	
 	@PostMapping(value = "insertMember.me")
-	public String insertMember(Member m, Model model) {
-	
+	public String insertMember(Member m) {
 		System.out.println("member > " + m);
 		
 		String encPassword = passwordEncoder.encode(m.getUserPwd());
@@ -106,13 +106,7 @@ public class MemberController {
 		m.setUserPwd(encPassword);
 		int result = ms.insertMember(m);
 		
-		if (result > 0) {
-			return "redirect:goMain.me";
-		} else {
-			model.addAttribute("msg", "회원가입 실패 8ㅁ8");
-			return "common/errorPage";
-		}
-		
+		return "redirect:goMain.me";
 	}
 		
 	/**
@@ -122,7 +116,7 @@ public class MemberController {
 	 * @param type: 구분용
 	 * 		 ,resultValue: jsp value
 	 * */
-	@RequestMapping(value = "/overlayCheck/{type}.me", method = RequestMethod.POST)
+	@PostMapping(value = "/overlayCheck/{type}.me")
 	public @ResponseBody HashMap<String, Object> overlayCheck(@RequestBody Map<String, Object> requestBody
 															,@PathVariable String type){
 		Map<String, Object> reqMap = (Map)requestBody.get("params");
@@ -150,17 +144,17 @@ public class MemberController {
 	 * @since 2019.02.12
 	 * @category 이메일 인증
 	 * */
-	
-	  @RequestMapping(value = "/register", method = RequestMethod.POST)
-	    public @ResponseBody HashMap<String, Object> RegisterPost(Member m, Model model,RedirectAttributes rttr) throws Exception{
-		  HashMap<String, Object> resultMap = new HashMap<>();
-		  
-		  String keyCode = commonUtils.getEmailKeyCode();
-		  
-		  resultMap.put("keyCode", keyCode);
-		  
-		  return resultMap;
-	      
-	    }
+	 //RedirectAttributes << 나중에 공부
+	 @PostMapping(value = "/authEmail")
+	 public @ResponseBody HashMap<String, Object> RegisterPost(@RequestBody Map<String, Object> requestBody) throws Exception{
+		 Map<String, Object> reqMap = (Map)requestBody.get("params");
+		 String toEmail = (String)reqMap.get("email");
+		 HashMap<String, Object> resultMap = new HashMap<>();
+		 
+		 MailUtils mailUtils = new MailUtils();
+		 String keyCode = mailUtils.sendAuthEmail(toEmail);
+		 resultMap.put("keyCode", keyCode);
+		 return resultMap;
+	 }
 	
 }

@@ -14,9 +14,7 @@
 		http://www.springframework.org/schema/aop 
 	  	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
-	<!-- <mvc:annotation-driven /> -->
-	
-	 <annotation-driven /> 
+	<!-- <annotation-driven /> -->
 	
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 
@@ -28,8 +26,6 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
-	<context:component-scan base-package="com.kh.tt" />
 	
 	<!-- 프록시 설정 추가 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
@@ -60,6 +56,8 @@
 		</beans:property>
 	</beans:bean>
 
-	<!-- <annotation-driven /> -->
+	<context:component-scan base-package="com.kh.tt" />
+	
+	<mvc:annotation-driven />
 	
 </beans:beans>

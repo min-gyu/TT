@@ -16,34 +16,43 @@ public class MailHandler {
     private MimeMessage message;
     private MimeMessageHelper messageHelper;
     
+    public MailHandler() { }
+    
     public MailHandler(JavaMailSender mailSender) throws MessagingException {
-        this.mailSender = mailSender;
-        message = this.mailSender.createMimeMessage();
-        messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+    	this.mailSender = mailSender;
+    	this.message 	   = this.mailSender.createMimeMessage();
+        this.messageHelper = new MimeMessageHelper(message, true, "UTF-8");
     }
     
+    // 이메일 보내기
+    public void sendEmail(String fromEmail, String toEmail, String subject, String content) throws UnsupportedEncodingException, MessagingException {
+		setEmailInfo(fromEmail, fromEmail, toEmail); // 이메일 정보
+		setSubject(subject); // 제목
+		setContent(content); // 내용
+		send(); // 보내기
+	}
     
     // 이메일 타이틀
-    public void setSubject(String subject) throws MessagingException {
+    private void setSubject(String subject) throws MessagingException {
         messageHelper.setSubject(subject);
     }
     
     // 이메일 내용
-    public void setContent(String htmlContent) throws MessagingException {
+    private void setContent(String htmlContent) throws MessagingException {
         messageHelper.setText(htmlContent, true);
     }
     
     //보내는 사람 이메일, 받는 사람 이메일
-    public void setEmailInfo(String fromEmail, String fromName, String toEmail) throws UnsupportedEncodingException, MessagingException{
+    private void setEmailInfo(String fromEmail, String fromName, String toEmail) throws UnsupportedEncodingException, MessagingException{
     	messageHelper.setFrom(fromEmail, fromName); // 보내는 사람
     	messageHelper.setTo(toEmail); // 받는사람
     }
     
-    public void addInline(String contentId, DataSource dataSource) throws MessagingException {
+    private void addInline(String contentId, DataSource dataSource) throws MessagingException {
         messageHelper.addInline(contentId, dataSource);
     }
     
-    public void send() {
+    private void send() {
         mailSender.send(message);
     }
 }
