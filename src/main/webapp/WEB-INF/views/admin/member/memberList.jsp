@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/layout/admin/treeheader.jsp" />
 
 <section class="home">
@@ -19,11 +19,26 @@
 						<th>이름</th>
 						<th>아이디</th>
 						<th>닉네임</th>
+						<th>성별</th>
 						<th>계좌인증여부</th>
 						<th>경고횟수</th>
 						<th>정지여부</th>
 						<th>탈퇴여부</th>
 					</tr>
+					
+					<c:forEach var="m" items="${mList}">
+					<tr>
+						<td>${m.uno}</td>
+						<td>${m.userName}</td>
+						<td>${m.userId}</td>
+						<td>${m.nickName}</td>
+						<td>${m.gender}</td>
+						<td>${m.bank}</td>
+						<td>${m.warningNo}</td>
+						<td>${m.banStatus}</td>
+						<td>${m.status}</td>
+					</tr>
+					</c:forEach>
 				</table>
 			</div>
 			
