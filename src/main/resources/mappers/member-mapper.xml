@@ -107,7 +107,7 @@
 	</select>
 	
 	<!-- 정지 회원 조회 -->
-	<select id="memberList" resultMap="memberResultSet">
+	<select id="memberBanList" resultMap="memberResultSet">
 		SELECT M_UNO
 	     , M_NAME
 	     , M_ID
@@ -117,7 +117,7 @@
 	     , M_STATUS
 	    FROM MEMBER
 	    WHERE M_ADMIN_YN = 'N'
-	    ORDER BY M_UNO;
+	    ORDER BY M_UNO
 	</select>
 	
 
