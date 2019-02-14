@@ -21,6 +21,17 @@ public interface MyPageService {
 	Map<Object, Object> selectChargeLog() throws MyPageException;
 
 	//My문의 페이지 조회
-	List<CQBoard> selectQuestion() throws MyPageException;
+	List<CQBoard> selectQuestion(int cqUno) throws MyPageException;
+
+	//My문의 게시글 상세보기
+	CQBoard selectQuestionOne(int bid) throws MyPageException;
+	
+	
+	//My신고 페이지 조회
+	List<CQBoard> selectClaim(int cqUno) throws MyPageException;
+
+	//My신고 게시글 상세보기
+	CQBoard selectClaimOne(int bid) throws MyPageException;
+
 
 }
