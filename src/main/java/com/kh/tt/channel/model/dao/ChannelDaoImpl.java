@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
+
 @Repository
 public class ChannelDaoImpl implements ChannelDao{
 
@@ -18,7 +19,7 @@ public class ChannelDaoImpl implements ChannelDao{
 		
 		int result=sqlSession.insert("Board.insertVod",b);
 		
-		System.out.println("query"+result);
+		
 		return result;
 		
 	}
@@ -56,6 +57,28 @@ public class ChannelDaoImpl implements ChannelDao{
 		System.out.println("상세보기"+result);
 		return result;
 	}
+	
+	//VOD상세보기-영상 메소드
+	@Override
+	public Attachment vodOneR(int bNo, SqlSessionTemplate sqlSession) {
+		Attachment result=sqlSession.selectOne("Attachment.vodOneR",bNo);
+		return result;
+	}
+	
+	@Override
+	public Board selectbNo(SqlSessionTemplate sqlSession, Board b) {
+	
+		Board result=sqlSession.selectOne("Board.selectbNo", b);
+		return result;
+	}
+	
+	@Override
+	public int getListCount(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		int result=sqlSession.selectOne("Board.getListCount");
+		return result;
+	}
+	
 
 	
 	

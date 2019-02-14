@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -47,33 +47,10 @@
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
 </head>
 <body>
-
-
-	<!-- header -->
-	<header id="header">
-		<div class="container main-menu" style="background: #f9f9ff";>
-			<div class="row align-items-center justify-content-between d-flex">
-				<a href="index.html"><img src="/resources/images/logo.png"
-					alt="Today's TV" style="width: 300px;"></a>
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-						<!-- 공간 비율때문에 넣음 -->
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
-						<li class="menu-has-children"><a href="">abc123</a>
-							<ul>
-								<li><a href="blog-home.html">로그아웃</a></li>
-								<li><a href="blog-single.html">마이페이지</a></li>
-							</ul></li>
-						<li><a href="elements.html">방송하기</a></li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-	</header>
-
-	<!-- header -->
+	<c:set var="contextPath"
+		value="${ pageContext.servletContext.contextPath }"
+		scope="application" />
+	<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
 
 
 	<!-- Start post-content Area -->
@@ -84,14 +61,15 @@
 					<div class="single-post row">
 						<div class="col-lg-12">
 							<div class="feature-img">
-								<img class="img-fluid"
-									src="/resources/channel/img/blog/feature-img1.jpg"
-									style="padding-left: 0%;">
+								<video class="img-fluid"
+									src="${ contextPath }/resources/uploadFiles/${a.atMName}.mp4"
+									type="video/mp4" controls style="padding-left: 0%;"></video>
 							</div>
 						</div>
 
 						<div class="col-lg-9 col-md-9">
 							<a class="posts-title"><h3>${b.bTitle }</h3></a>
+
 							<p class="excert">${b.bContent }</p>
 
 						</div>
@@ -100,7 +78,7 @@
 							<a id="report"><img
 								src="/resources/channel/channel2/images/channel_report.png"
 								style="padding-left: 150px; width: 174px; padding-top: 10px;">
-								</a>
+							</a>
 						</div>
 						<!-- 신고하기  end-->
 
@@ -331,7 +309,6 @@
 			function() {
 				window.open("/report.ch", "신고하기",
 						"width=550, height=550, left=100, top=100");
-			}); 
-	
+			});
 </script>
 </html>

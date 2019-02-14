@@ -48,33 +48,10 @@
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
 </head>
 <body>
-	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 
-	<!-- header -->
-	<header id="header">
-		<div class="container main-menu" style="background: #f9f9ff";>
-			<div class="row align-items-center justify-content-between d-flex">
-				<a href="index.html"><img src="/resources/images/logo.png"
-					alt="Today's TV" style="width: 300px;"></a>
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-						<!-- 공간 비율때문에 넣음 -->
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a>
-						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
-						<li class="menu-has-children"><a href="">abc123</a>
-							<ul>
-								<li><a href="blog-home.html">로그아웃</a></li>
-								<li><a href="blog-single.html">마이페이지</a></li>
-							</ul></li>
-						<li><a href="elements.html">방송하기</a></li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-	</header>
 
-	<!-- header -->
+	<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
+
 
 
 	<!-- Start post-content Area -->
@@ -112,7 +89,8 @@
 														<a href="#">Film</a>
 													</div>
 													<div class="time">${row.bwDate }
-													<input type="hidden" name="bNo" value="${row.bNo }"></div>
+														<input type="hidden" name="bNo" value="${row.bNo }">
+													</div>
 												</div>
 												<h1>
 													<a href="single.html">${row.bTitle }</a>
@@ -140,138 +118,12 @@
 							<div class="col-lg-12"></div>
 							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
 
-								<div class="row">
-									<article class="col-md-12 article-list">
-										<div class="inner">
-											<figure>
-												<a href="single.html"> <img
-													src="/resources/channel/channel2/images/news/img11.jpg"
-													alt="Sample Article">
-												</a>
-											</figure>
-											<div class="details"
-												style="width: 410px; border-bottom: 1px solid #eee;">
-												<div class="detail">
-													<div class="category">
-														<a href="#">Film</a>
-													</div>
-													<div class="time">December 19, 2016</div>
-													
-												</div>
-												<h1>
-													<a href="single.html">Donec consequat arcu at ultrices
-														sodales quam erat aliquet diam</a>
-												</h1>
-												<p>Donec consequat, arcu at ultrices sodales, quam erat
-													aliquet diam, sit amet interdum libero nunc accumsan nisi.</p>
-												<footer>
-													<a href="#" class="love active"><i
-														class="ion-android-favorite"></i>
-														<div>302</div></a> <a class="btn btn-primary more"
-														href="vod_oneList.ch">
-														<div>More</div>
-														<div>
-															<i class="ion-ios-arrow-thin-right"></i>
-														</div>
-													</a>
-												</footer>
-											</div>
-										</div>
-									</article>
-									<article class="col-md-12 article-list">
-										<div class="inner">
-											<figure>
-												<a href="single.html"> <img
-													src="/resources/channel/channel2/images/news/img11.jpg"
-													alt="Sample Article">
-												</a>
-											</figure>
-											<div class="details"
-												style="width: 410px; border-bottom: 1px solid #eee;">
-												<div class="detail">
-													<div class="category">
-														<a href="#">Film</a>
-													</div>
-													<div class="time">December 19, 2016</div>
-												</div>
-												<h1>
-													<a href="single.html">Donec consequat arcu at ultrices
-														sodales quam erat aliquet diam</a>
-												</h1>
-												<p>Donec consequat, arcu at ultrices sodales, quam erat
-													aliquet diam, sit amet interdum libero nunc accumsan nisi.</p>
-												<footer>
-													<a href="#" class="love active"><i
-														class="ion-android-favorite"></i>
-														<div>302</div></a> <a class="btn btn-primary more"
-														href="single.html">
-														<div>More</div>
-														<div>
-															<i class="ion-ios-arrow-thin-right"></i>
-														</div>
-													</a>
-												</footer>
-											</div>
-										</div>
-									</article>
-									<article class="col-md-12 article-list">
-										<div class="inner">
-											<figure>
-												<a href="single.html"> <img
-													src="/resources/channel/channel2/images/news/img11.jpg"
-													alt="Sample Article">
-												</a>
-											</figure>
-											<div class="details"
-												style="width: 410px; border-bottom: 1px solid #eee;">
-												<div class="detail">
-													<div class="category">
-														<a href="#">Film</a>
-													</div>
-													<div class="time">December 19, 2016</div>
-												</div>
-												<h1>
-													<a href="single.html">Donec consequat arcu at ultrices
-														sodales quam erat aliquet diam</a>
-												</h1>
-												<p>Donec consequat, arcu at ultrices sodales, quam erat
-													aliquet diam, sit amet interdum libero nunc accumsan nisi.</p>
-												<footer>
-													<a href="#" class="love active"><i
-														class="ion-android-favorite"></i>
-														<div>302</div></a><a class="btn btn-primary more"
-														href="single.html">
-														<div>More</div>
-														<div>
-															<i class="ion-ios-arrow-thin-right"></i>
-														</div>
-													</a>
-												</footer>
-											</div>
-										</div>
-									</article>
-								</div>
+								<div class="row"></div>
 							</div>
 
 
 						</div>
-						<!-- 이미지 2개  -->
-						<!-- 	<div class="col-lg-12">
-							<div class="quotes">MCSE boot camps have its supporters and
-								its detractors. Some people do not understand why you should
-								have to spend money on boot camp when you can get the MCSE study
-								materials yourself at a fraction of the camp price. However, who
-								has the willpower to actually sit through a self-imposed MCSE
-								training.</div>
-							<div class="row mt-30 mb-30">
-								<div class="col-6">
-									<img class="img-fluid" src="img/blog/post-img1.jpg" alt="">
-								</div>
-								<div class="col-6">
-									<img class="img-fluid" src="img/blog/post-img2.jpg" alt="">
-								</div>
-							</div>
-						</div> -->
+
 
 
 

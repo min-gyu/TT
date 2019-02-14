@@ -47,27 +47,7 @@
 </head>
 <body>
 
-
-	<!-- header -->
-	<header id="header">
-		<div class="container main-menu" style="background: #f9f9ff";>
-			<div class="row align-items-center justify-content-between d-flex">
-				<a href="index.html"><img src="/resources/images/logo.png"
-					alt="Today's TV" style="width: 300px;"></a>
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-						<li class="menu-active"></li>
-						<li><a href="elements.html"
-							style="padding-right: 50px; padding-left: 500px;"> <i
-								class="ion-person"></i>Login
-						</a></li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-	</header>
-
-	<!-- header -->
+<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
 
 
 	<!-- Start post-content Area -->

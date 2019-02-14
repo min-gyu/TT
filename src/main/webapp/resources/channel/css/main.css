@@ -2095,7 +2095,7 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
-#header.header-scrolled {
+/* #header.header-scrolled {
 	transition: all 0.5s;
 	box-shadow: -21.213px 21.213px 30px 0px rgba(158, 158, 158, 0.3);
 	background-color: #6ac169;
@@ -2108,7 +2108,7 @@ h1, h2, h3, h4, h5, h6 {
 	-o-transition: all 0.3s ease 0s;
 	transition: all 0.3s ease 0s;
 	display: none;
-}
+} */
 
 @media ( max-width : 673px) {
 	#logo {

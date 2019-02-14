@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -46,31 +48,36 @@
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
 </head>
 <body>
+	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 
-	<!-- <i class="ion-ios-videocam"> -->
+	<!-- header -->
 	<header id="header">
-		<div class="container main-menu" style="background: #f9f9ff";>
+		<div class="container main-menu"  style="background: #f9f9ff;padding-bottom: 0px;padding-top: 0px;padding-left: 0px;padding-right: 0px;">
 			<div class="row align-items-center justify-content-between d-flex">
 				<a href="sidebar.ch"><img src="/resources/images/logo.png"
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-
 						<!-- 공간 비율때문에 넣음 -->
 						<li><a style="color: #f9f9ff;">방송하기</a>
 						<li><a style="color: #f9f9ff;">방송하기</a>
 						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
-						<li class="menu-has-children"><a href="">abc123</a>
+						<li class="menu-has-children"><a><c:out value="${sessionScope.loginUser.userName }."/></a>
 							<ul>
 								<li><a href="blog-home.html">로그아웃</a></li>
-								<li><a href="blog-single.html">마이페이지</a></li>
 							</ul></li>
-						<li><a class="ion-ios-videocam"></a>
+						<li class="menu-has-children"><a><i class="ion-ios-videocam"></i></a>
+							<ul>
+								<li><a href="방송하기로">방송하기</a></li>
+							</ul>
+						</li>
 					</ul>
 				</nav>
 			</div>
 		</div>
 	</header>
+
+	<!-- header -->
 
 
 

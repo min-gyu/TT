@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
 
+
 public interface ChannelDao {
 
 	int insertVod(SqlSessionTemplate sqlSession, Board b);
@@ -14,10 +15,18 @@ public interface ChannelDao {
 	int insertAt(SqlSessionTemplate sqlSession, Attachment a);
 	
 	List<Board> vodList(SqlSessionTemplate sqlSession);
-
+	
 	int increaseViewC(int bNo,SqlSessionTemplate sqlSession);
 
 	Board vodOne(int bNo,SqlSessionTemplate sqlSession);
+
+	Board selectbNo(SqlSessionTemplate sqlSession, Board b);
+
+	Attachment vodOneR(int bNo, SqlSessionTemplate sqlSession);
+
+	int getListCount(SqlSessionTemplate sqlSession);
+
+	
 
 	
 	
