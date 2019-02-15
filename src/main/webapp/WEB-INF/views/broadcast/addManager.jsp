@@ -41,20 +41,26 @@
 	width: 100%;
 }
 </style>
-
+<!-- jQuery CDN -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- axios -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- sweetAlert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 	<div class="ui attached stackable menu">
 		<div class="ui container">
 			<a class="item" href="userList.bc"> <i class="grid layout icon"></i>
-				유저 목록
+				시청자 목록
 			</a> <a class="item" href="/addManager.bc"> <i class="home icon"></i>
 				매니저 추가
 			</a> <a class="item" href="/addBanWord.bc"> <i class="mail icon"></i>
 				금지어 추가
-			</a> <a class="item" href="broadCastSetting.bc"
-				style="border-left: 1px solid lightgray"><i
+			</a> <a class="item" href="broadCastSetting.bc"><i
 				class="settings icon"></i>방송 설정</a>
+				<div class="right item"><h5>${ loginUser.userId }</h5>님 환영합니다.</div>
 		</div>
 	</div>
 	<div class="ui container">
