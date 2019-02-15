@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -18,19 +19,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileIOImpl implements FileIO{
 	
 	private Logger logger = Logger.getLogger(getClass());
-	private final String projectPath  = System.getProperty("user.dir");
-	private final String absoultePath = projectPath + "\\src\\main\\webapp";	
+	private final String absoultePath = "C:\\TT\\email\\";	
 	
 	@Override
 	public StringBuilder read(String fileName) {
 		
-		String filePath = absoultePath + "\\WEB-INF\\views\\common\\email";
 		StringBuilder sb = new StringBuilder();
 		
-		logger.info("absoultePath ->" + absoultePath);
-		logger.info("filePath ->" + filePath);
-		logger.info("fileName ->" + fileName);
-        File inFile = new File(filePath, fileName);
+        File inFile = new File(absoultePath, fileName);
         BufferedReader br = null;
         
         try {
