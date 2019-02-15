@@ -223,8 +223,6 @@
 										class="ion-android-remove-circle icons" id="addBanWord"></i>
 									&nbsp; <i class="ion-android-settings icons"
 										id="broadCastSetting"></i>
-									<button id="RoomBtn" onclick="roomFunc();">Room</button>
-									<button id="ChatBtn" onclick="chatFunc();">Chat</button>
 									<button id="CloseRoomBtn">방송시작</button>
 								</div>
 								</c:if>
@@ -253,7 +251,7 @@
 										<c:when test="${ !empty loginUser }">
 										<button type="button" class="btn btn-success"
 										style="padding: 0px; height: 100%; width: 100%" id="sendBtn"
-										onclick="send();">전송</button>
+										onclick="notSend();">전송</button>
 										</c:when>
 										<c:otherwise>
 										<button type="button" class="btn btn-success"
@@ -484,13 +482,15 @@
 								  title: "경고",
 								  text: "방송이 종료 되었습니다.",
 								  icon: "warning",
-							}).then(()=>{
-								$("#msg").focus();
-							});					  
+								}).then(()=>{
+									$("#msg").focus();
+								});					  
 						  }else{
 					   		//서버에 참여할 RoomId를 전송하면서 joinRoom 이벤트를 실행하라고 전달함.
 					  		socket.emit('joinRoom',{roomId:response.data.roomId, owner:$("#creator").val(),userSocketId:response.data.userSocketId,userId:$("#user").val()});		  		
 					  		var $conDiv = $("<div>").text("<<채팅방에 입장했습니다.>>");
+					  		//채팅방에 정상적으로 입력되고나서 send 버튼에 메세지 전송 버튼 메서드를 추가해줌
+					  	  	$("#sendBtn").attr('onclick', 'msgSend()');
 					  		$conDiv.addClass("system");
 					  		$("#chattingDiv").append($conDiv);
 					  		$("#chattingDiv").append("<br>");
@@ -510,7 +510,7 @@
 					$("#msg").focus();
 				});
 			}
-			function send(){
+			function msgSend(){
 				console.log("send 메서드 메세지 전달!")
 				var msg = $("#msg").val();
 				if($("#msg").val().trim() != ""){

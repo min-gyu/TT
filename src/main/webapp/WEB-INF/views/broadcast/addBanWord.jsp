@@ -15,7 +15,8 @@
 <!-- J-query CDN -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- Semantic UI JS CDN -->
+<!-- axios -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <style type="text/css">
 #header {
 	margin-top: 30px;
@@ -44,11 +45,15 @@
 <body>
 	<div class="ui attached stackable menu">
 		<div class="ui container">
-			<a class="item" href="userList.bc"> <i class="grid layout icon"></i> 유저 목록
-			</a> <a class="item" href="/addManager.bc"> <i class="home icon"></i> 매니저 추가
-			</a> <a class="item" href="/addBanWord.bc"> <i class="mail icon"></i> 금지어 추가
-			</a> <a class="item" href="broadCastSetting.bc" style="border-left: 1px solid lightgray"><i
+			<a class="item" href="userList.bc"> <i class="grid layout icon"></i>
+				시청자 목록
+			</a> <a class="item" href="/addManager.bc"> <i class="home icon"></i>
+				매니저 추가
+			</a> <a class="item" href="/addBanWord.bc"> <i class="mail icon"></i>
+				금지어 추가
+			</a> <a class="item" href="broadCastSetting.bc"><i
 				class="settings icon"></i>방송 설정</a>
+				<div class="right item"><h5>${ loginUser.userId }</h5>님 환영합니다.</div>
 		</div>
 	</div>
 	<div class="ui container">
@@ -85,7 +90,7 @@
 					<div class="item">
 						<div class="ui icon input" id="searchDiv">
 							<input type="text" placeholder="Search..."> <i
-								class="inverted circular search link icon"></i>
+								class="inverted circular search link icon" id="searchI"></i>
 						</div>
 					</div>
 				</div>
@@ -109,4 +114,12 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	$(function(){
+		$("#searchI").click(function(){
+			alert("테스트중");
+		})
+	})
+
+</script>
 </html>

@@ -13,7 +13,8 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Semantic UI JS CDN -->
 <style type="text/css">
 #header {
@@ -31,8 +32,9 @@
 #broadCastCategGrid {
 	margin-top: 70px;
 }
-#icon{
-	margin-top:10px;
+
+#icon {
+	margin-top: 10px;
 	font-size: 30px;
 }
 </style>
@@ -42,14 +44,14 @@
 	<div class="ui attached stackable menu">
 		<div class="ui container">
 			<a class="item" href="userList.bc"> <i class="grid layout icon"></i>
-				유저 목록
+				시청자 목록
 			</a> <a class="item" href="/addManager.bc"> <i class="home icon"></i>
 				매니저 추가
 			</a> <a class="item" href="/addBanWord.bc"> <i class="mail icon"></i>
 				금지어 추가
-			</a> <a class="item" href="broadCastSetting.bc"
-				style="border-left: 1px solid lightgray"><i
+			</a> <a class="item" href="broadCastSetting.bc"><i
 				class="settings icon"></i>방송 설정</a>
+				<div class="right item"><h5>${ loginUser.userId }</h5>님 환영합니다.</div>
 		</div>
 	</div>
 	<div class="ui container">
@@ -83,7 +85,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="one wide column" align="center"><i class="angle double right icon" id="icon"></i></div>
+				<div class="one wide column" align="center">
+					<i class="angle double right icon" id="icon"></i>
+				</div>
 				<div class="three wide column">
 					<div class="ui selection dropdown">
 						<input type="hidden" name="gender"> <i
