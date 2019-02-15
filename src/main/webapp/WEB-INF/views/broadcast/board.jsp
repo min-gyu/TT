@@ -440,10 +440,28 @@
 			    socket.on('exit', function (data) {
 			    	console.log("exit 이벤트 확인!")
 			    	console.log(data);
-			    	var $div = $("<div>");
-					$div.addClass("system");
-			      	$div.text(data.chat);
-				    $("#chattingDiv").append($div);
+			    	console.log("${param.owner}");
+			    	if(data.chat=="${param.owner}님이 퇴장하셨습니다."){
+				    	socket.disconnect();
+			    		var $div = $("<div>");
+						$div.addClass("system");
+			      		$div.text("방송이 종료되었습니다.");
+				    	$("#chattingDiv").append($div);
+				    	 $("#sendBtn").attr('onclick', 'notSend()');
+						  swal({
+							  title: "경고",
+							  text: "방송이 종료 되었습니다.",
+							  icon: "warning",
+							}).then(()=>{
+								$("#msg").focus();
+							});				
+				    	console.log("socket 연결 해제!");
+			    	}else{
+			    		var $div = $("<div>");
+						$div.addClass("system");
+			      		$div.text(data.chat);
+				    	$("#chattingDiv").append($div);
+			    	}
 			    });
 			    
 			    socket.on('chat',(data)=>{
