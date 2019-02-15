@@ -2,6 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/layout/admin/treeheader.jsp" />
 
+<style type="text/css">
+	#listArea th {
+		text-align: center;
+	}
+</style>
+
 <section class="home">
 	<div class="container">
 		<div class="row" >
@@ -16,23 +22,23 @@
 				<table class="table" id= "listArea">
 					<tr id="listHeader">
 						<th>No.</th>
-						<th>이름</th>
 						<th>아이디</th>
 						<th>닉네임</th>
 						<th>경고횟수</th>
-						<th>정지여부</th>
-						<!-- <th>정지기간</th> -->
+						<th>정지사유</th>
+						<th>시작일</th>
+						<th>종료일</th>
 					</tr>
 					
-					<c:forEach var="m" items="${bList}">
+					<c:forEach var="b" items="${bList}">
 					<tr>
-						<td>${b.uno}</td>
-						<td>${b.userName}</td>
+						<td>${b.rownum}</td>
 						<td>${b.userId}</td>
 						<td>${b.nickName}</td>
-						<td>${b.warningNo}</td>
-						<td>${b.banStatus}</td>
-						<!-- <td></td> -->
+						<td>${b.warningNo}회</td>
+						<td>${b.banReason}</td>
+						<td>${b.startDate}</td>
+						<td>${b.endDate}</td>
 					</tr>
 					</c:forEach>
 				</table>

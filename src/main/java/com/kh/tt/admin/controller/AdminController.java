@@ -2,13 +2,19 @@ package com.kh.tt.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.tt.admin.model.exception.AdminException;
 import com.kh.tt.admin.model.service.AdminService;
+import com.kh.tt.common.PageInfo;
+import com.kh.tt.common.Pagination;
 import com.kh.tt.member.model.vo.Member;
 
 @Controller
@@ -24,7 +30,11 @@ public class AdminController {
 	@Autowired
 	private AdminService as;
 	
-	// ADMIN - MEMBER
+	/**
+	 * @author jy
+	 * @category 관리자 - 회원
+	 * */
+	
 	@RequestMapping("adminMain")
 	public String goAdminMain() {
 		return memberPath + "main";
@@ -32,10 +42,48 @@ public class AdminController {
 	
 	// 전체 회원 조회 
 	@RequestMapping("memberList")
-	public String memberList(Model model) {
+	public String memberList(Model model, HttpServletRequest request, HttpServletResponse response) {
+		int currentPage = 1;
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
 		try {
-			List<Member> mList = as.selectMemberList();
+			int listCount = as.getListCount();
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			List<Member> mList = as.selectMemberList(pi);
 			model.addAttribute("mList", mList);
+			request.setAttribute("pi", pi);
+			
+		} catch (AdminException e) {
+			e.printStackTrace();
+		}
+		return memberPath + "memberList";
+	}
+	
+	// 전체 회원 - 검색
+	@RequestMapping("searchAll")
+	public String searchAllMember(Model model, HttpServletRequest request, HttpServletResponse response) {
+		String searchValue = request.getParameter("searchValue");
+		
+		int currentPage = 1;
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			int listCount = as.getListCount();
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			List<Member> mList = as.selectAllMemberList(pi);
+			model.addAttribute("mList", mList);
+			request.setAttribute("pi", pi);
+			
 			System.out.println(mList);
 			
 		} catch (AdminException e) {
@@ -43,13 +91,14 @@ public class AdminController {
 		}
 		return memberPath + "memberList";
 	}
-		
+	
+	// 정지 회원 조회
 	@RequestMapping("banList")
 	public String BanList(Model model) {
 		try {
 			List<Member> bList = as.selectBanList();
 			model.addAttribute("bList", bList);
-			System.out.println(bList);
+			//System.out.println(bList);
 			
 		} catch (AdminException e) {
 			e.printStackTrace();
@@ -57,18 +106,22 @@ public class AdminController {
 		return memberPath + "banList";
 	}
 	
+	// 탈퇴 회원 조회
 	@RequestMapping("leaveList")
 	public String LeaveList(Model model) {
 		try {
 			List<Member> lList = as.selectLeaveList();
 			model.addAttribute("lList", lList);
-			System.out.println(lList);
+			//System.out.println(lList);
 			
 		} catch (AdminException e) {
 			e.printStackTrace();
 		}
 		return memberPath + "leaveList";
 	}
+	
+	
+	
 	
 	
 	// ADMIN - CLOVER
@@ -92,11 +145,6 @@ public class AdminController {
 	}
 	
 	// category
-
-	
-	
-
-	
 	@RequestMapping("adminStatistics")
 	public String Statistics() {
 		return "admin/statistics/statisticsday";
@@ -112,9 +160,4 @@ public class AdminController {
 		return "admin/board/board";
 	}
 
-	
-	
-
-	
-	
 }
