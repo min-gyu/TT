@@ -8,7 +8,6 @@
 				<div class="line">
 					<div>인기 방송</div>
 				</div>
-				
 				<div class="row" style="text-align: center">
 					<div class="col-md-6 col-sm-6 col-xs-12" style="margin-left: 26%">
 						<div class="row">

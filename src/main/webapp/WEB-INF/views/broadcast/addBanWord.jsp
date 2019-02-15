@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -115,11 +116,28 @@
 	</div>
 </body>
 <script type="text/javascript">
+	//로그인 안하고 접속시 창을 닫아버리게 조취하셈
 	$(function(){
-		$("#searchI").click(function(){
-			alert("테스트중");
-		})
+		if(${empty loginUser}){
+			window.self.close(); //팝업 창을 닫는다
+		}
 	})
+	//검색 버튼을 누르면 금지단어를 oracle에서 조회해서 출력하는 제이쿼리 ajax
+	$("#searchI").click(function(){
+			$.ajax({
+				url : "/searchBanWord.bc",
+				type : "get",
+				data: {
+				   	owner:"${loginUser.userId}"
+				  },
+				success : function(data) {
+					console.log(data);
+				},
+				error : function(data) {
+					console.log("실패")
+				}
+			});
+		})
 
 </script>
 </html>
