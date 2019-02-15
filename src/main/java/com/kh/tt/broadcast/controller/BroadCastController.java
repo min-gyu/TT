@@ -1,12 +1,23 @@
 package com.kh.tt.broadcast.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.kh.tt.broadcast.model.service.BroadCastService;
+import com.kh.tt.broadcast.model.vo.BanWord;
 
 @org.springframework.stereotype.Controller
-public class Controller {
+public class BroadCastController {
+	@Autowired 
+	private BroadCastService bcs;
 
 	@RequestMapping("goBroadCast.bc")
-	public String goBroadCast() {
+	public String goBroadCast(){
 		return "broadcast/board";
 	}
 	@RequestMapping("addBanWord.bc")
@@ -32,5 +43,11 @@ public class Controller {
 	@RequestMapping("broadTest2.bc")
 	public String broadtest2() {
 		return "broadcast/resolution/test";
+	}
+	@RequestMapping("searchBanWord")
+	public @ResponseBody ArrayList<BanWord> searchBanWord(@RequestParam String owner){
+		System.out.println(owner);
+		ArrayList<BanWord> banArr= bcs.searchBanWord(owner);
+		return banArr;
 	}
 }
