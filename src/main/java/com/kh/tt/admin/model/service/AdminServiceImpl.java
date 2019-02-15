@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.tt.admin.model.dao.AdminDao;
 import com.kh.tt.admin.model.exception.AdminException;
+import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
 
 @Service
@@ -33,6 +34,30 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Member> selectLeaveList() throws AdminException {
 		return md.selectLeaveList();
+	}
+
+	// 전체 회원 목록 조회용 메소드
+	@Override
+	public int getListCount() throws AdminException {
+		return md.getListCount();
+	}
+	
+	// 페이징 처리 된 전체 회원 목록 조회용 메소드
+	@Override
+	public List<Member> selectMemberList(PageInfo pi) throws AdminException {
+		return md.selectMemberList(pi);
+	}
+
+	// 전체 회원 검색
+	@Override
+	public List<Member> selectAllMemberList() throws AdminException {
+		return md.selectAllMemberList();
+	}
+
+	@Override
+	public List<Member> selectAllMemberList(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

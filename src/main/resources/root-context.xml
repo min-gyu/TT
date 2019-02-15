@@ -14,17 +14,6 @@
 	<!-- 데이터베이스 접속에 관련된 클래스들을 bean을 등록할 수 있다 -->
 	
 	
-	<!-- sqlSessionTemplate 등록 -->
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSession" />
-	</bean>
-	
-	<!-- sqlSession 등록 -->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	
 	<!-- dataSource 객체 bean 등록 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
@@ -33,6 +22,18 @@
 		<property name="password" value="TT" />
 		<property name="defaultAutoCommit" value="false" />
 	</bean>
+	
+	<!-- sqlSession 등록 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- sqlSessionTemplate 등록 -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+	
 	
 	<!-- 트랜젝션 매니저  -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

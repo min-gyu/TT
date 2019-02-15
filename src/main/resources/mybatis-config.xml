@@ -11,6 +11,7 @@
 		<typeAlias type="com.kh.tt.channel.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.tt.channel.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.tt.myPage.model.vo.CQBoard" alias="CQBoard"/>
+		<typeAlias type="com.kh.tt.admin.model.vo.MemberAndMemberBanVO" alias="AdminMember"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml" />
@@ -19,6 +20,7 @@
 		<mapper resource="mappers/channel-mapper.xml" />
 		<mapper resource="mappers/attachment-mapper.xml"/>
 		<mapper resource="mappers/cqboard-mapper.xml" />
+		<mapper resource="mappers/admin-mapper.xml" />
 	</mappers>
 	
 </configuration>

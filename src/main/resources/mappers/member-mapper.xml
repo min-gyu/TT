@@ -7,25 +7,25 @@
 <mapper namespace="Member">
 	<resultMap type="com.kh.tt.member.model.vo.Member" id="memberVO">
 		<!-- property 필드명, column 컬럼명과 일치해야 한다 -->
-		<id property="uno" column="M_UNO"/>
-		<result property="userId" column="M_ID"/>
-		<result property="nickName" column="M_NICKNAME"/>
-		<result property="userName" column="M_NAME"/>
-		<result property="userPwd" column="M_PWD"/>
-		<result property="birth" column="M_BIRTH"/>
-		<result property="gender" column="M_GENDER"/>
-		<result property="email" column="M_EMAIL"/>
-		<result property="enrollDate" column="M_ENROLL_DATE"/>
-		<result property="bank" column="M_BANK"/>
-		<result property="bankNo" column="M_BANK_NO"/>
-		<result property="warningNo" column="M_WARNING_NO"/>
-		<result property="banStatus" column="M_BAN_STATUS"/>
-		<result property="status" column="M_STATUS"/>
-		<result property="reason" column="M_REASON"/>
-		<result property="leaveDate" column="M_LEAVE_DATE"/>
-		<result property="btYN" column="M_BT_YN"/>
-		<result property="totalClover" column="M_TOTAL_CLOVER"/>
-		<result property="adminYN" column="M_ADMIN_YN"/>
+		<id 	property="uno" 			column="M_UNO"/>
+		<result property="userId" 		column="M_ID"/>
+		<result property="nickName" 	column="M_NICKNAME"/>
+		<result property="userName" 	column="M_NAME"/>
+		<result property="userPwd" 		column="M_PWD"/>
+		<result property="birth" 		column="M_BIRTH"/>
+		<result property="gender" 		column="M_GENDER"/>
+		<result property="email" 		column="M_EMAIL"/>
+		<result property="enrollDate" 	column="M_ENROLL_DATE"/>
+		<result property="bank" 		column="M_BANK"/>
+		<result property="bankNo" 		column="M_BANK_NO"/>
+		<result property="warningNo" 	column="M_WARNING_NO"/>
+		<result property="banStatus" 	column="M_BAN_STATUS"/>
+		<result property="status" 		column="M_STATUS"/>
+		<result property="reason" 		column="M_REASON"/>
+		<result property="leaveDate" 	column="M_LEAVE_DATE"/>
+		<result property="btYN" 		column="M_BT_YN"/>
+		<result property="totalClover" 	column="M_TOTAL_CLOVER"/>
+		<result property="adminYN" 		column="M_ADMIN_YN"/>
 	</resultMap>
 	
 	<select id="loginCheck" parameterType="com.kh.tt.member.model.vo.Member" resultMap="memberVO" >
@@ -63,7 +63,7 @@
 	</insert>
 	
 	<!-- 암호화 된 비밀번호 조회용 메소드 -->
-	<select id="selectPwd" resultType="java.lang.String" parameterType="java.lang.String">
+	<select id="selectPwd" parameterType="java.lang.String"  resultType="java.lang.String">
 		SELECT M_PWD
 		FROM MEMBER
 		WHERE M_ID = #{userId}
@@ -71,7 +71,7 @@
 	</select>
 	
 	<!-- 로그인 정보 조회용 메소드 -->
-	<select id="selectLoginUser" resultMap="memberVO" parameterType="com.kh.tt.member.model.vo.Member">
+	<select id="selectLoginUser" parameterType="com.kh.tt.member.model.vo.Member" resultMap="memberVO" >
 		SELECT *
 		FROM MEMBER
 		WHERE M_ID = #{userId}
@@ -91,37 +91,4 @@
 	    FROM MEMBER
 	    WHERE M_NICKNAME = #{nickName}
 	</select>
-	
-	<!-- 회원 전체 조회  -->
-	<select id="memberList" resultMap="memberVO">
-		SELECT M_UNO
-		 , M_NAME
-	     , M_ID
-	     , M_NICKNAME
-	     , M_GENDER
-	     , M_BANK
-	     , M_WARNING_NO
-	     , M_BAN_STATUS
-	     , M_STATUS
-		FROM MEMBER
-		WHERE M_ADMIN_YN = 'N'
-		ORDER BY M_UNO
-	</select>
-	
-	<!-- 정지 회원 조회 -->
-	<select id="memberBanList" resultMap="memberVO">
-		SELECT M_UNO
-	     , M_NAME
-	     , M_ID
-	     , M_NICKNAME
-	     , M_WARNING_NO
-	     , M_BAN_STATUS
-	     , M_STATUS
-	    FROM MEMBER
-	    WHERE M_ADMIN_YN = 'N'
-	    ORDER BY M_UNO
-	</select>
-	
-
-	
 </mapper>
