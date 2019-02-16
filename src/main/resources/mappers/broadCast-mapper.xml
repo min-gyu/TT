@@ -12,6 +12,7 @@
 		<result property="fReplace" column="F_REPLACE" />
 		<result property="fDate" column="F_DATE" />
 	</resultMap>
+	<!-- 특정회원의 금지어 설정 목록을 검색하는 sql문 -->
 	<select id="selectBanWord" resultMap="banWordResultSet" parameterType="java.lang.String">
 	SELECT F.* 
 	FROM MEMBER M 
@@ -19,6 +20,24 @@
 	ON(M.M_UNO = C.CH_UNO) 
 	JOIN FILTER F 
 	ON (C.CH_NO = F.F_CH_NO) 
-	WHERE (M.M_ID=#{owner});
+	WHERE (M.M_ID=#{owner})
 	</select>
+	<!-- 특정회원의 금지어 추가를 위해 채널 번호를 검색하는 sql문 -->
+	<select id="selectChannelNum" resultType="_int" parameterType="string">
+	SELECT 
+	C.CH_NO 
+	FROM MEMBER M 
+	JOIN CHANNEL C 
+	ON (M.M_UNO = C.CH_UNO) 
+	WHERE (M_ID=#{owner})
+	</select>
+	<!-- 금지어를 추가하는 메서드 -->
+	<insert id="insertBanWord" parameterType="BanWord">
+	INSERT 
+	INTO 
+	FILTER 
+	VALUES(SEQ_F_NO.NEXTVAL, ${fChNo}, '${fBan}', '${fReplace}', SYSDATE)
+	</insert>
+	
+
 </mapper>

@@ -19,7 +19,19 @@ public class BroadCastServiceImpl implements BroadCastService{
 	@Override
 	public ArrayList<BanWord> searchBanWord(String owner) {
 		ArrayList<BanWord> banArr = bcd.searchBanWord(sqlSession, owner);
-		return null;
+		return banArr;
+	}
+
+	@Override
+	public int selectChannelNum(String owner) {
+		int channelNum = bcd.selectChannelNum(sqlSession, owner);
+		return channelNum;
+	}
+
+	@Override
+	public int insertBanWord(BanWord addBanWord) {
+		int result = bcd.insertBanWord(sqlSession, addBanWord);
+		return result;
 	}
 
 }

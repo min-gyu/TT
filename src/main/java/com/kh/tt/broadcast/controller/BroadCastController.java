@@ -44,10 +44,23 @@ public class BroadCastController {
 	public String broadtest2() {
 		return "broadcast/resolution/test";
 	}
+	//금지어를 검색하는 메서드
 	@RequestMapping("searchBanWord")
 	public @ResponseBody ArrayList<BanWord> searchBanWord(@RequestParam String owner){
-		System.out.println(owner);
 		ArrayList<BanWord> banArr= bcs.searchBanWord(owner);
 		return banArr;
+	}
+	//금지어를 추가하는 메서드
+	@RequestMapping("inputBanWord")
+	public @ResponseBody int inputBanWord(@RequestParam("owner") String owner,
+			@RequestParam("banWord") String banWord,
+			@RequestParam("replaceWord") String replaceWord) {
+		int channelNum = bcs.selectChannelNum(owner);
+		BanWord addBanWord = new BanWord();
+		addBanWord.setfChNo(channelNum);
+		addBanWord.setfBan(banWord);
+		addBanWord.setfReplace(replaceWord);
+		int result = bcs.insertBanWord(addBanWord);
+		return result;
 	}
 }
