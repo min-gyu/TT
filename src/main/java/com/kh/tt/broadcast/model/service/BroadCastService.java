@@ -8,4 +8,8 @@ public interface BroadCastService{
 
 	ArrayList<BanWord> searchBanWord(String owner);
 
+	int selectChannelNum(String owner);
+
+	int insertBanWord(BanWord addBanWord);
+
 }
