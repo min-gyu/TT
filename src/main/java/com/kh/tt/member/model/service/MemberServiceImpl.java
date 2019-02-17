@@ -8,9 +8,12 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.member.model.dao.MemberDao;
 import com.kh.tt.member.model.exception.LoginException;
+import com.kh.tt.member.model.vo.CQAndAttach;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.vo.CQBoard;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -105,5 +108,38 @@ public class MemberServiceImpl implements MemberService {
 		
 		return resultMap;
 	}
+
+	// 신고문의게시판 시퀀스
+	@Override
+	public int selectCqNo() {
+		return md.selectCqNo(sqlSession);
+	}
+	
+	// 문의하기
+	@Override
+	public int insertQuestion(CQAndAttach ca) {
+		return md.insertQuestion(sqlSession, ca);
+	}
+	
+	// 문의 첨부 파일
+	@Override
+	public int insertQAt(CQAndAttach ca) {
+		return md.insertQAt(sqlSession, ca);
+	}
+
+	// 신고하기
+	@Override
+	public int insertClaim(CQAndAttach ca) {
+		return md.insertClaim(sqlSession, ca);
+	}
+
+	// 신고 첨부 파일
+	@Override
+	public int insertCAt(CQAndAttach ca) {
+		return md.insertCAt(sqlSession, ca);
+	}
+
+	
+
 
 }

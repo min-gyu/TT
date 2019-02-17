@@ -18,46 +18,89 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDao md;
 	
-	// 1. 전체 회원 조회
+	
+	// 1. 전체 회원 수 카운트
 	@Override
-	public List<Member> selectMemberList() throws AdminException {
-		return md.selectMemberList();
-	}
-
-	// 2. 정지 회원 조회
-	@Override
-	public List<Member> selectBanList() throws AdminException {
-		return  md.selectBanList();
+	public int getAllCount() throws AdminException {
+		return md.getAllCount();
 	}
 	
-	// 3. 탈퇴 회원 조회
-	@Override
-	public List<Member> selectLeaveList() throws AdminException {
-		return md.selectLeaveList();
-	}
-
-	// 전체 회원 목록 조회용 메소드
-	@Override
-	public int getListCount() throws AdminException {
-		return md.getListCount();
-	}
-	
-	// 페이징 처리 된 전체 회원 목록 조회용 메소드
+	// 1. 페이징 된 전체 회원 조회 
 	@Override
 	public List<Member> selectMemberList(PageInfo pi) throws AdminException {
 		return md.selectMemberList(pi);
 	}
 
-	// 전체 회원 검색
+	// 1. 검색 - 전체 회원 수 카운트
 	@Override
-	public List<Member> selectAllMemberList() throws AdminException {
-		return md.selectAllMemberList();
+	public int getSearchAllCount(String sid) throws AdminException {
+		return md.getSearchAllCount(sid);
+	}
+	
+	// 1. 검색 - 페이징 된 전체 회원 조회
+	@Override
+	public List<Member> searchAllMemberList(String sid, PageInfo pi) throws AdminException {
+		return md.searchAllMemberList(sid, pi);
 	}
 
+	
+	// 2. 정지 회원 수 카운트
 	@Override
-	public List<Member> selectAllMemberList(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+	public int getBanCount() throws AdminException {
+		return md.getBanCount();
 	}
+	
+	// 2. 페이징 된 정지 회원 조회
+	@Override
+	public List<Member> selectBanList(PageInfo pi) throws AdminException {
+		return  md.selectBanList(pi);
+	}
+	
+	// 2. 검색 - 정지 회원 수 카운트
+	public int getSearchBanCount(String sid) throws AdminException {
+		return md.getSearchBanCount(sid);
+	}
+	
+	// 2. 검색 - 페이징 된 정지 회원 목록 조회
+	@Override
+	public List<Member> searchBanMemberList(String sid, PageInfo pi) throws AdminException {
+		return md.searchBanMemberList(sid, pi);
+	}
+
+
+	// 3. 탈퇴 회원 수 카운트
+	@Override
+	public int getLeaveCount() throws AdminException {
+		return md.getLeaveCount();
+	}
+
+	// 3. 페이징 된 탈퇴 회원 조회
+	@Override
+	public List<Member> selectLeaveList(PageInfo pi) throws AdminException {
+		return md.selectLeaveList(pi);
+	}
+	
+	// 3. 검색 - 탈퇴 회원 수 카운트
+	@Override
+	public int getSearchLeaveCount(String sid) throws AdminException {
+		return md.getSearchLeaveCount(sid);
+	}
+
+	// 3. 검색 - 페이징 된 탈퇴 회원 목록 조회
+	@Override
+	public List<Member> searchLeaveList(String sid, PageInfo pi) throws AdminException {
+		return md.searchLeaveList(sid, pi);
+	}
+	
+	
+	
+	
+	
+
+	
+
+	
+	
+
 
 }

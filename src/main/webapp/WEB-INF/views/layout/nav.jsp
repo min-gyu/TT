@@ -28,8 +28,8 @@
 				<li><a href="/goChannel.ch">Channel</a></li>
 				<li class="dropdown magz-dropdown"><a href="#">고객센터 <i class="ion-ios-arrow-right"></i></a>
 					<ul class="dropdown-menu">
-						<li><a href="/reportView.me">신고하기</a></li>
-						<li><a href="/inquireView.me">문의하기</a></li>
+						<li><a href="/claimView.me">신고하기</a></li>
+						<li><a href="/questionView.me">문의하기</a></li>
 					</ul>
 				</li>
 				

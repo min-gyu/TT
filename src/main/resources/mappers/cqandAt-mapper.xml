@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CQandAttach">
+	<resultMap type="com.kh.tt.member.model.vo.CQAndAttach" id="CQandAttachResultSet">
+		<id property="cqNo" column="CQ_NO"/>
+		<result property="uno" column="CQ_UNO"/>
+		<result property="targetNo" column="CQ_TARGET_ID"/>
+		<result property="userId" column="M_ID"/>
+		<result property="cqClass" column="CQ_CLASS"/>
+		<result property="cqTitle" column="CQ_TITLE"/>
+		<result property="cqContent" column="CQ_CONTENT"/>
+		<result property="cqDate" column="CQ_DATE"/>
+		<result property="level" column="CQ_LEVEL"/>
+		<result property="upperNo" column="CQ_UPPER_NO"/>
+		<result property="attachYn" column="CQ_ATTACH_YN"/>
+		<result property="delStatus" column="CQ_DEL_STATUS"/>
+		<result property="cqType" column="CQ_TYPE"/>
+		
+		<result property="atCqNO" column="AT_CQ_NO"/>
+		<result property="atNo" column="AT_NO"/>
+		<result property="atBNo" column="AT_B_NO"/>
+		<result property="atChNo" column="AT_CH_NO"/>
+		<result property="atName" column="AT_NAME"/>
+		<result property="modifyName" column="AT_MODIFY_NAME"/>
+		<result property="path" column="AT_PATH"/>
+		<result property="atDate" column="AT_DATE"/>
+		<result property="atClass" column="AT_CLASS"/>
+		<result property="atType" column="AT_TYPE"/>
+	</resultMap>
+	
+	<select id="selectCqNo" resultType="int">
+		SELECT
+		SEQ_CQ_NO.NEXTVAL
+		FROM DUAL
+	</select>
+	
+	<!-- 고객센터 - 문의하기 -->
+	<insert id="insertQuestion" parameterType="com.kh.tt.member.model.vo.CQAndAttach">
+		INSERT 
+		INTO CQBOARD
+		(
+			  CQ_NO
+			, CQ_UNO
+			, CQ_TARGET_ID 
+			
+			, CQ_CLASS
+			, CQ_TITLE
+			, CQ_CONTENT
+			
+			, CQ_DATE
+			, CQ_LEVEL
+			, CQ_UPPER_NO
+			
+			, CQ_ATTACH_YN
+			, CQ_DEL_STATUS
+			, CQ_TYPE
+		)VALUES(
+			  #{atCqNO}
+			, #{uno}
+			, NULL
+			
+			, #{cqClass}
+			, #{cqTitle}
+			, #{cqContent}
+			
+			, SYSDATE
+			, 1
+			, NULL
+			
+			, 'Y'
+			, 'N'
+			, 'QUESTION'
+		)
+	</insert>
+	
+	<!-- 문의하기 첨부파일 -->
+	<insert id="insertQAttach" parameterType="com.kh.tt.member.model.vo.CQAndAttach">
+		INSERT 
+		INTO ATTACHMENT(
+				  AT_NO
+				, AT_B_NO
+				, AT_CQ_NO
+				
+				, AT_CH_NO
+				, AT_NAME
+				, AT_MODIFY_NAME
+				
+				, AT_PATH
+				, AT_DATE
+				, AT_CLASS
+				
+				, AT_TYPE
+		)
+		VALUES(
+				SEQ_AT_NO.NEXTVAL
+			  , NULL
+			   , #{atCqNO}
+			  
+			  , NULL
+			  , #{atName}
+			  , #{modifyName}
+			  
+			  , #{path}
+			  , SYSDATE
+			  , 'CQ'
+			  
+			  , 'QUESTION'
+			)
+	</insert>
+	
+	<!-- 고객센터 - 신고하기 -->
+	<insert id="insertClaim" parameterType="com.kh.tt.member.model.vo.CQAndAttach">
+		INSERT 
+		INTO CQBOARD
+		(
+			  CQ_NO
+			, CQ_UNO
+			, CQ_TARGET_ID 
+			
+			, CQ_CLASS
+			, CQ_TITLE
+			, CQ_CONTENT
+			
+			, CQ_DATE
+			, CQ_LEVEL
+			, CQ_UPPER_NO
+			
+			, CQ_ATTACH_YN
+			, CQ_DEL_STATUS
+			, CQ_TYPE
+		)VALUES(
+			  #{atCqNO}
+			, #{uno}
+			, #{targetNo}
+			
+			, #{cqClass}
+			, #{cqTitle}
+			, #{cqContent}
+			
+			, SYSDATE
+			, 1
+			, NULL
+			
+			, 'Y'
+			, 'N'
+			, 'CLAIM'
+		)
+	</insert>
+	
+	<!-- 문의하기 첨부파일 -->
+	<insert id="insertCAttach" parameterType="com.kh.tt.member.model.vo.CQAndAttach">
+		INSERT 
+		INTO ATTACHMENT(
+				  AT_NO
+				, AT_B_NO
+				, AT_CQ_NO
+				
+				, AT_CH_NO
+				, AT_NAME
+				, AT_MODIFY_NAME
+				
+				, AT_PATH
+				, AT_DATE
+				, AT_CLASS
+				
+				, AT_TYPE
+		)
+		VALUES(
+				SEQ_AT_NO.NEXTVAL
+			  , NULL
+			   , #{atCqNO}
+			  
+			  , NULL
+			  , #{atName}
+			  , #{modifyName}
+			  
+			  , #{path}
+			  , SYSDATE
+			  , 'CQ'
+			  
+			  , 'CLAIM'
+			)
+	</insert>
+	
+</mapper>
+

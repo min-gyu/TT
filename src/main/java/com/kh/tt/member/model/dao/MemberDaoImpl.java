@@ -4,8 +4,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.member.model.exception.LoginException;
+import com.kh.tt.member.model.vo.CQAndAttach;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.vo.CQBoard;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -53,5 +56,37 @@ public class MemberDaoImpl implements MemberDao {
 	public int nickNameCheck(SqlSessionTemplate sqlSession, String nickName) {
 		return sqlSession.selectOne("Member.nickNameCheck", nickName);
 	}
+	
+	// 신고문의게시판 시퀀스
+	@Override
+	public int selectCqNo(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("CQandAttach.selectCqNo");
+	}
+	
+	// 문의하기
+	@Override
+	public int insertQuestion(SqlSessionTemplate sqlSession, CQAndAttach ca) {
+		return sqlSession.insert("CQandAttach.insertQuestion", ca);
+	}
+	
+	// 문의 첨부 파일
+	@Override
+	public int insertQAt(SqlSessionTemplate sqlSession, CQAndAttach ca) {
+		return sqlSession.insert("CQandAttach.insertQAttach", ca);
+	}
+
+	// 신고하기
+	@Override
+	public int insertClaim(SqlSessionTemplate sqlSession, CQAndAttach ca) {
+		return sqlSession.insert("CQandAttach.insertClaim", ca);
+	}
+
+	// 문의 첨부 파일
+	@Override
+	public int insertCAt(SqlSessionTemplate sqlSession, CQAndAttach ca) {
+		return sqlSession.insert("CQandAttach.insertCAttach", ca);
+	}
+
+	
 
 }

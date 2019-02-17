@@ -8,13 +8,23 @@
 	}
 </style>
 
+<script type="text/javascript">
+	function searchBoard(){
+		var searchValue = $("#search").val();
+		
+		console.log(searchValue);
+		
+		location.href = "searchLeave.ad?searchValue=" + searchValue;
+	}
+</script>
+
 <section class="home">
 	<div class="container">
 		<div class="row" >
 			<div class="form-inline">
 				<h3>탈퇴 회원</h3>
-				<input class="form-control mr-sm-2" type="search" placeholder="아이디/닉네임을 입력하세요" aria-label="Search" id="searchName"> 
-				<button class="btn btn-success" id="searchBtn">Search</button>
+				<input class="form-control mr-sm-3" type="search" id="search" placeholder="아이디를 입력하세요"> 
+				<button class="btn btn-success" id="searchBtn" onclick="searchBoard();">Search</button>
 			</div>
 			<div class="line"></div>
 			
@@ -44,29 +54,65 @@
 				</table>
 			</div>
 			
+			<!-- 페이징 영역 -->
 			<div class="center-block">
-	            <ul class="pagination mx-auto" style="justify-content: center;">
-	                <li class="page-item disabled">
-	                    <a class="page-link" href="#" aria-label="Previous">
-	                        <span aria-hidden="true">«</span>
-	                        <span class="sr-only">Previous</span>
-	                    </a>
-	                </li>
-	                <li class="page-item active">
-	                    <a class="page-link" href="#">1</a>
-	                </li>
-	                <li class="page-item"><a class="page-link" href="#">2</a></li>
-	                <li class="page-item"><a class="page-link" href="#">3</a></li>
-	                <li class="page-item"><a class="page-link" href="#">4</a></li>
-	                <li class="page-item"><a class="page-link" href="#">5</a></li>
-	                <li class="page-item">
-	                    <a class="page-link" href="#" aria-label="Next">
-	                        <span aria-hidden="true">»</span>
-	                        <span class="sr-only">Next</span>
-	                    </a>
-	                </li>
-	            </ul>
-        	</div>
+				<ul class="pagination mx-auto" style="justify-content: center;">
+					<c:if test="${ pi.currentPage <= 1 }">
+						<li class="page-item disabled">
+		                    <a class="page-link" href="#" aria-label="Previous">
+		                        <span aria-hidden="true">«</span>
+		                        <span class="sr-only">Previous</span>
+		                    </a>
+		                </li>
+					</c:if>
+					
+					<c:if test="${ pi.currentPage > 1 }">
+						<c:url var="listBack" value="/leaveList.ad">
+							<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
+						</c:url>
+						<li class="page-item disabled">
+		                    <a class="page-link" href="${ listBack }" aria-label="Previous">
+		                        <span aria-hidden="true">«</span>
+		                        <span class="sr-only">Previous</span>
+		                    </a>
+		                </li>
+					</c:if>
+					
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:if test="${ p eq pi.currentPage }">
+							<li class="page-item active"><a class="page-link" href="#">${ p }</a></li>
+						</c:if>
+						
+						<c:if test="${ p ne pi.currentPage }">
+							<c:url var="listCheck" value="/leaveList.ad">
+								<c:param name="currentPage" value="${ p }" />
+							</c:url>
+							<li class="page-item"><a href="${ listCheck }">${ p }</a></li>
+						</c:if>
+					</c:forEach>
+					
+					<c:if test="${ pi.currentPage >= pi.maxPage }">
+						<li class="page-item">
+		                    <a class="page-link" href="#" aria-label="Next">
+		                        <span aria-hidden="true">»</span>
+		                        <span class="sr-only">Next</span>
+		                    </a>
+		                </li>
+					</c:if>
+					
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="listEnd" value="/leaveList.ad">
+							<c:param name="currentPage" value="${ pi.currentPage + 1 }" />
+						</c:url>
+						<li class="page-item">
+		                    <a class="page-link" href="${ listEnd }" aria-label="Next">
+		                        <span aria-hidden="true">»</span>
+		                        <span class="sr-only">Next</span>
+		                    </a>
+		                </li>
+					</c:if>
+				</ul>
+			</div>
 			
 		</div>
 	</div>

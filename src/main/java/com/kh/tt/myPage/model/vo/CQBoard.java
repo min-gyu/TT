@@ -1,25 +1,24 @@
 package com.kh.tt.myPage.model.vo;
 
-import java.sql.Date;
 
-public class CQBoard {
+public class CQBoard implements java.io.Serializable{
 	
 	private int cqNo; //게시글번호
 	private int cqUno; //작성회원번호
 	private int cqTargetId; //신고당한 회원번호
-	private String cqClass; //유형
-	private String cqTitle; //제목
-	private String cqContent; //내용
-	private Date cqDate; //작성일
-	private int cqLevel; //레벨
-	private int cqUpperNo; //상위게시물번호
-	private String cqAttachYn; //첨부파일여부
-	private String cqDelStatus; //삭제상태
-	private String cqType; //사용타입
+	private String cqClass;  //유형
+	private String cqTitle;  //제목
+	private String cqContent;  //내용
+	private String cqString;  //작성일
+	private int cqLevel;  //레벨
+	private int cqUpperNo;  //상위게시물번호
+	private String cqAttachYn;  //첨부파일여부
+	private String cqDelStatus;  //삭제상태
+	private String cqType;  //사용타입
 	
 	public CQBoard() {}
 
-	public CQBoard(int cqNo, int cqUno, int cqTargetId, String cqClass, String cqTitle, String cqContent, Date cqDate,
+	public CQBoard(int cqNo, int cqUno, int cqTargetId, String cqClass, String cqTitle, String cqContent, String cqString,
 			int cqLevel, int cqUpperNo, String cqAttachYn, String cqDelStatus, String cqType) {
 		super();
 		this.cqNo = cqNo;
@@ -28,7 +27,7 @@ public class CQBoard {
 		this.cqClass = cqClass;
 		this.cqTitle = cqTitle;
 		this.cqContent = cqContent;
-		this.cqDate = cqDate;
+		this.cqString = cqString;
 		this.cqLevel = cqLevel;
 		this.cqUpperNo = cqUpperNo;
 		this.cqAttachYn = cqAttachYn;
@@ -84,12 +83,12 @@ public class CQBoard {
 		this.cqContent = cqContent;
 	}
 
-	public Date getCqDate() {
-		return cqDate;
+	public String getCqString() {
+		return cqString;
 	}
 
-	public void setCqDate(Date cqDate) {
-		this.cqDate = cqDate;
+	public void setCqString(String cqString) {
+		this.cqString = cqString;
 	}
 
 	public int getCqLevel() {
@@ -135,7 +134,7 @@ public class CQBoard {
 	@Override
 	public String toString() {
 		return "CQBoard [cqNo=" + cqNo + ", cqUno=" + cqUno + ", cqTargetId=" + cqTargetId + ", cqClass=" + cqClass
-				+ ", cqTitle=" + cqTitle + ", cqContent=" + cqContent + ", cqDate=" + cqDate + ", cqLevel=" + cqLevel
+				+ ", cqTitle=" + cqTitle + ", cqContent=" + cqContent + ", cqString=" + cqString + ", cqLevel=" + cqLevel
 				+ ", cqUpperNo=" + cqUpperNo + ", cqAttachYn=" + cqAttachYn + ", cqDelStatus=" + cqDelStatus
 				+ ", cqType=" + cqType + "]";
 	}

@@ -40,7 +40,7 @@ public class AdminController {
 		return memberPath + "main";
 	}
 	
-	// 전체 회원 조회 
+	// 1. 전체 회원 조회 
 	@RequestMapping("memberList")
 	public String memberList(Model model, HttpServletRequest request, HttpServletResponse response) {
 		int currentPage = 1;
@@ -50,7 +50,7 @@ public class AdminController {
 		}
 		
 		try {
-			int listCount = as.getListCount();
+			int listCount = as.getAllCount();
 			
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
@@ -64,11 +64,11 @@ public class AdminController {
 		return memberPath + "memberList";
 	}
 	
-	// 전체 회원 - 검색
+	// 1. 전체 회원 - 검색
 	@RequestMapping("searchAll")
 	public String searchAllMember(Model model, HttpServletRequest request, HttpServletResponse response) {
-		String searchValue = request.getParameter("searchValue");
-		
+		String sid = request.getParameter("searchValue");
+
 		int currentPage = 1;
 		
 		if (request.getParameter("currentPage") != null) {
@@ -76,15 +76,14 @@ public class AdminController {
 		}
 		
 		try {
-			int listCount = as.getListCount();
+			int listCount = as.getSearchAllCount(sid);
 			
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
-			List<Member> mList = as.selectAllMemberList(pi);
+			List<Member> mList = as.searchAllMemberList(sid, pi);
 			model.addAttribute("mList", mList);
 			request.setAttribute("pi", pi);
-			
-			System.out.println(mList);
+			//System.out.println(mList);
 			
 		} catch (AdminException e) {
 			e.printStackTrace();
@@ -92,13 +91,23 @@ public class AdminController {
 		return memberPath + "memberList";
 	}
 	
-	// 정지 회원 조회
+	// 2. 정지 회원 조회
 	@RequestMapping("banList")
-	public String BanList(Model model) {
+	public String BanList(Model model, HttpServletRequest request, HttpServletResponse response) {
+		int currentPage = 1;
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
 		try {
-			List<Member> bList = as.selectBanList();
+			int listCount = as.getBanCount();
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			List<Member> bList = as.selectBanList(pi);
 			model.addAttribute("bList", bList);
-			//System.out.println(bList);
+			request.setAttribute("pi", pi);
 			
 		} catch (AdminException e) {
 			e.printStackTrace();
@@ -106,13 +115,48 @@ public class AdminController {
 		return memberPath + "banList";
 	}
 	
-	// 탈퇴 회원 조회
-	@RequestMapping("leaveList")
-	public String LeaveList(Model model) {
+	// 2. 정지 회원 - 검색
+	@RequestMapping("searchBan")
+	public String searchBanMember(Model model, HttpServletRequest request, HttpServletResponse response) {
+		String sid = request.getParameter("searchValue");
+
+		int currentPage = 1;
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
 		try {
-			List<Member> lList = as.selectLeaveList();
+			int listCount = as.getSearchBanCount(sid);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			List<Member> bList = as.searchBanMemberList(sid, pi);
+			model.addAttribute("bList", bList);
+			request.setAttribute("pi", pi);
+			
+		} catch (AdminException e) {
+			e.printStackTrace();
+		}
+		return memberPath + "banList";
+	}
+	
+	// 3. 탈퇴 회원 조회
+	@RequestMapping("leaveList")
+	public String LeaveList(Model model, HttpServletRequest request, HttpServletResponse response) {
+		int currentPage = 1;
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			int listCount = as.getLeaveCount();
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			List<Member> lList = as.selectLeaveList(pi);
 			model.addAttribute("lList", lList);
-			//System.out.println(lList);
+			request.setAttribute("pi", pi);
 			
 		} catch (AdminException e) {
 			e.printStackTrace();
@@ -120,6 +164,31 @@ public class AdminController {
 		return memberPath + "leaveList";
 	}
 	
+	// 3. 탈퇴 회원 - 검색
+	@RequestMapping("searchLeave")
+	public String searchLeaveMember(Model model, HttpServletRequest request, HttpServletResponse response) {
+		String sid = request.getParameter("searchValue");
+
+		int currentPage = 1;
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			int listCount = as.getSearchLeaveCount(sid);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			List<Member> lList = as.searchLeaveList(sid, pi);
+			model.addAttribute("lList", lList);
+			request.setAttribute("pi", pi);
+			
+		} catch (AdminException e) {
+			e.printStackTrace();
+		}
+		return memberPath + "leaveList";
+	}
 	
 	
 	

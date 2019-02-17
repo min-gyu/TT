@@ -24,6 +24,7 @@
 		<mapper resource="mappers/cqboard-mapper.xml" />
 		<mapper resource="mappers/admin-mapper.xml" />
 		<mapper resource="mappers/broadCast-mapper.xml" />
+		<mapper resource="mappers/cqandAt-mapper.xml" />
 	</mappers>
 	
 </configuration>
