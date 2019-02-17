@@ -120,6 +120,7 @@
 			<table class="ui celled table">
 				<thead>
 					<tr align="center">
+						<th>필터번호</th>
 						<th>금칙어</th>
 						<th>대체어</th>
 						<th>지정일</th>
@@ -127,7 +128,7 @@
 				</thead>
 				<tbody id="resultBody">
 					<tr align="center">
-						<td	colspan="2">검색 버튼을 눌러주세요</td>	
+						<td	colspan="4">검색 버튼을 눌러주세요</td>	
 					</tr>
 				</tbody>
 			</table>
@@ -183,9 +184,11 @@
 											$(this).addClass("active");
 										};
 									});
+							var $tdFNo = $("<td>").text(data[i].fNo);
 							var $tdWord = $("<td>").text(data[i].fBan);
 							var $tdRevise = $("<td>").text(data[i].fReplace);
 							var $tdDate = $("<td>").text(new Date(data[i].fDate).format('yyyy-MM-dd'));
+							$tr.append($tdFNo);
 							$tr.append($tdWord);
 							$tr.append($tdRevise);
 							$tr.append($tdDate);
@@ -273,14 +276,27 @@
 			}
 		});
 		$("#deleteBtn").click(function(){
-			var banWord = new Array();
-			var replaceWord = new Array();
-			$("#resultBody").children().each(function(index, item){
-				if($(this).hasClass("active")){
-					banWord[index] = $(this).children().eq(0).text();
-					replaceWord[index] = $(this).children().eq(1).text();
-				}
+			var fNoArr = new Array();
+			var $selectActive = $("#resultBody").children().filter(".active");
+			$selectActive.each(function(index, item){
+				fNoArr[index] = $(this).children().eq(0).text();
 			});
+			console.log(fNoArr);
+			jQuery.ajaxSettings.traditional = true;
+			$.ajax({
+				url : "/deleteBanWord.bc",
+				type : "post",
+				data: {
+					fNoArr:fNoArr
+		  		},	
+				success : function(data) {
+					console.log(data);
+				},
+				error : function(data) {
+					console.log("실패")
+				}
+			}); 
+			
 		});
 
 

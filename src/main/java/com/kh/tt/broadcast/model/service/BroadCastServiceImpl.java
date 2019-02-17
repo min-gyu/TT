@@ -34,4 +34,11 @@ public class BroadCastServiceImpl implements BroadCastService{
 		return result;
 	}
 
+	@Override
+	public int deleteBanWord(HashMap<String, Object> hmap) {		
+		return bcd.deleteBanWord(sqlSession, hmap);
+	}
+
+	
+
 }
