@@ -81,7 +81,7 @@
 			if (keyCode == input){
 				alert("인증되었습니다.")
 				$("#submitBtn").focus();
-			} else{
+			} else {
 				alert("입력한 값이 일치하지 않습니다.")
 			}
 			

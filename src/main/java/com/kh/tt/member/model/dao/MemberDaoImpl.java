@@ -87,6 +87,22 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.insert("CQandAttach.insertCAttach", ca);
 	}
 
+	// 신고 아이디 체크
+	@Override
+	public int targetIdCheck(SqlSessionTemplate sqlSession, String targetId) {
+		return sqlSession.selectOne("Member.targetIdCheck", targetId);
+	}
+
+	@Override
+	public int selectUno(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Member.selectUno");
+	}
+
+	@Override
+	public int createChannel(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.insert("Member.createChannel", m);
+	}
+
 	
 
 }

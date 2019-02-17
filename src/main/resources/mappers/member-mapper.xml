@@ -26,6 +26,9 @@
 		<result property="btYN" 		column="M_BT_YN"/>
 		<result property="totalClover" 	column="M_TOTAL_CLOVER"/>
 		<result property="adminYN" 		column="M_ADMIN_YN"/>
+		<result property="chNo" 		column="CH_NO"/>
+		<result property="chUno" 		column="CH_UNO"/>
+		<result property="chName" 		column="CH_NAME"/>
 	</resultMap>
 	
 	<select id="loginCheck" parameterType="com.kh.tt.member.model.vo.Member" resultMap="memberVO" >
@@ -40,7 +43,7 @@
 	<insert id="insertMember" parameterType="com.kh.tt.member.model.vo.Member" >
 		INSERT INTO MEMBER
 		VALUES(
-		SEQ_M_UNO.NEXTVAL
+		  #{chUno}
 		, #{userId}
 		, #{nickName}
 		, #{userName}
@@ -85,10 +88,27 @@
 	    WHERE M_ID = #{userId}
 	</select>
 	
-	<!-- 아이디 중복 체크 -->
+	<!-- 닉네임 중복 체크 -->
 	<select id="nickNameCheck" parameterType="String" resultType="Integer">
 	    SELECT COUNT(*)
 	    FROM MEMBER
 	    WHERE M_NICKNAME = #{nickName}
 	</select>
+	
+	<!-- 신고 아이디 체크 -->
+	<select id="targetIdCheck" parameterType="String" resultType="Integer">
+	    SELECT COUNT(*)
+	    FROM MEMBER
+	    WHERE M_ID = #{userId}
+	</select>
+	
+	<select id="selectUno" resultType="int">
+		SELECT
+		SEQ_M_UNO.NEXTVAL
+		FROM DUAL
+	</select>
+	
+	<insert id="createChannel" parameterType="com.kh.tt.member.model.vo.Member" >
+		INSERT INTO CHANNEL VALUES (SEQ_CH_NO.NEXTVAL, #{chUno}, DEFAULT)
+	</insert>
 </mapper>

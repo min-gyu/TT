@@ -34,24 +34,40 @@
 		});
 	});
 		
-	/* function duplicationCheck(){
-		var reportId = $("#reportId").val();
-		console.log(reportId);
+	function fn_targetIdCheck(){
+		var resultValue = $("#reportId").val();
+		
+		var url  = "targetIdCheck.me"
+		  , data = {
+				     params : {
+				    	 			resultValue 	: resultValue
+								}
+				};
 		
 		$.ajax({
-			url  : "duplicationCheck.me",
-			type : "post",
-			data : {userId : userId},
-			success : function(data){
-				console.log(data.userId);
-			},
-			error : function(status){
-				console.log(status);
-			}
-		});
-		
-		return false;
-	} */
+	         type			:"post"
+	        ,url			: url
+		  	,data			: data
+	        ,contentType	: "application/json; charset=UTF-8"
+	        ,success		: function(resultData, status, headers, config){
+						        	var ret_code 	= resultData.ret_code;
+						        	var ret_message = resultData.ret_message;
+						        	
+						        	switch (ret_code) {
+										case "E":
+											alert("에러가 발생했습니다. : \n" + ret_message);
+										break;
+										
+										case "S":
+											alert(ret_message);
+										break;
+									} 
+									alert("success!");
+						        }
+	        ,error 			: function(request,status,error){ alert(error); }
+			,complete		: function(jqXHR){  } // 요청의 실패, 성공과 상관 없이 완료 될 경우 호출
+	    }); 
+	}
 </script>
 
 <section class="home">
@@ -106,8 +122,8 @@
 					
 					<label for="inputRId" class="col-sm-2 control-label">신고 아이디</label>
 					<div class="col-sm-3">
-						<input type="text" class="form-control" id="reportId" name="targetNo">
-						<button type="button" id="checkBtn1" class="btn btn-warning bt-sm" onclick="fn_overlayCheck('id');">중복체크</button>
+						<input type="text" class="form-control" id="reportId" name="targetId">
+						<button type="button" id="checkBtn1" class="btn btn-warning bt-sm" onclick="fn_targetIdCheck();">중복체크</button>
 					</div>
 				</div>
 				

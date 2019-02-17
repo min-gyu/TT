@@ -39,6 +39,13 @@ public interface MemberDao {
 	// 신고 첨부 파일
 	int insertCAt(SqlSessionTemplate sqlSession, CQAndAttach ca);
 
+	// 신고 아이디 체크
+	int targetIdCheck(SqlSessionTemplate sqlSession, String targetId);
+
+	int selectUno(SqlSessionTemplate sqlSession);
+
+	int createChannel(SqlSessionTemplate sqlSession, Member m);
+
 
 
 

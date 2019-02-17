@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +28,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.common.CommonUtils;
 import com.kh.tt.common.LoginLoggin;
 import com.kh.tt.common.MailUtils;
+import com.kh.tt.common.kakaoRestApi;
 import com.kh.tt.member.model.exception.LoginException;
 import com.kh.tt.member.model.service.MemberService;
 import com.kh.tt.member.model.vo.CQAndAttach;
@@ -78,6 +82,12 @@ public class MemberController {
 	public String showInquireView() {
 		return jspPath + "question";
 	}
+	
+	@RequestMapping("completeCQView.me")
+	public String completeCQView() {
+		return jspPath + "completeCQ";
+	}	
+	
 
 	@RequestMapping("login.me")
 	public String loginCheck(Member m, Model model) {
@@ -99,7 +109,8 @@ public class MemberController {
 		
 		return "redirect:goMain.me";
 	}
-	
+
+	// 회원가입
 	@RequestMapping(value = "insertMember.me", method=RequestMethod.POST)
 	public String insertMember(Member m, Model model) {
 		System.out.println("member > " + m);
@@ -109,7 +120,14 @@ public class MemberController {
 			
 			m.setUserPwd(encPassword);
 			
+			// 채널 생성을 위한 시퀀스
+			int uNo = ms.selectUno();
+			
+			m.setChUno(uNo);
+
 			ms.insertMember(m);
+			// 회원가입 시 채널 자동 생성
+			ms.createChannel(m);
 			
 			return "redirect:goMain.me";
 			
@@ -200,7 +218,7 @@ public class MemberController {
 			ms.insertQuestion(ca);
 			ms.insertQAt(ca);
 			
-			return "redirect:goMain.me";
+			return jspPath + "completeCQ";
 			
 		} catch (Exception e) {
 			System.out.println(e);
@@ -210,7 +228,7 @@ public class MemberController {
 		}
 	 }
 	 
-	// 문의하기
+	// 신고하기
 	 @PostMapping("/clientClaim.me")
 	 public String insertClaim(CQAndAttach ca
 			 , HttpServletRequest request
@@ -240,7 +258,7 @@ public class MemberController {
 			ms.insertClaim(ca);
 			ms.insertCAt(ca);
 			
-			return "redirect:goMain.me";
+			return jspPath + "completeCQ";
 			
 		} catch (Exception e) {
 			System.out.println(e);
@@ -249,4 +267,25 @@ public class MemberController {
 			return "common/errorPage";
 		}
 	 }
+	 
+	 /**
+	 * @author jy
+	 * @since 2019.02.12
+	 * @category 신고하기 - 신고 아이디 체크
+	 * */
+	@PostMapping(value = "targetIdCheck.me")
+	public @ResponseBody HashMap<String, Object> targetIdCheck(@RequestBody Map<String, Object> requestBody){
+		Map<String, Object> reqMap = (Map)requestBody.get("params");
+		
+		String resultValue = (String) reqMap.get("resultValue");
+		
+		HashMap<String, Object> resultMap = new HashMap<>();
+		
+		resultMap =  ms.targetIdCheck(resultValue);
+
+		logger.info("resultValue : " + resultValue);
+		
+		return resultMap;
+	}
+	
 }
