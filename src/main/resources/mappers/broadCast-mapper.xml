@@ -31,13 +31,22 @@
 	ON (M.M_UNO = C.CH_UNO) 
 	WHERE (M_ID=#{owner})
 	</select>
-	<!-- 금지어를 추가하는 메서드 -->
+	<!-- 금지어를 추가하는 sql문 -->
 	<insert id="insertBanWord" parameterType="BanWord">
 	INSERT 
 	INTO 
 	FILTER 
 	VALUES(SEQ_F_NO.NEXTVAL, ${fChNo}, '${fBan}', '${fReplace}', SYSDATE)
 	</insert>
+	<!-- 금지어를 삭제하는 sql문 -->
+	<delete id="deleteBanWord" parameterType="hashmap">
+	DELETE 
+	FROM FILTER 
+	WHERE F_NO IN
+		<foreach collection="fNoList" item="list"  open="(" close=")" separator=",">
+			#{list}
+	 	</foreach>
+	</delete>
 	
 
 </mapper>

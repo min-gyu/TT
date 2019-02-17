@@ -27,5 +27,10 @@ public class BroadCastDaoImpl implements BroadCastDao{
 		int result = sqlSession.insert("BanWord.insertBanWord", addBanWord);
 		return result;
 	}
-
+	//금지어를 삭제하는 메서드
+	@Override
+	public int deleteBanWord(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
+		return sqlSession.delete("BanWord.deleteBanWord", hmap);
+	}
+	
 }

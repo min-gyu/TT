@@ -15,4 +15,9 @@ public interface BroadCastDao {
 
 	int insertBanWord(SqlSessionTemplate sqlSession, BanWord addBanWord);
 
+	int deleteBanWord(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
+
+	
+
+
 }
