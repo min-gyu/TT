@@ -4,8 +4,11 @@ import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.member.model.exception.LoginException;
+import com.kh.tt.member.model.vo.CQAndAttach;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.vo.CQBoard;
 
 public interface MemberDao {
 
@@ -20,5 +23,24 @@ public interface MemberDao {
 	int idCheck(SqlSessionTemplate sqlSession, String userId);
 
 	int nickNameCheck(SqlSessionTemplate sqlSession, String nickName);
+
+	// 신고문의게시판 시퀀스
+	int selectCqNo(SqlSessionTemplate sqlSession);
+	
+	// 문의하기
+	int insertQuestion(SqlSessionTemplate sqlSession, CQAndAttach ca);
+
+	// 문의 첨부 파일
+	int insertQAt(SqlSessionTemplate sqlSession, CQAndAttach ca);
+
+	// 신고하기
+	int insertClaim(SqlSessionTemplate sqlSession, CQAndAttach ca);
+
+	// 신고 첨부 파일
+	int insertCAt(SqlSessionTemplate sqlSession, CQAndAttach ca);
+
+
+
+
 
 }

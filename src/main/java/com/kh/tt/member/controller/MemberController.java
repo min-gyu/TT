@@ -1,29 +1,40 @@
 package com.kh.tt.member.controller;
 
+import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.common.CommonUtils;
 import com.kh.tt.common.LoginLoggin;
 import com.kh.tt.common.MailUtils;
 import com.kh.tt.member.model.exception.LoginException;
 import com.kh.tt.member.model.service.MemberService;
+import com.kh.tt.member.model.vo.CQAndAttach;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.vo.CQBoard;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -58,14 +69,14 @@ public class MemberController {
 		return jspPath + "join";
 	}
 
-	@RequestMapping("reportView.me")
+	@RequestMapping("claimView.me")
 	public String showReportView() {
-		return jspPath + "report";
+		return jspPath + "claim";
 	}
 
-	@RequestMapping("inquireView.me")
+	@RequestMapping("questionView.me")
 	public String showInquireView() {
-		return jspPath + "inquire";
+		return jspPath + "question";
 	}
 
 	@RequestMapping("login.me")
@@ -158,5 +169,84 @@ public class MemberController {
 		 resultMap.put("keyCode", keyCode);
 		 return resultMap;
 	 }
-	
+	 
+	 // 문의하기
+	 @PostMapping("/clientQuestion.me")
+	 public String insertQuestion(CQAndAttach ca
+			 , HttpServletRequest request
+			 , @RequestParam(value="photo", required=false) MultipartFile photo){
+		System.out.println(ca);	
+		System.out.println(photo);
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+			
+		String filePath = root + "\\uploadFiles";
+		
+		// 파일명 변경
+		String originFileName = photo.getOriginalFilename();
+		String ext = originFileName.substring(originFileName.lastIndexOf("."));
+		String changeName = CommonUtils.getRandomString();
+		
+		try {
+			photo.transferTo(new File(filePath + "\\" + changeName + ext));
+			
+			int cqNo = ms.selectCqNo();
+			
+			ca.setAtName(originFileName);
+			ca.setModifyName(changeName);
+			ca.setPath(filePath);
+			ca.setAtCqNO(cqNo);
+			
+			ms.insertQuestion(ca);
+			ms.insertQAt(ca);
+			
+			return "redirect:goMain.me";
+			
+		} catch (Exception e) {
+			System.out.println(e);
+			new File(filePath + "\\" + changeName + ext).delete();
+			
+			return "common/errorPage";
+		}
+	 }
+	 
+	// 문의하기
+	 @PostMapping("/clientClaim.me")
+	 public String insertClaim(CQAndAttach ca
+			 , HttpServletRequest request
+			 , @RequestParam(value="photo", required=false) MultipartFile photo){
+		System.out.println(ca);	
+		System.out.println(photo);
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+			
+		String filePath = root + "\\uploadFiles";
+		
+		// 파일명 변경
+		String originFileName = photo.getOriginalFilename();
+		String ext = originFileName.substring(originFileName.lastIndexOf("."));
+		String changeName = CommonUtils.getRandomString();
+		
+		try {
+			photo.transferTo(new File(filePath + "\\" + changeName + ext));
+			
+			int cqNo = ms.selectCqNo();
+			
+			ca.setAtName(originFileName);
+			ca.setModifyName(changeName);
+			ca.setPath(filePath);
+			ca.setAtCqNO(cqNo);
+			
+			ms.insertClaim(ca);
+			ms.insertCAt(ca);
+			
+			return "redirect:goMain.me";
+			
+		} catch (Exception e) {
+			System.out.println(e);
+			new File(filePath + "\\" + changeName + ext).delete();
+			
+			return "common/errorPage";
+		}
+	 }
 }

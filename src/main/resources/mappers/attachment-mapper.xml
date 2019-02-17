@@ -38,6 +38,7 @@
 		SELECT * 
 		FROM ATTACHMENT
 		WHERE AT_B_NO=#{bNo}
-	
 	</select>
-	</mapper>
+	
+	
+</mapper>

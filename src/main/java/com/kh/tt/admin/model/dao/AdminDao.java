@@ -8,19 +8,47 @@ import com.kh.tt.member.model.vo.Member;
 
 public interface AdminDao {
 
-	List<Member> selectMemberList() throws AdminException;
-
-	List<Member> selectBanList() throws AdminException;
-
-	List<Member> selectLeaveList() throws AdminException;
+	// 1. 전체 회원 수 카운트
+	int getAllCount() throws AdminException;
 	
-	// 전체 회원 목록 조회용 메소드
-	int getListCount() throws AdminException;
-	
-	// 페이징 처리 된 전체 회원 목록 조회용 메소드
+	// 1. 페이징 된 전체 회원 조회 
 	List<Member> selectMemberList(PageInfo pi) throws AdminException;
+	
+	// 1. 검색 - 전체 회원 수 카운트
+	int getSearchAllCount(String sid) throws AdminException;
+	
+	// 1. 검색 - 페이징 된 전체 회원 조회
+	List<Member> searchAllMemberList(String sid, PageInfo pi) throws AdminException;		
+	
+	
+	// 2. 정지 회원 수 카운트
+	int getBanCount() throws AdminException;
+	
+	// 2. 페이징 된 정지 회원 조회
+	List<Member> selectBanList(PageInfo pi) throws AdminException;
 
-	// 전체 회원 검색
-	List<Member> selectAllMemberList() throws AdminException;
+	// 2. 검색 - 정지 회원 수 카운트
+	int getSearchBanCount(String sid) throws AdminException;
+	
+	// 2. 검색 - 페이징 된 정지 회원 목록 조회
+	List<Member> searchBanMemberList(String sid, PageInfo pi) throws AdminException;
+
+	
+	// 3. 탈퇴 회원 수 카운트
+	int getLeaveCount() throws AdminException;
+	
+	// 3. 페이징 된 탈퇴 회원 조회
+	List<Member> selectLeaveList(PageInfo pi) throws AdminException;
+
+	// 3. 검색 - 탈퇴 회원 수 카운트
+	int getSearchLeaveCount(String sid) throws AdminException;
+
+	// 3. 검색 - 페이징 된 탈퇴 회원 목록 조회
+	List<Member> searchLeaveList(String sid, PageInfo pi) throws AdminException;
+	
+	
+	
+
+
 
 }

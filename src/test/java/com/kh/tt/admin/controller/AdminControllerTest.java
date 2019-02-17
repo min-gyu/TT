@@ -27,8 +27,8 @@ public class AdminControllerTest {
 	@Test
 	public void memberListTest() throws AdminException {
 		//List<Member> mList = svc.selectMemberList();
-		List<Member> mList = dao.selectMemberList();
-		System.out.println(mList);
+		//List<Member> mList = dao.selectMemberList();
+		//System.out.println(mList);
 		
 		
 	}

@@ -26,7 +26,7 @@
 	</resultMap>
 
 	<!-- 회원 목록 조회 용 쿼리 -->
-	<select id="selectListCount" resultType="int">
+	<select id="selectAllCount" resultType="int">
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE M_ADMIN_YN = 'N'
@@ -47,6 +47,40 @@
 	    WHERE M_ADMIN_YN = 'N'
 	</select>
 	
+	<!-- 회원 목록 조회 용 쿼리 -->
+	<select id="searchAllCount" parameterType="java.lang.String" resultType="int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE M_ADMIN_YN = 'N'
+		AND (#{value} IS NULL OR M_ID = #{value} )
+	</select>
+	
+	<!-- 전체 회원 검색 -->
+	<select id="searchAllMemberList" parameterType="java.lang.String" resultMap="adminMemberVO">
+		SELECT ROWNUM AS ROW_NUMBER
+		 , M_NAME
+		 , M_ID
+		 , M_NICKNAME
+		 , M_GENDER
+		 , M_BANK
+		 , M_WARNING_NO
+		 , M_BAN_STATUS
+		 , M_STATUS
+		FROM MEMBER
+		WHERE M_ADMIN_YN = 'N'
+		AND (#{value} IS NULL OR M_ID = #{value} )
+	</select>
+	
+	<!-- 정지 회원 수 조회 -->
+	<select id="selectBanCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		JOIN MEMBERBAN ON (M_UNO = MB_UNO)
+		WHERE M_ADMIN_YN = 'N'
+		AND M_BAN_STATUS = 'Y'
+		AND M_STATUS = 'Y'
+	</select>
+	
 	<!-- 정지 회원 조회 -->
 	<select id="banList" resultMap="adminMemberVO">
 		SELECT ROWNUM AS ROW_NUMBER
@@ -57,10 +91,48 @@
 		 , TO_CHAR(MB_START_DATE, 'YYYY-MM-DD') AS MB_START_DATE
 		 , TO_CHAR(MB_END_DATE, 'YYYY-MM-DD') AS MB_END_DATE
 		FROM MEMBER
-		JOIN MEMBERBAN ON (M_UNO = MB_NO)
+		JOIN MEMBERBAN ON (M_UNO = MB_UNO)
 		WHERE M_ADMIN_YN = 'N'
 		AND M_BAN_STATUS = 'Y'
 		AND M_STATUS = 'Y'
+		ORDER BY MB_START_DATE DESC
+	</select>
+	
+	<!-- 검색 정지 회원 수 -->
+	<select id="searchBanCount" parameterType="java.lang.String" resultType="int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		JOIN MEMBERBAN ON (M_UNO = MB_UNO)
+		WHERE M_ADMIN_YN = 'N'
+		AND M_BAN_STATUS = 'Y'
+		AND M_STATUS = 'Y'
+		AND (#{value} IS NULL OR M_ID = #{value} )
+	</select>
+	
+	<!-- 검색 정지 회원 목록 -->
+	<select id="searchBanList" parameterType="java.lang.String" resultMap="adminMemberVO">
+		SELECT ROWNUM AS ROW_NUMBER
+		 , M_ID
+		 , M_NICKNAME
+		 , M_WARNING_NO
+		 , MB_REASON
+		 , TO_CHAR(MB_START_DATE, 'YYYY-MM-DD') AS MB_START_DATE
+		 , TO_CHAR(MB_END_DATE, 'YYYY-MM-DD') AS MB_END_DATE
+		FROM MEMBER
+		JOIN MEMBERBAN ON (M_UNO = MB_UNO)
+		WHERE M_ADMIN_YN = 'N'
+		AND M_BAN_STATUS = 'Y'
+		AND M_STATUS = 'Y'
+		AND (#{value} IS NULL OR M_ID = #{value} )
+		ORDER BY MB_START_DATE DESC
+	</select>
+	
+	<!-- 정지 회원 수 조회 -->
+	<select id="selectLeaveCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE M_ADMIN_YN = 'N'
+		AND M_STATUS = 'N'
 	</select>
 	
 	<!-- 탈퇴 회원 조회 -->
@@ -74,24 +146,31 @@
 		FROM MEMBER
 		WHERE M_ADMIN_YN = 'N'
 		AND M_STATUS = 'N'
+		ORDER BY M_LEAVE_DATE DESC
 	</select>
 	
-	<select id="selectAllMemberList" resultMap="adminMemberVO">
-		SELECT ROWNUM AS ROW_NUMBER
-		 , M_NAME
-		 , M_ID
-		 , M_NICKNAME
-		 , M_GENDER
-		 , M_BANK
-		 , M_WARNING_NO
-		 , M_BAN_STATUS
-		 , M_STATUS
+	<!-- 검색 탈퇴 회원 수 -->
+	<select id="searchLeaveCount" parameterType="java.lang.String" resultType="int">
+		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE M_ADMIN_YN = 'N'
-		<if test="userId != null">
-			AND M_ID = #{userId}
-		</if>		
+		AND M_STATUS = 'N'
+		AND (#{value} IS NULL OR M_ID = #{value} )
 	</select>
 	
+	<!-- 검색 탈퇴 회원 목록 -->
+	<select id="searchLeaveList" parameterType="java.lang.String" resultMap="adminMemberVO">
+		SELECT ROWNUM AS ROW_NUMBER
+	     , M_NAME
+	     , M_ID
+	     , M_NICKNAME
+	     , M_REASON
+	     , TO_CHAR(M_LEAVE_DATE, 'YYYY-MM-DD') AS M_LEAVE_DATE
+		FROM MEMBER
+		WHERE M_ADMIN_YN = 'N'
+		AND M_STATUS = 'N'
+		AND (#{value} IS NULL OR M_ID = #{value} )
+		ORDER BY M_LEAVE_DATE DESC
+	</select>
 	
 </mapper>
