@@ -14,6 +14,10 @@ public interface MemberService {
 
 	// 회원 가입
 	int insertMember(Member m);
+	
+	int selectUno();
+	
+	int createChannel(Member m);
 
 	// 아이디 중복 체크
 	HashMap<String, Object> idCheck(String userId);
@@ -21,7 +25,7 @@ public interface MemberService {
 	// 닉네임 중복 체크
 	HashMap<String, Object> nickNameCheck(String nickName);
 
-	// 신고문의게시판 시퀀스
+	// 신고문의 게시판 시퀀스
 	int selectCqNo();
 	
 	// 문의하기
@@ -35,5 +39,12 @@ public interface MemberService {
 
 	// 신고 첨부 파일
 	int insertCAt(CQAndAttach ca);
+
+	// 신고 아이디 체크
+	HashMap<String, Object> targetIdCheck(String targetId);
+
+	
+
+	
 
 }

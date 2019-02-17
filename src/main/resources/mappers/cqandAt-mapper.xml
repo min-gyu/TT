@@ -135,7 +135,9 @@
 		)VALUES(
 			  #{atCqNO}
 			, #{uno}
-			, #{targetNo}
+			, (SELECT M_UNO
+			   FROM MEMBER
+			   WHERE M_ID = #{targetId})
 			
 			, #{cqClass}
 			, #{cqTitle}
@@ -185,6 +187,7 @@
 			  , 'CLAIM'
 			)
 	</insert>
+	
 	
 </mapper>
 

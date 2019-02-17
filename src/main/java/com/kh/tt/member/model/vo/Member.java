@@ -26,11 +26,16 @@ public class Member implements java.io.Serializable{
 	private int totalClover;
 	private String adminYN;
 	
+	private int chNo;
+	private int chUno;
+	private String chName;
+	
 	public Member() {}
 
 	public Member(int uno, String userId, String nickName, String userName, String userPwd, String birth, String gender,
 			String email, String enrollDate, String bank, String bankNo, int warningNo, String banStatus, String status,
-			String reason, String leaveDate, String btYN, int totalClover, String adminYN) {
+			String reason, String leaveDate, String btYN, int totalClover, String adminYN, int chNo, int chUno,
+			String chName) {
 		super();
 		this.uno = uno;
 		this.userId = userId;
@@ -51,6 +56,9 @@ public class Member implements java.io.Serializable{
 		this.btYN = btYN;
 		this.totalClover = totalClover;
 		this.adminYN = adminYN;
+		this.chNo = chNo;
+		this.chUno = chUno;
+		this.chName = chName;
 	}
 
 	public int getUno() {
@@ -205,13 +213,38 @@ public class Member implements java.io.Serializable{
 		this.adminYN = adminYN;
 	}
 
+	public int getChNo() {
+		return chNo;
+	}
+
+	public void setChNo(int chNo) {
+		this.chNo = chNo;
+	}
+
+	public int getChUno() {
+		return chUno;
+	}
+
+	public void setChUno(int chUno) {
+		this.chUno = chUno;
+	}
+
+	public String getChName() {
+		return chName;
+	}
+
+	public void setChName(String chName) {
+		this.chName = chName;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [uno=" + uno + ", userId=" + userId + ", nickName=" + nickName + ", userName=" + userName
 				+ ", userPwd=" + userPwd + ", birth=" + birth + ", gender=" + gender + ", email=" + email
 				+ ", enrollDate=" + enrollDate + ", bank=" + bank + ", bankNo=" + bankNo + ", warningNo=" + warningNo
 				+ ", banStatus=" + banStatus + ", status=" + status + ", reason=" + reason + ", leaveDate=" + leaveDate
-				+ ", btYN=" + btYN + ", totalClover=" + totalClover + ", adminYN=" + adminYN + "]";
+				+ ", btYN=" + btYN + ", totalClover=" + totalClover + ", adminYN=" + adminYN + ", chNo=" + chNo
+				+ ", chUno=" + chUno + ", chName=" + chName + "]";
 	}
 
 	

@@ -17,6 +17,7 @@
 	<meta property="og:url" content="http://github.com/nauvalazhar/Magz" />
 	<meta property="og:image" content="https://raw.githubusercontent.com/nauvalazhar/Magz/master/images/preview.png" />
 	 -->
+	 
 	<title>Today's TV</title>
 	
 	<!-- template 제공 -->
@@ -38,6 +39,7 @@
 	<!-- <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 	
 	<!-- fakerLoader -->
     <script src="/resources/js/fakeLoader.js"></script>

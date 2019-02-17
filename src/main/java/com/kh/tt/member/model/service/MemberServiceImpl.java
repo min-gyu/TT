@@ -138,8 +138,46 @@ public class MemberServiceImpl implements MemberService {
 	public int insertCAt(CQAndAttach ca) {
 		return md.insertCAt(sqlSession, ca);
 	}
-
 	
+	// 신고 아이디 체크
+	@Override
+	public HashMap<String, Object> targetIdCheck(String targetId) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		resultMap.put("ret_code", "S");	
+		resultMap.put("ret_message", "");
+		
+		try {
+			
+			int count = md.targetIdCheck(sqlSession, targetId);
+			switch (count) {
+				case 1 :
+					resultMap.put("ret_message", "존재하지 않는 아이디 입니다.");
+				break;
+				
+				case 0 :
+					resultMap.put("ret_message", "존재하는 아이디 입니다.");
+				break;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("ret_code", "E");
+			resultMap.put("ret_message", "errors : " + e);
+		}
+		
+		return resultMap;
+	}
+
+	@Override
+	public int selectUno() {
+		return md.selectUno(sqlSession);
+	}
+
+	@Override
+	public int createChannel(Member m) {
+		return md.createChannel(sqlSession, m);
+	}
 
 
 }
