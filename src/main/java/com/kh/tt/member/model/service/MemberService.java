@@ -15,8 +15,10 @@ public interface MemberService {
 	// 회원 가입
 	int insertMember(Member m);
 	
+	// 채널 생성을 위한 회원 시퀀스
 	int selectUno();
 	
+	// 회원 가입 시 채널 자동 생성
 	int createChannel(Member m);
 
 	// 아이디 중복 체크

@@ -14,7 +14,14 @@ public interface MemberDao {
 
 	Member loginCheck(SqlSessionTemplate sqlSession, Member m) throws LoginException;
 
+	// 회원 가입
 	int insertMember(SqlSessionTemplate sqlSession, Member m);
+	
+	// 채널 생성을 위한 회원 시퀀스
+	int selectUno(SqlSessionTemplate sqlSession);
+
+	// 회원 가입 시 채널 자동 생성
+	int createChannel(SqlSessionTemplate sqlSession, Member m);
 
 	String selectEncPassword(SqlSessionTemplate sqlSession, Member m);
 
@@ -42,10 +49,7 @@ public interface MemberDao {
 	// 신고 아이디 체크
 	int targetIdCheck(SqlSessionTemplate sqlSession, String targetId);
 
-	int selectUno(SqlSessionTemplate sqlSession);
-
-	int createChannel(SqlSessionTemplate sqlSession, Member m);
-
+	
 
 
 

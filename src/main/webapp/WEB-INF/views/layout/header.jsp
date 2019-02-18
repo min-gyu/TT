@@ -17,7 +17,9 @@
 	<meta property="og:url" content="http://github.com/nauvalazhar/Magz" />
 	<meta property="og:image" content="https://raw.githubusercontent.com/nauvalazhar/Magz/master/images/preview.png" />
 	 -->
-	 
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+	
 	<title>Today's TV</title>
 	
 	<!-- template 제공 -->
@@ -36,10 +38,9 @@
 	<link rel="stylesheet" href="/resources/css/fakeLoader.css" >
 
 	<!-- TT 추가 -->
-	<!-- <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> 
 	
 	<!-- fakerLoader -->
     <script src="/resources/js/fakeLoader.js"></script>
@@ -91,8 +92,8 @@
 						<c:when test="${ empty sessionScope.loginUser }">
 							<div class="col-md-3 col-sm-12 text-right">
 								<ul class="nav-icons">
-								<li><a href="/loginView.me"><i class="ion-person"></i>
-									<div>Login</div></a></li>
+									<li><a href="/loginView.me"><i class="ion-person"></i><div>Login</div></a></li>
+									<li><a href="/kakaoLogin.me"><div>Kakao</div></a></li>
 								</ul>
 							</div>
 						</c:when>

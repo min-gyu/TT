@@ -1,22 +1,17 @@
 package com.kh.tt.member.controller;
 
 import java.io.File;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,17 +23,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.common.CommonUtils;
 import com.kh.tt.common.LoginLoggin;
 import com.kh.tt.common.MailUtils;
-import com.kh.tt.common.kakaoRestApi;
 import com.kh.tt.member.model.exception.LoginException;
 import com.kh.tt.member.model.service.MemberService;
 import com.kh.tt.member.model.vo.CQAndAttach;
 import com.kh.tt.member.model.vo.Member;
-import com.kh.tt.myPage.model.vo.CQBoard;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -86,9 +77,13 @@ public class MemberController {
 	@RequestMapping("completeCQView.me")
 	public String completeCQView() {
 		return jspPath + "completeCQ";
+	}
+	
+	@RequestMapping("kakaoLogin.me")
+	public String kakaoLoginView() {
+		return jspPath + "kakaoLogin";
 	}	
 	
-
 	@RequestMapping("login.me")
 	public String loginCheck(Member m, Model model) {
 		try {
@@ -120,13 +115,13 @@ public class MemberController {
 			
 			m.setUserPwd(encPassword);
 			
-			// 채널 생성을 위한 시퀀스
+			// 채널 생성을 위한 회원 시퀀스
 			int uNo = ms.selectUno();
 			
 			m.setChUno(uNo);
 
 			ms.insertMember(m);
-			// 회원가입 시 채널 자동 생성
+			// 회원 가입 시 채널 자동 생성
 			ms.createChannel(m);
 			
 			return "redirect:goMain.me";
@@ -273,7 +268,7 @@ public class MemberController {
 	 * @since 2019.02.12
 	 * @category 신고하기 - 신고 아이디 체크
 	 * */
-	@PostMapping(value = "targetIdCheck.me")
+	@PostMapping(value = "/targetIdCheck.me")
 	public @ResponseBody HashMap<String, Object> targetIdCheck(@RequestBody Map<String, Object> requestBody){
 		Map<String, Object> reqMap = (Map)requestBody.get("params");
 		

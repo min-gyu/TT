@@ -50,6 +50,18 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(Member m) {
 		return md.insertMember(sqlSession, m);
 	}
+	
+	// 채널 생성을 위한 회원 시퀀스
+	@Override
+	public int selectUno() {
+		return md.selectUno(sqlSession);
+	}
+	
+	// 회원 가입 시 채널 자동 생성
+	@Override
+	public int createChannel(Member m) {
+		return md.createChannel(sqlSession, m);
+	}
 
 	// 아이디 중복 체크
 	@Override
@@ -152,16 +164,17 @@ public class MemberServiceImpl implements MemberService {
 			int count = md.targetIdCheck(sqlSession, targetId);
 			switch (count) {
 				case 1 :
-					resultMap.put("ret_message", "존재하지 않는 아이디 입니다.");
+					resultMap.put("ret_message", "존재하는 아이디 입니다.");
 				break;
 				
 				case 0 :
-					resultMap.put("ret_message", "존재하는 아이디 입니다.");
+					resultMap.put("ret_message", "존재하지 않는 아이디 입니다.");
 				break;
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println(e);
 			resultMap.put("ret_code", "E");
 			resultMap.put("ret_message", "errors : " + e);
 		}
@@ -169,15 +182,7 @@ public class MemberServiceImpl implements MemberService {
 		return resultMap;
 	}
 
-	@Override
-	public int selectUno() {
-		return md.selectUno(sqlSession);
-	}
-
-	@Override
-	public int createChannel(Member m) {
-		return md.createChannel(sqlSession, m);
-	}
+	
 
 
 }
