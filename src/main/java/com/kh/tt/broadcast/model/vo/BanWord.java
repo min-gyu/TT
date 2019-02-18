@@ -1,8 +1,9 @@
 package com.kh.tt.broadcast.model.vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 //금지단어 검색시 불러올 VO
-public class BanWord {
+public class BanWord implements Serializable{
 	private int fNo;
 	private int fChNo;
 	private String fBan;

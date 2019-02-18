@@ -265,7 +265,9 @@
 							 		 text: "금지어를 추가했습니다!",
 							 		 icon: "success",
 							 		 button: "OK",
-									});
+									}).then(()=>{
+										$("#searchI").click();
+									});			;
 							}
 						},
 						error : function(data) {
@@ -290,7 +292,14 @@
 					fNoArr:fNoArr
 		  		},	
 				success : function(data) {
-					console.log(data);
+					swal({
+						title: "성공!",
+				 		 text: "금지어를 삭제했습니다!",
+				 		 icon: "success",
+				 		 button: "OK",
+						}).then(()=>{
+							$("#searchI").click();
+						});			
 				},
 				error : function(data) {
 					console.log("실패")

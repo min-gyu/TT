@@ -61,7 +61,7 @@
 						<div class="item">
 						<div id="userListNum"><span>검색 버튼을 눌러주세요</span></div>
 							<div class="ui icon input" id="searchDiv">
-								<input type="text" placeholder="Search..."> <i
+								<input type="text" placeholder="Search..." disabled="disabled"> <i
 									class="inverted circular search link icon" id="searchI"></i>
 							</div>
 						</div>
@@ -72,12 +72,13 @@
 				<thead>
 					<tr align="center">
 						<th>아이디</th>
+						<th>닉네임</th>
 						<th>구독 여부</th>
 					</tr>
 				</thead>
 				<tbody id="dataBody">
 					<tr align="center">
-						<td colspan="2">검색 버튼을 눌러주세요</td>
+						<td colspan="3">검색 버튼을 눌러주세요</td>
 					</tr>
 				</tbody>
 			</table>
@@ -89,7 +90,7 @@
 <script type="text/javascript">
 
 $(function(){
-	//서치 소켓에 연결
+	jQuery.ajaxSettings.traditional = true;
 		
 });
 $("#searchI").click(function(){
@@ -109,22 +110,54 @@ $("#searchI").click(function(){
 	  		if(response.data!="방송중이 아닙니다."){
 	  			if(response.data.length==0){
 	  				$("#dataBody").empty();
-	  				var $td = $("<td colspan='2'>").text("시청중인 유저가 없습니다.");
+	  				var $td = $("<td colspan='3'>").text("시청중인 유저가 없습니다.");
 	  				var $tr = $("<tr align='center'>");
 	  				$tr.append($td);
 	  				$("#dataBody").append($tr);
 	  			
 	  			}else{
-					$("#userListNum").children().eq(0).text(response.data.length-1+"명이 시청중 입니다!");
-	  				$("#dataBody").empty();
-	  				for(var i=0;i<response.data.length;i++){ 				
-	  					if(response.data[i].userId!="${loginUser.userId}"){
-	  						var $td = $("<td colspan='2'>").text(response.data[i].userId);
-		  					var $tr = $("<tr align='center'>");
-		  					$tr.append($td);
-		  					$("#dataBody").append($tr);
-	  					}
+	  				//유저리스트 만들기(본인 포함)
+	  				var userList = new Array();
+	  				for(var i=0;i<response.data.length;i++){
+	  					userList[i]=response.data[i].userId; 
 	  				}
+	  				//구독여부를 조회하기 위해서 오라클에 새로운 요청
+	  				 $.ajax({
+						url : "/searchSubscribe.bc",
+						type : "get",
+						data: {
+			   				owner:"${loginUser.userId}",
+			   				userList:userList
+			  			},	
+						success : function(data) {
+							console.log(data);
+							$("#userListNum").children().eq(0).text(data.member.length-1+"명이 시청중 입니다!");
+			  				$("#dataBody").empty();
+			  					for(var i=0; i<data.member.length; i++){
+			  						if(data.member[i].userId!="${loginUser.userId}"){
+			  							var $tdSubscribe = $("<td>").text("구독하지 않은 유저!");
+			  							for(var j=0; j<data.relation.length; j++){
+			  								if(data.member[i].uno==data.relation[j].rTargetUno){
+			  									$tdSubscribe.text(data.relation[j].rType);
+			  									break;
+			  								}
+			  							}
+			  							var $tdUserId = $("<td>").text(data.member[i].userId);
+			  							var $tdUserNickName = $("<td>").text(data.member[i].nickName);	  						
+				  						var $tr = $("<tr align='center'>");
+				  						$tr.append($tdUserId);
+				  						$tr.append($tdUserNickName);
+				  						$tr.append($tdSubscribe);
+				  						$("#dataBody").append($tr);
+			  						}
+			  					
+			  					}
+						},
+						error : function(data) {
+							console.log("실패")
+						}
+					});  
+
 	  			}
 	  		}else{
 	  			$("#dataBody").empty();

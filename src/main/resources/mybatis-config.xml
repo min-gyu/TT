@@ -13,6 +13,7 @@
 		<typeAlias type="com.kh.tt.myPage.model.vo.CQBoard" alias="CQBoard"/>
 		<typeAlias type="com.kh.tt.admin.model.vo.MemberAndMemberBanVO" alias="AdminMember"/>
 		<typeAlias type="com.kh.tt.broadcast.model.vo.BanWord" alias="BanWord"/>
+		<typeAlias type="com.kh.tt.broadcast.model.vo.Relation" alias="Relation"/>		
 
 	</typeAliases>
 	<mappers>
