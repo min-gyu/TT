@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.tt.broadcast.model.dao.BroadCastDao;
 import com.kh.tt.broadcast.model.vo.BanWord;
+import com.kh.tt.broadcast.model.vo.Relation;
+import com.kh.tt.member.model.vo.Member;
 @Service
 public class BroadCastServiceImpl implements BroadCastService{
 	@Autowired
@@ -37,6 +39,21 @@ public class BroadCastServiceImpl implements BroadCastService{
 	@Override
 	public int deleteBanWord(HashMap<String, Object> hmap) {		
 		return bcd.deleteBanWord(sqlSession, hmap);
+	}
+
+	@Override
+	public ArrayList<Member> selectMember(HashMap<String, Object> hmap) {
+		return bcd.selectMember(sqlSession, hmap);
+	}
+
+	@Override
+	public ArrayList<Relation> selectRelation(HashMap<String, Object> hListMap) {
+		return bcd.selectRelation(sqlSession, hListMap);
+	}
+
+	@Override
+	public Member selectUser(String addManagerId) {
+		return bcd.selelctUser(sqlSession, addManagerId);
 	}
 
 	

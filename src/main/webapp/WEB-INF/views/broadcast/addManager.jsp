@@ -10,12 +10,10 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- Semantic UI CSS -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <!-- J-query CDN -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- Semantic UI JS CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <style type="text/css">
 #header {
 	margin-top: 30px;
@@ -73,11 +71,11 @@
 				<div class="ui grid">
 					<div class="six wide column">
 						<div class="ui input" id="inputManagerDiv">
-							<input type="text" placeholder="아이디를 입력하세요">
+							<input type="text" placeholder="아이디를 입력하세요" id="addManagerId">
 						</div>
 					</div>
 					<div class="two wide column">
-						<button class="ui secondary button">추가</button>
+						<button class="ui secondary button" id="addManagerBtn">추가</button>
 					</div>
 				</div>
 			</div>
@@ -89,7 +87,7 @@
 				<div class="menu">
 					<div class="item">
 						<div class="ui icon input" id="searchDiv">
-							<input type="text" placeholder="Search..."> <i
+							<input type="text" placeholder="Search..." disabled="disabled"> <i
 								class="inverted circular search link icon"></i>
 						</div>
 					</div>
@@ -114,4 +112,35 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	$(function(){
+		//로그인 안했을시 창 종료 추가할 것.
+	})
+	
+	$("#addManagerBtn").click(function(){	
+	$.ajax({
+		url : "/insertManager.bc",
+		type : "post",
+		data: {
+		   	owner:"${loginUser.userId}",
+		   	addManagerId:$("#addManagerId").val()
+		  },
+		success : function(data) {
+			console.log(data);
+			switch(data){
+			case "존재하지 않는 유저 입니다" : 
+				swal({
+				  title: "경고",
+				  text: "존재하지 않는 유저입니다.",
+				  icon: "warning",
+				})
+				break;
+			}
+		},
+		error : function(data) {
+			console.log("실패")
+		}
+	});
+	});
+</script>
 </html>

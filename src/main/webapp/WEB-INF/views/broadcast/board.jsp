@@ -468,12 +468,12 @@
 			      console.log("chat 이벤트 확인!")
 			      console.log(data);
 			      var $div = $("<div>");
-			      if (data.user === $("#user").val()) {
+			      if (data.userId === "${ loginUser.userId }" ) {
 			    	  $div.addClass('mine');
 			      } else {
 			    	  $div.addClass('other');
 			      }
-			      var $divId = $("<div>").text(data.user);
+			      var $divId = $("<div>").text(data.userNickName+"("+data.userId+")");
 			      var $divChat = $("<div>").text(data.chat);
 			      $div.append($divId);
 			      $div.append($divChat);
@@ -505,7 +505,7 @@
 								});					  
 						  }else{
 					   		//서버에 참여할 RoomId를 전송하면서 joinRoom 이벤트를 실행하라고 전달함.
-					  		socket.emit('joinRoom',{roomId:response.data.roomId, owner:$("#creator").val(),userSocketId:response.data.userSocketId,userId:$("#user").val()});		  		
+					  		socket.emit('joinRoom',{roomId:response.data.roomId, owner:$("#creator").val(),userSocketId:response.data.userSocketId,userId:"${ loginUser.userId }",userNickName:"${loginUser.nickName}"});		  		
 					  		var $conDiv = $("<div>").text("<<채팅방에 입장했습니다.>>");
 					  		//채팅방에 정상적으로 입력되고나서 send 버튼에 메세지 전송 버튼 메서드를 추가해줌
 					  	  	$("#sendBtn").attr('onclick', 'msgSend()');
@@ -538,7 +538,8 @@
 				    url: 'http://localhost:8010/room/chat',
 				    params: {
 				    	owner:$("#creator").val(),
-				    	user:$("#user").val(),
+				    	userId:"${ loginUser.userId }",
+				    	userNickName:"${ loginUser.nickName }",
 				    	msg:msg   	
 				    }
 				  })

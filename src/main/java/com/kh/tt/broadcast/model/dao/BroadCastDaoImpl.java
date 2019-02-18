@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tt.broadcast.model.vo.BanWord;
+import com.kh.tt.broadcast.model.vo.Relation;
+import com.kh.tt.member.model.vo.Member;
 @Repository
 public class BroadCastDaoImpl implements BroadCastDao{
 	//금지어를 검색하는 메서드
@@ -31,6 +33,21 @@ public class BroadCastDaoImpl implements BroadCastDao{
 	@Override
 	public int deleteBanWord(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
 		return sqlSession.delete("BanWord.deleteBanWord", hmap);
+	}
+	//멤버 리스트를 검색하는 메서드
+	@Override
+	public ArrayList<Member> selectMember(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
+		return (ArrayList)sqlSession.selectList("BanWord.selectMember", hmap);
+	}
+	//채널번호와 유저번호를 바탕으로 relation을 검색하는 메서드(구독여부를 확인하기 위해)
+	@Override
+	public ArrayList<Relation> selectRelation(SqlSessionTemplate sqlSession, HashMap<String, Object> hListMap) {
+		return (ArrayList)sqlSession.selectList("BanWord.selectRelation",hListMap);
+	}
+	//매니저로 추가할 ID가 존재하는 회원인지 검사하는 메서드
+	@Override
+	public Member selelctUser(SqlSessionTemplate sqlSession, String addManagerId) {
+		return sqlSession.selectOne("BanWord.selectUser", addManagerId) ;
 	}
 	
 }

@@ -12,6 +12,37 @@
 		<result property="fReplace" column="F_REPLACE" />
 		<result property="fDate" column="F_DATE" />
 	</resultMap>
+	
+	<resultMap type="Member" id="memberResultSet">
+		<id property="uno" column="M_UNO"/>
+		<result property="userId" column="M_ID"/>
+		<result property="nickName" column="M_NICKNAME"/>
+		<result property="userName" column="M_NAME"/>
+		<result property="userPwd" column="M_PWD"/>
+		<result property="birth" column="M_BIRTH"/>
+		<result property="gender" column="M_GENDER"/>
+		<result property="email" column="M_EMAIL"/>
+		<result property="enrollDate" column="M_ENROLL_DATE"/>
+		<result property="bank" column="M_BANK"/>
+		<result property="bankNo" column="M_BANK_NO"/>
+		<result property="warningNo" column="M_WARNING_NO"/>
+		<result property="banStatus" column="M_BAN_STATUS"/>
+		<result property="status" column="M_STATUS"/>
+		<result property="reason" column="M_REASON"/>
+		<result property="leaveDate" column="M_LEAVE_DATE"/>
+		<result property="btYN" column="M_BT_YN"/>
+		<result property="totalClover" column="M_TOTAL_CLOVER"/>
+		<result property="adminYN" 		column="M_ADMIN_YN"/>
+	</resultMap>
+
+	<resultMap type="Relation" id="relationResultSet">
+		<id property="rNo" column="R_NO"/>
+		<result property="rChNo" column="R_CH_NO"/>
+		<result property="rTargetUno" column="R_TARGET_UNO"/>
+		<result property="rDate" column="R_DATE"/>
+		<result property="rType" column="R_TYPE"/>
+		<result property="rAlarmYn" column="R_ALARM_YN"/>
+	</resultMap>
 	<!-- 특정회원의 금지어 설정 목록을 검색하는 sql문 -->
 	<select id="selectBanWord" resultMap="banWordResultSet" parameterType="java.lang.String">
 	SELECT F.* 
@@ -46,7 +77,31 @@
 		<foreach collection="fNoList" item="list"  open="(" close=")" separator=",">
 			#{list}
 	 	</foreach>
-	</delete>
-	
-
+	</delete> 
+	<!-- 멤버 리스트를 검색하는 sql문 -->
+	<select id="selectMember" resultMap="memberResultSet" parameterType="hashmap">
+	SELECT *
+	FROM MEMBER
+	WHERE M_ID IN
+		<foreach collection="userList" item="list"  open="(" close=")" separator=",">
+			#{list}
+		</foreach>
+	</select>
+	<!-- 리레이션을 검색하는 sql문 -->
+	<select id="selectRelation" resultMap="relationResultSet" parameterType="hashmap">
+	SELECT *
+	FROM RELATION
+	WHERE R_CH_NO = #{channelNum} 
+	AND R_TYPE ='SUBSCRIBE'
+	AND R_TARGET_UNO IN
+		<foreach collection="memberList" item="list"  open="(" close=")" separator=",">
+		 #{list.uno}
+		</foreach>
+	</select>
+	<!-- 매니저 권한을 부여할 유저가 실존하는 유저인지 검색하는 sql문 -->
+	<select id="selectUser" resultMap="memberResultSet" parameterType="string">
+	SELECT * 
+	FROM MEMBER 
+	WHERE M_ID=#{addManagerId}
+	</select>
 </mapper>
