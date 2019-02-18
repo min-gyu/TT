@@ -33,6 +33,18 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.insert("Member.insertMember", m);
 	}
 
+	// 채널 생성을 위한 회원 시퀀스
+	@Override
+	public int selectUno(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Member.selectUno");
+	}
+
+	// 회원 가입 시 채널 자동 생성
+	@Override
+	public int createChannel(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.insert("Member.createChannel", m);
+	}
+	
 	// 암호화 된 비밀번호 조회용 메소드
 	@Override
 	public String selectEncPassword(SqlSessionTemplate sqlSession, Member m) {
@@ -91,16 +103,6 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int targetIdCheck(SqlSessionTemplate sqlSession, String targetId) {
 		return sqlSession.selectOne("Member.targetIdCheck", targetId);
-	}
-
-	@Override
-	public int selectUno(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("Member.selectUno");
-	}
-
-	@Override
-	public int createChannel(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.insert("Member.createChannel", m);
 	}
 
 	

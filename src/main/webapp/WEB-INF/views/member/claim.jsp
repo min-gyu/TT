@@ -37,13 +37,30 @@
 	function fn_targetIdCheck(){
 		var resultValue = $("#reportId").val();
 		
-		var url  = "targetIdCheck.me"
+		var url  = "/targetIdCheck.me"
 		  , data = {
 				     params : {
 				    	 			resultValue 	: resultValue
 								}
 				};
+		var afterFn = function(resultData, status, headers, config){
+				        	var ret_code 	= resultData.ret_code;
+				        	var ret_message = resultData.ret_message;
+				        	
+				        	switch (ret_code) {
+								case "E":
+									alert("에러가 발생했습니다. : \n" + ret_message);
+								break;
+								
+								case "S":
+									alert(ret_message);
+								break;
+							}
+				       };
+       
+		fn_callAjax(url, data, afterFn);
 		
+		/* 
 		$.ajax({
 	         type			:"post"
 	        ,url			: url
@@ -62,11 +79,12 @@
 											alert(ret_message);
 										break;
 									} 
-									alert("success!");
 						        }
 	        ,error 			: function(request,status,error){ alert(error); }
 			,complete		: function(jqXHR){  } // 요청의 실패, 성공과 상관 없이 완료 될 경우 호출
-	    }); 
+	    });
+ */
+ 
 	}
 </script>
 
