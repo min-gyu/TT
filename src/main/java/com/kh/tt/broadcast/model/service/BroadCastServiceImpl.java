@@ -56,6 +56,27 @@ public class BroadCastServiceImpl implements BroadCastService{
 		return bcd.selelctUser(sqlSession, addManagerId);
 	}
 
+	@Override
+	public int insertManager(HashMap<String, Object> hmap) {
+		return bcd.insertManager(sqlSession, hmap);
+	}
+
+	@Override
+	public Relation selectManager(HashMap<String, Object> hmap) {
+		return bcd.selectManager(sqlSession, hmap);
+	}
+
+	@Override
+	public ArrayList<Relation> selectRelation(int channelNum) {
+		return bcd.selectRelation(sqlSession, channelNum);
+	}
+
+	@Override
+	public ArrayList<Member> selectMemberList(HashMap<String, Object> hmap) {
+		return bcd.selectMemberList(sqlSession, hmap);
+	}
+
+
 	
 
 }

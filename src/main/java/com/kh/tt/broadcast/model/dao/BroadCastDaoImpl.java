@@ -49,5 +49,26 @@ public class BroadCastDaoImpl implements BroadCastDao{
 	public Member selelctUser(SqlSessionTemplate sqlSession, String addManagerId) {
 		return sqlSession.selectOne("BanWord.selectUser", addManagerId) ;
 	}
+	//매니저를 추가하는 메서드
+	@Override
+	public int insertManager(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
+		return sqlSession.insert("BanWord.insertManager", hmap);
+	}
+	//이미 매니저로 등록되었는지 확인하는 메서드
+	@Override
+	public Relation selectManager(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
+		return sqlSession.selectOne("BanWord.selectManager",hmap);
+	}
+	//채널번호의  manager를 조회해서 가져오는 메서드
+	@Override
+	public ArrayList<Relation> selectRelation(SqlSessionTemplate sqlSession, int channelNum) {
+		return (ArrayList)sqlSession.selectList("BanWord.selectManagerRelation", channelNum);
+	}
+	//relationList를 바탕으로 MemberList를 찾는 메서드
+	@Override
+	public ArrayList<Member> selectMemberList(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
+		return (ArrayList)sqlSession.selectList("BanWord.selectMemberList", hmap);
+	}
+
 	
 }

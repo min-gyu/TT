@@ -25,6 +25,15 @@ public interface BroadCastDao {
 
 	Member selelctUser(SqlSessionTemplate sqlSession, String addManagerId);
 
+	int insertManager(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
+
+	Relation selectManager(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
+
+	ArrayList<Relation> selectRelation(SqlSessionTemplate sqlSession, int channelNum);
+
+	ArrayList<Member> selectMemberList(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
+
+
 	
 
 
