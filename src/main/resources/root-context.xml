@@ -87,4 +87,16 @@
 		</property>
 	</bean>
 	
+	<!-- Google 소셜 로그인 연결 설정 -->
+	<bean id = "googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		<constructor-arg value="972317984791-3qn09b1dickillaqmt4ou3pqraql5na8.apps.googleusercontent.com" />
+		<constructor-arg value="io0Jj7xb9hLGTdAbYLTkh1kI" />    
+	</bean>
+	 
+	<bean id = "googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+		<property name="scope" value="https://www.googleapis.com/auth/userinfo.email"></property>
+		<property name="redirectUri" value="http://localhost:8002/googleCallBack"/>
+	</bean>
+	
+	
 </beans>

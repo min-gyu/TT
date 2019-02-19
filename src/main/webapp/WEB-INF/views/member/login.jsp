@@ -36,6 +36,12 @@
              				<a href="http://developers.kakao.com/logout"></a>
 						</div>
 						
+						  <a href="${google_url}">
+						  <button id="btnJoinGoogle" class="btn btn-primary btn-round" style="width: 100%">
+                                <i class="fa fa-google" aria-hidden="true"></i>Google Login
+                          </button>
+                          </a> 
+						
 					</div>
 				</div>
 			</div>
