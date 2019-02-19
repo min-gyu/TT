@@ -158,17 +158,20 @@
 				  },
 				success : function(data) {
 					//조회 결과가 없을때
-					$("#searchListNum").empty();
-					var $span = $("<span>").text("검색결과 :"+data.length)+" 건";
-					$("#searchListNum").append($span);
 					if(data.length == 0){
+						$("#searchListNum").empty();
+						var $span = $("<span>").text("검색결과 : 0  건");
+						$("#searchListNum").append($span); 
 						$("#resultBody").empty();
 						var $tr = $("<tr align='center'>");
-						var $td = $("<td colspan='3'>").text("설정된 금지어가 없습니다.");
+						var $td = $("<td colspan='4'>").text("설정된 금지어가 없습니다.");
 						$tr.append($td);
 						$("#resultBody").append($tr);
 					//조회결과가 있을때
 					}else{
+						$("#searchListNum").empty();
+						var $span = $("<span>").text("검색결과 :"+data.length)+" 건";
+						$("#searchListNum").append($span);
 						$("#searchListNum").empty();
 						var $span = $("<span>").text("검색결과 : "+data.length+" 건");
 						$("#searchListNum").append($span);

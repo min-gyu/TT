@@ -8,6 +8,7 @@ import java.util.HashMap;
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.naming.java.javaURLContextFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.header.writers.HstsHeaderWriter;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,8 @@ import com.kh.tt.broadcast.model.service.BroadCastService;
 import com.kh.tt.broadcast.model.vo.BanWord;
 import com.kh.tt.broadcast.model.vo.Relation;
 import com.kh.tt.member.model.vo.Member;
+
+import net.sf.json.JSONObject;
 
 @org.springframework.stereotype.Controller
 public class BroadCastController {
@@ -152,9 +155,12 @@ public class BroadCastController {
 		ArrayList<Relation> relationList = bcs.selectRelation(channelNum);
 		//relation의 rTargetUno로 Member에서 유저들을 조회해서 리턴한다
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
-		hmap.put("relationList", relationList);
-		ArrayList<Member> memberList = bcs.selectMemberList(hmap);
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		hmap.put("relationList", relationList);
+		if(relationList.size()==0) {
+			return resultMap;
+		}
+		ArrayList<Member> memberList = bcs.selectMemberList(hmap);	
 		resultMap.put("relationList",relationList);
 		resultMap.put("memberList",memberList);
 		return resultMap;
@@ -209,11 +215,86 @@ public class BroadCastController {
 		ArrayList<Relation> relationList = bcs.selectChatRelation(channelNum);
 		//relation의 rTargetUno로 Member에서 유저들을 조회해서 리턴한다
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
-		hmap.put("relationList", relationList);
-		ArrayList<Member> memberList = bcs.selectMemberList(hmap);
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		hmap.put("relationList", relationList);
+		if(relationList.size()==0) {
+			return resultMap;
+		}
+		ArrayList<Member> memberList = bcs.selectMemberList(hmap);
 		resultMap.put("relationList",relationList);
 		resultMap.put("memberList",memberList);
 		return resultMap;
 	}
+	//채팅금지 유저를 삭제하는 메서드
+		@RequestMapping("deleteChatBanUser.bc")
+		public @ResponseBody int deleteChatBanUser(@RequestParam("rNoArr") String[] rNoArr) {
+			ArrayList<Integer> rNoList = new ArrayList<Integer>();
+			for(int i=0; i<rNoArr.length; i++) {
+				rNoList.add(Integer.parseInt(rNoArr[i]));
+			}
+			HashMap<String,ArrayList<Integer>> hmap = new HashMap<String, ArrayList<Integer>>();
+			hmap.put("rNoList", rNoList);
+			int result = bcs.deleteChatBanUser(hmap);
+			return result;
+		}
+	//채널번호를 조회하고 조회한 채널의 금지어 목록을 불러와서 받은 메세지와 비교하여 금지문자가 있는지 확인하고 있을시 변경하여 return하는 메서드
+	@RequestMapping("convertMsg.bc")
+	public @ResponseBody String convertMsg(@RequestParam("owner") String owner, @RequestParam("msg") String msg) {
+		ArrayList<BanWord> banArr= bcs.searchBanWord(owner);
+		for(int i=0; i<banArr.size(); i++) {
+			if(msg.contains(banArr.get(i).getfBan())) {
+				msg = msg.replaceAll(banArr.get(i).getfBan(), banArr.get(i).getfReplace());
+			}
+		}
+		return msg;
+	}
+	//페이지 로딩시 매니저 권한 유무와 구독 유무를 확인하는 메서드
+	@RequestMapping("selectSubsManager.bc")
+	public @ResponseBody HashMap<String, Object> selectSubsManager(@RequestParam("owner") String owner, 
+			@RequestParam("uno") int uno){
+		//채널번호를 가져오고
+		int channelNum = bcs.selectChannelNum(owner);
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("channelNum",channelNum);
+		hmap.put("userNo",uno);
+		Relation subscribeYN = bcs.selectSubscribe(hmap);
+		System.out.println(subscribeYN);
+		Relation managerYN = bcs.selectManager(hmap);
+		System.out.println(managerYN);
+		HashMap<String, Object> resultMap=new HashMap<String, Object>();
+		if(subscribeYN==null) {
+			resultMap.put("Subscribe", "비구독유저");
+		}else {
+			resultMap.put("Subscribe", "구독유저");
+		}
+		if(managerYN==null) {
+			resultMap.put("Manager","비매니저");
+		}else {
+			resultMap.put("Manager","매니저");
+		}
+		System.out.println(resultMap);		
+		return resultMap;
+	}
+	//구독하기 버튼을 눌렀을때 구독을 추가하는 메서드
+	@RequestMapping("insertSubscribe.bc")
+	public @ResponseBody int insertSubscribe(@RequestParam("owner") String owner,
+			@RequestParam("uno") int uno) {
+		int channelNum = bcs.selectChannelNum(owner);
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("channelNum",channelNum);
+		hmap.put("userNo",uno);
+		int result = bcs.insertSubscribe(hmap);
+		return result;
+	}
+	//구독하기 버튼을 눌렀을때 구독을 취소하는 메서드
+		@RequestMapping("deleteSubscribe.bc")
+		public @ResponseBody int deleteSubscribe(@RequestParam("owner") String owner,
+				@RequestParam("uno") int uno) {
+			int channelNum = bcs.selectChannelNum(owner);
+			HashMap<String, Object> hmap = new HashMap<String, Object>();
+			hmap.put("channelNum",channelNum);
+			hmap.put("userNo",uno);
+			int result = bcs.deleteSubscribe(hmap);
+			return result;
+		}
 }

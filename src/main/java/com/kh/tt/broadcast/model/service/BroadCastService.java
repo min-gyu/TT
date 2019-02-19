@@ -39,6 +39,14 @@ public interface BroadCastService{
 
 	ArrayList<Relation> selectChatRelation(int channelNum);
 
+	int deleteChatBanUser(HashMap<String, ArrayList<Integer>> hmap);
+
+	Relation selectSubscribe(HashMap<String, Object> hmap);
+
+	int insertSubscribe(HashMap<String, Object> hmap);
+
+	int deleteSubscribe(HashMap<String, Object> hmap);
+
 
 	
 
