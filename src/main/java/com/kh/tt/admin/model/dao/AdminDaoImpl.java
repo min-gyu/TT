@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tt.admin.model.exception.AdminException;
+import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
 
@@ -21,7 +22,7 @@ public class AdminDaoImpl implements AdminDao {
 	// 1. 전체 회원 수 카운트
 	@Override
 	public int getAllCount() throws AdminException {
-		int result = sqlSession.selectOne("AdminMember.selectAllCount");
+		int result = sqlSession.selectOne("Admin.selectAllCount");
 		
 		if (result <= 0) {
 			throw new AdminException("회원 수 조회 실패");
@@ -36,7 +37,7 @@ public class AdminDaoImpl implements AdminDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		List<Member> mList = sqlSession.selectList("AdminMember.memberList", null, rowBounds);
+		List<Member> mList = sqlSession.selectList("Admin.memberList", null, rowBounds);
 
 		if(mList == null) {
 			throw new AdminException("회원 조회 실패");
@@ -48,7 +49,7 @@ public class AdminDaoImpl implements AdminDao {
 	// 1. 검색 - 전체 회원 수 카운트
 	@Override
 	public int getSearchAllCount(String sid) throws AdminException {
-		int result = sqlSession.selectOne("AdminMember.searchAllCount", sid);
+		int result = sqlSession.selectOne("Admin.searchAllCount", sid);
 		
 		if (result <= 0) {
 			throw new AdminException("회원 수 조회 실패");
@@ -63,7 +64,7 @@ public class AdminDaoImpl implements AdminDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		List<Member> mList = sqlSession.selectList("AdminMember.searchAllMemberList", sid, rowBounds);
+		List<Member> mList = sqlSession.selectList("Admin.searchAllMemberList", sid, rowBounds);
 
 		if(mList == null) {
 			throw new AdminException("회원 검색 실패");
@@ -76,7 +77,7 @@ public class AdminDaoImpl implements AdminDao {
 	// 2. 정지 회원 수 카운트
 	@Override
 	public int getBanCount() throws AdminException {
-		int result = sqlSession.selectOne("AdminMember.selectBanCount");
+		int result = sqlSession.selectOne("Admin.selectBanCount");
 		
 		if (result <= 0) {
 			throw new AdminException("정지 회원 수 조회 실패");
@@ -91,7 +92,7 @@ public class AdminDaoImpl implements AdminDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		List<Member> bList = sqlSession.selectList("AdminMember.banList", null, rowBounds);
+		List<Member> bList = sqlSession.selectList("Admin.banList", null, rowBounds);
 
 		if(bList == null) {
 			throw new AdminException("정지 회원 조회 실패");
@@ -103,7 +104,7 @@ public class AdminDaoImpl implements AdminDao {
 	// 2. 검색 - 정지 회원 수 카운트
 	@Override
 	public int getSearchBanCount(String sid) throws AdminException {
-		int result = sqlSession.selectOne("AdminMember.searchBanCount", sid);
+		int result = sqlSession.selectOne("Admin.searchBanCount", sid);
 		
 		if (result <= 0) {
 			throw new AdminException("정지 회원 수 검색 실패");
@@ -118,7 +119,7 @@ public class AdminDaoImpl implements AdminDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		List<Member> bList = sqlSession.selectList("AdminMember.searchBanList", sid, rowBounds);
+		List<Member> bList = sqlSession.selectList("Admin.searchBanList", sid, rowBounds);
 
 		if(bList == null) {
 			throw new AdminException("정지 회원 검색 실패");
@@ -129,7 +130,7 @@ public class AdminDaoImpl implements AdminDao {
 	
 	// 3. 탈퇴 회원 수 카운트
 	public int getLeaveCount() throws AdminException {
-		int result = sqlSession.selectOne("AdminMember.selectLeaveCount");
+		int result = sqlSession.selectOne("Admin.selectLeaveCount");
 		
 		if (result <= 0) {
 			throw new AdminException("탈퇴 회원 수 조회 실패");
@@ -144,7 +145,7 @@ public class AdminDaoImpl implements AdminDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 
-		List<Member> lList = sqlSession.selectList("AdminMember.leaveList", null, rowBounds);
+		List<Member> lList = sqlSession.selectList("Admin.leaveList", null, rowBounds);
 
 		if(lList == null) {
 			throw new AdminException("탈퇴 회원 조회 실패");
@@ -155,7 +156,7 @@ public class AdminDaoImpl implements AdminDao {
 	// 3. 검색 - 탈퇴 회원 수 카운트
 	@Override
 	public int getSearchLeaveCount(String sid) throws AdminException {
-		int result = sqlSession.selectOne("AdminMember.searchLeaveCount", sid);
+		int result = sqlSession.selectOne("Admin.searchLeaveCount", sid);
 		
 		if (result <= 0) {
 			throw new AdminException("탈퇴 회원 수 조회 실패");
@@ -164,12 +165,13 @@ public class AdminDaoImpl implements AdminDao {
 		return result;
 	}
 
+	// 2. 검색 - 페이징 된 탈퇴 회원 목록 조회
 	@Override
 	public List<Member> searchLeaveList(String sid, PageInfo pi) throws AdminException {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 
-		List<Member> lList = sqlSession.selectList("AdminMember.searchLeaveList", sid, rowBounds);
+		List<Member> lList = sqlSession.selectList("Admin.searchLeaveList", sid, rowBounds);
 
 		if(lList == null) {
 			throw new AdminException("탈퇴 회원 검색 실패");
@@ -177,12 +179,11 @@ public class AdminDaoImpl implements AdminDao {
 		return lList;
 	}
 
-	
-	
-
-	
-	
-
+	// 카테고리 관리
+	@Override
+	public List<Category> selectCategList() throws AdminException {
+		return sqlSession.selectList("Admin.selectCategList");
+	}
 	
 
 }

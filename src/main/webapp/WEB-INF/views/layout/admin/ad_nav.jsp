@@ -27,9 +27,9 @@
 		</div>
 		<div id="menu-list">
 			<ul class="nav-list">
-				<li><a href="/adminMain.ad">회원 관리</a></li>
+				<li><a href="/memberList.ad">회원 관리</a></li>
 				<li><a href="#">신고 관리</a></li>
-				<li><a href="#">카테고리 관리</a></li>
+				<li><a href="/adminCateg.ad">카테고리 관리</a></li>
 
 				<li><a href="/chargeClover.ad">클로버 관리</a></li>
 				<li><a href="/adminInquiry.ad">문의 관리</a></li>

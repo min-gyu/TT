@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="/WEB-INF/views/layout/admin/treeheader.jsp" />
+
+<jsp:include page="/WEB-INF/views/layout/admin/ad_header.jsp" />
 
 <style type="text/css">
 	#listArea th {
@@ -21,11 +22,20 @@
 <section class="home">
 	<div class="container">
 		<div class="row" >
+		
+			<div class="ui tabular menu">
+				<a href="/memberList.ad" class="active item" >전체 회원 조회</a>
+			  	<a href="/banList.ad" class="item" >정지 회원</a>
+			  	<a href="/leaveList.ad" class="item" >탈퇴 회원</a>
+			</div>
+			
+			<br><br>
+			
 			<div class="form-inline">
-				<h3>회원 정보</h3>
 				<input class="form-control mr-sm-3" type="search" id="search" placeholder="아이디를 입력하세요"> 
 				<button class="btn btn-success" id="searchBtn" onclick="searchBoard();">Search</button>
 			</div>
+			
 			<div class="line"></div>
 			
 			<div class="center-block">
@@ -122,4 +132,4 @@
 	</div>
 </section>
 		
-<jsp:include page="/WEB-INF/views/layout/admin/treefooter.jsp" />
+<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
