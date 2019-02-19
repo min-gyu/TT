@@ -64,19 +64,19 @@
 	</div>
 	<div class="ui container">
 		<div class="ui large header" id="header">
-			<h1>매니저 추가</h1>
+			<h1>채팅금지</h1>
 		</div>
 		<div class="ui grid">
 			<div class="sixteen wide column" id="addManager">
-				<h3>매니저 추가</h3>
+				<h3>채팅금지 유저 추가</h3>
 				<div class="ui grid">
 					<div class="six wide column">
 						<div class="ui input" id="inputManagerDiv">
-							<input type="text" placeholder="아이디를 입력하세요" id="addManagerId">
+							<input type="text" placeholder="아이디를 입력하세요" id="addChatBanUser">
 						</div>
 					</div>
 					<div class="two wide column">
-						<button class="ui secondary button" id="addManagerBtn">추가</button>
+						<button class="ui secondary button" id="addChatBanUserBtn">추가</button>
 					</div>
 				</div>
 			</div>
@@ -84,11 +84,11 @@
 
 		<div class="ui grid">
 			<div class="sixteen wide column" id="searchManager">
-				<h3>매니저 검색</h3>
+				<h3>채팅금지 유저  검색</h3>
 				<div id="deleteBanWordDiv">
-				<span>매니저 권한 회수 &nbsp;</span>
+				<span>채팅금지 해제 &nbsp;</span>
 				</div>
-				<button class="ui secondary button small" id="deleteBtn">회수</button>
+				<button class="ui secondary button small" id="deleteBtn">해제</button>
 				<div class="menu">
 					<div class="item">
 					<div id="searchListNum"><span>검색 버튼을 눌러주세요</span></div>
@@ -123,28 +123,28 @@
 	$(function(){
 		//로그인 안했을시 창 종료 추가할 것.
 	})
-	//매니저 추가 버튼을 했을 경우 실행되는 메서드, 공백상태와 등록하려는 유저가 본인인지를 확인하고 나머지는 controller단에서 처리한다(실존여부, 이미 등록했는지 여부)
-	$("#addManagerBtn").click(function(){	
-	if($("#addManagerId").val()==""){
+	//채팅금지 유저 추가 버튼을 했을 경우 실행되는 메서드, 공백상태와 등록하려는 유저가 본인인지를 확인하고 나머지는 controller단에서 처리한다(실존여부, 이미 등록했는지 여부)
+	$("#addChatBanUserBtn").click(function(){	
+	if($("#addChatBanUser").val()==""){
 		swal({
 		  	title: "경고",
 		  	text: "아이디를 입력해주세요",
 		  	icon: "warning",
 			})
-	}else if("${loginUser.userId}"==$("#addManagerId").val()){
+	}else if("${loginUser.userId}"==$("#addChatBanUser").val()){
 		swal({
 		  	title: "경고",
-		  	text: "자기 자신은 매니저로 등록할 수 없습니다.",
+		  	text: "자기 자신은 채팅금지 유저로 등록할 수 없습니다.",
 		  	icon: "warning",
 			})
 	}else{
 	
 		$.ajax({
-			url : "/insertManager.bc",
+			url : "/insertChatBanUser.bc",
 			type : "post",
 			data: {
 		   		owner:"${loginUser.userId}",
-		   		addManagerId:$("#addManagerId").val()
+		   		addChatBanUser:$("#addChatBanUser").val()
 		  	},
 			success : function(data) {
 				console.log(data);
@@ -156,14 +156,14 @@
 				  	icon: "warning",
 					})
 					break;
-				case "이미 매니저로 등록된 회원입니다.":
+				case "이미 채팅금지된 회원입니다.":
 					swal({
 					  	title: "경고",
 					  	text: data,
 					  	icon: "warning",
 						})
 						break;
-				case "매니저 등록 성공" :
+				case "채팅금지 등록 성공!" :
 					swal({
 			  			title: "성공!",
 			 		 	text: data,
@@ -179,7 +179,7 @@
 						})
 					break;
 				}
-				$("#searchI").click();
+				//$("#searchI").click();
 			},
 		error : function(data) {
 			console.log("실패")
@@ -190,7 +190,7 @@
 	//검색버튼을 눌렀을때 검색결과를 읽어와서 출력하는 메서드
 	$("#searchI").click(function(){
 		$.ajax({
-			url : "/selectManager.bc",
+			url : "/selectChatBanUser.bc",
 			type : "get",
 			data: {
 		   		owner:"${loginUser.userId}",

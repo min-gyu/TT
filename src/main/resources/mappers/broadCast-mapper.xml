@@ -116,7 +116,7 @@
 	<insert id="insertManager" parameterType="hashmap">
 		INSERT 
 		INTO RELATION 
-		VALUES (SEQ_R_NO.NEXTVAL, ${channelNum}, ${userNo}, SYSDATE, 'MANAGER', 'Y')
+		VALUES (SEQ_R_NO.NEXTVAL, ${channelNum}, ${userNo}, SYSDATE, 'MANAGER', NULL)
 	</insert>
 	<!-- 자신의 채널의 매니저를 조회하는 sql문 -->
 	<select id="selectManagerRelation" resultMap="relationResultSet" parameterType="_int">
@@ -133,6 +133,36 @@
 		<foreach collection="relationList" item="list"  open="(" close=")" separator=",">
 		 #{list.rTargetUno}
 		</foreach>
+	</select>
+	<delete id="deleteManager" parameterType="hashmap">
+	DELETE 
+	FROM RELATION 
+	WHERE R_TYPE='MANAGER'
+	AND R_NO IN 
+		<foreach collection="rNoList" item="list"  open="(" close=")" separator=",">
+		 #{list}
+		</foreach>
+	</delete>
+	<!-- 매니저 중복확인하는 sql문 -->
+	<select id="selectChatBanUser" resultMap="relationResultSet" parameterType="hashmap">
+	SELECT * 
+	FROM RELATION 
+	WHERE R_CH_NO=#{channelNum} 
+	AND R_TARGET_UNO=#{userNo} 
+	AND R_TYPE='CHAT'
+	</select>
+	<!-- 채팅금지 유저를 추가하는 sql문 -->
+	<insert id="insertChatBanUser" parameterType="hashmap">
+		INSERT 
+		INTO RELATION 
+		VALUES (SEQ_R_NO.NEXTVAL, ${channelNum}, ${userNo}, SYSDATE, 'CHAT', NULL)
+	</insert>
+	<!-- 자신의 채팅금지 회원을 조회하는 sql문 -->
+	<select id="selelctChatRelation" resultMap="relationResultSet" parameterType="_int">
+	SELECT * 
+	FROM RELATION 
+	WHERE R_CH_NO=#{channelNum} 
+	AND R_TYPE='CHAT'
 	</select>
 	
 </mapper>

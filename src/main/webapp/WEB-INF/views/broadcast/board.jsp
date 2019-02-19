@@ -40,7 +40,11 @@
 <link rel="stylesheet" href="/resources/assets/css/style.css">
 <link rel="stylesheet" href="/resources/assets/css/skins/all.css">
 <link rel="stylesheet" href="/resources/assets/css/demo.css">
+<!-- 폰트 어썸 -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
 <style type="text/css">
+
 #searchDiv {
 	width: 300px;
 }
@@ -67,7 +71,7 @@
 #chattingDiv {
 	overflow-y: scroll;
 	border: 1px solid black;
-	height: 83%;
+	height: 88%;
 	margin-left: -25px;
 	padding:10px;
 	background: #EFFBEF;
@@ -106,10 +110,10 @@
 	margin-left: -25px;
 }
 
-#optionDiv {
+/* #optionDiv {
 	height: 5%;
 	margin-left: -25px;
-}
+} */
 
 .icons {
 	font-size: 24px;
@@ -142,6 +146,9 @@
 	font-weight: bold;
 	font-size: large;
 	}
+#broadCatsIcon, #presentIcon, #broadSettingIcon{
+	margin-top: 2px;
+}
 </style>
 <!-- jQuery CDN -->
 <script
@@ -167,8 +174,22 @@
 					<div class="col-md-6 visible-lg-* visible-md-* pull-right">
 						<ul class="nav-icons">
 						 	<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner) }">
-							<li><a href="#"><i class="ion-person-add"></i>
-									<div>Register</div></a></li>
+							<li id="broadLi">
+								<a href="#"><i class="fas fa-video" id="broadCatsIcon"></i>
+									<div>방송하기</div></a></li>
+							<li id="iceChat"><a href="/goMain.bc"><i class="fas fa-times-circle"></i>
+									<div>방송종료</div></a></li>
+							<li id="iceChat"><a href="#"><i class="fas fa-icicles"></i>
+									<div>채팅창 얼리기</div></a></li>
+							<li id="broadSettingLi"><a href="#"><i class="fas fa-cog" id="broadSettingIcon"></i>
+									<div>방송 설정</div></a></li>			
+							</c:if>
+							<c:if test="${ (!empty loginUser) and (loginUser.userId ne param.owner)}">
+							<li>
+							<a href="#"><i class="fas fa-gifts" id="presentIcon"></i>
+									<div>선물하기</div></a></li>			
+									<li><a href="#"><i class="fas fa-star"></i>
+									<div>구독하기</div></a></li>
 							</c:if>
 							<c:if test="${ empty loginUser }">
 							<li><a href="loginView.me"><i class="ion-person"></i>
@@ -215,7 +236,7 @@
 					</div>
 					<div class="col-lg-3 col-md-3 col-sm-3 hidden-sm hidden-xs">
 						<div id="chatWrapper">
-							<div id="optionDiv" class="row">
+						<%-- 	<div id="optionDiv" class="row">
 								<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner) }">
 								<div class="pull-right">
 									<i class="ion-person-add icons" id="addManager"></i> &nbsp; <i
@@ -223,10 +244,9 @@
 										class="ion-android-remove-circle icons" id="addBanWord"></i>
 									&nbsp; <i class="ion-android-settings icons"
 										id="broadCastSetting"></i>
-									<button id="CloseRoomBtn">방송시작</button>
 								</div>
 								</c:if>
-							</div>
+							</div> --%>
 							<div id="chattingDiv" class="row"></div>
 							<hr style="margin-top: 5px; margin-bottom: 5px">
 							<div id="inputChatDiv" class="row">
@@ -269,26 +289,10 @@
 	</header>
 </body>
 <script>
-	$("#addManager").click(
-			function() {
-				window.open("/addManager.bc", "매니저 추가",
-						"width=1250, height=1200, left=100, top=50");
-			});
-	$("#userList").click(
-			function() {
-				window.open("/userList.bc", "방송 시청자 목록",
-						"width=1250, height=1200, left=100, top=50");
-			});
-	$("#addBanWord").click(
-			function() {
-				window.open("/addBanWord.bc", "금지단어 추가",
-						"width=1250, height=1200, left=100, top=50");
-			});
-	$("#broadCastSetting").click(
-			function() {
-				window.open("/broadCastSetting.bc", "방송 설정",
-						"width=1250, height=1200, left=100, top=50");
-			});
+	$("#broadSettingLi").click(function(){
+		window.open("/userList.bc?owner=${param.owner}", "방송 시청자 목록",
+		"width=1250, height=1200, left=100, top=50");
+	})
 
 	$("#report").click(function() {
 		var msg = confirm("신고작성 페이지로 이동 하시겠습니까?")
@@ -393,7 +397,7 @@
 			console.log("방송채널 주인인 유저!");		
 		}
 	});
-		$("#CloseRoomBtn").click(()=>{
+		$("#broadLi").click(()=>{
 			roomFunc();
 			setTimeout(() => {
 				chatFunc();
@@ -441,7 +445,7 @@
 			    	console.log("exit 이벤트 확인!")
 			    	console.log(data);
 			    	console.log("${param.owner}");
-			    	if(data.chat=="${param.owner}님이 퇴장하셨습니다."){
+			    	if(data.userId=="${param.owner}"){
 				    	socket.disconnect();
 			    		var $div = $("<div>");
 						$div.addClass("system");
