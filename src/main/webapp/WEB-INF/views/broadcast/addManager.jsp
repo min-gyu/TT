@@ -197,6 +197,16 @@
 		  	},
 			success : function(data) {
 				console.log(data);
+				if(jQuery.isEmptyObject( data )){
+					$("#searchListNum").empty();
+					var $span=$("<span>").text("검색결과 : 0 건");
+					$("#searchListNum").append($span);
+					$("#resultBody").empty();
+					var $tdEmpty = $("<td colspan='4'>").text("검색결과가 없습니다.");
+					var $trEmpty = $("<tr align='center'>");
+					$trEmpty.append($tdEmpty);
+					$("#resultBody").append($trEmpty);	
+				}else{
 				$("#searchListNum").empty();
 				var $span=$("<span>").text("검색결과 : "+data.memberList.length+" 건");
 				$("#searchListNum").append($span);
@@ -222,6 +232,7 @@
 					$tr.append($tdNickName);
 					$tr.append($tdDate);
 					$("#resultBody").append($tr);
+				}
 				}
 				
 			},
@@ -256,6 +267,7 @@
 							$("#searchI").click();
 						});	
 				}
+				$("#searchI").click();
 			},
 			error : function(data) {
 				console.log("실패")

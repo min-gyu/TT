@@ -134,6 +134,7 @@
 		 #{list.rTargetUno}
 		</foreach>
 	</select>
+	<!-- 매니저의 권한을 회수(삭제)하는 sql문 -->
 	<delete id="deleteManager" parameterType="hashmap">
 	DELETE 
 	FROM RELATION 
@@ -157,12 +158,43 @@
 		INTO RELATION 
 		VALUES (SEQ_R_NO.NEXTVAL, ${channelNum}, ${userNo}, SYSDATE, 'CHAT', NULL)
 	</insert>
-	<!-- 자신의 채팅금지 회원을 조회하는 sql문 -->
+	<!-- 자신의 채팅금지 회원을 중복확인 하는 sql문 -->
 	<select id="selelctChatRelation" resultMap="relationResultSet" parameterType="_int">
 	SELECT * 
 	FROM RELATION 
 	WHERE R_CH_NO=#{channelNum} 
 	AND R_TYPE='CHAT'
 	</select>
-	
+	<!-- 채팅금지된 회원을  해제(삭제)하는 sql문 -->
+	<delete id="deleteChatBanUser" parameterType="hashmap">
+	DELETE 
+	FROM RELATION 
+	WHERE R_TYPE='CHAT'
+	AND R_NO IN 
+		<foreach collection="rNoList" item="list"  open="(" close=")" separator=",">
+		 #{list}
+		</foreach>
+	</delete>
+	<!-- 구독여부를 조회하는 sql문 -->
+	<select id="selectSubscribe" resultMap="relationResultSet" parameterType="hashmap">
+	SELECT * 
+	FROM RELATION 
+	WHERE R_TARGET_UNO=#{userNo} 
+	AND R_CH_NO=#{channelNum}
+	AND R_TYPE='SUBSCRIBE'	
+	</select>
+	<!-- 구독자를 추가하는 sql문 -->
+	<insert id="insertSubscribe" parameterType="hashmap">
+		INSERT 
+		INTO RELATION 
+		VALUES (SEQ_R_NO.NEXTVAL, ${channelNum}, ${userNo}, SYSDATE, 'SUBSCRIBE', NULL)
+	</insert>
+	<!-- 구독을 취소(삭제)하는 sql문 -->
+	<delete id="deleteSubscribe" parameterType="hashmap">
+	DELETE 
+	FROM RELATION 
+	WHERE R_TARGET_UNO=#{userNo} 
+	AND R_CH_NO=#{channelNum}
+	AND R_TYPE='SUBSCRIBE'	
+	</delete>
 </mapper>

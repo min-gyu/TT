@@ -179,7 +179,7 @@
 						})
 					break;
 				}
-				//$("#searchI").click();
+				$("#searchI").click();
 			},
 		error : function(data) {
 			console.log("실패")
@@ -196,7 +196,17 @@
 		   		owner:"${loginUser.userId}",
 		  	},
 			success : function(data) {
-				console.log(data);
+				console.log(typeof(data));
+				if(jQuery.isEmptyObject( data )){
+					$("#searchListNum").empty();
+					var $span=$("<span>").text("검색결과 : 0 건");
+					$("#searchListNum").append($span);
+					$("#resultBody").empty();
+					var $tdEmpty = $("<td colspan='4'>").text("검색결과가 없습니다.");
+					var $trEmpty = $("<tr align='center'>");
+					$trEmpty.append($tdEmpty);
+					$("#resultBody").append($trEmpty);				
+				}else{
 				$("#searchListNum").empty();
 				var $span=$("<span>").text("검색결과 : "+data.memberList.length+" 건");
 				$("#searchListNum").append($span);
@@ -223,6 +233,7 @@
 					$tr.append($tdDate);
 					$("#resultBody").append($tr);
 				}
+				}
 				
 			},
 		error : function(data) {
@@ -230,7 +241,7 @@
 		}
 	});
 	})
-	//삭제 버튼을 눌렀을때 매니저 목록에서 제거 요청을 하는 메서드
+	//삭제 버튼을 눌렀을때 채팅금지 유저를 해제하는 메서드
 	$("#deleteBtn").click(function(){
 		var $selectRNo = $("#resultBody").children().filter(".active");
 		var rNoArr = new Array();
@@ -240,7 +251,7 @@
 		})
 		jQuery.ajaxSettings.traditional = true;
 		 $.ajax({
-			url : "/deleteManager.bc",
+			url : "/deleteChatBanUser.bc",
 			type : "post",
 			data: {
 		   		rNoArr:rNoArr
@@ -249,13 +260,14 @@
 				if(rNoArr.length == data){
 					swal({
 				  		title: "성공!",
-				 		 text: "매니저 권한을 회수했습니다!",
+				 		 text: "채팅금지를 해제했습니다.!",
 				 		 icon: "success",
 				 		 button: "OK",
 						}).then(()=>{
 							$("#searchI").click();
 						});	
 				}
+				$("#searchI").click();
 			},
 			error : function(data) {
 				console.log("실패")

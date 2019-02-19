@@ -88,6 +88,26 @@ public class BroadCastDaoImpl implements BroadCastDao{
 	public ArrayList<Relation> selectChatRelation(SqlSessionTemplate sqlSession, int channelNum) {
 		return (ArrayList)sqlSession.selectList("BanWord.selelctChatRelation",channelNum);
 	}
+	//채팅금지 유저를 해제(삭제)하는 메서드
+	@Override
+	public int deleteChatBanUser(SqlSessionTemplate sqlSession, HashMap<String, ArrayList<Integer>> hmap) {
+		return sqlSession.delete("BanWord.deleteChatBanUser",hmap);
+	}
+	//구독 유무를 리턴하는 메서드
+	@Override
+	public Relation selectSubscribe(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
+		return sqlSession.selectOne("BanWord.selectSubscribe", hmap);
+	}
+	//구독을 추가하는 메서드
+	@Override
+	public int insertSubscribe(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
+		return sqlSession.insert("BanWord.insertSubscribe",hmap);
+	}
+	//구독을 취소하는 메서드
+	@Override
+	public int deleteSubscribe(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
+		return sqlSession.delete("BanWord.deleteSubscribe",hmap);
+	}
 
 	
 }

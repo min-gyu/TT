@@ -172,7 +172,7 @@
 					</div>
 
 					<div class="col-md-6 visible-lg-* visible-md-* pull-right">
-						<ul class="nav-icons">
+						<ul class="nav-icons" id="optionUl">
 						 	<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner) }">
 							<li id="broadLi">
 								<a href="#"><i class="fas fa-video" id="broadCatsIcon"></i>
@@ -185,10 +185,9 @@
 									<div>방송 설정</div></a></li>			
 							</c:if>
 							<c:if test="${ (!empty loginUser) and (loginUser.userId ne param.owner)}">
-							<li>
-							<a href="#"><i class="fas fa-gifts" id="presentIcon"></i>
+							<li>	<a href="#"><i class="fas fa-gifts" id="presentIcon"></i>
 									<div>선물하기</div></a></li>			
-									<li><a href="#"><i class="fas fa-star"></i>
+									<li id="subscribeLi"><a href="#"><i class="far fa-star" id="subscribeIcon"></i>
 									<div>구독하기</div></a></li>
 							</c:if>
 							<c:if test="${ empty loginUser }">
@@ -372,8 +371,61 @@
    		event.returnValue=false;
 		}
 	}
-	
- 
+	//구독하기 버튼을 누르면 구독을 추가하거나 구독을 취소하는 메서드
+ 	$("#subscribeLi").click(function(){
+ 		if($("#subscribeIcon").hasClass("far")){
+ 			$.ajax({
+			url : "/insertSubscribe.bc",
+			type : "post",
+			data: {
+		   		owner:"${ param.owner }",
+		   		uno:"${loginUser.uno}"
+		  	},
+			success : function(data) {
+				if(data==1){
+					$("#subscribeIcon").removeClass("far");
+					$("#subscribeIcon").addClass("fas");
+					swal({
+			  			title: "성공!",
+			 		 	text: "${param.owner}님을 구독하였습니다!",
+			 		 	icon: "success",
+			 		 	button: "OK",
+						})
+				}
+			},
+			error : function(data) {
+				console.log("실패")
+			}	
+		}); 
+ 		}
+ 		if($("#subscribeIcon").hasClass("fas")){
+ 			$.ajax({
+ 				url : "/deleteSubscribe.bc",
+ 				type : "post",
+ 				data: {
+ 			   		owner:"${ param.owner }",
+ 			   		uno:"${loginUser.uno}"
+ 			  	},
+ 				success : function(data) {
+ 					console.log(data);
+ 					if(data==1){
+ 						$("#subscribeIcon").removeClass("fas");
+ 						$("#subscribeIcon").addClass("far");
+ 						swal({
+ 				  			title: "성공!",
+ 				 		 	text: "${param.owner}님을 구독을 취소했습니다!",
+ 				 		 	icon: "success",
+ 				 		 	button: "OK",
+ 							})
+ 					}
+ 				},
+ 				error : function(data) {
+ 					console.log("실패")
+ 				}	
+ 			}); 
+ 		}
+ 		
+ 	})
 
 </script>
 <!-- socket.io를 가져오는 스크립트 -->
@@ -384,7 +436,7 @@
 		//채팅 입력창 초기화
 		$("#msg").val("");
 		$("#title").val("제목이래");
-		owner = $("#creator").val();
+		owner = "${ param.owner }";
 		title =	$("#title").val();
 		user = $("#user").val();
 		
@@ -393,6 +445,39 @@
 		}else if("${ loginUser.userId }"!="" && "${loginUser.userId}"!="${ param.owner }"){
 			console.log("방송채널 주인이 아닌 유저!");
 			chatFunc();
+			$.ajax({
+				url : "/selectSubsManager.bc",
+				type : "get",
+				data: {
+			   		owner:"${ param.owner }",
+			   		uno:"${loginUser.uno}"
+			  	},
+				success : function(data) {
+					console.log(data);
+					if(data.Subscribe == "구독유저"){
+						$("#subscribeIcon").removeClass("far");
+						$("#subscribeIcon").addClass("fas");
+					}else{
+						
+					}
+					if(data.Manager == "매니저"){
+						var $li = $("<li id='broadSettiongLi'>");
+						var $a = $("<a href='#'>");
+						var $i = $("<i class='fas fa-cog' id='broadSettingIcon'>")
+						var $div = $("<div>").text("방송 설정");
+						$a.append($i);
+						$a.append($div);
+						$li.append($a);
+						$("#subscribeLi").after($li);						
+					}else{
+						
+					}
+				},
+				error : function(data) {
+					console.log("실패")
+				}	
+			});
+			
 		}else if("${ loginUser.userId }"=="${ param.owner }"){
 			console.log("방송채널 주인인 유저!");		
 		}
@@ -414,7 +499,7 @@
 				    url: 'http://localhost:8010/room',
 				    params: {
 				      title:$("#title").val(),	
-				      owner:$("#creator").val()
+				      owner:"${ param.owner }"
 				    }
 				  })
 				  .then(function (response) {
@@ -532,39 +617,61 @@
 					$("#msg").focus();
 				});
 			}
+			
+			//메세지 전달 메서드
 			function msgSend(){
-				console.log("send 메서드 메세지 전달!")
-				var msg = $("#msg").val();
-				if($("#msg").val().trim() != ""){
-				$("#msg").val("");
-				axios({
-				    method: 'post',
-				    url: 'http://localhost:8010/room/chat',
-				    params: {
-				    	owner:$("#creator").val(),
-				    	userId:"${ loginUser.userId }",
-				    	userNickName:"${ loginUser.nickName }",
-				    	msg:msg   	
-				    }
-				  })
-				  .then(function (response) {
-				    console.log(response);
-				  })
-				  .catch(function (error) {
-					  console.log(error);
-					  console.log("채팅전달 error");
-				  });
-				}else{
-					swal({
-						  title: "경고",
-						  text: "공백 메세지는 보낼 수 없습니다.",
-						  icon: "warning",
-					}).then(()=>{
-						$("#msg").focus();
-					});
-					
-				}
+				$.ajax({
+					url : "/convertMsg.bc",
+					type : "post",
+					data: {
+				   		owner:"${ param.owner }",
+				   		msg:$("#msg").val()
+				  	},
+					success : function(data) {
+						console.log(data);
+						console.log("send 메서드 메세지 전달!")
+						var msg = data;
+						if($("#msg").val().trim() != ""){
+						$("#msg").val("");
+						axios({
+						    method: 'post',
+						    url: 'http://localhost:8010/room/chat',
+						    params: {
+						    	owner:$("#creator").val(),
+						    	userId:"${ loginUser.userId }",
+						    	userNickName:"${ loginUser.nickName }",
+						    	msg:msg   	
+						    }
+						  })
+						  .then(function (response) {
+						    console.log(response);
+						  })
+						  .catch(function (error) {
+							  console.log(error);
+							  console.log("채팅전달 error");
+						  });
+						}else{
+							swal({
+								  title: "경고",
+								  text: "공백 메세지는 보낼 수 없습니다.",
+								  icon: "warning",
+							}).then(()=>{
+								$("#msg").focus();
+							});
+							
+						} 
+						
+					},
+					error : function(data) {
+						console.log("실패")
+					}	
+				});
 			}
+			
+			
+			
+			
+			
 		/*방 제거하기, 방송종료 메서드, 몽구스DB에서도 방을 삭제해서 이걸 지워야하나 말아야하나 고민중 
 		$("#CloseRoomBtn").click(function(){
 			axios({
