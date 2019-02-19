@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.tt.admin.model.dao.AdminDao;
 import com.kh.tt.admin.model.exception.AdminException;
+import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
 
@@ -90,6 +91,12 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Member> searchLeaveList(String sid, PageInfo pi) throws AdminException {
 		return md.searchLeaveList(sid, pi);
+	}
+
+	// 카테고리 관리
+	@Override
+	public List<Category> selectCategList() throws AdminException {
+		return md.selectCategList();
 	}
 	
 	

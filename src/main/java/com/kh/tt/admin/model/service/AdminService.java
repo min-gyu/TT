@@ -3,6 +3,7 @@ package com.kh.tt.admin.model.service;
 import java.util.List;
 
 import com.kh.tt.admin.model.exception.AdminException;
+import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
 
@@ -45,5 +46,8 @@ public interface AdminService {
 	
 	// 3. 검색 - 페이징 된 탈퇴 회원 목록 조회
 	List<Member> searchLeaveList(String sid, PageInfo pi) throws AdminException;
+
+	// 카테고리 관리
+	List<Category> selectCategList() throws AdminException;
 
 }

@@ -33,14 +33,16 @@
 	<link rel="stylesheet" href="/resources/assets/css/style.css">
 	<link rel="stylesheet" href="/resources/assets/css/skins/all.css">
 	<link rel="stylesheet" href="/resources/assets/css/demo.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/resources/css/fakeLoader.css" >
+	
 
 	<!-- TT 추가 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> 
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+	<link rel="stylesheet" href="/resources/css/fakeLoader.css" >
 	
 	<!-- fakerLoader -->
     <script src="/resources/js/fakeLoader.js"></script>
@@ -102,7 +104,7 @@
 							<div class="col-md-3 col-sm-12 text-right">
 								<ul class="nav-icons">
 									<c:if test="${ adminYN  eq 'Y' }">
-										<li><a href="/adminMain.ad"><i class="ion-person-add"></i>
+										<li><a href="/memberList.ad"><i class="ion-person-add"></i>
 											<div>Admin</div></a></li>
 									</c:if>
 											

@@ -48,7 +48,7 @@
 				<div class="row">
 					<div class="col-md-3 col-sm-12">
 						<div class="brand">
-							<a href="goMain.me"> <img src="/resources/images/logo.png" alt="Today's TV" style="width: 300px;"></a>
+							<a href="/goMain.me"> <img src="/resources/images/logo.png" alt="Today's TV" style="width: 300px;"></a>
 							<span><h4 style="color:#088A29; text-align:center">Management</h4></span>
 						</div>
 					</div>

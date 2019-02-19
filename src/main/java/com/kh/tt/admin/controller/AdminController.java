@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.tt.admin.model.exception.AdminException;
 import com.kh.tt.admin.model.service.AdminService;
+import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.common.Pagination;
 import com.kh.tt.member.model.vo.Member;
@@ -37,7 +38,7 @@ public class AdminController {
 	
 	@RequestMapping("adminMain")
 	public String goAdminMain() {
-		return memberPath + "main";
+		return memberPath + "category";
 	}
 	
 	// 1. 전체 회원 조회 
@@ -206,14 +207,12 @@ public class AdminController {
 		return cloverPath + "exchangeClover";
 	}
 	
-	
 	// claim & inquire
 	@RequestMapping("adminInquiry")
 	public String InquiryView() {
 		return inquiryPath + "inquiry";
 	}
 	
-	// category
 	@RequestMapping("adminStatistics")
 	public String Statistics() {
 		return "admin/statistics/statisticsday";
@@ -228,5 +227,17 @@ public class AdminController {
 	public String Board() {
 		return "admin/board/board";
 	}
-
+	
+	// category
+	@RequestMapping("/adminCateg.ad")
+	public String category(Model model) {
+		try {
+			List<Category> cList = as.selectCategList();
+			model.addAttribute("cList", cList);
+		} catch (AdminException e) {
+			e.printStackTrace();
+		}
+		return categPath + "category";
+	}
+	
 }
