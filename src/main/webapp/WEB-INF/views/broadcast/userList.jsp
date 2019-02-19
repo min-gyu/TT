@@ -161,7 +161,7 @@ $("#searchI").click(function(){
 	  			}
 	  		}else{
 	  			$("#dataBody").empty();
-  				var $td = $("<td colspan='2'>").text("방송중이 아닙니다.");
+  				var $td = $("<td colspan='3'>").text("방송중이 아닙니다.");
   				var $tr = $("<tr align='center'>");
   				$tr.append($td);
   				$("#dataBody").append($tr);

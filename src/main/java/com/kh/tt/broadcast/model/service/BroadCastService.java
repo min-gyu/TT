@@ -23,6 +23,15 @@ public interface BroadCastService{
 
 	Member selectUser(String addManagerId);
 
+	int insertManager(HashMap<String, Object> hmap);
+
+	Relation selectManager(HashMap<String, Object> hmap);
+
+	ArrayList<Relation> selectRelation(int channelNum);
+
+	ArrayList<Member> selectMemberList(HashMap<String, Object> hmap);
+
+
 	
 
 }

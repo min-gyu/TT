@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.header.writers.HstsHeaderWriter;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -112,12 +113,51 @@ public class BroadCastController {
 		//채널번호를 가져오고
 		int channelNum = bcs.selectChannelNum(owner);
 		//유저 아이디를 검사하고(중복검사)
-		Member duplicate = bcs.selectUser(addManagerId);
+		Member duplicateMember = bcs.selectUser(addManagerId);
 		//존재하지 않으면 리턴
-		if(duplicate==null) {
+		if(duplicateMember==null) {
 			return "존재하지 않는 유저 입니다";
 		}
-		
-		return null;
+		//현재 매니저인지 확인
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("channelNum",channelNum);
+		hmap.put("userNo",duplicateMember.getUno());
+		System.out.println(hmap);
+		Relation duplicateRelation = bcs.selectManager(hmap);
+		System.out.println(duplicateRelation);
+		if(duplicateRelation!=null) {
+			return "이미 매니저로 등록된 회원입니다.";
+		}
+		//매니저에 추가하기
+		int insertResult = bcs.insertManager(hmap);
+		if(insertResult==1) {
+			return "매니저 등록 성공";
+		}
+		return "매니저 등록 실패";
+	}
+	//매니저를 검색하는 메서드
+	@RequestMapping("selectManager.bc")
+	public @ResponseBody HashMap<String, Object> selectManager(@RequestParam("owner") String owner){
+		//채널번호를 가져오고
+		int channelNum = bcs.selectChannelNum(owner);
+		//채널번호의 relation 목록을 가져온다(오버로딩)
+		ArrayList<Relation> relationList = bcs.selectRelation(channelNum);
+		//relation의 rTargetUno로 Member에서 유저들을 조회해서 리턴한다
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("relationList", relationList);
+		ArrayList<Member> memberList = bcs.selectMemberList(hmap);
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("relationList",relationList);
+		resultMap.put("memberList",memberList);
+		return resultMap;
+	}
+	//매니저를 삭제하는 메서드
+	@RequestMapping("deleteManager.bc")
+	public @ResponseBody int deleteManager(@RequestParam("rNoArr") String[] rNoArr) {
+		ArrayList<Integer> rNoList = new ArrayList<Integer>();
+		for(int i=0; i<rNoArr.length; i++) {
+			
+		}
+		return 0;
 	}
 }
