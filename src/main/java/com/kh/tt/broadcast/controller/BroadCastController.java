@@ -53,6 +53,14 @@ public class BroadCastController {
 	public String broadtest2() {
 		return "broadcast/resolution/test";
 	}
+	@RequestMapping("addChatBanUser.bc")
+	public String goAddChatBanUser() {
+		return "broadcast/addChatBanUser";
+	}
+	@RequestMapping("goMain.bc")
+	public String goMain() {
+		return "main/mainPage";
+	}
 	//금지어를 검색하는 메서드
 	@RequestMapping("searchBanWord.bc")
 	public @ResponseBody ArrayList<BanWord> searchBanWord(@RequestParam String owner){
@@ -156,8 +164,56 @@ public class BroadCastController {
 	public @ResponseBody int deleteManager(@RequestParam("rNoArr") String[] rNoArr) {
 		ArrayList<Integer> rNoList = new ArrayList<Integer>();
 		for(int i=0; i<rNoArr.length; i++) {
-			
+			rNoList.add(Integer.parseInt(rNoArr[i]));
 		}
-		return 0;
+		HashMap<String,ArrayList<Integer>> hmap = new HashMap<String, ArrayList<Integer>>();
+		hmap.put("rNoList", rNoList);
+		int result = bcs.deleteManager(hmap);
+		return result;
+	}
+	//채팅금지유저를 추가하는 메서드
+	@RequestMapping("insertChatBanUser.bc")
+	public @ResponseBody String insertChatBanUser(@RequestParam("owner") String owner, 
+			@RequestParam("addChatBanUser") String addChatBanUser) {
+		//채널번호를 가져오고
+		int channelNum = bcs.selectChannelNum(owner);
+		//유저 아이디를 검사하고(중복검사)
+		Member duplicateMember = bcs.selectUser(addChatBanUser);
+		//존재하지 않으면 리턴
+		if(duplicateMember==null) {
+			return "존재하지 않는 유저 입니다";
+		}
+		//현재 금지회원인지 확인
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("channelNum",channelNum);
+		hmap.put("userNo",duplicateMember.getUno());
+		System.out.println(hmap);
+		Relation duplicateRelation = bcs.selectChatBanUser(hmap);
+		System.out.println(duplicateRelation);
+		if(duplicateRelation!=null) {
+			return "이미 채팅금지된 회원입니다.";
+		}
+		//매니저에 추가하기
+		int insertResult = bcs.insertChanBanUser(hmap);
+		if(insertResult==1) {
+			return "채팅금지 등록 성공!";
+		}
+		return "채팅금지 등록 실패!";
+	}
+	//채팅금지 유저를 검색하는 메서드
+	@RequestMapping("selectChatBanUser.bc")
+	public @ResponseBody HashMap<String, Object> selectCahtBanUser(@RequestParam("owner") String owner){
+		//채널번호를 가져오고
+		int channelNum = bcs.selectChannelNum(owner);
+		//채널번호의 relation 목록을 가져온다(오버로딩)
+		ArrayList<Relation> relationList = bcs.selectChatRelation(channelNum);
+		//relation의 rTargetUno로 Member에서 유저들을 조회해서 리턴한다
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("relationList", relationList);
+		ArrayList<Member> memberList = bcs.selectMemberList(hmap);
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("relationList",relationList);
+		resultMap.put("memberList",memberList);
+		return resultMap;
 	}
 }

@@ -31,6 +31,14 @@ public interface BroadCastService{
 
 	ArrayList<Member> selectMemberList(HashMap<String, Object> hmap);
 
+	int deleteManager(HashMap<String, ArrayList<Integer>> hmap);
+
+	Relation selectChatBanUser(HashMap<String, Object> hmap);
+
+	int insertChanBanUser(HashMap<String, Object> hmap);
+
+	ArrayList<Relation> selectChatRelation(int channelNum);
+
 
 	
 

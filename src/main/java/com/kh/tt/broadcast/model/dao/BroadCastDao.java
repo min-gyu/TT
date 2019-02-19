@@ -33,6 +33,14 @@ public interface BroadCastDao {
 
 	ArrayList<Member> selectMemberList(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
 
+	int deleteManager(SqlSessionTemplate sqlSession, HashMap<String, ArrayList<Integer>> hmap);
+
+	Relation selectChatBanUser(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
+
+	int insertChanBanUser(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
+
+	ArrayList<Relation> selectChatRelation(SqlSessionTemplate sqlSession, int channelNum);
+
 
 	
 

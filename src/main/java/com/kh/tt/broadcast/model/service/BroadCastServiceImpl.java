@@ -76,6 +76,26 @@ public class BroadCastServiceImpl implements BroadCastService{
 		return bcd.selectMemberList(sqlSession, hmap);
 	}
 
+	@Override
+	public int deleteManager(HashMap<String, ArrayList<Integer>> hmap) {
+		return bcd.deleteManager(sqlSession, hmap);
+	}
+
+	@Override
+	public Relation selectChatBanUser(HashMap<String, Object> hmap) {
+		return bcd.selectChatBanUser(sqlSession, hmap);
+	}
+
+	@Override
+	public int insertChanBanUser(HashMap<String, Object> hmap) {
+		return bcd.insertChanBanUser(sqlSession, hmap);
+	}
+
+	@Override
+	public ArrayList<Relation> selectChatRelation(int channelNum) {
+		return bcd.selectChatRelation(sqlSession, channelNum);
+	}
+
 
 	
 

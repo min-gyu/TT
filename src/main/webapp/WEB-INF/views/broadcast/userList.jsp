@@ -37,16 +37,13 @@
 </head>
 <body>
 	<div class="ui attached stackable menu">
-		<div class="ui container">
-			<a class="item" href="userList.bc"> <i class="grid layout icon"></i>
-				시청자 목록
-			</a> <a class="item" href="/addManager.bc"> <i class="home icon"></i>
-				매니저 추가
-			</a> <a class="item" href="/addBanWord.bc"> <i class="mail icon"></i>
-				금지어 추가
-			</a> <a class="item" href="broadCastSetting.bc"><i
-				class="settings icon"></i>방송 설정</a>
-				<div class="right item"><h5>${ loginUser.userId }</h5>님 환영합니다.</div>
+			<div class="ui container">
+			<a class="item" href="/userList.bc"> <i class="user icon"></i>시청자 목록</a>
+			<a class="item" href="/addManager.bc"><i class="user outline icon"></i>매니저 추가</a> 
+			<a class="item" href="/addChatBanUser.bc"><i class="ban icon"></i>채팅 금지 설정</a>
+			<a class="item" href="/addBanWord.bc"><i class="edit icon"></i>금지어 추가</a> 
+			<a class="item" href="/broadCastSetting.bc"><i class="settings icon"></i>방송 설정</a>
+			<div class="right item"><h5>${ loginUser.userId }</h5>님 환영합니다.</div>
 		</div>
 	</div>
 	<div class="ui container">
