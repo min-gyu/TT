@@ -5,13 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.tt.admin.model.exception.AdminException;
+import com.kh.tt.common.PageInfo;
+import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.exception.MyPageException;
 import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
 import com.kh.tt.myPage.model.vo.Payment;
+import com.kh.tt.myPage.model.vo.PtClover;
 
 
 @Repository
@@ -117,6 +122,39 @@ public class MyPageDaoImpl implements MyPageDao{
 			throw new MyPageException("My신고 게시글 상세보기 실패!");
 		}
 		return claimOne;
+	}
+
+
+	
+	//선물한 클로버 조회 - 페이징 처리전
+	@Override
+	public int getAllGivePresent(SqlSessionTemplate sqlSession, int ptUno) throws MyPageException {
+		
+		System.out.println("Dao 처번째 : "+ptUno);
+		
+		int result = sqlSession.selectOne("PtClover.getAllGivePresent",ptUno);
+		
+		if (result <= 0) {
+			throw new MyPageException("선물한 클로버 전체 수 조회 실패!");
+		}
+		
+		return result;
+	}
+
+
+	//선물한 클로버 조회 - 페이징 처리 후
+	@Override
+	public List<PtClover> selectGivePresentList(SqlSessionTemplate sqlSession,PageInfo pi, int ptUno) throws MyPageException {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<PtClover> givePresentList = sqlSession.selectList("PtClover.selectGivePresentList", ptUno, rowBounds);
+
+		if(givePresentList == null) {
+			throw new MyPageException("선물한 클로버 페이징 처리 실패!");
+		}
+		
+		return givePresentList;
 	}
 
 

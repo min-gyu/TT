@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="PtClover">
+	<resultMap type="com.kh.tt.myPage.model.vo.PtClover" id="ptcloverResultSet">
+		<!-- property 필드명, column 컬럼명과 일치해야 한다 -->
+		<id property="pcNo" column="PC_NO"/>
+		<result property="rnum" column="ROWNUM"/>
+		<result property="pcUno" column="PC_UNO"/>
+		<result property="pcTargetUno" column="PC_TARGET_UNO"/>
+		<result property="pcCnt" column="PC_CNT"/>
+		<result property="pcDate" column="PC_DATE"/>
+	</resultMap>
+	
+	<select id="getAllGivePresent" parameterType="_int"  resultType="int">
+		SELECT COUNT(*)
+		FROM PTCLOVER
+		WHERE PC_UNO=#{value}
+	</select> 
+	
+	<select id="selectGivePresentList"  parameterType="_int" resultMap="ptcloverResultSet" >
+		SELECT ROWNUM ,PC_TARGET_UNO,PC_CNT,PC_DATE
+		FROM PTCLOVER
+		WHERE PC_UNO=#{ptUno}
+		ORDER BY PC_DATE DESC
+	</select> 
+	
+	
+	
+	
+	
+</mapper>  
+  
+  
+  
+

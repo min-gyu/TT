@@ -8,11 +8,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.tt.common.PageInfo;
 import com.kh.tt.myPage.model.dao.MyPageDao;
 import com.kh.tt.myPage.model.exception.MyPageException;
 import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
 import com.kh.tt.myPage.model.vo.Payment;
+import com.kh.tt.myPage.model.vo.PtClover;
 
 @Service
 public class MyPageServiceImpl implements MyPageService{
@@ -96,6 +98,22 @@ public class MyPageServiceImpl implements MyPageService{
 			CQBoard claimOne = mpd.selectClaimOne(sqlSession, bid);
 			
 			return claimOne;
+		}
+
+
+		//선물한 클로버 조회 - 페이징 처리전
+		@Override
+		public int getAllGivePresent(int ptUno) throws MyPageException {
+
+			return mpd.getAllGivePresent(sqlSession, ptUno);
+		}
+
+
+		//선물한 클로버 조회 - 페이지 처리 후
+		@Override
+		public List<PtClover> selectGivePresentList(PageInfo pi, int ptUno) throws MyPageException {
+			
+			return mpd.selectGivePresentList(sqlSession, pi,ptUno);
 		}
 
 

@@ -6,10 +6,12 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.tt.common.PageInfo;
 import com.kh.tt.myPage.model.exception.MyPageException;
 import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
 import com.kh.tt.myPage.model.vo.Payment;
+import com.kh.tt.myPage.model.vo.PtClover;
 
 public interface MyPageDao {
 
@@ -33,5 +35,13 @@ public interface MyPageDao {
 
 	//My신고 게시물 상세보기
 	CQBoard selectClaimOne(SqlSessionTemplate sqlSession, int bid) throws MyPageException;
+
+	//선물한 클로버 조회 - 페이징 처리전
+	int getAllGivePresent(SqlSessionTemplate sqlSession, int ptUno) throws MyPageException;
+
+	//선물한 클로버 조회 - 페이징 처리후
+	List<PtClover> selectGivePresentList(SqlSessionTemplate sqlSession,PageInfo pi, int ptUno) throws MyPageException;
+
+	
 
 }

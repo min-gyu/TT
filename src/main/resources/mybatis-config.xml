@@ -13,7 +13,8 @@
 		<typeAlias type="com.kh.tt.myPage.model.vo.CQBoard" alias="CQBoard"/>
 		<typeAlias type="com.kh.tt.admin.model.vo.MemberAndMemberBanVO" alias="Admin"/>
 		<typeAlias type="com.kh.tt.broadcast.model.vo.BanWord" alias="BanWord"/>
-		<typeAlias type="com.kh.tt.broadcast.model.vo.Relation" alias="Relation"/>		
+		<typeAlias type="com.kh.tt.broadcast.model.vo.Relation" alias="Relation"/>	
+		<typeAlias type="com.kh.tt.myPage.model.vo.PtClover" alias="PtClover"/>		
 
 	</typeAliases>
 	<mappers>
@@ -26,6 +27,7 @@
 		<mapper resource="mappers/admin-mapper.xml" />
 		<mapper resource="mappers/broadCast-mapper.xml" />
 		<mapper resource="mappers/cqandAt-mapper.xml" />
+		<mapper resource="mappers/ptclover-mapper.xml" />
 	</mappers>
 	
 </configuration>
