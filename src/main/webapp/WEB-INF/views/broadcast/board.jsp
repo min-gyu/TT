@@ -179,13 +179,13 @@
 									<div>방송하기</div></a></li>
 							<li id="iceChat"><a href="/goMain.bc"><i class="fas fa-times-circle"></i>
 									<div>방송종료</div></a></li>
-							<li id="iceChat"><a href="#"><i class="fas fa-icicles"></i>
+							<li id="iceChat"><a href="#"><i class="far fa-snowflake"></i>
 									<div>채팅창 얼리기</div></a></li>
 							<li id="broadSettingLi"><a href="#"><i class="fas fa-cog" id="broadSettingIcon"></i>
 									<div>방송 설정</div></a></li>			
 							</c:if>
 							<c:if test="${ (!empty loginUser) and (loginUser.userId ne param.owner)}">
-							<li>	<a href="#"><i class="fas fa-gifts" id="presentIcon"></i>
+							<li id="presentLi">	<a href="#"><i class="fas fa-gifts" id="presentIcon"></i>
 									<div>선물하기</div></a></li>			
 									<li id="subscribeLi"><a href="#"><i class="far fa-star" id="subscribeIcon"></i>
 									<div>구독하기</div></a></li>
@@ -291,6 +291,10 @@
 	$("#broadSettingLi").click(function(){
 		window.open("/userList.bc?owner=${param.owner}", "방송 시청자 목록",
 		"width=1250, height=1200, left=100, top=50");
+	})
+	$("#presentLi").click(function(){
+		window.open("/presentClover.bc?owner=${param.owner}", "클로버 선물하기",
+		"width=1000, height=500, left=100, top=50");
 	})
 
 	$("#report").click(function() {
@@ -438,7 +442,7 @@
 		$("#title").val("제목이래");
 		owner = "${ param.owner }";
 		title =	$("#title").val();
-		user = $("#user").val();
+		user = "${ loginUser.userId }";
 		
 		if("${ loginUser.userId }"==""){
 			console.log("로그인 하지 않은 유저!");
@@ -618,48 +622,57 @@
 				});
 			}
 			
-			//메세지 전달 메서드
+			//메세지 전달 메서드, 채팅금지 확인과 필터링처리후 소켓을 이용하여 메세지 전달
 			function msgSend(){
 				$.ajax({
 					url : "/convertMsg.bc",
 					type : "post",
 					data: {
 				   		owner:"${ param.owner }",
-				   		msg:$("#msg").val()
+				   		msg:$("#msg").val(),
+				   		uno:"${ loginUser.uno }"
 				  	},
 					success : function(data) {
 						console.log(data);
 						console.log("send 메서드 메세지 전달!")
-						var msg = data;
-						if($("#msg").val().trim() != ""){
-						$("#msg").val("");
-						axios({
-						    method: 'post',
-						    url: 'http://localhost:8010/room/chat',
-						    params: {
-						    	owner:$("#creator").val(),
-						    	userId:"${ loginUser.userId }",
-						    	userNickName:"${ loginUser.nickName }",
-						    	msg:msg   	
-						    }
-						  })
-						  .then(function (response) {
-						    console.log(response);
-						  })
-						  .catch(function (error) {
-							  console.log(error);
-							  console.log("채팅전달 error");
-						  });
+						if(data.check=="비채팅금유저"){
+							var msg = data.msg;
+							if($("#msg").val().trim() != ""){
+								$("#msg").val("");
+								axios({
+						    		method: 'post',
+						    		url: 'http://localhost:8010/room/chat',
+						   			params: {
+						    			owner:$("#creator").val(),
+						    			userId:"${ loginUser.userId }",
+						    			userNickName:"${ loginUser.nickName }",
+						    			msg:msg   	
+						    		}
+						  		})
+						  		.then(function (response) {
+						    		console.log(response);
+						  		})
+						  		.catch(function (error) {
+							  		console.log(error);
+							  		console.log("채팅전달 error");
+						  		});
+							}else{
+								swal({
+								  	title: "경고",
+								  	text: "공백 메세지는 보낼 수 없습니다.",
+								  	icon: "warning",
+								}).then(()=>{
+									$("#msg").focus();
+								});
+							
+							} 
 						}else{
 							swal({
-								  title: "경고",
-								  text: "공백 메세지는 보낼 수 없습니다.",
-								  icon: "warning",
-							}).then(()=>{
-								$("#msg").focus();
-							});
-							
-						} 
+							  	title: "경고",
+							  	text: "채팅금지 회원은 채팅하실 수 없습니다.",
+							  	icon: "warning",
+							})
+						}
 						
 					},
 					error : function(data) {

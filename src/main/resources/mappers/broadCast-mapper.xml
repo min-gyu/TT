@@ -144,7 +144,7 @@
 		 #{list}
 		</foreach>
 	</delete>
-	<!-- 매니저 중복확인하는 sql문 -->
+	<!-- 이미 채팅금지 되었는지 조회하는 sql문 -->
 	<select id="selectChatBanUser" resultMap="relationResultSet" parameterType="hashmap">
 	SELECT * 
 	FROM RELATION 
