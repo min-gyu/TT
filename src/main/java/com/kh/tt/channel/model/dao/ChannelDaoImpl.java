@@ -75,7 +75,7 @@ public class ChannelDaoImpl implements ChannelDao{
 		map.put("cuNo", cuNo);
 		map.put("uNo", uNo);
 		System.out.println(map);
-		if(sqlSession.selectOne("Relation.selectSub",map)==null) {
+		if(sqlSession.selectOne("Relation2.selectSub",map)==null) {
 			return 0;
 		}
 		
@@ -87,7 +87,7 @@ public class ChannelDaoImpl implements ChannelDao{
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("cuNo", cuNo);
 		map.put("uNo", uNo);
-		int result=sqlSession.insert("Relation.addSub",map);
+		int result=sqlSession.insert("Relation2.addSub",map);
 		return result;
 	}
 	

@@ -4,7 +4,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Relation">
+<mapper namespace="Relation2">
 	<resultMap type="com.kh.tt.channel.model.vo.Relation"
 		id="relationResultSet">
 		<id property="rNo" column="R_NO" />
