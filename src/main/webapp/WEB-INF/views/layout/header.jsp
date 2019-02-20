@@ -101,7 +101,9 @@
 						</c:when>
 						
 						<c:when test="${ !empty sessionScope.loginUser }">
+
 							<div class="col-md-3 col-sm-12 text-right">
+								<div class="row">
 								<ul class="nav-icons">
 									<c:if test="${ adminYN  eq 'Y' }">
 										<li><a href="/memberList.ad"><i class="ion-person-add"></i>
@@ -115,6 +117,7 @@
 									<li><a href="/logout.me"><i class="ion-person"></i>
 										<div>Logout</div></a></li>
 									</ul>
+								</div>
 								</div>
 						</c:when>
 					</c:choose>

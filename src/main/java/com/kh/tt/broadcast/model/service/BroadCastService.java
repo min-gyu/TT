@@ -47,6 +47,14 @@ public interface BroadCastService{
 
 	int deleteSubscribe(HashMap<String, Object> hmap);
 
+	Member selectMember(String owner);
+
+	int updateMinusClover(HashMap<String, Object> hmap);
+
+	int updatePlusClover(HashMap<String, Object> hmap);
+
+	int insertPTClover(HashMap<String, Object> hmap);
+
 
 	
 

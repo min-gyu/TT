@@ -116,6 +116,26 @@ public class BroadCastServiceImpl implements BroadCastService{
 		return bcd.deleteSubscribe(sqlSession, hmap);
 	}
 
+	@Override
+	public Member selectMember(String owner){
+		return bcd.selectMember(sqlSession, owner);
+	}
+
+	@Override
+	public int updateMinusClover(HashMap<String, Object> hmap) {
+		return bcd.updateMinusClover(sqlSession, hmap);
+	}
+
+	@Override
+	public int updatePlusClover(HashMap<String, Object> hmap) {
+		return bcd.updatePlusClover(sqlSession, hmap);
+	}
+
+	@Override
+	public int insertPTClover(HashMap<String, Object> hmap) {
+		return bcd.insertPTClover(sqlSession, hmap);
+	}
+
 
 	
 
