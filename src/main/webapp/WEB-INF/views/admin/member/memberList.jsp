@@ -37,7 +37,7 @@
 			</div>
 			
 			<div class="line"></div>
-			
+			<h5 style="color: orangered;">* 신규 등록 순</h5>
 			<div class="center-block">
 				<table class="table" id= "listArea">
 					<tr id="listHeader">
@@ -60,7 +60,7 @@
 						<td>${m.nickName}</td>
 						<td>${m.gender}</td>
 						<td>${m.bank}</td>
-						<td>${m.warningNo}</td>
+						<td>${m.warningNo}회</td>
 						<td>${m.banStatus}</td>
 						<td>${m.status}</td>
 					</tr>

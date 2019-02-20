@@ -124,7 +124,7 @@ public class MemberController {
 			// 회원 가입 시 채널 자동 생성
 			ms.createChannel(m);
 			
-			return "redirect:goMain.me";
+			return jspPath + "completeJoin";
 			
 		} catch (Exception e) {
 			logger.info("error : > " + e);

@@ -29,7 +29,7 @@ public class MailHandler {
 		setEmailInfo(fromEmail, fromEmail, toEmail); // 이메일 정보
 		setSubject(subject); // 제목
 		setContent(content); // 내용
-		send(); // 보내기
+		send(); 			 // 보내기
 	}
     
     // 이메일 타이틀

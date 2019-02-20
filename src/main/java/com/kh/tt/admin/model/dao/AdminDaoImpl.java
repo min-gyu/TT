@@ -184,6 +184,11 @@ public class AdminDaoImpl implements AdminDao {
 	public List<Category> selectCategList() throws AdminException {
 		return sqlSession.selectList("Admin.selectCategList");
 	}
+
+	@Override
+	public List<Category> detailCateg(int num) {
+		return sqlSession.selectList("Admin.selectDetailCateg", num);
+	}
 	
 
 }

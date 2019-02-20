@@ -49,6 +49,8 @@ public interface AdminDao {
 
 	// 카테고리 관리
 	List<Category> selectCategList() throws AdminException;
+
+	List<Category> detailCateg(int num);
 	
 	
 	

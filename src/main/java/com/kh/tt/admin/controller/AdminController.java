@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.tt.admin.model.exception.AdminException;
 import com.kh.tt.admin.model.service.AdminService;
@@ -234,10 +235,26 @@ public class AdminController {
 		try {
 			List<Category> cList = as.selectCategList();
 			model.addAttribute("cList", cList);
+			//System.out.println(cList);
 		} catch (AdminException e) {
 			e.printStackTrace();
 		}
 		return categPath + "category";
 	}
+	
+	// 모달 세부 카테고리
+	@RequestMapping("/detailCateg.ad")
+	public @ResponseBody List<Category> detailCateg(Model model, HttpServletRequest request, HttpServletResponse response) {
+		int num = Integer.parseInt(request.getParameter("num"));
+		
+		List<Category> dcList = as.detailCateg(num);
+		model.addAttribute("dcList", dcList);
+		
+		System.out.println("list > " + dcList);
+		System.out.println(" 조회 결과 리스트사이즈 > " + dcList.size());
+		
+		return dcList;
+	}
+		
 	
 }
