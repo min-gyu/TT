@@ -22,7 +22,7 @@
 		<typeAlias type="com.kh.tt.broadcast.model.vo.BanWord"
 			alias="BanWord" />
 		<typeAlias type="com.kh.tt.broadcast.model.vo.Relation"
-			alias="Relation" />
+			alias="Relation2" />
 		<typeAlias type="com.kh.tt.myPage.model.vo.PtClover"
 			alias="PtClover" />
 		<typeAlias type="com.kh.tt.channel.model.vo.Relation"
