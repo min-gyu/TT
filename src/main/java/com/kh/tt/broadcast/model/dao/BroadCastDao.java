@@ -49,6 +49,14 @@ public interface BroadCastDao {
 
 	int deleteSubscribe(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
 
+	Member selectMember(SqlSessionTemplate sqlSession, String owner);
+
+	int updateMinusClover(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
+
+	int updatePlusClover(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
+
+	int insertPTClover(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
+
 
 	
 

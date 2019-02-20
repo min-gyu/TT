@@ -50,15 +50,21 @@
                         <li><a href="#"><i class="icon ion-log-out"></i> 로그아웃</a></li>
                      </ul>
                  </li>
+							<c:if test="${ (!empty loginUser) and (!empty loginUser.bank) }">
+                 			<c:url var="broadUrl" value="/goBroadCast.bc">
+                 			<c:param name="owner" value="${ sessionScope.loginUser.userId }"/>     	
+                 			</c:url>
+                	 		<li id="broadLi">
+							<a href="${ broadUrl }">
+							<i class="fas fa-video" id="broadCatsIcon"></i>
+							<div style="display:inline">방송하기</div>
+							</a>
+							</li>
+
+                 			</c:if>
                  <li><a href="/broadTest.bc">BroadTest</a></li>
                  <li><a href="/broadTest2.bc">BroadTest2</a></li>
-                 <li><a href="/goBroadCast.bc?owner=user01">user01의 방송으로</a></li>
-                 <c:if test="${ (!empty loginUser) and (!empty loginUser.bank) }">
-                 	<c:url var="broadUrl" value="/goBroadCast.bc">
-                 		<c:param name="owner" value="${ sessionScope.loginUser.userId }"/>     	
-                 	</c:url>
-                	 <li><a href="${ broadUrl }">Chatting</a></li>
-                 </c:if>
+                 <li><a href="/goBroadCast.bc?owner=user01">user01방송 바로가기</a></li>
 			</ul>
 		</div>
 	</div>

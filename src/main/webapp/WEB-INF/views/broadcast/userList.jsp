@@ -38,11 +38,15 @@
 <body>
 	<div class="ui attached stackable menu">
 			<div class="ui container">
-			<a class="item" href="/userList.bc"> <i class="user icon"></i>시청자 목록</a>
-			<a class="item" href="/addManager.bc"><i class="user outline icon"></i>매니저 추가</a> 
-			<a class="item" href="/addChatBanUser.bc"><i class="ban icon"></i>채팅 금지 설정</a>
-			<a class="item" href="/addBanWord.bc"><i class="edit icon"></i>금지어 추가</a> 
-			<a class="item" href="/broadCastSetting.bc"><i class="settings icon"></i>방송 설정</a>
+			<a class="item" href="/userList.bc?owner=${param.owner}"> <i class="user icon"></i>시청자 목록</a>
+			<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner) }">
+			<a class="item" href="/addManager.bc?owner=${param.owner}"><i class="user outline icon"></i>매니저 추가</a>
+			</c:if> 
+			<a class="item" href="/addChatBanUser.bc?owner=${param.owner}"><i class="ban icon"></i>채팅 금지 설정</a>
+			<a class="item" href="/addBanWord.bc?owner=${param.owner}"><i class="edit icon"></i>금지어 추가</a> 
+			<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner) }">
+			<a class="item" href="/broadCastSetting.bc?owner=${param.owner}"><i class="settings icon"></i>방송 설정</a>
+			</c:if>
 			<div class="right item"><h5>${ loginUser.userId }</h5>님 환영합니다.</div>
 		</div>
 	</div>
@@ -88,6 +92,50 @@
 
 $(function(){
 	jQuery.ajaxSettings.traditional = true;
+	if(${empty loginUser}){
+		swal({
+			  title: "경고",
+			  text: "로그인이 필요한 서비스 입니다.",
+			  icon: "warning",
+			}).then(()=>{
+				location.href="/goMain.bc";
+				window.self.close(); //팝업 창을 닫는다
+			});			
+	}else{
+		if(${loginUser.userId == param.owner}){
+			console.log("방송채널 주인인 유저!");
+		}else{
+			console.log("방송채널 주인이 아닌 유저!");
+			$.ajax({
+				url : "/selectBSManager.bc",
+				type : "get",
+				data: {
+			   		owner:"${ param.owner }",
+			   		uno:"${loginUser.uno}"
+			  	},
+				success : function(data) {
+					switch(data){
+					case "매니저" : {console.log("매니저"); break;}
+					case "비매니저" : {
+						swal({
+							  title: "경고",
+							  text: "크리에이터 또는 매니저만 이용가능한 서비스 입니다.",
+							  icon: "warning",
+							}).then(()=>{
+								location.href="/goMain.bc";
+								window.self.close(); //팝업 창을 닫는다
+							});					
+						break;}
+					}
+					
+				},
+				error : function(data) {
+					console.log("실패")
+				}	
+			});
+		}
+		
+	}
 		
 });
 $("#searchI").click(function(){
@@ -99,13 +147,13 @@ $("#searchI").click(function(){
 	 	    method: 'get',
 	    	url: 'http://localhost:8010/search',
 	   		params: {	
-	      	owner:"${loginUser.userId}"
+	      	owner:"${ param.owner }"
 	    	}
 	  	})
 	  	.then(function (response) {
 	  		console.log(response.data);
 	  		if(response.data!="방송중이 아닙니다."){
-	  			if(response.data.length==0){
+	  			if(response.data.length==1){
 	  				$("#dataBody").empty();
 	  				var $td = $("<td colspan='3'>").text("시청중인 유저가 없습니다.");
 	  				var $tr = $("<tr align='center'>");
@@ -123,7 +171,7 @@ $("#searchI").click(function(){
 						url : "/searchSubscribe.bc",
 						type : "get",
 						data: {
-			   				owner:"${loginUser.userId}",
+			   				owner:"${ param.owner }",
 			   				userList:userList
 			  			},	
 						success : function(data) {
@@ -131,7 +179,7 @@ $("#searchI").click(function(){
 							$("#userListNum").children().eq(0).text(data.member.length-1+"명이 시청중 입니다!");
 			  				$("#dataBody").empty();
 			  					for(var i=0; i<data.member.length; i++){
-			  						if(data.member[i].userId!="${loginUser.userId}"){
+			  						if(data.member[i].userId!="${ param.owner }"){
 			  							var $tdSubscribe = $("<td>").text("구독하지 않은 유저!");
 			  							for(var j=0; j<data.relation.length; j++){
 			  								if(data.member[i].uno==data.relation[j].rTargetUno){

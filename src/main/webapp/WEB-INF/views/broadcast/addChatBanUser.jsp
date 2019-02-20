@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -54,13 +55,18 @@
 <body>
 	<div class="ui attached stackable menu">
 			<div class="ui container">
-			<a class="item" href="/userList.bc"> <i class="user icon"></i>시청자 목록</a>
-			<a class="item" href="/addManager.bc"><i class="user outline icon"></i>매니저 추가</a> 
-			<a class="item" href="/addChatBanUser.bc"><i class="ban icon"></i>채팅 금지 설정</a>
-			<a class="item" href="/addBanWord.bc"><i class="edit icon"></i>금지어 추가</a> 
-			<a class="item" href="/broadCastSetting.bc"><i class="settings icon"></i>방송 설정</a>
+			<a class="item" href="/userList.bc?owner=${param.owner}"> <i class="user icon"></i>시청자 목록</a>
+			<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner) }">
+			<a class="item" href="/addManager.bc?owner=${param.owner}"><i class="user outline icon"></i>매니저 추가</a>
+			</c:if> 
+			<a class="item" href="/addChatBanUser.bc?owner=${param.owner}"><i class="ban icon"></i>채팅 금지 설정</a>
+			<a class="item" href="/addBanWord.bc?owner=${param.owner}"><i class="edit icon"></i>금지어 추가</a> 
+			<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner) }">
+			<a class="item" href="/broadCastSetting.bc?owner=${param.owner}"><i class="settings icon"></i>방송 설정</a>
+			</c:if>
 			<div class="right item"><h5>${ loginUser.userId }</h5>님 환영합니다.</div>
 		</div>
+	</div>
 	</div>
 	<div class="ui container">
 		<div class="ui large header" id="header">
@@ -122,6 +128,50 @@
 <script type="text/javascript">
 	$(function(){
 		//로그인 안했을시 창 종료 추가할 것.
+		if(${empty loginUser}){
+			swal({
+				  title: "경고",
+				  text: "로그인이 필요한 서비스 입니다.",
+				  icon: "warning",
+				}).then(()=>{
+					location.href="/goMain.bc";
+					window.self.close(); //팝업 창을 닫는다
+				});			
+		}else{
+			if(${loginUser.userId == param.owner}){
+				console.log("방송채널 주인인 유저!");
+			}else{
+				console.log("방송채널 주인이 아닌 유저!");
+				$.ajax({
+					url : "/selectBSManager.bc",
+					type : "get",
+					data: {
+				   		owner:"${ param.owner }",
+				   		uno:"${loginUser.uno}"
+				  	},
+					success : function(data) {
+						switch(data){
+						case "매니저" : {console.log("매니저"); break;}
+						case "비매니저" : {
+							swal({
+								  title: "경고",
+								  text: "크리에이터 또는 매니저만 이용가능한 서비스 입니다.",
+								  icon: "warning",
+								}).then(()=>{
+									location.href="/goMain.bc";
+									window.self.close(); //팝업 창을 닫는다
+								});					
+							break;}
+						}
+						
+					},
+					error : function(data) {
+						console.log("실패")
+					}	
+				});
+			}
+			
+		}
 	})
 	//채팅금지 유저 추가 버튼을 했을 경우 실행되는 메서드, 공백상태와 등록하려는 유저가 본인인지를 확인하고 나머지는 controller단에서 처리한다(실존여부, 이미 등록했는지 여부)
 	$("#addChatBanUserBtn").click(function(){	
@@ -137,13 +187,19 @@
 		  	text: "자기 자신은 채팅금지 유저로 등록할 수 없습니다.",
 		  	icon: "warning",
 			})
+	}else if($("#addChatBanUser").val()=="${ param.owner }"){
+		swal({
+		  	title: "경고",
+		  	text: "해당 채널의 크리에이터는 채팅금지 시킬 수 없습니다.",
+		  	icon: "warning",
+			})
 	}else{
 	
 		$.ajax({
 			url : "/insertChatBanUser.bc",
 			type : "post",
 			data: {
-		   		owner:"${loginUser.userId}",
+		   		owner:"${ param.owner }",
 		   		addChatBanUser:$("#addChatBanUser").val()
 		  	},
 			success : function(data) {
@@ -193,7 +249,7 @@
 			url : "/selectChatBanUser.bc",
 			type : "get",
 			data: {
-		   		owner:"${loginUser.userId}",
+		   		owner:"${ param.owner }",
 		  	},
 			success : function(data) {
 				console.log(typeof(data));

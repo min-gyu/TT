@@ -170,7 +170,6 @@
 							</a>
 						</div>
 					</div>
-
 					<div class="col-md-6 visible-lg-* visible-md-* pull-right">
 						<ul class="nav-icons" id="optionUl">
 						 	<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner) }">
@@ -235,19 +234,8 @@
 					</div>
 					<div class="col-lg-3 col-md-3 col-sm-3 hidden-sm hidden-xs">
 						<div id="chatWrapper">
-						<%-- 	<div id="optionDiv" class="row">
-								<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner) }">
-								<div class="pull-right">
-									<i class="ion-person-add icons" id="addManager"></i> &nbsp; <i
-										class="ion-ios-people icons" id=userList></i> &nbsp; <i
-										class="ion-android-remove-circle icons" id="addBanWord"></i>
-									&nbsp; <i class="ion-android-settings icons"
-										id="broadCastSetting"></i>
-								</div>
-								</c:if>
-							</div> --%>
 							<div id="chattingDiv" class="row"></div>
-							<hr style="margin-top: 5px; margin-bottom: 5px">
+								<hr style="margin-top: 5px; margin-bottom: 5px">
 							<div id="inputChatDiv" class="row">
 								<div class="col-lg-9 col-md-9 col-sm-8"
 									style="padding-left: 0px; padding-right: 0px; black; height: 100%">
@@ -290,11 +278,11 @@
 <script>
 	$("#broadSettingLi").click(function(){
 		window.open("/userList.bc?owner=${param.owner}", "방송 시청자 목록",
-		"width=1250, height=1200, left=100, top=50");
+		"width=1250, height=1200, left=100, top=50, location=no");
 	})
 	$("#presentLi").click(function(){
-		window.open("/presentClover.bc?owner=${param.owner}", "클로버 선물하기",
-		"width=1000, height=500, left=100, top=50");
+		window.open("/goPresentClover.bc?owner=${param.owner}", "클로버 선물하기",
+		"width=1000, height=500, left=100, top=50, location=no");
 	})
 
 	$("#report").click(function() {
@@ -430,6 +418,13 @@
  		}
  		
  	})
+ 	//매니저 방송설정 페이지
+ 	setInterval(() => {
+ 		$("#broadSettiongLi").click(function(){
+ 	 		window.open("/userList.bc?owner=${param.owner}", "방송 시청자 목록",
+ 			"width=1250, height=1200, left=100, top=50");
+ 	 	})
+	}, 0);	
 
 </script>
 <!-- socket.io를 가져오는 스크립트 -->

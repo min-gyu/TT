@@ -108,6 +108,26 @@ public class BroadCastDaoImpl implements BroadCastDao{
 	public int deleteSubscribe(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
 		return sqlSession.delete("BanWord.deleteSubscribe",hmap);
 	}
+	//회원 아이디로 특정 회원을 검색하는 메서드
+	@Override
+	public Member selectMember(SqlSessionTemplate sqlSession, String owner) {
+		return sqlSession.selectOne("BanWord.selectOneMember",owner);
+	}
+	//선물한 만큼의 클로버를 빼는 메서드
+	@Override
+	public int updateMinusClover(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
+		return sqlSession.update("BanWord.updateMinusClover", hmap);
+	}
+	//선물 받은 만큼의 클로버를 더하는 메서드
+	@Override
+	public int updatePlusClover(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
+		return sqlSession.update("BanWord.updatePlusClover", hmap);
+	}
+	//선물 내역을 PTClover 테이블에 기록하는 메서드
+	@Override
+	public int insertPTClover(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
+		return sqlSession.update("BanWord.insertPTClover", hmap);
+	}
 
 	
 }

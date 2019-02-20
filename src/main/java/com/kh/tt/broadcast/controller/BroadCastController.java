@@ -56,7 +56,7 @@ public class BroadCastController {
 	public String goMain() {
 		return "main/mainPage";
 	}
-	@RequestMapping("presentClover.bc")
+	@RequestMapping("goPresentClover.bc")
 	public String goPresentClover() {
 		return "broadcast/presentClover";
 	}
@@ -272,9 +272,7 @@ public class BroadCastController {
 		hmap.put("channelNum",channelNum);
 		hmap.put("userNo",uno);
 		Relation subscribeYN = bcs.selectSubscribe(hmap);
-		System.out.println(subscribeYN);
 		Relation managerYN = bcs.selectManager(hmap);
-		System.out.println(managerYN);
 		HashMap<String, Object> resultMap=new HashMap<String, Object>();
 		if(subscribeYN==null) {
 			resultMap.put("Subscribe", "비구독유저");
@@ -285,8 +283,7 @@ public class BroadCastController {
 			resultMap.put("Manager","비매니저");
 		}else {
 			resultMap.put("Manager","매니저");
-		}
-		System.out.println(resultMap);		
+		}		
 		return resultMap;
 	}
 	//구독하기 버튼을 눌렀을때 구독을 추가하는 메서드
@@ -310,5 +307,49 @@ public class BroadCastController {
 			hmap.put("userNo",uno);
 			int result = bcs.deleteSubscribe(hmap);
 			return result;
+		}
+	//매니저 방송설정 페이지에서 로그인한 유저가 매니저인지 아닌지 식별하는 메서드
+		@RequestMapping("selectBSManager.bc")
+		public @ResponseBody String selectBSManager(@RequestParam("owner") String owner,
+				@RequestParam("uno") int uno){
+			//채널번호를 가져오고
+			String result="";
+			int channelNum = bcs.selectChannelNum(owner);
+			HashMap<String, Object> hmap = new HashMap<String, Object>();
+			hmap.put("channelNum",channelNum);
+			hmap.put("userNo",uno);
+			Relation managerYN = bcs.selectManager(hmap);
+			if(managerYN==null) {
+				result="비매니저";
+			}else {
+				result="매니저";
+			}
+			return result;
+		}
+	//클로버를 선물하는 메서드
+		@RequestMapping("presentClover.bc")
+		public @ResponseBody int presentClover(@RequestParam("owner") String owner,
+				@RequestParam("uno") int uno, @RequestParam("clover") int clover) {
+			//받을 사람의 회원 정보를 읽어옴(오버로딩)
+			Member member = bcs.selectMember(owner);
+			// uno(클로버를 주는 사람)의 Member테이블을 업데이트
+			HashMap<String, Object> hmap = new HashMap<String, Object>();
+			hmap.put("uno", uno);
+			hmap.put("targetUno", member.getUno());
+			hmap.put("clover",clover);
+			//1. 주는 사람의 member테이블에서 clover 개수를 뺌
+			int minusCloverResult = bcs.updateMinusClover(hmap);
+			//2. 받는 사람의 member테이블에서 clover 개수를 더함
+			int plusCloverResult = bcs.updatePlusClover(hmap);
+			//3. PTClover 테이블에 insert하기
+			int insertResult = bcs.insertPTClover(hmap);	
+			return minusCloverResult+plusCloverResult+insertResult;		
+		}
+	//클로버 선물 완료후 refresh를 통해서 업데이트된 보유 클로버를 불러와서 입력하는 메서드
+		@RequestMapping("refresh.bc")
+		public @ResponseBody Member presentClover(@RequestParam("userId") String userId) {
+			String owner = userId;
+			Member member = bcs.selectMember(owner);
+			return member;
 		}
 }
