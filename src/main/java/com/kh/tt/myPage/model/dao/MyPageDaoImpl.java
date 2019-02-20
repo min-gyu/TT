@@ -125,24 +125,24 @@ public class MyPageDaoImpl implements MyPageDao{
 	}
 
 
-	
-	//선물한 클로버 조회 - 페이징 처리전
+	/*클로버 선물한 내역*/
+	//선물한 클로버 조회 - 카운트
 	@Override
 	public int getAllGivePresent(SqlSessionTemplate sqlSession, int ptUno) throws MyPageException {
 		
-		System.out.println("Dao 처번째 : "+ptUno);
 		
 		int result = sqlSession.selectOne("PtClover.getAllGivePresent",ptUno);
 		
 		if (result <= 0) {
-			throw new MyPageException("선물한 클로버 전체 수 조회 실패!");
+			result = 0;
+			return result;
 		}
 		
 		return result;
 	}
 
 
-	//선물한 클로버 조회 - 페이징 처리 후
+	//선물한 클로버 조회 - 리스트
 	@Override
 	public List<PtClover> selectGivePresentList(SqlSessionTemplate sqlSession,PageInfo pi, int ptUno) throws MyPageException {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
@@ -155,6 +155,91 @@ public class MyPageDaoImpl implements MyPageDao{
 		}
 		
 		return givePresentList;
+	}
+
+
+	//클로버 선물한내역 검색 조회 - 카운트
+	@Override
+	public int getSearchGiveCloverCount(SqlSessionTemplate sqlSession, int ptUno, String date1) throws MyPageException {
+		
+		
+		
+		int result = sqlSession.selectOne("PtClover.getSearchGiveCloverCount", date1);
+		
+		if (result <= 0) {
+			throw new MyPageException("선물한 클로버 검색결과 조회 실패!");
+		}
+		
+		return result;
+	}
+
+	//클로버 선물한내역 검색 조회 - 리스트
+	@Override
+	public List<PtClover> searchAllGiveCloverList(SqlSessionTemplate sqlSession, PageInfo pi, int ptUno, String date1)
+			throws MyPageException {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<PtClover> searchAllGiveCloverList = sqlSession.selectList("PtClover.searchAllGiveCloverList", date1, rowBounds);
+
+		if(searchAllGiveCloverList == null) {
+			throw new MyPageException("선물한 클로버 페이징 처리 실패!");
+		}
+
+		return searchAllGiveCloverList;
+	}
+
+
+	
+	
+	
+	
+
+	/*클로버 선물받은 내역*/
+	//선물받은 클로버 조회 - 카운트
+	@Override
+	public int getAllTakePresent(SqlSessionTemplate sqlSession, int ptUno) throws MyPageException {
+
+		int result = sqlSession.selectOne("PtClover.getAllTakePresent",ptUno);
+		
+		if (result <= 0) {
+			throw new MyPageException("선물받은 클로버 전체 수 조회 실패!");
+		}
+		
+		return result;
+	}
+
+	//선물받은 클로버 조회 - 리스트
+	@Override
+	public List<PtClover> selectTakePresentList(SqlSessionTemplate sqlSession, PageInfo pi, int ptUno)
+			throws MyPageException {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<PtClover> takePresentList = sqlSession.selectList("PtClover.selectTakePresentList", ptUno, rowBounds);
+
+		if(takePresentList == null) {
+			throw new MyPageException("선물한 클로버 페이징 처리 실패!");
+		}
+		
+		return takePresentList;
+	}
+
+
+	//접속중인 회원을 객체로 담기
+	@Override
+	public Member checkMember(SqlSessionTemplate sqlSession, int mUno) throws MyPageException {
+		
+		Member member = sqlSession.selectOne("Member.checkMember",mUno);
+		System.out.println("다오 멤버 ; "+member);
+		
+		if (member==null) {
+			throw new MyPageException("회원수정위한 정보 조회 실패!");
+		}
+		
+		return member;
 	}
 
 

@@ -13,19 +13,68 @@
 		<result property="pcTargetUno" column="PC_TARGET_UNO"/>
 		<result property="pcCnt" column="PC_CNT"/>
 		<result property="pcDate" column="PC_DATE"/>
+		
+		
+		<result property="mUno" column="M_UNO"/>
+		<result property="mNickName" column="M_NICKNAME"/>
 	</resultMap>
 	
+	<!-- **선물한 클로버*** -->
+	<!-- 선물한 클로버 내역 보기위한 카운트 -->
 	<select id="getAllGivePresent" parameterType="_int"  resultType="int">
 		SELECT COUNT(*)
 		FROM PTCLOVER
 		WHERE PC_UNO=#{value}
 	</select> 
 	
+	<!-- 선물한 클로버 내역 페이징처리  -리스트 -->
 	<select id="selectGivePresentList"  parameterType="_int" resultMap="ptcloverResultSet" >
-		SELECT ROWNUM ,PC_TARGET_UNO,PC_CNT,PC_DATE
+  		 SELECT ROWNUM,M_NICKNAME,PC_CNT,PC_DATE
+		 FROM(	SELECT M.M_NICKNAME,P.PC_CNT,P.PC_DATE
+				FROM PTCLOVER P JOIN MEMBER M ON (P.PC_TARGET_UNO=M.M_UNO)
+				WHERE P.PC_UNO=#{ptUno} 
+		        ORDER BY P.PC_DATE DESC
+		        )
+	</select> 
+	
+	<!-- 선물한 클로버 검색 내역 - 카운트  -->
+	<select id="getSearchGiveCloverCount"  parameterType="_int" resultType="int">
+  		SELECT COUNT(*)
 		FROM PTCLOVER
-		WHERE PC_UNO=#{ptUno}
-		ORDER BY PC_DATE DESC
+		WHERE PC_UNO=#{value} AND PC_DATE=TO_DATE(#{date1})
+	</select> 
+	
+	<!-- java.lang.String -->
+	<!-- 선물한 클로버 검색 내역 - 리스트  -->
+	<select id="searchAllGiveCloverList"  parameterType="_int" resultMap="ptcloverResultSet" >
+  		SELECT ROWNUM,M_NICKNAME,PC_CNT,PC_DATE
+		 FROM(	SELECT M.M_NICKNAME,P.PC_CNT,P.PC_DATE
+				FROM PTCLOVER P JOIN MEMBER M ON (P.PC_TARGET_UNO=M.M_UNO)
+				WHERE P.PC_UNO=#{ptUno} AND P.PCDATE=TO_DATE(#{date1})
+		        ORDER BY P.PC_DATE DESC
+		        )
+	</select> 
+	
+	
+	
+	
+	
+	<!-- **선물받은 클로버*** -->
+	<!-- 선물받은 클로버 내역 - 카운트 -->
+	<select id="getAllTakePresent" parameterType="_int"  resultType="int">
+		SELECT COUNT(*)
+		FROM PTCLOVER
+		WHERE PC_TARGET_UNO=#{value}
+	</select> 
+	
+	<!-- 선물받은 클로버 내역 -리스트 -->
+	<select id="selectTakePresentList"  parameterType="_int" resultMap="ptcloverResultSet" >
+  		 SELECT ROWNUM,M_NICKNAME,PC_CNT,PC_DATE
+		 FROM(	SELECT M.M_NICKNAME,P.PC_CNT,P.PC_DATE
+				FROM PTCLOVER P JOIN MEMBER M ON (P.PC_UNO=M.M_UNO)
+				WHERE P.PC_TARGET_UNO=#{ptUno} 
+		        ORDER BY P.PC_DATE DESC
+		        )
 	</select> 
 	
 	
