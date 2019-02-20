@@ -8,7 +8,9 @@
 	<resultMap type="com.kh.tt.channel.model.vo.Board"
 		id="channelResultSet">
 		<id property="bNo" column="B_NO" />
+		<result property="bchNo" column="B_CH_NO" />
 		<result property="buNo" column="B_UNO" />
+		<result property="buId" column="M_ID" />
 		<result property="bCate" column="B_CATEG" />
 		<result property="bTitle" column="B_TITLE" />
 		<result property="bContent" column="B_CONTENT" />
@@ -27,41 +29,81 @@
 		INSERT INTO BOARD
 		VALUES(
 		SEQ_B_NO.NEXTVAL,
-		'1',
+		'3',
+		#{buNo},
 		'3',
 		#{bTitle},
 		#{bContent},
 		SYSDATE,
 		SYSDATE,
-		'3','1','1','Y','Y','VOD')
+		'3','1','1','Y','N','VOD')
 
 	</insert>
-	
-	<select id="selectbNo" parameterType="Board" resultMap="channelResultSet">
-	SELECT B_NO
-	FROM BOARD
-	WHERE B_TITLE=#{bTitle} AND B_CONTENT=#{bContent}
-	
-	</select>
 
-	<select id="vodList" parameterType="Board"
+	<select id="selectbNo" parameterType="Board"
 		resultMap="channelResultSet">
-		SELECT *
+		SELECT B_NO
 		FROM BOARD
+		WHERE B_TITLE=#{bTitle} AND
+		B_CONTENT=#{bContent}
 
 	</select>
 
-	<update id="increaseVC" >
+	<select id="vodList" parameterType="java.util.Map"
+		resultMap="channelResultSet">
+
+		SELECT RNUM,B_NO ,B_UNO ,M_ID, B_CATEG ,B_TITLE ,B_CONTENT
+		,B_WRITE_DATE ,
+		B_MODIFY_DATE ,B_COUNT ,B_TYPE
+		FROM(
+		SELECT ROWNUM AS
+		RNUM, B_NO , B_UNO ,M_ID, B_CATEG ,B_TITLE ,B_CONTENT
+		,B_WRITE_DATE ,
+		B_MODIFY_DATE ,B_COUNT ,B_TYPE
+		FROM BOARD JOIN MEMBER ON(B_UNO=M_UNO)
+		WHERE B_DEL_STATUS='N' ORDER BY B_NO DESC
+		)
+		WHERE RNUM BETWEEN
+		#{current} AND #{limit}
+
+	</select>
+
+	<update id="increaseVC">
 		UPDATE BOARD SET
 		B_COUNT=B_COUNT+1
-		WHERE B_NO=#{bNo}
+		WHERE
+		B_NO=#{bNo}
 
 
 	</update>
 
-	<select id="vodOne" parameterType="Board" resultMap="channelResultSet">
+	<select id="vodOne" parameterType="Board"
+		resultMap="channelResultSet">
 		SELECT * FROM BOARD
 		WHERE B_NO=#{bNo}
 
 	</select>
+
+	<select id="getListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE B_DEL_STATUS='N'
+	</select>
+
+	<insert id="insertDet" parameterType="java.util.Map">
+		INSERT INTO BOARD VALUES (
+		SEQ_B_NO.NEXTVAL,
+		#{CuNo},
+		#{uNo},
+		16,
+		null,
+		#{ReplyContent},
+		SYSDATE,
+		null, 0, 2, #{bNo}, 'N', 'N', 'VOD')
+
+
+	</insert>
+
+
+
 </mapper>  

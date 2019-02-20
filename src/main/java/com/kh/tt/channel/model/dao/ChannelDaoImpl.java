@@ -1,12 +1,15 @@
 package com.kh.tt.channel.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
+import com.kh.tt.member.model.vo.Member;
 
 @Repository
 public class ChannelDaoImpl implements ChannelDao{
@@ -35,10 +38,11 @@ public class ChannelDaoImpl implements ChannelDao{
 
 	//채널관리-VOD목록 메소드
 	@Override
-	public List<Board> vodList(SqlSessionTemplate sqlSession) {
-		
-		return sqlSession.selectList("Board.vodList");
+	public List<Board> vodList(SqlSessionTemplate sqlSession, Map<Object, Integer> map) {
+		System.out.println(map);
+		return sqlSession.selectList("Board.vodList", map);
 	}
+
 
 	//VOD상세보기-조회수 메소드
 	@Override
@@ -64,6 +68,28 @@ public class ChannelDaoImpl implements ChannelDao{
 		Attachment result=sqlSession.selectOne("Attachment.vodOneR",bNo);
 		return result;
 	}
+	//VOD상세보기-구독 조회해보기
+	@Override
+	public int selectSubscibe(int cuNo, int uNo, SqlSessionTemplate sqlSession) {
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("cuNo", cuNo);
+		map.put("uNo", uNo);
+		System.out.println(map);
+		if(sqlSession.selectOne("Relation.selectSub",map)==null) {
+			return 0;
+		}
+		
+		return 1;
+	}
+	//VOD상세보기-구독 추가하기
+	@Override
+	public int addSubscirbe(int cuNo, int uNo, SqlSessionTemplate sqlSession) {
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("cuNo", cuNo);
+		map.put("uNo", uNo);
+		int result=sqlSession.insert("Relation.addSub",map);
+		return result;
+	}
 	
 	@Override
 	public Board selectbNo(SqlSessionTemplate sqlSession, Board b) {
@@ -73,11 +99,23 @@ public class ChannelDaoImpl implements ChannelDao{
 	}
 	
 	@Override
-	public int getListCount(SqlSessionTemplate sqlSession) {
+	public int getListCount(Board b,SqlSessionTemplate sqlSession) {
 		// TODO Auto-generated method stub
-		int result=sqlSession.selectOne("Board.getListCount");
+		int result=sqlSession.selectOne("Board.getListCount",b);
 		return result;
 	}
+	@Override
+	public Member selectmInfo(int uNo, SqlSessionTemplate sqlSession) {
+		Member result=sqlSession.selectOne("Member.selectmInfo", uNo);
+		return result;
+	}
+	@Override
+	public Object insertDet(HashMap<String, Object> map, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("Board.insertDet", map);
+	}
+	
+	
+
 	
 
 	

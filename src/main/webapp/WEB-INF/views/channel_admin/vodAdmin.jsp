@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -47,7 +47,8 @@
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
+	<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
+	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 
 	<!-- Start post-content Area -->
 	<section class="post-content-area single-post-area">
@@ -58,52 +59,80 @@
 						<div class="col-md-offset-9">
 							<div class="info"
 								style="padding-top: 20px; padding-bottom: 20px;">
-								<a href="/vodAdd.ch" class="genric-btn info circle arrow">VOD 추가<span
-									class="lnr lnr-arrow-right"></span></a>
+								<a href="/vodAdd.ch" class="genric-btn info circle arrow">VOD
+									추가<span class="lnr lnr-arrow-right"></span>
+								</a>
 							</div>
 
 						</div>
 					</div>
 					<div class="col-lg-9 col-md-9">
-					
 						<div class="row">
-						<c:forEach var="row" items="${list}">
-							<article class="col-md-12 article-list">
-								<div class="inner">
-									<figure>
-										<a href="single.html"> <img
-											src="/resources/channel/channel2/images/news/img11.jpg"
-											alt="Sample Article">
-										</a>
-									</figure>
-									<div class="details"
-										style="width: 410px; border-bottom: 1px solid #eee;">
-										<div class="detail">
-											<div class="category">
-												<a href="#">Film</a>
-											</div>
-											<div class="time">${row.bwDate }</div>
-										</div>
-										<h1>
-											<a href="single.html">${row.bTitle }</a>
-										</h1>
-										<p>${row.bContent }</p>
-										<footer>
-											<a href="#" class="love active"><i
-												class="ion-android-favorite"></i>
-												<div>302</div></a> <a class="btn btn-primary more"
-												href="/vodRevise.ch">
-												<div>수정</div>
-												<div>
-													<i class="ion-ios-arrow-thin-right"></i>
-												</div>
+							<c:forEach var="row" items="${list}">
+								<article class="col-md-12 article-list">
+									<div class="inner">
+										<figure>
+											<a href="single.html"> <img
+												src="/resources/channel/channel2/images/news/img11.jpg"
+												alt="Sample Article">
 											</a>
-										</footer>
+										</figure>
+										<div class="details"
+											style="width: 410px; border-bottom: 1px solid #eee;">
+											<div class="detail">
+												<div class="category">
+													<a>VOD</a>
+												</div>
+												<div class="time">${row.bwDate }</div>
+											</div>
+											<h1>
+												<a href="single.html">${row.bTitle }</a>
+											</h1>
+											<p>${row.bContent }</p>
+											<footer>
+												<a href="#" class="love active"><i
+													class="ion-android-favorite"></i>
+													<div>${row.bCount }</div></a> <a class="btn btn-primary more"
+													href="/vodRevise.ch">
+													<div>수정</div>
+													<div>
+														<i class="ion-ios-arrow-thin-right"></i>
+													</div>
+												</a>
+											</footer>
+										</div>
 									</div>
-								</div>
-							</article>
+								</article>
 							</c:forEach>
 						</div>
+								<div>
+										<c:if test="${pagination.curRange != 1 }">
+											<a href="#" onClick="fn_paging(1)">[처음]</a>
+										</c:if>
+										<c:if test="${pagination.curPage != 1}">
+											<a href="#" onClick="fn_paging('${pagination.prevPage }')">[이전]</a>
+										</c:if>
+										<c:forEach var="pageNum" begin="${pagination.startPage }"
+											end="${pagination.endPage }">
+											<c:choose>
+												<c:when test="${pageNum ==  pagination.curPage}">
+													<span style="font-weight: bold;"><a href="#"
+														onClick="fn_paging('${pageNum }')">${pageNum }</a></span>
+												</c:when>
+												<c:otherwise>
+													<a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+										<c:if
+											test="${pagination.curPage != pagination.pageCnt && pagination.pageCnt > 0}">
+											<a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a>
+										</c:if>
+										<c:if
+											test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
+											<a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a>
+										</c:if>
+									</div>
 					</div>
 				</div>
 
@@ -116,29 +145,34 @@
 							<a><h4>감스트</h4></a>
 						</div>
 
-							<div class="single-sidebar-widget post-category-widget">
+						<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
 							<ul class="cat-list">
-								<li><a href="/goChannelIntro.ch" class="" style="text-align: center;">
+								<li><a href="/goChannelIntro.ch" class=""
+									style="text-align: center;">
 										<p>채널 소개 설정</p>
 								</a></li>
 								<li><a href="#" class="" style="text-align: center;">
 										<p>주력 카테고리 설정</p>
 
 								</a></li>
-								<li><a href="/goBannerProfile.ch" class="" style="text-align: center;">
+								<li><a href="/goBannerProfile.ch" class=""
+									style="text-align: center;">
 										<p>베너 & 프로필 사진 설정</p>
 
 								</a></li>
-								<li><a href="/goVodAdmin.ch" class="" style="text-align: center;">
+								<li><a href="/goVodAdmin.ch" class=""
+									style="text-align: center;">
 										<p>VOD 관리</p>
 
 								</a></li>
-								<li><a href="/subscriberAdmin.ch" class="" style="text-align: center;">
+								<li><a href="/subscriberAdmin.ch" class=""
+									style="text-align: center;">
 										<p>구독자 관리</p>
 
 								</a></li>
-								<li><a href="/managerAdmin.ch" class="" style="text-align: center;">
+								<li><a href="/managerAdmin.ch" class=""
+									style="text-align: center;">
 										<p>매니저 관리</p>
 
 								</a></li>
@@ -146,7 +180,8 @@
 										<p>채팅 필터 관리</p>
 
 								</a></li>
-								<li><a href="manage_black.ch" class="" style="text-align: center;">
+								<li><a href="manage_black.ch" class=""
+									style="text-align: center;">
 										<p>블랙 리스트</p>
 
 								</a></li>
@@ -162,7 +197,11 @@
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 	<!-- End post-content Area -->
 
-
+	<script>
+		function fn_paging(curPage) {
+			location.href = "/channel_admin/goVodAdmin.ch?curPage=" + curPage;
+		}
+	</script>
 
 	<script src="/resources/channel/js/vendor/jquery-2.2.4.min.js"></script>
 	<script

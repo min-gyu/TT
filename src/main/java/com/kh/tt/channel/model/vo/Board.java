@@ -4,7 +4,9 @@ import java.sql.Date;
 
 public class Board implements java.io.Serializable{
 	 private int bNo; //게시물 번호
+	 private int bchNo;//채널 번호
 	 private int buNo; //작성자 번호
+	 private String buId;//작성자 아이디
 	 private int bCate;//카테고리 번호
 	 private String bTitle; //제목
 	 private String bContent; //내용
@@ -19,6 +21,26 @@ public class Board implements java.io.Serializable{
 
 	 public Board() {}
 
+	public Board(int bNo, int bchNo, int buNo, String buId, int bCate, String bTitle, String bContent, Date bwDate,
+			Date bmDate, int bCount, int bLevel, int bupNo, String bAttachs, String bDels, String bType) {
+		super();
+		this.bNo = bNo;
+		this.bchNo = bchNo;
+		this.buNo = buNo;
+		this.buId = buId;
+		this.bCate = bCate;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bwDate = bwDate;
+		this.bmDate = bmDate;
+		this.bCount = bCount;
+		this.bLevel = bLevel;
+		this.bupNo = bupNo;
+		this.bAttachs = bAttachs;
+		this.bDels = bDels;
+		this.bType = bType;
+	}
+
 	public int getbNo() {
 		return bNo;
 	}
@@ -27,12 +49,28 @@ public class Board implements java.io.Serializable{
 		this.bNo = bNo;
 	}
 
+	public int getBchNo() {
+		return bchNo;
+	}
+
+	public void setBchNo(int bchNo) {
+		this.bchNo = bchNo;
+	}
+
 	public int getBuNo() {
 		return buNo;
 	}
 
 	public void setBuNo(int buNo) {
 		this.buNo = buNo;
+	}
+
+	public String getBuId() {
+		return buId;
+	}
+
+	public void setBuId(String buId) {
+		this.buId = buId;
 	}
 
 	public int getbCate() {
@@ -125,28 +163,12 @@ public class Board implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Board [bNo=" + bNo + ", buNo=" + buNo + ", bCate=" + bCate + ", bTitle=" + bTitle + ", bContent="
-				+ bContent + ", bwDate=" + bwDate + ", bmDate=" + bmDate + ", bCount=" + bCount + ", bLevel=" + bLevel
-				+ ", bupNo=" + bupNo + ", bAttachs=" + bAttachs + ", bDels=" + bDels + ", bType=" + bType + "]";
+		return "Board [bNo=" + bNo + ", bchNo=" + bchNo + ", buNo=" + buNo + ", buId=" + buId + ", bCate=" + bCate
+				+ ", bTitle=" + bTitle + ", bContent=" + bContent + ", bwDate=" + bwDate + ", bmDate=" + bmDate
+				+ ", bCount=" + bCount + ", bLevel=" + bLevel + ", bupNo=" + bupNo + ", bAttachs=" + bAttachs
+				+ ", bDels=" + bDels + ", bType=" + bType + "]";
 	}
 
-	public Board(int bNo, int buNo, int bCate, String bTitle, String bContent, Date bwDate, Date bmDate, int bCount,
-			int bLevel, int bupNo, String bAttachs, String bDels, String bType) {
-		super();
-		this.bNo = bNo;
-		this.buNo = buNo;
-		this.bCate = bCate;
-		this.bTitle = bTitle;
-		this.bContent = bContent;
-		this.bwDate = bwDate;
-		this.bmDate = bmDate;
-		this.bCount = bCount;
-		this.bLevel = bLevel;
-		this.bupNo = bupNo;
-		this.bAttachs = bAttachs;
-		this.bDels = bDels;
-		this.bType = bType;
-	}
-
+	
 	
 }
