@@ -12,11 +12,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.tt.admin.model.exception.AdminException;
+import com.kh.tt.common.PageInfo;
+import com.kh.tt.common.Pagination;
+import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.exception.MyPageException;
 import com.kh.tt.myPage.model.service.MyPageService;
 import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
 import com.kh.tt.myPage.model.vo.Payment;
+import com.kh.tt.myPage.model.vo.PtClover;
 
 @Controller
 public class MyPageController {
@@ -77,11 +82,43 @@ public class MyPageController {
 		return "myPage/chargeClover2";
 	}
 	
-	//클로버 선물한 내역조회
+	
+	
+	//클로버 선물한 내역조회 - 검색 전
 	@RequestMapping("presentClover.me")
-	public String goPresentClover() {
+	public String goPresentClover(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		//검색할 날짜값
+		/*String sid = request.getParameter("date1");
+		System.out.println("sid : "+sid);*/
+		
+		//접속중인 사용자의 회원번호
+		int ptUno = Integer.parseInt(request.getParameter("ptUno"));
+		System.out.println("pt타입 : "+ptUno);
+		
+		int currentPage = 1;
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			int listCount = mps.getAllGivePresent(ptUno);
+			System.out.println("listCount" + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			List<PtClover> givePresentList = mps.selectGivePresentList(pi, ptUno);
+			model.addAttribute("givePresentList", givePresentList);
+			request.setAttribute("pi", pi);
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}
+		
 		return "myPage/presentClover";
 	}
+	
 	
 	//클로버 선물받은내역 조회
 	@RequestMapping("presentClover2.me")

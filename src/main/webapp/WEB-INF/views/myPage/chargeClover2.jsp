@@ -12,7 +12,7 @@
 						<div class="ui tabular menu">
 						  <a href="chargeClover.me" class="item" >클로버 충전</a>
 						  <a href="chargeClover2.me" class="active item" >클로버 충전 내역</a>
-						  <a href="presentClover.me" class="item">클로버 선물한 내역</a>
+						  <a href="presentClover.me?ptUno=${sessionScope.loginUser.uno}" class="item">클로버 선물한 내역</a>
 						  <a href="presentClover2.me" class="item">클로버 선물받은 내역</a>
 						</div>
 						<!-- 보유클로버 현황 -->
@@ -25,7 +25,7 @@
 						<!-- 클로버 충전내역 -->
 						<div>
 							<h4>클로버 충전내역 &nbsp; &nbsp; (날짜 선택 : <input type="date" id="date1"> )
-							<button onclick="searchDate();">검색</button></h4>
+							<button class="ui inverted green button" onclick="searchDate();">검색</button></h4>
 						  <table class="ui green table">
 						  <thead>
 						    <tr><th>구매일</th>
