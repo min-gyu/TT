@@ -92,7 +92,10 @@
 
 						<div>
 							<!-- ion-ios-bell -->
-							<a href="#"> <i class="ion-ios-bell-outline"
+							<c:set var="loginUser" value="${sessionScope.loginUser.uno }" />
+							<a
+								href="addSubscribe.ch?CuNo=${m.uno }&&uNo=${loginUser}&&bNo=${b.bNo}">
+								<i class="ion-ios-bell-outline"
 								style="font-size: 28px; padding-left: 2px;"></i> 구독
 							</a>
 						</div>
@@ -159,7 +162,7 @@
 
 							<!-- 댓글란 : 로그인 했을때 보이기! -->
 
-							<form class="row">
+							<div class="row">
 								<div class="col-md-12">
 									<h3 class="title">
 										댓글 한줄 작성 <a href="#" class="love active"><i
@@ -175,14 +178,20 @@
 										type="text" id="name" name="" class="form-control">
 								</div> -->
 								<div class="form-group col-md-12">
+
 									<label for="message">댓글 <span class="required"></span></label>
-									<textarea class="form-control" name="message"
+									<textarea class="form-control" id="ReplyContent"
 										placeholder="댓글 입력란"></textarea>
+									
+									<!-- 작성자 회원번호 -->
+									<input type="hidden" id="buNo"
+										value="${sessionScope.loginUser.uno }">
 								</div>
 								<div class="form-group col-md-12">
-									<button class="btn btn-primary">댓글 작성</button>
+									<button class="btn btn-primary" id="ReplyBtn">댓글 작성</button>
 								</div>
-							</form>
+
+							</div>
 
 							<!-- 댓글란 end : 로그인 했을때 보이기! -->
 
@@ -198,14 +207,19 @@
 					<div class="widget-wrap">
 						<div class="single-sidebar-widget user-info-widget">
 							<img src="/resources/channel/img/blog/user-info.png" alt="">
-							<a><h4>감스트</h4></a>
-							<p>@abc123</p>
+							<a><h4>${m.nickName }</h4></a>
+							<p>@${m.userId }</p>
 							<p>아 이렇게 제 채널에 방문해 주셔서 감사합니다. 이렇게 소개창이 기니 정말 할말이 많습니다. 방송을 한지
 								어언 10년쨰 모든 분들께 감사드리고 앞으로 더 재밌는</p>
 						</div>
 						<div class="single-sidebar-widget popular-post-widget">
-							<a href="manage_C.ch" style="color: #6ac169;"><h4
-									class="popular-title">방송국 관리</h4></a>
+							<c:set var="loginUser" value="${sessionScope.loginUser.userId }" />
+							<c:if test="${m.userId eq loginUser}">
+								<a href="manage_C.ch?CuNo=${m.uno }" type="hidden"
+									style="color: #6ac169;"><h4 class="popular-title"
+										type="hidden">방송국 관리</h4></a>
+
+							</c:if>
 						</div>
 
 
@@ -309,6 +323,36 @@
 			function() {
 				window.open("/report.ch", "신고하기",
 						"width=550, height=550, left=100, top=100");
+			});
+
+	var msg = '<c:out value="${msg}"/>';
+	console.log(msg);
+
+	$(function() {
+		if (msg != null) {
+			alert(msg);
+		}
+	});
+
+	/* $(document).ready(function(){ */
+
+	$("#ReplyBtn").click(
+			function() {
+				var ReplyContent = $("#ReplyContent").val();
+				var CuNo = '<c:out value="${m.uno }"/>';
+				var uNo = $("#buNo").val();
+				var bNo = '<c:out value="${b.bNo}"/>';
+
+				console.log(uNo);
+				$.ajax({
+					type : "post",
+					url : "${contextPath}/insertDet.ch",
+					data : "ReplyContent=" + ReplyContent + "&CuNo=" + CuNo
+							+ "&bNo=" + bNo+ "&uNo=" + uNo,
+					success : function() {
+						alert("댓글이 등록되었습니다.");
+					}
+				});
 			});
 </script>
 </html>

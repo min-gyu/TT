@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -100,6 +101,7 @@ div.upload-btn_wrap button { /*버튼 div*/
 						<h5>VOD 업로드</h5>
 					</div>
 					<div class="row">
+					
 						<form action="insertvod.ch" method="post" id="frm" name="frm" enctype="multipart/form-data">
 							<table class="table table-bordered"
 								style="width: 702px; height: 502px;">
@@ -111,6 +113,8 @@ div.upload-btn_wrap button { /*버튼 div*/
 											<div class="input-group mb-3" style="margin-top: 2%">
 												<input type="text" name="bTitle" class="form-control" aria-label="Default"
 													aria-describedby="inputGroup-sizing-default">
+													<input type="hidden" name="buNo" value="${sessionScope.loginUser.uno }">
+													
 											</div>
 
 										</td>

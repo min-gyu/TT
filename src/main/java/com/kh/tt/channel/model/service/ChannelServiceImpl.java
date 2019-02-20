@@ -1,6 +1,8 @@
 package com.kh.tt.channel.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.kh.tt.channel.model.dao.ChannelDao;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
+import com.kh.tt.member.model.vo.Member;
 
 
 @Service
@@ -45,25 +48,26 @@ public class ChannelServiceImpl implements ChannelService{
 	}
 
 	//채널 관리 - VOD 리스트 메소드
-	
 	@Override
-	public List<Board> vodList() {
-		
-		
-		return cd.vodList(sqlSession);
+	public List<Board> vodList(int i, int j) {
+		HashMap<Object, Integer> map = new HashMap<Object, Integer>(); // MAP을 이용해 담기
+      map.put("current", i);
+      map.put("limit", j);
+     
+		return cd.vodList(sqlSession, map);
 	}
+
 	
 	
 	//VOD상세보기-조회수 추가
 	@Override
-	public void increaseViewC(int bNo, HttpSession session) {
+	public void increaseViewC(int bNo, HttpSession session){
 		//세션에 저장된 조회시간 검색
 		long update_time=0;
 		
 		//최초로 조회할 경우 세션에 저장된 값이 없기 때문에 if문 실행x
 		if(session.getAttribute("update_time_"+bNo)!=null) {
-			update_time = (long)session.getAttribute("update_time_"+bNo);
-			
+			update_time=(Long) session.getAttribute("update_time_"+bNo);
 		}
 		//시스템의 현재 시간을 current_time에 저장
 		long current_time=System.currentTimeMillis();
@@ -72,6 +76,28 @@ public class ChannelServiceImpl implements ChannelService{
 			cd.increaseViewC(bNo,sqlSession);
 			session.setAttribute("update_time_"+bNo, current_time);
 		}
+		
+	}
+	//VOD상세보기-구독하기 메소드
+	@Override
+	public int addSubscirbe(int cuNo, int uNo) {
+		
+		//구독한 이력 조회
+		int result1=cd.selectSubscibe(cuNo,uNo,sqlSession);
+		System.out.println("result1 결과 : "+result1);//1이면 존재 0이면 없음
+		
+		if(result1==0) {//조회결과가 0이면 값 구독 값 추가하기
+		int result2=cd.addSubscirbe(cuNo, uNo,sqlSession);
+		System.out.println("result2 결과 : "+result2);
+		
+		return 0;//추가후 0리턴
+		}else {
+			return 1;//결과 존재할때 1리턴
+		}
+		
+		
+		
+		
 		
 	}
 	
@@ -87,11 +113,27 @@ public class ChannelServiceImpl implements ChannelService{
 		
 		return cd.vodOneR(bNo,sqlSession);
 	}
+//VOD리스트 총 개수 메소드
+	@Override
+	public int getLisCount(Board b) {
+		return cd.getListCount(b,sqlSession);
+	}
+//채널 회원 정보 메소드
+	@Override
+	public Member selectmInfo(int uNo) {
+		return cd.selectmInfo(uNo,sqlSession);
+	}
 
 	@Override
-	public int getLisCount() {
-		return cd.getListCount(sqlSession);
+	public Object insertDet(HashMap<String, Object> map) {
+		return cd.insertDet(map,sqlSession);
+		
 	}
+
+
+
+	
+
 
 
 

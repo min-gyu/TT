@@ -54,7 +54,7 @@
 	<header id="header">
 		<div class="container main-menu"  style="background: #f9f9ff;padding-bottom: 0px;padding-top: 0px;padding-left: 0px;padding-right: 0px;">
 			<div class="row align-items-center justify-content-between d-flex">
-				<a href="sidebar.ch"><img src="/resources/images/logo.png"
+				<a href="goChannel.ch"><img src="/resources/images/logo.png"
 					alt="Today's TV" style="width: 300px;"></a>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
@@ -62,7 +62,7 @@
 						<li><a style="color: #f9f9ff;">방송하기</a>
 						<li><a style="color: #f9f9ff;">방송하기</a>
 						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
-						<li class="menu-has-children"><a><c:out value="${sessionScope.loginUser.userName }."/></a>
+						<li class="menu-has-children"><a><c:out value="${sessionScope.loginUser.userName }"/></a>
 							<ul>
 								<li><a href="blog-home.html">로그아웃</a></li>
 							</ul></li>

@@ -25,7 +25,7 @@
 				<li><a href="#">뷰티</a></li>
 				<li><a href="#">VLOG</a></li>
 				<li><a href="#">VOD</a></li>
-				<li><a href="/goChannel.ch">Channel</a></li>
+				<li><a href="/goChannel.ch?uNo=3">Channel</a></li>
 				<li class="dropdown magz-dropdown"><a href="#">고객센터 <i class="ion-ios-arrow-right"></i></a>
 					<ul class="dropdown-menu">
 						<li><a href="/claimView.me">신고하기</a></li>

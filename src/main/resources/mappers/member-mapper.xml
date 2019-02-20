@@ -3,48 +3,51 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="Member">
-	<resultMap type="com.kh.tt.member.model.vo.Member" id="memberVO">
+	<resultMap type="com.kh.tt.member.model.vo.Member"
+		id="memberVO">
 		<!-- property 필드명, column 컬럼명과 일치해야 한다 -->
-		<id 	property="uno" 			column="M_UNO"/>
-		<result property="userId" 		column="M_ID"/>
-		<result property="nickName" 	column="M_NICKNAME"/>
-		<result property="userName" 	column="M_NAME"/>
-		<result property="userPwd" 		column="M_PWD"/>
-		<result property="birth" 		column="M_BIRTH"/>
-		<result property="gender" 		column="M_GENDER"/>
-		<result property="email" 		column="M_EMAIL"/>
-		<result property="enrollDate" 	column="M_ENROLL_DATE"/>
-		<result property="bank" 		column="M_BANK"/>
-		<result property="bankNo" 		column="M_BANK_NO"/>
-		<result property="warningNo" 	column="M_WARNING_NO"/>
-		<result property="banStatus" 	column="M_BAN_STATUS"/>
-		<result property="status" 		column="M_STATUS"/>
-		<result property="reason" 		column="M_REASON"/>
-		<result property="leaveDate" 	column="M_LEAVE_DATE"/>
-		<result property="btYN" 		column="M_BT_YN"/>
-		<result property="totalClover" 	column="M_TOTAL_CLOVER"/>
-		<result property="adminYN" 		column="M_ADMIN_YN"/>
-		<result property="chNo" 		column="CH_NO"/>
-		<result property="chUno" 		column="CH_UNO"/>
-		<result property="chName" 		column="CH_NAME"/>
+		<id property="uno" column="M_UNO" />
+		<result property="userId" column="M_ID" />
+		<result property="nickName" column="M_NICKNAME" />
+		<result property="userName" column="M_NAME" />
+		<result property="userPwd" column="M_PWD" />
+		<result property="birth" column="M_BIRTH" />
+		<result property="gender" column="M_GENDER" />
+		<result property="email" column="M_EMAIL" />
+		<result property="enrollDate" column="M_ENROLL_DATE" />
+		<result property="bank" column="M_BANK" />
+		<result property="bankNo" column="M_BANK_NO" />
+		<result property="warningNo" column="M_WARNING_NO" />
+		<result property="banStatus" column="M_BAN_STATUS" />
+		<result property="status" column="M_STATUS" />
+		<result property="reason" column="M_REASON" />
+		<result property="leaveDate" column="M_LEAVE_DATE" />
+		<result property="btYN" column="M_BT_YN" />
+		<result property="totalClover" column="M_TOTAL_CLOVER" />
+		<result property="adminYN" column="M_ADMIN_YN" />
+		<result property="chNo" column="CH_NO" />
+		<result property="chUno" column="CH_UNO" />
+		<result property="chName" column="CH_NAME" />
 	</resultMap>
-	
-	<select id="loginCheck" parameterType="com.kh.tt.member.model.vo.Member" resultMap="memberVO" >
-		SELECT * 
+
+	<select id="loginCheck"
+		parameterType="com.kh.tt.member.model.vo.Member" resultMap="memberVO">
+		SELECT *
 		FROM MEMBER
 		WHERE M_ID = #{userId}
 		AND M_PWD = #{userPwd}
 		AND M_STATUS = 'Y'
 		AND M_BAN_STATUS = 'N'
 	</select>
-	
+
 	<!-- 회원 가입 -->
-	<insert id="insertMember" parameterType="com.kh.tt.member.model.vo.Member" >
+	<insert id="insertMember"
+		parameterType="com.kh.tt.member.model.vo.Member">
 		INSERT INTO MEMBER
 		VALUES(
-		  #{chUno}
+		#{chUno}
 		, #{userId}
 		, #{nickName}
 		, #{userName}
@@ -65,55 +68,72 @@
 		, DEFAULT
 		)
 	</insert>
-	
+
 	<!-- 채널 생성을 위한 회원 시퀀스 -->
 	<select id="selectUno" resultType="int">
 		SELECT
 		SEQ_M_UNO.NEXTVAL
-		FROM DUAL
+		FROM
+		DUAL
 	</select>
-	
+
 	<!-- 회원 가입 시 채널 자동 생성 -->
-	<insert id="createChannel" parameterType="com.kh.tt.member.model.vo.Member" >
-		INSERT INTO CHANNEL VALUES (SEQ_CH_NO.NEXTVAL, #{chUno}, DEFAULT)
+	<insert id="createChannel"
+		parameterType="com.kh.tt.member.model.vo.Member">
+		INSERT INTO CHANNEL
+		VALUES (SEQ_CH_NO.NEXTVAL, #{chUno}, DEFAULT)
 	</insert>
-	
+
 	<!-- 암호화 된 비밀번호 조회용 메소드 -->
-	<select id="selectPwd" parameterType="java.lang.String"  resultType="java.lang.String">
+	<select id="selectPwd" parameterType="java.lang.String"
+		resultType="java.lang.String">
 		SELECT M_PWD
 		FROM MEMBER
 		WHERE M_ID = #{userId}
-		AND M_STATUS = 'Y'
+		AND M_STATUS =
+		'Y'
 	</select>
-	
+
 	<!-- 로그인 정보 조회용 메소드 -->
-	<select id="selectLoginUser" parameterType="com.kh.tt.member.model.vo.Member" resultMap="memberVO" >
+	<select id="selectLoginUser"
+		parameterType="com.kh.tt.member.model.vo.Member" resultMap="memberVO">
 		SELECT *
 		FROM MEMBER
 		WHERE M_ID = #{userId}
 		AND M_STATUS = 'Y'
 	</select>
-	
+
 	<!-- 아이디 중복 체크 -->
 	<select id="idCheck" parameterType="String" resultType="Integer">
-	    SELECT COUNT(*)
-	    FROM MEMBER
-	    WHERE M_ID = #{userId}
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE M_ID = #{userId}
 	</select>
-	
+
 	<!-- 닉네임 중복 체크 -->
-	<select id="nickNameCheck" parameterType="String" resultType="Integer">
-	    SELECT COUNT(*)
-	    FROM MEMBER
-	    WHERE M_NICKNAME = #{nickName}
+	<select id="nickNameCheck" parameterType="String"
+		resultType="Integer">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE M_NICKNAME = #{nickName}
 	</select>
-	
+
 	<!-- 신고 아이디 체크 -->
-	<select id="targetIdCheck" parameterType="String" resultType="Integer">
-	    SELECT COUNT(*)
-	    FROM MEMBER
-	    WHERE M_ID = #{userId}
+	<select id="targetIdCheck" parameterType="String"
+		resultType="Integer">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE M_ID = #{userId}
 	</select>
-	
-	
+	<!-- 채널 이동시 필요한 정보(은채) -->
+	<select id="selectmInfo" parameterType="Integer"
+		resultMap="memberVO">
+		SELECT M_UNO,M_ID,M_NICKNAME,M_NAME
+		FROM MEMBER
+		JOIN CHANNEL
+		ON(CH_UNO=M_UNO)
+		WHERE M_UNO=#{uNo}
+	</select>
+
+
 </mapper>

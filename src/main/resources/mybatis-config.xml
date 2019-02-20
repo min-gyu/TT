@@ -5,16 +5,28 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.kh.tt.member.model.vo.Member" alias="Member" />
-		<typeAlias type="com.kh.tt.myPage.model.vo.Clover" alias="Clover" />
-		<typeAlias type="com.kh.tt.myPage.model.vo.Payment" alias="Payment" />
-		<typeAlias type="com.kh.tt.channel.model.vo.Board" alias="Board"/>
-		<typeAlias type="com.kh.tt.channel.model.vo.Attachment" alias="Attachment"/>
-		<typeAlias type="com.kh.tt.myPage.model.vo.CQBoard" alias="CQBoard"/>
-		<typeAlias type="com.kh.tt.admin.model.vo.MemberAndMemberBanVO" alias="Admin"/>
-		<typeAlias type="com.kh.tt.broadcast.model.vo.BanWord" alias="BanWord"/>
-		<typeAlias type="com.kh.tt.broadcast.model.vo.Relation" alias="Relation"/>	
-		<typeAlias type="com.kh.tt.myPage.model.vo.PtClover" alias="PtClover"/>		
+		<typeAlias type="com.kh.tt.member.model.vo.Member"
+			alias="Member" />
+		<typeAlias type="com.kh.tt.myPage.model.vo.Clover"
+			alias="Clover" />
+		<typeAlias type="com.kh.tt.myPage.model.vo.Payment"
+			alias="Payment" />
+		<typeAlias type="com.kh.tt.channel.model.vo.Board"
+			alias="Board" />
+		<typeAlias type="com.kh.tt.channel.model.vo.Attachment"
+			alias="Attachment" />
+		<typeAlias type="com.kh.tt.myPage.model.vo.CQBoard"
+			alias="CQBoard" />
+		<typeAlias
+			type="com.kh.tt.admin.model.vo.MemberAndMemberBanVO" alias="Admin" />
+		<typeAlias type="com.kh.tt.broadcast.model.vo.BanWord"
+			alias="BanWord" />
+		<typeAlias type="com.kh.tt.broadcast.model.vo.Relation"
+			alias="Relation" />
+		<typeAlias type="com.kh.tt.myPage.model.vo.PtClover"
+			alias="PtClover" />
+		<typeAlias type="com.kh.tt.channel.model.vo.Relation"
+			alias="Relation" />
 
 	</typeAliases>
 	<mappers>
@@ -22,13 +34,15 @@
 		<mapper resource="mappers/clover-mapper.xml" />
 		<mapper resource="mappers/payment-mapper.xml" />
 		<mapper resource="mappers/channel-mapper.xml" />
-		<mapper resource="mappers/attachment-mapper.xml"/>
+		<mapper resource="mappers/attachment-mapper.xml" />
 		<mapper resource="mappers/cqboard-mapper.xml" />
 		<mapper resource="mappers/admin-mapper.xml" />
 		<mapper resource="mappers/broadCast-mapper.xml" />
 		<mapper resource="mappers/cqandAt-mapper.xml" />
 		<mapper resource="mappers/ptclover-mapper.xml" />
+		<mapper resource="mappers/relation-mapper.xml"/>
+		
 	</mappers>
-	
+
 </configuration>
 

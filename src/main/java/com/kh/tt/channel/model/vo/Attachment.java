@@ -10,7 +10,7 @@ public class Attachment implements java.io.Serializable{
 	private String atName;//원본이름
 	private String atMName;//바꾼이름
 	private String atPath;//파일경로
-	private String atDate;//업로드날짜
+	private Date atDate;//업로드날짜
 	private String atClass;//사용구분(게시글,신고,채널)
 	private String atType;//사용타입(신고,문의,배경,프로필,VOD,게시글)
 	
@@ -88,12 +88,12 @@ public class Attachment implements java.io.Serializable{
 	}
 
 
-	public String getAtDate() {
+	public Date getAtDate() {
 		return atDate;
 	}
 
 
-	public void setAtDate(String atDate) {
+	public void setAtDate(Date atDate) {
 		this.atDate = atDate;
 	}
 
@@ -119,7 +119,7 @@ public class Attachment implements java.io.Serializable{
 
 
 	public Attachment(int atNo, int atBno, int atCQno, int atCHno, String atName, String atMName, String atPath,
-			String atDate, String atClass, String atType) {
+			Date atDate, String atClass, String atType) {
 		super();
 		this.atNo = atNo;
 		this.atBno = atBno;
