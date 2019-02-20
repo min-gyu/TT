@@ -47,7 +47,9 @@ public interface AdminService {
 	// 3. 검색 - 페이징 된 탈퇴 회원 목록 조회
 	List<Member> searchLeaveList(String sid, PageInfo pi) throws AdminException;
 
-	// 카테고리 관리
+	// 카테고리 조회
 	List<Category> selectCategList() throws AdminException;
+
+	List<Category> detailCateg(int num);
 
 }

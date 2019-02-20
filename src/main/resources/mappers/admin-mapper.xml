@@ -32,8 +32,17 @@
 	</resultMap>
 
 	<!-- 카테고리 조회 -->
-	<select id="selectCategList" resultMap="adminMemberVO">
-		
+	<select id="selectCategList" resultMap="CategoryVO">
+		SELECT CT_NO, CT_NAME
+		FROM CATEGORY
+		WHERE CT_UPPER_NO IS NULL
+	</select>
+	
+	<!-- 세부 카테고리 조회 -->
+	<select id="selectDetailCateg" parameterType="int" resultMap="CategoryVO">
+		SELECT CT_NO, CT_NAME
+		FROM CATEGORY
+		WHERE CT_UPPER_NO = #{value}
 	</select>
 	
 	<!-- 회원 목록 조회 용 쿼리 -->
@@ -56,6 +65,7 @@
 	     , M_STATUS
 	    FROM MEMBER
 	    WHERE M_ADMIN_YN = 'N'
+	    ORDER BY M_ENROLL_DATE DESC
 	</select>
 	
 	<!-- 회원 목록 조회 용 쿼리 -->
@@ -80,6 +90,7 @@
 		FROM MEMBER
 		WHERE M_ADMIN_YN = 'N'
 		AND (#{value} IS NULL OR M_ID = #{value} )
+		ORDER BY M_ENROLL_DATE DESC
 	</select>
 	
 	<!-- 정지 회원 수 조회 -->

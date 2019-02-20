@@ -98,6 +98,11 @@ public class AdminServiceImpl implements AdminService {
 	public List<Category> selectCategList() throws AdminException {
 		return md.selectCategList();
 	}
+
+	@Override
+	public List<Category> detailCateg(int num) {
+		return md.detailCateg(num);
+	}
 	
 	
 	

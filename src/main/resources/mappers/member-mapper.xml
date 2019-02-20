@@ -40,6 +40,7 @@
 		AND M_BAN_STATUS = 'N'
 	</select>
 	
+	<!-- 회원 가입 -->
 	<insert id="insertMember" parameterType="com.kh.tt.member.model.vo.Member" >
 		INSERT INTO MEMBER
 		VALUES(
@@ -63,6 +64,18 @@
 		, DEFAULT
 		, DEFAULT
 		)
+	</insert>
+	
+	<!-- 채널 생성을 위한 회원 시퀀스 -->
+	<select id="selectUno" resultType="int">
+		SELECT
+		SEQ_M_UNO.NEXTVAL
+		FROM DUAL
+	</select>
+	
+	<!-- 회원 가입 시 채널 자동 생성 -->
+	<insert id="createChannel" parameterType="com.kh.tt.member.model.vo.Member" >
+		INSERT INTO CHANNEL VALUES (SEQ_CH_NO.NEXTVAL, #{chUno}, DEFAULT)
 	</insert>
 	
 	<!-- 암호화 된 비밀번호 조회용 메소드 -->
@@ -102,13 +115,5 @@
 	    WHERE M_ID = #{userId}
 	</select>
 	
-	<select id="selectUno" resultType="int">
-		SELECT
-		SEQ_M_UNO.NEXTVAL
-		FROM DUAL
-	</select>
 	
-	<insert id="createChannel" parameterType="com.kh.tt.member.model.vo.Member" >
-		INSERT INTO CHANNEL VALUES (SEQ_CH_NO.NEXTVAL, #{chUno}, DEFAULT)
-	</insert>
 </mapper>

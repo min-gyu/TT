@@ -4,7 +4,7 @@
 <%
 	String tabon = "1";
 %>
-<jsp:include page="/WEB-INF/views/layout/admin/treeheader.jsp" />
+<jsp:include page="/WEB-INF/views/layout/admin/ad_header.jsp" />
 
 <style>
 .numb {
@@ -87,4 +87,4 @@
 <br>
 <br>
 <br>
-<jsp:include page="/WEB-INF/views/layout/admin/treefooter.jsp" />
+<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
