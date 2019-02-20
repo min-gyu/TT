@@ -1,17 +1,11 @@
 package com.kh.tt.broadcast.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.naming.java.javaURLContextFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.header.writers.HstsHeaderWriter;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,8 +14,6 @@ import com.kh.tt.broadcast.model.service.BroadCastService;
 import com.kh.tt.broadcast.model.vo.BanWord;
 import com.kh.tt.broadcast.model.vo.Relation;
 import com.kh.tt.member.model.vo.Member;
-
-import net.sf.json.JSONObject;
 
 @org.springframework.stereotype.Controller
 public class BroadCastController {
@@ -63,6 +55,10 @@ public class BroadCastController {
 	@RequestMapping("goMain.bc")
 	public String goMain() {
 		return "main/mainPage";
+	}
+	@RequestMapping("presentClover.bc")
+	public String goPresentClover() {
+		return "broadcast/presentClover";
 	}
 	//금지어를 검색하는 메서드
 	@RequestMapping("searchBanWord.bc")
@@ -237,16 +233,34 @@ public class BroadCastController {
 			int result = bcs.deleteChatBanUser(hmap);
 			return result;
 		}
-	//채널번호를 조회하고 조회한 채널의 금지어 목록을 불러와서 받은 메세지와 비교하여 금지문자가 있는지 확인하고 있을시 변경하여 return하는 메서드
+	//채널번호를 조회하고 조회한 채널의 금지어 목록을 불러와서 받은 메세지와 비교하여 금지문자가 있는지 확인하고 있을시 변경하여 return하는 메서드, 채팅금지유저인지도 확인
 	@RequestMapping("convertMsg.bc")
-	public @ResponseBody String convertMsg(@RequestParam("owner") String owner, @RequestParam("msg") String msg) {
+	public @ResponseBody HashMap<String, Object> convertMsg(@RequestParam("owner") String owner, @RequestParam("msg") String msg,
+			@RequestParam("uno") int uno) {
+		//채널번호를 가져오고
+		int channelNum = bcs.selectChannelNum(owner);
+		//채팅금지 유저인지 확인
+		HashMap<String, Object> hmap = new  HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new  HashMap<String, Object>();
+		hmap.put("channelNum", channelNum);
+		hmap.put("userNo",uno);
+		Relation chatBanUserYn = bcs.selectChatBanUser(hmap);
+		String check = "";
+		if(chatBanUserYn==null) {
+			check="비채팅금유저";
+		}else {
+			check="채팅금지유저";
+		}
+		resultMap.put("check", check);
+		//금지어를 조회해옴
 		ArrayList<BanWord> banArr= bcs.searchBanWord(owner);
 		for(int i=0; i<banArr.size(); i++) {
 			if(msg.contains(banArr.get(i).getfBan())) {
 				msg = msg.replaceAll(banArr.get(i).getfBan(), banArr.get(i).getfReplace());
 			}
 		}
-		return msg;
+		resultMap.put("msg",msg);
+		return resultMap;
 	}
 	//페이지 로딩시 매니저 권한 유무와 구독 유무를 확인하는 메서드
 	@RequestMapping("selectSubsManager.bc")
