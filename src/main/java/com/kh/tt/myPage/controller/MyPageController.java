@@ -32,11 +32,46 @@ public class MyPageController {
 
 	
 	//개인정보 수정페이지 - 비밀번호 확인 후 진행
-	@RequestMapping("modify_myPage.me")
-	public String goModifyMyPage() {
-		return "myPage/modifyMyPage";
+	@RequestMapping("modifyMyPage.me")
+	public String goModifyMyPage(Model model, HttpServletRequest request, HttpServletResponse response) {
+	
+		if(request.getParameter("mUno")=="") {
+			
+			
+			return "redirect:loginView.me";
+		}else {
+			//접속중인 사용자의 회원번호
+			int mUno = Integer.parseInt(request.getParameter("mUno"));
+			System.out.println("mUno확인 : "+mUno);
+			
+			//접속중인 회원의 비밀번호 확인
+			Member member1;
+			
+			try {
+				member1 = mps.checkMember(mUno);
+				
+				System.out.println("컨트롤러 member : "+member1);
+				
+				model.addAttribute("member1", member1);
+				
+				
+			} catch (MyPageException e) {
+				e.printStackTrace();
+			}
+			
+			return "myPage/checkPwd";
+		}
+		
 	}
 	
+	@RequestMapping("modifyMyPage2.me")
+	public String modify_myPage2(Model model, HttpServletRequest request, HttpServletResponse response) {
+	
+		int mUno = Integer.parseInt(request.getParameter("mUno"));
+		System.out.println("mUno확인 : "+mUno);
+		
+		return "myPage/modifyMyPage";
+	}
 	
 	
 	/*클로버 충전하기 페이지*/
@@ -84,18 +119,14 @@ public class MyPageController {
 	
 	
 	
-	//클로버 선물한 내역조회 - 검색 전
+	
+	/*클로버 선물한 내역*/
+	//클로버 선물한 내역조회 - 페이징처리 (검색 전)
 	@RequestMapping("presentClover.me")
 	public String goPresentClover(Model model, HttpServletRequest request, HttpServletResponse response) {
 		
-		//검색할 날짜값
-		/*String sid = request.getParameter("date1");
-		System.out.println("sid : "+sid);*/
-		
 		//접속중인 사용자의 회원번호
 		int ptUno = Integer.parseInt(request.getParameter("ptUno"));
-		System.out.println("pt타입 : "+ptUno);
-		
 		int currentPage = 1;
 		
 		if (request.getParameter("currentPage") != null) {
@@ -119,10 +150,77 @@ public class MyPageController {
 		return "myPage/presentClover";
 	}
 	
+	//클로버 선물한 내역 조회 - 검색조회
+	/*@RequestMapping("searchGiveClover.me")
+	public String searchGiveClover(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		//접속중인 사용자의 회원번호
+		int ptUno = Integer.parseInt(request.getParameter("ptUno"));
+		System.out.println("pt타입 : "+ptUno);
+		
+		//검색할 날짜값
+		String date1 = request.getParameter("date1");
+		System.out.println("date1 : "+date1);
+
+		int currentPage = 1;
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			//검색결과 개수
+			int listCount = mps.getSearchGiveCloverCount(ptUno,date1);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			//검색결과 리스트
+			List<PtClover> searchGiveCloverList = mps.searchAllGiveCloverList(date1,ptUno, pi);
+			
+			model.addAttribute("searchGiveCloverList", searchGiveCloverList);
+			request.setAttribute("pi", pi);
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}
+		return "myPage/presentClover";
+	}*/
 	
+	
+	
+	
+	
+	/*클로버 선물받은 내역*/
 	//클로버 선물받은내역 조회
 	@RequestMapping("presentClover2.me")
-	public String goPresentClover2() {
+	public String goPresentClover2(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		//접속중인 사용자의 회원번호
+		int ptUno = Integer.parseInt(request.getParameter("ptUno"));
+		
+		int currentPage = 1;
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			//결과값 카운트
+			int listCount = mps.getAllTakePresent(ptUno);
+			System.out.println("listCount" + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			//결과값 리스트
+			List<PtClover> takePresentList = mps.selectTakePresentList(pi, ptUno);
+			
+			model.addAttribute("takePresentList", takePresentList);
+			request.setAttribute("pi", pi);
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}
+		
 		return "myPage/presentClover2";
 	}
 	
@@ -158,6 +256,7 @@ public class MyPageController {
 		
 		List<CQBoard> questionList;
 
+		//접속중인 사용자 번호
 		int cqUno = Integer.parseInt(request.getParameter("cqUno"));
 		
 		try {

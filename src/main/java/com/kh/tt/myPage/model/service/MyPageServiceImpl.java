@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.tt.common.PageInfo;
+import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.dao.MyPageDao;
 import com.kh.tt.myPage.model.exception.MyPageException;
 import com.kh.tt.myPage.model.vo.CQBoard;
@@ -101,7 +102,8 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 
 
-		//선물한 클로버 조회 - 페이징 처리전
+		/*클로버 선물한 내역*/
+		//선물한 클로버 조회 - 카운트
 		@Override
 		public int getAllGivePresent(int ptUno) throws MyPageException {
 
@@ -109,11 +111,52 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 
 
-		//선물한 클로버 조회 - 페이지 처리 후
+		//선물한 클로버 조회 - 리스트
 		@Override
 		public List<PtClover> selectGivePresentList(PageInfo pi, int ptUno) throws MyPageException {
 			
 			return mpd.selectGivePresentList(sqlSession, pi,ptUno);
+		}
+
+		//클로버 선물한내역 검색 조회 - 카운트
+		@Override
+		public int getSearchGiveCloverCount(int ptUno, String date1) throws MyPageException {
+			
+			return mpd.getSearchGiveCloverCount(sqlSession, ptUno, date1);
+		}
+
+		//클로버 선물한내역 검색 조회 - 리스트
+		@Override
+		public List<PtClover> searchAllGiveCloverList(String date1, int ptUno, PageInfo pi) throws MyPageException {
+			
+			return mpd.searchAllGiveCloverList(sqlSession, pi,ptUno, date1);
+		}
+
+
+		
+		
+		
+		/*클로버 선물받은 내역*/
+		//선물받은 클로버 조회 - 카운트
+		@Override
+		public int getAllTakePresent(int ptUno) throws MyPageException {
+			
+			return mpd.getAllTakePresent(sqlSession, ptUno);
+		}
+
+		//선물받은 클로버 조회 - 리스트
+		@Override
+		public List<PtClover> selectTakePresentList(PageInfo pi, int ptUno) throws MyPageException {
+			
+			return mpd.selectTakePresentList(sqlSession, pi,ptUno);
+		}
+
+
+		//접속중인 회원 비밀번호 확인
+		@Override
+		public Member checkMember(int mUno) throws MyPageException {
+			
+			return mpd.checkMember(sqlSession,mUno);
 		}
 
 

@@ -6,12 +6,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		
 <script type="text/javascript">
+
+	//날짜 선택 후 검색시
 	function searchPresent1(){
+		
+		var ptUno = ${sessionScope.loginUser.uno};
 		var date1 = $("#date1").val();
 		
-		
-		
-		location.href = "presentClover.me?date1=" + date1;
+		if(date1 == null){
+			alert("날짜를 선택해 주세요!");
+		}else{
+			location.href = "searchGiveClover.me?date1="+date1+"&ptUno="+ptUno;
+		}
 		
 	}
 </script>
@@ -27,7 +33,7 @@
 						  <a href="chargeClover.me" class="item" >클로버 충전</a>
 						  <a href="chargeClover2.me" class=" item" >클로버 충전 내역</a>
 						  <a href="presentClover.me?ptUno=${sessionScope.loginUser.uno}" class="active item">클로버 선물한 내역</a>
-						  <a href="presentClover2.me" class="item">클로버 선물받은 내역</a>
+						  <a href="presentClover2.me?ptUno=${sessionScope.loginUser.uno}" class="item">클로버 선물받은 내역</a>
 						</div>
 						
 						<!-- 클로버 선물내역 -->
@@ -47,7 +53,7 @@
 						   <tr>
 						   	  <td>${giveList.rnum }</td>
 						      <td>${giveList.pcCnt }</td>
-						      <td>${giveList.pcTargetUno }</td>
+						      <td>${giveList.mNickName }</td>
 						      <td>${giveList.pcDate }</td>
 						    </tr> 
 						 </c:forEach>
@@ -69,7 +75,7 @@
 					</c:if>
 					
 					<c:if test="${ pi.currentPage > 1 }">
-						<c:url var="listBack" value="/memberList.ad">
+						<c:url var="listBack" value="/presentClover.me?ptUno=${sessionScope.loginUser.uno}">
 							<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
 						</c:url>
 						<li class="page-item disabled">
@@ -86,7 +92,7 @@
 						</c:if>
 						
 						<c:if test="${ p ne pi.currentPage }">
-							<c:url var="listCheck" value="/memberList.ad">
+							<c:url var="listCheck" value="/presentClover.me?ptUno=${sessionScope.loginUser.uno}">
 								<c:param name="currentPage" value="${ p }" />
 							</c:url>
 							<li class="page-item"><a href="${ listCheck }">${ p }</a></li>
@@ -103,7 +109,7 @@
 					</c:if>
 					
 					<c:if test="${ pi.currentPage < pi.maxPage }">
-						<c:url var="listEnd" value="/memberList.ad">
+						<c:url var="listEnd" value="/presentClover.me?ptUno=${sessionScope.loginUser.uno}">
 							<c:param name="currentPage" value="${ pi.currentPage + 1 }" />
 						</c:url>
 						<li class="page-item">

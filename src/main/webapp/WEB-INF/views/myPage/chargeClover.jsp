@@ -27,7 +27,7 @@
 					  <a href="chargeClover.me" class="active item" >클로버 충전</a>
 					  <a href="chargeClover2.me" class="item" >클로버 충전 내역</a>
 					  <a href="presentClover.me?ptUno=${sessionScope.loginUser.uno}" class="item">클로버 선물한 내역</a>
-					  <a href="presentClover2.me" class="item">클로버 선물받은 내역</a>
+					  <a href="presentClover2.me?ptUno=${sessionScope.loginUser.uno}" class="item">클로버 선물받은 내역</a>
 					</div>
 						
 						<h4><img src="/resources/images/clover/clover.jpg" width="30px" height="30px">선물 가능한 클로버 : 1개</h4><br>

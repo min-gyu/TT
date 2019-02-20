@@ -35,9 +35,9 @@
 				
 				<li class="dropdown magz-dropdown"><a href="#">My Page<i class="ion-ios-arrow-right"></i></a>
                      <ul class="dropdown-menu">
-                      	<li><a href="checkPwd.me"><i class="leaf icon"></i> My채널</a></li>
-                       	<li><a href="#"><i class="leaf icon"></i> My구독</a></li>
-						<li class="divider"></li>                     
+                      	<!-- <li><a href="#"><i class="leaf icon"></i> My채널</a></li>
+                       	<li><a href="#"><i class="leaf icon"></i> My구독</a></li> -->   
+						<li class="divider"></li>                  
                         <li><a href="/chargeClover.me"><i class="leaf icon"></i> 클로버 충전하기</a></li>
                         <li><a href="/bankChk.me"><i class="leaf icon"></i> 계좌 인증하기</a></li>
                         <li><a href="/exchangeClover.me"><i class="leaf icon"></i> 환전 신청하기</a></li>
@@ -46,7 +46,7 @@
                         <li><a href="/broadcastTotal.me"><i class="leaf icon"></i>방송 통계</a></li>
                         <li><a href="/note.me"><i class="leaf icon"></i>내 쪽지</a></li>
                         <li class="divider"></li>
-                        <li><a href="/modify_myPage.me"><i class="icon ion-person"></i> 내 정보 수정</a></li>
+                        <li><a href="/modifyMyPage.me?mUno=${sessionScope.loginUser.uno}"><i class="icon ion-person"></i> 내 정보 수정</a></li>
                         <li><a href="#"><i class="icon ion-log-out"></i> 로그아웃</a></li>
                      </ul>
                  </li>

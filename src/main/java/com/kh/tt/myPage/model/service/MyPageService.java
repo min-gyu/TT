@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.tt.common.PageInfo;
+import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.exception.MyPageException;
 import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
@@ -35,11 +36,29 @@ public interface MyPageService {
 	//My신고 게시글 상세보기
 	CQBoard selectClaimOne(int bid) throws MyPageException;
 
-	//클로버 선물한내역 조회 - 페이징처리 전 
+	/*클로버 선물한 내역*/
+	//클로버 선물한내역 조회 - 카운트
 	int getAllGivePresent(int ptUno) throws MyPageException;
 
-	//클로버 선물한내역 조회 - 페이징처리
+	//클로버 선물한내역 조회 - 리스트
 	List<PtClover> selectGivePresentList(PageInfo pi, int ptUno) throws MyPageException;
+
+	//클로버 선물한내역 검색 조회 - 카운트
+	int getSearchGiveCloverCount(int ptUno, String date1) throws MyPageException;
+
+	//클로버 선물한내역 검색 조회 - 리스트
+	List<PtClover> searchAllGiveCloverList(String date1, int ptUno, PageInfo pi)  throws MyPageException;
+
+	
+	/*클로버 선물받은 내역*/
+	//클로버 선물받은내역 조회 - 카운트
+	int getAllTakePresent(int ptUno) throws MyPageException;
+
+	//클로버 선물받은내역 조회 - 리스트
+	List<PtClover> selectTakePresentList(PageInfo pi, int ptUno) throws MyPageException;
+
+	//접속중인 회원의 비밀번호 확인
+	Member checkMember(int mUno) throws MyPageException;
 
 
 }
