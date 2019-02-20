@@ -20,9 +20,18 @@
 			$(this).parent().css({"background" : "white"})
 		}).click(function(e) { 
 			var num = $(this).parent().children().eq(0).text();
+			var name = $(this).parent().children().eq(1).text();
 			
 			$("#myModal").modal().click(function(e){
 			detailCategory(num);
+			
+			console.log("num > " + num);
+			console.log("name > " + name);
+			
+			$("categNo").val(num);
+			$("categName").val(name);
+			
+			
 			});
 		});
 	});
@@ -32,7 +41,7 @@
 		var header = "";
 			header += "<tr>";
 			header += "<th>번호</th> ";
-			header += "<th>분류</th>  ";
+			header += "<th>세부 분류</th>  ";
 			header += "</tr>";
 			
 		 $.ajax({
@@ -43,23 +52,22 @@
 						},
 						
 				success : function(data){	// 성공시 
-					/* 
-					var htmlCode = "";
-					for(var i = 0; i < data.length; i++){
+					console.log(data);
+					
+					var htmlCode="";
+					for(var i = 0; i < data.length; i++) {
 						var rowData = data[i];
 						
-						var id 		 = rowData["empid"];
-						var name 	 = rowData.empName;
-						var position = rowData.positionName;
+						var no 		= rowData.ctNo;
+						var name 	= rowData.ctName;
 						
 						htmlCode += "<tr >                              ";
-						htmlCode += "	<td>" + id + "</td>          	";
+						htmlCode += "	<td>" + no + "</td>          	";
 						htmlCode += "	<td>" + name + "    </td>	   	";
-						htmlCode += "	<td>" + position + "  </td>	 	";
 						htmlCode += "</tr>                              ";
 					}
 					$("#detailCateg").html(header + htmlCode);
-					  */
+				
 					 console.log("성공!");
 				},
 				error : function(){
@@ -94,10 +102,40 @@
 				
 				<div class="line"></div>
 				
-				<div class="">
-					<button type="button" class="btn btn-success bt-lg">확인</button>
+					
+				
+				<div class="box-wrapper">				
+					<div class="box box-border">
+						<div class="box-body">
+						
+							<form id="myForm" method="post" class="form-horizontal">
+								<div class="form-group">
+									<label>카테고리 번호</label>
+									<input type="text" id="categNo" name="" class="form-control">
+								</div>
+								
+								<div class="form-group">
+									<label>카테고리 명</label>
+									<input type="text" id="categName" name="" class="form-control">
+								</div>
+								
+								<div class="form-group">
+									<label class="fw">활성화 여부</label>
+									<div>
+										<select class="form-control" name="gender">
+											<option value="">활성화</option>
+											<option value="">비활성화</option>
+										</select>
+									</div>
+								</div>
+								
+								<button type="submit" class="btn btn-success btn-block" id="submitBtn">설정</button>
+								
+							</form>
+							
+						</div>
+					</div>
 				</div>
-			</div>
 			
 			
 		</div>
@@ -119,18 +157,10 @@
 				      
 			    <div class="modal-body">
 			   		<table class="table" id="detailCateg">
-						<tr id="listHeader">
+						<!-- <tr id="listHeader">
 							<th>번호</th>
 							<th>세부분류</th>
-						</tr>
-						
-						<c:forEach var="dc" items="${dcList}">
-						<tr>
-							<%-- <td>${ dc.ctNo }</td> --%>
-							<td>??</td>
-							<td>${ dc.ctName }</td>
-						</tr>
-						</c:forEach>
+						</tr> -->
 			   		</table>
 			    </div>
 				      
