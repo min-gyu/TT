@@ -63,5 +63,8 @@ public interface MyPageService {
 	//개인정보수정
 	int updateModify(String nickName, String userPwd, int mUno) throws MyPageException;
 
+	//회원번호, 탈퇴사유 update
+	int modifyOutStatus(int mUno, String reason) throws MyPageException;
+
 
 }

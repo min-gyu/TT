@@ -39,7 +39,7 @@
                        	<li><a href="#"><i class="leaf icon"></i> My구독</a></li> -->   
 						<li class="divider"></li>                  
                         <li><a href="/chargeClover.me"><i class="leaf icon"></i> 클로버 충전하기</a></li>
-                        <li><a href="/bankChk.me"><i class="leaf icon"></i> 계좌 인증하기</a></li>
+                        <li><a href="/bankChk.me?mUno=${sessionScope.loginUser.uno}"><i class="leaf icon"></i> 계좌 인증하기</a></li>
                         <li><a href="/exchangeClover.me"><i class="leaf icon"></i> 환전 신청하기</a></li>
                         <li><a href="/question.me?cqUno=${sessionScope.loginUser.uno}"><i class="leaf icon"></i> My문의 페이지</a></li>
                         <li><a href="/claim.me?cqUno=${sessionScope.loginUser.uno}"><i class="leaf icon"></i>My신고 페이지</a></li>

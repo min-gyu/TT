@@ -65,6 +65,9 @@ public interface MyPageDao {
 	//개인정보수정
 	int updateModify(SqlSessionTemplate sqlSession, String nickName, String userPwd, int mUno) throws MyPageException;
 
+	//회원번호, 탈퇴사유 update
+	int modifyOutStatus(SqlSessionTemplate sqlSession, int mUno, String reason) throws MyPageException;
+
 	
 
 }

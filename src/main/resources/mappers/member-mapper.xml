@@ -151,7 +151,12 @@
 	</update>
 	
 	
-	
+	<!-- 탈퇴상태 변경 : 탈퇴상태, 탈퇴사유, 탈퇴날짜  -->
+	<update id="modifyOutStatus" parameterType="java.util.Map">
+		UPDATE MEMBER
+		SET M_STATUS='N', M_REASON=#{reason}, M_LEAVE_DATE=SYSDATE
+		WHERE M_UNO=#{mUno}
+	</update>
 	
 	
 </mapper>
