@@ -233,7 +233,6 @@ public class MyPageDaoImpl implements MyPageDao{
 	public Member checkMember(SqlSessionTemplate sqlSession, int mUno) throws MyPageException {
 		
 		Member member = sqlSession.selectOne("Member.checkMember",mUno);
-		System.out.println("다오 멤버 ; "+member);
 		
 		if (member==null) {
 			throw new MyPageException("회원수정위한 정보 조회 실패!");
@@ -243,5 +242,32 @@ public class MyPageDaoImpl implements MyPageDao{
 	}
 
 
-
+	//개인정보수정
+	@Override
+	public int updateModify(SqlSessionTemplate sqlSession, String nickName, String userPwd, int mUno) throws MyPageException {
+		
+		System.out.println("Dao도착"); 
+		System.out.println("mUno : "+mUno);
+		System.out.println("nickName : "+nickName);
+		System.out.println("userPwd : "+userPwd);
+		
+		int result1=0; //닉네임 변경
+		int result2=0; //비밀번호 변경
+		
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		
+		hmap.put("mUno",mUno );
+		hmap.put("nickName",nickName );
+		hmap.put("userPwd",userPwd );
+		
+		result1 = sqlSession.update("Member.updateNickName",hmap);
+		System.out.println("개인정보 변경결과 : "+result1);
+		
+		if(result1==0) {
+			throw new MyPageException("회원 정보 변경 실패!");
+		}
+		
+		return result1;
+		
+	}
 }

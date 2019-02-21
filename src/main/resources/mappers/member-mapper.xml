@@ -142,5 +142,16 @@
 		FROM MEMBER
 		WHERE M_UNO = #{mUno}
 	</select>
-
+	
+	<!-- 개인정보 수정 -->
+	<update id="updateNickName" parameterType="java.util.Map">
+		UPDATE MEMBER
+		SET M_NICKNAME=#{nickName}, M_PWD=#{userPwd}
+		WHERE M_UNO=#{mUno}
+	</update>
+	
+	
+	
+	
+	
 </mapper>

@@ -62,6 +62,9 @@ public interface MyPageDao {
 	//접속중인 회원 비밀번호 확인
 	Member checkMember(SqlSessionTemplate sqlSession, int mUno) throws MyPageException;
 
+	//개인정보수정
+	int updateModify(SqlSessionTemplate sqlSession, String nickName, String userPwd, int mUno) throws MyPageException;
+
 	
 
 }

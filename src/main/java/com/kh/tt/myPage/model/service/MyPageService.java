@@ -60,5 +60,8 @@ public interface MyPageService {
 	//접속중인 회원의 비밀번호 확인
 	Member checkMember(int mUno) throws MyPageException;
 
+	//개인정보수정
+	int updateModify(String nickName, String userPwd, int mUno) throws MyPageException;
+
 
 }
