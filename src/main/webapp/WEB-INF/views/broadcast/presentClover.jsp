@@ -36,8 +36,9 @@
 }
 #dog{
 	margin-left:10px;
-	margin-top:7px;
+	margin-top:15px;
 }
+
 </style>
 <!-- jQuery CDN -->
 <script
@@ -78,13 +79,13 @@
 			</div>
 		</div>
 		<div class="ui grid">
-			<div class="four wide column">
+			<div class="five wide column">
 				<div class="ui input" id="myCloverD">
 						<input type="text" id="addChatBanUser" disabled="disabled" value="${ param.owner }" style = "text-align:right;">
 						<span id="dog">에게</span>
 				</div>
 			</div>
-			<div class="four wide column">
+			<div class="five wide column">
 				<div class="ui input" id="myClover">
 						<input type="number" id="presentCloverNum">
 						<span id="dog">개 를</span>

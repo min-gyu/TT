@@ -352,4 +352,10 @@ public class BroadCastController {
 			Member member = bcs.selectMember(owner);
 			return member;
 		}
+	//css 동적 구현을 위한 테스트 페이지로 이동시키는 메서드 (삭제해도됨)
+		@RequestMapping("test.bc")
+		public String goTest() {
+			return "broadcast/Test";
+		}
+		
 }
