@@ -42,39 +42,31 @@
 <link rel="stylesheet" href="/resources/assets/css/demo.css">
 <!-- 폰트 어썸 -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
 <style type="text/css">
 
-#searchDiv {
-	width: 300px;
-}
-
-#searchForm {
-	display: inline
-}
-
+html, body{
+	height:100%;
+		overflow: hidden;
+	}
 #searchLi {
+	width:300px;
+	display: inline;
 	margin-top: -25px;
+}
+#searchForm{
+	margin-left: 0px;
 }
 
 #broadCastDiv {
 	background: black;
-	height: 0px;
-	padding-bottom: 50%;
+	height: 77%;
+	width: 100%
 }
 
 #broadCastWarpper {
 	overflow-y: scroll;
 	height: 800px;
-}
-
-#chattingDiv {
-	overflow-y: scroll;
-	border: 1px solid black;
-	height: 88%;
-	margin-left: -25px;
-	padding:10px;
-	background: #EFFBEF;
+	
 }
 
 #inputChat {
@@ -102,12 +94,24 @@
 }
 
 #chatWrapper {
-	height: 800px;
+	height: 100%
+}
+
+#chattingDiv {
+	overflow-y: scroll;
+	border: 1px solid black;
+	height: 78%;
+	margin-left: -25px;
+	padding:10px;
+	background: #EFFBEF;
+	margin-top: 15%;
+	margin-right:1px;	
 }
 
 #inputChatDiv {
 	height: 10%;
 	margin-left: -25px;
+	margin-right:1px;
 }
 
 /* #optionDiv {
@@ -146,8 +150,46 @@
 	font-weight: bold;
 	font-size: large;
 	}
-#broadCatsIcon, #presentIcon, #broadSettingIcon{
+#broadCatsIcon, #presentIcon, #broadSettingIcon, #subscribeIcon, #broadCastExitIcon, #freezeIcon, #userCheckIcon{
 	margin-top: 2px;
+}
+#headerDiv{
+	height:100%;
+}
+#contaionerDiv{
+	height:100%
+}
+#headerRowDiv{
+	height:15%;
+}
+#bodyRowDiv{
+	height:85%;
+}
+#firstBodyCol{
+	height:100%
+}
+#secondBodyCol{
+	height:100%;
+}
+#broadCastInfo{
+	height:40%;
+}
+#creator{
+	font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    line-height: 23px;
+    position: relative;
+    font-size: large;
+}
+#title{
+	font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    line-height: 23px;
+    position: relative;
+    font-size: 25px;
+}
+#titleDiv{
+  margin-top: 15px;
 }
 </style>
 <!-- jQuery CDN -->
@@ -158,27 +200,27 @@
 <!-- sweetAlert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
-<body class="skin-orange">
-	<header class="primary">
-		<div class="firstbar">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-3 col-sm-12">
-						<div class="brand">
-							<a href="#"> <img src="/resources/images/logo.png"
-								alt="Today's TV">								
-							</a>
-						</div>
-					</div>
-					<div class="col-md-6 visible-lg-* visible-md-* pull-right">
-						<ul class="nav-icons" id="optionUl">
+<body class="skin-green">
+	<div class="container-fluid" id="contaionerDiv">
+		<div class="row" id="headerRowDiv">
+			
+				<header class="primary">
+					<div class="firstbar">
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
+								<div class="brand">
+									<a href="/goMain.bc"><img src="/resources/images/logo.png" alt="Today's TV"></a>
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8 hidden-xs hidden-sm pull-right">
+								<ul class="nav-icons" id="optionUl">
 						 	<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner) }">
 							<li id="broadLi">
 								<a href="#"><i class="fas fa-video" id="broadCatsIcon"></i>
 									<div>방송하기</div></a></li>
-							<li id="iceChat"><a href="/goMain.bc"><i class="fas fa-times-circle"></i>
+							<li id="iceChat"><a href="/goMain.bc"><i class="fas fa-times-circle" id="broadCastExitIcon"></i>
 									<div>방송종료</div></a></li>
-							<li id="iceChat"><a href="#"><i class="far fa-snowflake"></i>
+							<li id="iceChat"><a href="#"><i class="far fa-snowflake" id="freezeIcon"></i>
 									<div>채팅창 얼리기</div></a></li>
 							<li id="broadSettingLi"><a href="#"><i class="fas fa-cog" id="broadSettingIcon"></i>
 									<div>방송 설정</div></a></li>			
@@ -190,90 +232,81 @@
 									<div>구독하기</div></a></li>
 							</c:if>
 							<c:if test="${ empty loginUser }">
-							<li><a href="loginView.me"><i class="ion-person"></i>
+							<li><a href="loginView.me"><i class="fas fa-user-check" id="userCheckIcon"></i>
 									<div>Login</div></a></li>
 							</c:if>
 							<li id="searchLi">
-								<form class="search" autocomplete="off" id="searchForm">
+								<form class="search"  id="searchForm">
 									<div class="form-group" id="searchDiv">
 										<div class="input-group">
-											<input type="text" name="q" class="form-control"
-												placeholder="검색어를 입력해주세요">
+											<input type="text" name="q" class="form-control" placeholder="검색어를 입력해주세요">
 											<div class="input-group-btn">
-												<button class="btn btn-primary">
-													<i class="ion-search"></i>
-												</button>
+												<button class="btn btn-primary"> <i class="ion-search"></i> </button>
 											</div>
 										</div>
 									</div>
 								</form>
 							</li>
 						</ul>
+						</div>
 					</div>
+					<hr>
 				</div>
-				<!-- Header의 1번째 ROW -->
-				<hr>
-				<div class="row">
-					<div class="col-lg-9 col-md-9 col-sm-9">
-						<div id="broadCastWarpper">
-							<div id="broadCastDiv"></div>
-							<div align="right" style="margin-right: 10px;">
-								<img alt="s" src="/resources/images/siren.png" width="20"
-									height="20" id="report">
-							</div>
-							<hr><div>
-								<span>방제목 : </span><input type="text" id="title">
-							</div>
-							<div>
-								<span>크리에이터 아이디 : </span><input type="text" id="creator" value="${ param.owner }">
-							</div>
-							<div>
-								<span>유저 아이디 : </span><input type="text" id="user" value="${ loginUser.userId }">
-							</div>					
-						</div>
+			</header>
+		
+	</div>
+<!-- Header Row 끝 -->	
+	<div class="row" id="bodyRowDiv">
+		<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" id="firstBodyCol">
+			<div id="broadCastWarpper">
+				<div id="broadCastDiv"></div>
+					<div align="right" style="margin-right: 10px;">
+						<img alt="s" src="/resources/images/siren.png" width="20" height="20" id="report">
 					</div>
-					<div class="col-lg-3 col-md-3 col-sm-3 hidden-sm hidden-xs">
-						<div id="chatWrapper">
-							<div id="chattingDiv" class="row"></div>
-								<hr style="margin-top: 5px; margin-bottom: 5px">
-							<div id="inputChatDiv" class="row">
-								<div class="col-lg-9 col-md-9 col-sm-8"
-									style="padding-left: 0px; padding-right: 0px; black; height: 100%">
-									<c:choose>
-										<c:when test="${ !empty loginUser }">
-										<textarea class="form-control" rows="4" width="100%"
-										style="height: 80px; resize: none" id="msg" name="msg" onkeyup="fc_chk_byte(this,20);" onkeypress="fc_chk2();" >								
-										</textarea>
-										</c:when>
-										<c:otherwise>
-										<textarea class="form-control" rows="4" width="100%"
-										style="height: 80px; resize: none" id="msg" name="msg" maxlength="0">								
-										</textarea>
-										</c:otherwise>
-									</c:choose>
-								</div>
-								<div class="col-lg-3 col-md-3 col-sm-4"
-									style="padding-left: 0px; padding-right: 0px; height: 100%">
-									<c:choose>
-										<c:when test="${ !empty loginUser }">
-										<button type="button" class="btn btn-success"
-										style="padding: 0px; height: 100%; width: 100%" id="sendBtn"
-										onclick="notSend();">전송</button>
-										</c:when>
-										<c:otherwise>
-										<button type="button" class="btn btn-success"
-										style="padding: 0px; height: 100%; width: 100%" id="sendBtn"
-										onclick="loginMsg();">전송</button>
-										</c:otherwise>
-									</c:choose>
-								</div>
-							</div>
-						</div>
+				<hr>
+				<div id="broadCastInfo">
+					<div>
+						<span id="creator">${ param.owner }</span>
+					</div>
+					<div id="titleDiv">
+						<span id="title">방송 제목 적는 곳 입니다.</span>
+					</div>
+					<div>
+						<input type="text" value="0">
+					</div>
+				</div>				
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm" id="secondBodyCol">
+			<div id="chatWrapper">
+				<div id="chattingDiv" class="row"></div>
+					<hr style="margin-top: 5px; margin-bottom: 5px">
+				<div id="inputChatDiv" class="row">
+					<div class="col-lg-9 col-md-9 col-sm-8" style="padding-left: 0px; padding-right: 0px; black; height: 100%">
+						<c:choose>
+						<c:when test="${ !empty loginUser }">
+						<textarea class="form-control" rows="4" width="100%" style="height: 100%; resize: none" id="msg" name="msg" onkeyup="fc_chk_byte(this,20);" onkeypress="fc_chk2();" ></textarea>
+						</c:when>
+						<c:otherwise>
+						<textarea class="form-control" rows="4" width="100%" style="height: 100%; resize: none" id="msg" name="msg" maxlength="0"></textarea>
+						</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-4" style="padding-left: 0px; padding-right: 0px; height: 100%">
+						<c:choose>
+						<c:when test="${ !empty loginUser }">
+						<button type="button" class="btn btn-success" style="padding: 0px; height: 100%; width: 100%; background: #045919" id="sendBtn" onclick="notSend();">전송</button>
+						</c:when>
+						<c:otherwise>
+						<button type="button" class="btn btn-success"style="padding: 0px; height: 100%; width: 100%; background: #045919" id="sendBtn" onclick="loginMsg();">전송</button>
+						</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
 		</div>
-	</header>
+	</div>
+	</div>
 </body>
 <script>
 	$("#broadSettingLi").click(function(){
@@ -282,7 +315,7 @@
 	})
 	$("#presentLi").click(function(){
 		window.open("/goPresentClover.bc?owner=${param.owner}", "클로버 선물하기",
-		"width=1000, height=500, left=100, top=50, location=no");
+		"width=1000, height=700, left=100, top=50, location=no");
 	})
 
 	$("#report").click(function() {
@@ -434,9 +467,8 @@
 	$(function(){
 		//채팅 입력창 초기화
 		$("#msg").val("");
-		$("#title").val("제목이래");
 		owner = "${ param.owner }";
-		title =	$("#title").val();
+		title =	$("#title").text();
 		user = "${ loginUser.userId }";
 		
 		if("${ loginUser.userId }"==""){
@@ -497,7 +529,7 @@
 				    method: 'post',
 				    url: 'http://localhost:8010/room',
 				    params: {
-				      title:$("#title").val(),	
+				      title:$("#title").text(),	
 				      owner:"${ param.owner }"
 				    }
 				  })
@@ -593,7 +625,7 @@
 								});					  
 						  }else{
 					   		//서버에 참여할 RoomId를 전송하면서 joinRoom 이벤트를 실행하라고 전달함.
-					  		socket.emit('joinRoom',{roomId:response.data.roomId, owner:$("#creator").val(),userSocketId:response.data.userSocketId,userId:"${ loginUser.userId }",userNickName:"${loginUser.nickName}"});		  		
+					  		socket.emit('joinRoom',{roomId:response.data.roomId, owner:"${param.owner}",userSocketId:response.data.userSocketId,userId:"${ loginUser.userId }",userNickName:"${loginUser.nickName}"});		  		
 					  		var $conDiv = $("<div>").text("<<채팅방에 입장했습니다.>>");
 					  		//채팅방에 정상적으로 입력되고나서 send 버튼에 메세지 전송 버튼 메서드를 추가해줌
 					  	  	$("#sendBtn").attr('onclick', 'msgSend()');
@@ -638,7 +670,7 @@
 						    		method: 'post',
 						    		url: 'http://localhost:8010/room/chat',
 						   			params: {
-						    			owner:$("#creator").val(),
+						    			owner:"${ param.owner }",
 						    			userId:"${ loginUser.userId }",
 						    			userNickName:"${ loginUser.nickName }",
 						    			msg:msg   	
@@ -676,6 +708,26 @@
 				});
 			}
 			
+			//채팅얼리기 메서드
+			function freezeChat(){
+				axios({
+		    		method: 'post',
+		    		url: 'http://localhost:8010/room/chat',
+		   			params: {
+		    			owner:"${ param.owner }",
+		    			userId:"${ loginUser.userId }",
+		    			userNickName:"${ loginUser.nickName }",
+		    			msg:msg   	
+		    		}
+		  		})
+		  		.then(function (response) {
+		    		console.log(response);
+		  		})
+		  		.catch(function (error) {
+			  		console.log(error);
+			  		console.log("채팅전달 error");
+		  		});
+			}
 			
 			
 			

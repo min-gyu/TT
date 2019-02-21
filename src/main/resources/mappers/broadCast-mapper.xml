@@ -35,7 +35,7 @@
 		<result property="adminYN" 		column="M_ADMIN_YN"/>
 	</resultMap>
 
-	<resultMap type="Relation" id="relationResultSet">
+	<resultMap type="Relation2" id="relationResultSet">
 		<id property="rNo" column="R_NO"/>
 		<result property="rChNo" column="R_CH_NO"/>
 		<result property="rTargetUno" column="R_TARGET_UNO"/>
