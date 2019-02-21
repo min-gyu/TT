@@ -246,13 +246,7 @@ public class MyPageDaoImpl implements MyPageDao{
 	@Override
 	public int updateModify(SqlSessionTemplate sqlSession, String nickName, String userPwd, int mUno) throws MyPageException {
 		
-		System.out.println("Dao도착"); 
-		System.out.println("mUno : "+mUno);
-		System.out.println("nickName : "+nickName);
-		System.out.println("userPwd : "+userPwd);
-		
-		int result1=0; //닉네임 변경
-		int result2=0; //비밀번호 변경
+		int result1=0;
 		
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 		
@@ -261,7 +255,6 @@ public class MyPageDaoImpl implements MyPageDao{
 		hmap.put("userPwd",userPwd );
 		
 		result1 = sqlSession.update("Member.updateNickName",hmap);
-		System.out.println("개인정보 변경결과 : "+result1);
 		
 		if(result1==0) {
 			throw new MyPageException("회원 정보 변경 실패!");
@@ -269,5 +262,26 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		return result1;
 		
+	}
+
+	//회원번호, 탈퇴사유, 탈퇴상태 update
+	@Override
+	public int modifyOutStatus(SqlSessionTemplate sqlSession, int mUno, String reason) throws MyPageException {
+		
+		int result=0;
+		
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		
+		hmap.put("mUno",mUno );
+		hmap.put("reason",reason );
+		
+		result = sqlSession.update("Member.modifyOutStatus",hmap);
+		System.out.println("탈퇴상태 처리결과 : "+result);
+		
+		if(result==0) {
+			throw new MyPageException("탈퇴상태 전환 실패!");
+		}
+		
+		return result;
 	}
 }

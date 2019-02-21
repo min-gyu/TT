@@ -13,14 +13,14 @@
 						<!-- 환전 관리 -->
 						<div>
 						 <a class="btn btn-primary more" href="#" margin-left="700px">
-							<div>환전하기</div>
+							<div>환전 신청하기(click)</div>
 							<div>
 								<i class="ion-ios-arrow-thin-right"></i>
 							</div>
 						 </a>
 						  <table class="ui green table">
 						  <thead>
-						    <tr><th>&nbsp;</th>
+						    <tr>
 						    <th>No.</th>
 						    <th>클로버수</th>
 						    <th>실수령액</th>
@@ -30,7 +30,6 @@
 						    <th>상태</th>
 						  </tr></thead><tbody>
 						    <tr>
-						      <td><input type="checkbox"></td>
 						      <td>1</td>
 						      <td>100</td>
 						      <td>9000</td>
@@ -40,7 +39,6 @@
 						      <td>환전신청</td>
 						    </tr>
 						    <tr>
-						      <td><input type="checkbox"></td>
 						      <td>2</td>
 						      <td>500</td>
 						      <td>45000</td>

@@ -45,11 +45,11 @@
 								
 									<div class="inner">
 										<figure>
-											<img src="/resources/images/clover/10.JPG" width="100px" height="200px">
+											<img src="/resources/images/clover/clover.png" width="60px" height="200px">
 										</figure>
 										<div class="details" id = "clovar01"
 											style="width: 410px; border-bottom: 1px solid #eee;">
-											
+											<br><br>
 											<h2>클로버 ${ list.get(0).getCloverCnt() } 개	</h2>
 											<h1>${ list.get(0).getCloverMoney() } 원</h1>
 										
@@ -124,11 +124,11 @@
 								<article class="col-md-12 article-list">
 									<div class="inner">
 										<figure>
-											<img src="/resources/images/clover/30.JPG" width="100px" height="200px">
+											<img src="/resources/images/clover/clover.png" width="60px" height="200px">
 										</figure>
 										<div class="details" id = "clovar02"
 											style="width: 410px; border-bottom: 1px solid #eee;">
-											
+											<br><br>
 											<h2>클로버 ${ list.get(1).getCloverCnt() } 개	</h2>
 											<h1>${ list.get(1).getCloverMoney() } 원</h1>
 											<a class="btn btn-primary more" 
@@ -143,18 +143,18 @@
 								</article>
 								</div>
 							</div>
-						
+							<br><br>
 						<!-- 클로버 50개 -->
 						<div class="col-lg-9 col-md-9">
 							<div class="row">
 								<article class="col-md-12 article-list">
 									<div class="inner">
 										<figure>
-											<img src="/resources/images/clover/50.JPG" width="100px" height="200px">
+											<img src="/resources/images/clover/clover.png" width="60px" height="200px">
 										</figure>
 										<div class="details"
 											style="width: 410px; border-bottom: 1px solid #eee;">
-											
+											<br><br>
 											<h2>클로버 ${ list.get(2).getCloverCnt() } 개	</h2>
 											<h1>${ list.get(2).getCloverMoney() } 원</h1>
 											<a class="btn btn-primary more" 
@@ -176,11 +176,11 @@
 								<article class="col-md-12 article-list">
 									<div class="inner">
 										<figure>
-											<img src="/resources/images/clover/100.JPG" width="100px" height="200px">
+											<img src="/resources/images/clover/clover.png" width="60px" height="200px">
 										</figure>
 										<div class="details"
 											style="width: 410px; border-bottom: 1px solid #eee;">
-											
+											<br><br>
 											<h2>클로버 ${ list.get(3).getCloverCnt() } 개	</h2>
 											<h1>${ list.get(3).getCloverMoney() } 원</h1>
 											<a class="btn btn-primary more" 
@@ -202,11 +202,11 @@
 								<article class="col-md-12 article-list">
 									<div class="inner">
 										<figure>
-											<img src="/resources/images/clover/300.JPG" width="100px" height="200px">
+											<img src="/resources/images/clover/clover.png" width="60px" height="200px">
 										</figure>
 										<div class="details"
 											style="width: 410px; border-bottom: 1px solid #eee;">
-											
+											<br><br>
 											<h2>클로버 ${ list.get(4).getCloverCnt() } 개	</h2>
 											<h1>${ list.get(4).getCloverMoney() } 원</h1>
 											<a class="btn btn-primary more"
@@ -229,11 +229,11 @@
 								<article class="col-md-12 article-list">
 									<div class="inner">
 										<figure>
-											<img src="/resources/images/clover/500.JPG" width="100px" height="200px">
+											<img src="/resources/images/clover/clover.png" width="60px" height="200px">
 										</figure>
 										<div class="details"
 											style="width: 410px; border-bottom: 1px solid #eee;">
-											
+											<br><br>
 											<h2>클로버 ${ list.get(5).getCloverCnt() } 개	</h2>
 											<h1>${ list.get(5).getCloverMoney() } 원</h1>
 											<a class="btn btn-primary more"

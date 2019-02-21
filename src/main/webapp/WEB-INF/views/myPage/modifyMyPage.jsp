@@ -62,9 +62,49 @@
 					console.log("비번일치");
 					location.href="modifyMyPage3.me?nickName="+nickName+"&userPwd="+userNewPwd+"&mUno="+${member2.getUno()};
 				}
-
 			});
 			
+			
+			//회원탈퇴하기
+			$("#out").click(function(){
+				//ajax실행할 메서드호출
+				outReason();
+			});
+			
+			//모달띄우고 탈퇴사유 받기
+			function outReason() {
+				
+				$("#myModal").modal().show();
+				
+				var mUno = ${member2.getUno()};
+				
+				
+				//탈퇴사유 선택 후 확인클릭시
+				$("#btn").click(function(){
+					var reason = $("input[name='reason']:checked").val();
+					console.log(reason);
+					
+					
+					//이제 회원번호랑 이유 넘기기
+					location.href="out.me?mUno="+mUno+"&reason="+reason;
+				
+				});
+					
+				/*  $.ajax({
+						url :  "/out.me",	
+						type : "post",	
+						data : {
+									mUno : ${member2.getUno()}; 
+								},
+								
+						success : function(data){	// 성공시 
+							 console.log("성공!");
+						},
+						error : function(){
+							console.log("실패!");
+						}
+					}); */
+			}
 			
 		});
 	</script>
@@ -131,7 +171,7 @@
 						<!-- 회원탈퇴 -->
 						<div class="ui horizontal divider">Or</div>
 					  <div class="form-group text-right">
-						<button class="btn btn-primary btn-block">회원 탈퇴하기</button>
+						<a class="btn btn-primary btn-block" id="out">회원 탈퇴하기</a>
 					</div>
 					  <!--  -->
   
@@ -140,5 +180,34 @@
 			</div>
 		</div>
 	</section>
+	
+	<section>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog" style="margin-top: 200px;">
+		<div class="modal-dialog">
+	  
+			<!-- Modal content-->
+			<div class="modal-content">
+			    
+			    <div class="modal-header">
+				    <button type="button" class="close" data-dismiss="modal">&times;</button>
+				    <h4 class="modal-title">탈퇴 사유</h4>
+			    </div>
+				      
+			    <div class="modal-body">
+			   		<input type="radio" name="reason" value="홈페이지 사용시스템 불편">홈페이지 사용시스템 불편<br>
+			   		<input type="radio" name="reason" value="유해 컨텐츠 과다">유해 컨텐츠 과다<br>
+			   		<input type="radio" name="reason" value="다른 유용한 사이트 이용을 위해">다른 유용한 사이트 이용을 위해<br>
+			   		<input type="radio" name="reason" value="기타">기타<br>
+			    </div>
+				      
+			    <div class="modal-footer">
+			    	<a type="button" class="btn btn-success" data-dismiss="modal" id="btn">확인</a>
+			    </div>
+		   	</div>
+	    
+  		</div>
+	</div>
+</section>
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />

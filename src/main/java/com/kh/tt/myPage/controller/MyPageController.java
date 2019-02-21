@@ -109,7 +109,41 @@ public class MyPageController {
 		return "redirect:goMain.me";
 	}
 	
+	//계좌 삭제하기
+	@RequestMapping("deleteBank.me")
+	public String deleteBank(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		int mUno = Integer.parseInt(request.getParameter("mUno"));
+		
+		System.out.println("삭제누른 mUno ; "+mUno);
+		
+		return "redirect:goMain.me";
+	}
 	
+	//회원탈퇴하기
+	@RequestMapping("out.me")
+	public String out(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		int mUno = Integer.parseInt(request.getParameter("mUno"));
+		String reason = request.getParameter("reason");
+		
+		System.out.println("Controller에서 받은 mUno : "+mUno);
+		System.out.println("Controller에서 받은 reason : "+reason);
+		
+		//회원번호, 탈퇴사유 update
+		try {
+			int result = mps.modifyOutStatus(mUno, reason);
+			
+			if(result==0) {
+				System.out.println("탈퇴처리 실패!");
+			}
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:goMain.me";
+	}	
 	
 	
 	/*클로버 충전하기 페이지*/
@@ -262,21 +296,33 @@ public class MyPageController {
 		return "myPage/presentClover2";
 	}
 	
-	//비밀번호 확인 페이지
+	/*//비밀번호 확인 페이지
 	@RequestMapping("checkPwd.me")
 	public String gocheckPwd() {
 		return "myPage/checkPwd";
-	}
+	}*/
 	
 	//계좌인증 페이지 - 비밀번호 확인 후, 진행
 	@RequestMapping("bankChk.me")
-	public String gobankChk() {
+	public String gobankChk(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		int mUno = Integer.parseInt(request.getParameter("mUno"));
+		
+		
+		model.addAttribute("mUno", mUno);
+		
+		
 		return "myPage/bankChk";
 	}
 	
 	//계좌관리 페이지 - 비밀번호 확인 후, 진행
 	@RequestMapping("bankChk2.me")
-	public String gobankChk2() {
+	public String gobankChk2(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		int mUno = Integer.parseInt(request.getParameter("mUno"));
+		
+		model.addAttribute("member3", mUno);
+		
 		return "myPage/bankChk2";
 	}
 	
