@@ -156,7 +156,20 @@ public class MyPageServiceImpl implements MyPageService{
 		@Override
 		public Member checkMember(int mUno) throws MyPageException {
 			
+			
 			return mpd.checkMember(sqlSession,mUno);
+		}
+
+		//개인정보수정
+		@Override
+		public int updateModify(String nickName, String userPwd, int mUno) throws MyPageException {
+			
+			System.out.println("Dao도착"); 
+			System.out.println("mUno : "+mUno);
+			System.out.println("nickName : "+nickName);
+			System.out.println("userPwd : "+userPwd);
+			
+			return mpd.updateModify(sqlSession,nickName,userPwd, mUno);
 		}
 
 

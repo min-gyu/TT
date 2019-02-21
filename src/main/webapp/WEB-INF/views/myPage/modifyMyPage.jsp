@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
 
-	<script type="text/javascript">
+	<script>
 		// 중복 체크
 		function fn_overlayCheck(type){
 			var resultValue = "";
@@ -43,10 +43,30 @@
 		}
 		
 		
-		//개인정보수정 (닉네임 변경값, 현재비밀번호 확인, 새비밀번호, 새비밀번호 확인)
-		function modify(){
+		
+		$(function(){
 			
-		}
+			//개인정보수정 (닉네임 변경값, 새비밀번호, 새비밀번호 확인)
+			$("#modify").click(function(){
+				
+				var nickName = $("#nickName").val();
+				var userNewPwd = $("#userNewPwd").val();
+				var userNewPwdCheck = $("#userNewPwdCheck").val();
+				
+				if(userNewPwd!=userNewPwdCheck){
+					alert("비밀번호가 일치하지 않습니다.");
+					
+					location.href="modifyMyPage2.me?mUno=${member1.getUno()}";
+					
+				}else{
+					console.log("비번일치");
+					location.href="modifyMyPage3.me?nickName="+nickName+"&userPwd="+userNewPwd+"&mUno="+${member2.getUno()};
+				}
+
+			});
+			
+			
+		});
 	</script>
 
 	<section class="login first grey">
@@ -58,12 +78,12 @@
 						<form class="form-horizontal">
 							<div class="form-group">
 								<label>아이디</label>
-								<input type="text" name="userId" class="form-control" readonly>
+								<input type="text" value="${member2.getUserId()}" class="form-control" readonly>
 							</div>
 							
 							<div class="form-group">
 								<label>이름</label>
-								<input type="text" name="userName" class="form-control" readonly>
+								<input type="text" value="${member2.getUserName()}" class="form-control" readonly>
 							</div>
 							
 							<div class="form-group">
@@ -71,49 +91,39 @@
 								<button type="button" id="checkBtn2" class="btn btn-warning bt-sm" onclick="fn_overlayCheck('nickName');">중복체크</button>
 								<input type="text" id="nickName" name="nickName" class="form-control">
 							</div>
-							
+						<!-- 	
 							<div class="form-group">
 								<label class="fw">기존 비밀번호</label>
 								<input type="password" name="userPwd" class="form-control">
-							</div>
+							</div> -->
 							
 							<div class="form-group">
 								<label class="fw">새 비밀번호</label>
-								<input type="password" name="userNewPwd" class="form-control">
+								<input type="password" id="userNewPwd" class="form-control">
 							</div>
 							<div class="form-group">
 								<label class="fw">비밀번호 확인</label>
-								<input type="password" name="userNewPwdCheck" class="form-control">
+								<input type="password" id="userNewPwdCheck" class="form-control">
 							</div>
 							
-							<div class="form-group">
+							<%-- <div class="form-group">
 								<label class="fw">생년월일</label>
-								<input type="date" class="form-control onlyNumber" name="birth" placeholder="YYYY-MM-DD" readonly>
-							</div>
+								<input type="date" class="form-control onlyNumber" value="${member2.getBirth()}" readonly>
+							</div> --%>
 							
 							<div class="form-group">
 								<label class="fw">성별</label>
-								<div>
-									<select class="form-control" name="gender" readonly>
-										<option value="M">남</option>
-										<option value="F">여</option>
-									</select>
-								</div>
+								<input type="text" id="nickName" value="${member2.getGender()}" class="form-control" readonly>
 							</div>
 							
 							<div class="form-group">
 								<label>이메일</label>
 								<!-- <a href="#" class="pull-right">이메일 중복 체크</a> -->
-								<input type="email" name="email" class="form-control" readonly>
+								<input type="email" value="${member2.getEmail()}" class="form-control" readonly>
 							</div>
-							
-							<div class="join_div" style="text-align: center; margin-bottom: 25px;">
-								<!-- <button type="button" class="btn btn-success">인증</button> -->
-								<button type="button" class="btn btn-secondary">확인</button>
-							</div>
-							
+							<br>
 							<div class="form-group text-right">
-								<button class="btn btn-primary btn-block" onclick="modify();">개인정보 수정</button>
+								<a class="btn btn-primary btn-block" id="modify">개인정보 수정</a>
 							</div>
 							
 						</form>

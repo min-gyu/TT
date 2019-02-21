@@ -37,20 +37,17 @@ public class MyPageController {
 	
 		if(request.getParameter("mUno")=="") {
 			
-			
 			return "redirect:loginView.me";
+			
 		}else {
 			//접속중인 사용자의 회원번호
 			int mUno = Integer.parseInt(request.getParameter("mUno"));
-			System.out.println("mUno확인 : "+mUno);
 			
 			//접속중인 회원의 비밀번호 확인
 			Member member1;
 			
 			try {
 				member1 = mps.checkMember(mUno);
-				
-				System.out.println("컨트롤러 member : "+member1);
 				
 				model.addAttribute("member1", member1);
 				
@@ -64,14 +61,55 @@ public class MyPageController {
 		
 	}
 	
+	//비밀번호 확인 후 개인정보수정 페이지로 이동
 	@RequestMapping("modifyMyPage2.me")
 	public String modify_myPage2(Model model, HttpServletRequest request, HttpServletResponse response) {
 	
 		int mUno = Integer.parseInt(request.getParameter("mUno"));
 		System.out.println("mUno확인 : "+mUno);
 		
+		//접속중인 회원의 비밀번호 확인
+		Member member2;
+		
+		try {
+			member2 = mps.checkMember(mUno);
+			
+			model.addAttribute("member2", member2);
+			
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}
+		
 		return "myPage/modifyMyPage";
 	}
+	
+	
+	//개인정보 수정정보 (닉네임, 비밀번호 변경)
+	@RequestMapping("modifyMyPage3.me")
+	public String modifyMyPage3(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		int mUno = Integer.parseInt(request.getParameter("mUno"));
+		String nickName = request.getParameter("nickName");
+		String userPwd = request.getParameter("userPwd");
+		
+		//비밀번호, 닉네임 변경
+		try {
+			int result = mps.updateModify(nickName,userPwd,mUno);
+			
+			if(result ==0) {
+				System.out.println("변경 실패!");
+			}
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:goMain.me";
+	}
+	
+	
 	
 	
 	/*클로버 충전하기 페이지*/
