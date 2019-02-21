@@ -25,11 +25,11 @@
 			$("#myModal").modal().click(function(e){
 			detailCategory(num);
 			
-			console.log("num > " + num);
+			/* console.log("num > " + num);
 			console.log("name > " + name);
 			
 			$("categNo").val(num);
-			$("categName").val(name);
+			$("categName").val(name); */
 			
 			
 			});
