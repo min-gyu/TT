@@ -3,25 +3,70 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- jstl -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <script>
+	
 	$(function(){
 		//환전하기 클릭시
 		//모달로 팝업창 띄우기
 		//보유클로버보다 적은양의 클로버만 환전가능
 		$("#exchange").click(function(){
-			console.log("함수작동");
-			/* location.href="exchangeClover.me?mUno=${mUno}"; */
 			
-			$("#myModal").modal().show();
-			outReason();
+			var bank = "${m.getBankNo()}";
+			console.log("넘겨받은값 : "+ bank);
+			
+			if(bank==""){
+				alert("계좌를 먼저 등록해주세요!");
+			}else{
+				$("#myModal").modal().show();
+				outReason();
+			}
 		});
 		
 		//모달띄우고 환전신청금액 받기
 		function outReason() {
 			
 			var mUno = ${mUno};
-			console.log("outReason에서 mUno : "+mUno);
+			var totalClover = ${m.getTotalClover()};
+			console.log(totalClover);
+			
+			/* var radio1 = $("input[name='reason']").get(0);
+			console.log(radio1); */
+			
+			if(totalClover < 500){
+				$("input[name='reason']").get(0).disabled = true;
+				$("input[name='reason']").get(1).disabled = true;
+				$("input[name='reason']").get(2).disabled = true;
+				$("input[name='reason']").get(3).disabled = true;
+			}else if(totalClover < 1000){
+				$("input[name='reason']").get(0).disabled = false;
+				$("input[name='reason']").get(1).disabled = true;
+				$("input[name='reason']").get(2).disabled = true;
+				$("input[name='reason']").get(3).disabled = true;
+			}else if(totalClover < 1500){
+				$("input[name='reason']").get(0).disabled = false;
+				$("input[name='reason']").get(1).disabled = false;
+				$("input[name='reason']").get(2).disabled = true;
+				$("input[name='reason']").get(3).disabled = true;
+			}else if(totalClover < 2000){
+				$("input[name='reason']").get(0).disabled = false;
+				$("input[name='reason']").get(1).disabled = false;
+				$("input[name='reason']").get(2).disabled = false;
+				$("input[name='reason']").get(3).disabled = true;
+			}else{
+				$("input[name='reason']").get(0).disabled = false;
+				$("input[name='reason']").get(1).disabled = false;
+				$("input[name='reason']").get(2).disabled = false;
+				$("input[name='reason']").get(3).disabled = false;
+			}
+			
+			
+
+
+			
 			
 			//환전신청할 클로버 수 선택 
 			$("#btn").click(function(){
@@ -78,33 +123,83 @@
 						    <th>일시</th>
 						    <th>상태</th>
 						  </tr></thead><tbody>
-						    <tr>
-						      <td>1</td>
-						      <td>100</td>
-						      <td>9000</td>
-						      <td>신한은행</td>
-						      <td>111-1111-1111</td>
-						      <td>2019/01/02</td>
-						      <td>환전신청</td>
-						    </tr>
-						    <tr>
-						      <td>2</td>
-						      <td>500</td>
-						      <td>45000</td>
-						      <td>하나은행</td>
-						      <td>333-1111-1111</td>
-						      <td>2019/01/12</td>
-						      <td>환전완료</td>
-						    </tr>
+						 <!-- ** jstl 반복문 ** -->  
+						 <c:forEach items="${ ExchangeList }" var="ExchangeList"> 
+						   <tr>
+						   	  <td>${ExchangeList.rnum }</td>
+						      <td>${ExchangeList.exCloverCnt }</td>
+						      <td>${ExchangeList.exCloverCnt *90} 원</td>
+						      <td>${ExchangeList.mBank }</td>
+						      <td>${ExchangeList.mBankNo }</td>
+						      <td>${ExchangeList.elDate }</td>
+						      <td>${ExchangeList.elStatus }</td>
+						    </tr> 
+						 </c:forEach>
 						  </tbody>
 						</table>
-						
-						<div align="center">
-							 <button class="ui green basic button">1</button>
 						</div>
-						</div>
-						
 					</div>	
+					
+			<!-- 페이징 영역 -->
+			<div class="center-block">
+				<ul class="pagination mx-auto" style="justify-content: center;">
+					<c:if test="${ pi.currentPage <= 1 }">
+						<li class="page-item disabled">
+		                    <a class="page-link" href="#" aria-label="Previous">
+		                        <span aria-hidden="true">«</span>
+		                        <span class="sr-only">Previous</span>
+		                    </a>
+		                </li>
+					</c:if>
+					
+					<c:if test="${ pi.currentPage > 1 }">
+						<c:url var="listBack" value="/exchangeClover.me?mUno=${sessionScope.loginUser.uno}">
+							<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
+						</c:url>
+						<li class="page-item disabled">
+		                    <a class="page-link" href="${ listBack }" aria-label="Previous">
+		                        <span aria-hidden="true">«</span>
+		                        <span class="sr-only">Previous</span>
+		                    </a>
+		                </li>
+					</c:if>
+					
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:if test="${ p eq pi.currentPage }">
+							<li class="page-item active"><a class="page-link" href="#">${ p }</a></li>
+						</c:if>
+						
+						<c:if test="${ p ne pi.currentPage }">
+							<c:url var="listCheck" value="/exchangeClover.me?mUno=${sessionScope.loginUser.uno}">
+								<c:param name="currentPage" value="${ p }" />
+							</c:url>
+							<li class="page-item"><a href="${ listCheck }">${ p }</a></li>
+						</c:if>
+					</c:forEach>
+					
+					<c:if test="${ pi.currentPage >= pi.maxPage }">
+						<li class="page-item">
+		                    <a class="page-link" href="#" aria-label="Next">
+		                        <span aria-hidden="true">»</span>
+		                        <span class="sr-only">Next</span>
+		                    </a>
+		                </li>
+					</c:if>
+					
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="listEnd" value="/exchangeClover.me?mUno=${sessionScope.loginUser.uno}">
+							<c:param name="currentPage" value="${ pi.currentPage + 1 }" />
+						</c:url>
+						<li class="page-item">
+		                    <a class="page-link" href="${ listEnd }" aria-label="Next">
+		                        <span aria-hidden="true">»</span>
+		                        <span class="sr-only">Next</span>
+		                    </a>
+		                </li>
+					</c:if>
+				</ul>
+			</div>
+			
 				</div>
 			</div>
 		</div>	
@@ -124,12 +219,13 @@
 			    </div>
 				      
 			    <div class="modal-body">
+			    <%-- <c:if test=""> --%>
 			   		<input type="radio" name="reason" value="500">500개(실수령액 : 45000원)<br>
 			   		<input type="radio" name="reason" value="1000">1000개(실수령액 : 90000원)<br>
 			   		<input type="radio" name="reason" value="1500">1500개(실수령액 : 135000원)<br>
 			   		<input type="radio" name="reason" value="2000">2000개(실수령액 : 180000원)<br>
 			    </div>
-				      
+				<%-- </c:if>	 --%>      
 			    <div class="modal-footer">
 			    	<a type="button" class="btn btn-success" data-dismiss="modal" id="btn">확인</a>
 			    </div>

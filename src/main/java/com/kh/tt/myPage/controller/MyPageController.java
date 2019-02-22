@@ -20,6 +20,7 @@ import com.kh.tt.myPage.model.exception.MyPageException;
 import com.kh.tt.myPage.model.service.MyPageService;
 import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
+import com.kh.tt.myPage.model.vo.Exchange;
 import com.kh.tt.myPage.model.vo.Payment;
 import com.kh.tt.myPage.model.vo.PtClover;
 
@@ -172,18 +173,38 @@ public class MyPageController {
 	
 	//클로버 충전내역 조회 페이지
 	@RequestMapping("chargeClover2.me")
-	public String goChageClover2() {
+	public String goChageClover2(Model model, HttpServletRequest request, HttpServletResponse response) {
 		
 		//2개의 Object에 담아와야함
 		//Payment - 결제날짜, 승인번호
 		//Clover - 클로버 개수, 클로버 가격
-		Map<Object, Object> hmap = new HashMap<Object, Object>();
+		//접속중인 사용자의 회원번호
+		int ptUno = Integer.parseInt(request.getParameter("ptUno"));
+		int currentPage = 1;
 		
-		/*try {
-			hmap = mps.selectChargeLog();
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			//리스트 카운트
+			int listCount = mps.getAllchargeClover(ptUno);
+			System.out.println("listCount : " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			//충전내역 - 리스트
+			List<Payment> chargeList = mps.selectChargeList(pi, ptUno);
+			
+			model.addAttribute("chargeList", chargeList);
+			System.out.println("가져온리스트! "+chargeList);
+			
+			request.setAttribute("pi", pi);
+			
 		} catch (MyPageException e) {
 			e.printStackTrace();
-		}*/
+		}
+		
 		
 		
 		return "myPage/chargeClover2";
@@ -330,9 +351,40 @@ public class MyPageController {
 	/*클로버 환전관리*/
 	//환전신청 페이지
 	@RequestMapping("exchangeClover.me")
-	public String goexchange(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String goexchange(Model model, HttpServletRequest request, HttpServletResponse response) throws MyPageException {
 		
 		int mUno = Integer.parseInt(request.getParameter("mUno"));
+		
+		Member m = mps.checkMember(mUno);
+		
+		//페이징처리할 리스트 가져오기
+		int currentPage = 1;
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			//환전 - 카운트
+			int listCount = mps.getAllExchange(mUno);
+			System.out.println("환전 listCount : " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			//환전 - 리스트
+			List<Exchange> ExchangeList = mps.selectExchangeList(pi, mUno);
+			System.out.println("List : "+ExchangeList);
+			System.out.println("List 담긴 수 : "+ExchangeList.size());
+			
+			
+			model.addAttribute("ExchangeList", ExchangeList);
+			model.addAttribute("m", m);
+			
+			request.setAttribute("pi", pi);
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}
 		
 		model.addAttribute("mUno", mUno);
 		
@@ -349,13 +401,20 @@ public class MyPageController {
 		//Exchange테이블에 insert
 		//ExchangeLog테이블에 insert
 		//Exchange,ExchangeLog,Member 조인해서 테이블출력
-		/*int result = mps.insertExchange;*/
-
+		int result=0;
+		try {
+			result = mps.insertExchange(mUno,cnt);
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}
 		
-		System.out.println("exchangeClover2에서 받은 : "+mUno+", "+cnt);
+		if(result>0) {
+			return "redirect:goMain.me";
+		}else {
+			model.addAttribute("msg","환전정보 insert 실패!");
+			return "common/errorPage";
+		}
 		
-		return "redirect:goMain.me";
-	
 	}
 	
 	//My문의 페이지

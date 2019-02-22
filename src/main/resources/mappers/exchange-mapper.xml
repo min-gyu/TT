@@ -9,6 +9,7 @@
 <mapper namespace="Exchange">
 	<resultMap type="com.kh.tt.myPage.model.vo.Exchange" id="exchangeResultSet">
 		<id property="exNo" column="EX_NO"/>
+		<result property="rnum" column="ROWNUM"/>
 		<result property="exUno" column="EX_UNO"/>
 		<result property="exCloverCnt" column="EX_CLOVER_CNT"/>
 		
@@ -19,7 +20,28 @@
 		<result property="elStatus" column="EL_STATUS"/>
 	</resultMap>
 	
-
+	<!-- 환전신청 -->
+	<insert id="insertExchange">
+		INSERT INTO EXCHANGE 
+		VALUES (SEQ_EX_NO.NEXTVAL, #{mUno}, #{cnt})	
+	</insert>
+	
+	<!-- 환전내역 수 카운트 -->
+	<select id="getAllExchange" resultType="_int">
+		SELECT COUNT(*)
+		FROM EXCHANGE
+		WHERE EX_UNO=#{value}
+	</select> 
+	
+	<!-- 환전내역 페이징처리  - 리스트 -->
+	<select id="selectExchangeList"  parameterType="_int" resultMap="exchangeResultSet" >
+  		SELECT ROWNUM, EX_CLOVER_CNT, M_BANK, M_BANK_NO, EL_DATE, EL_STATUS
+		FROM (
+		SELECT E.EX_CLOVER_CNT, M.M_BANK, M.M_BANK_NO, EL.EL_DATE, EL.EL_STATUS
+		FROM EXCHANGE E JOIN MEMBER M ON (E.EX_UNO=M.M_UNO) JOIN EXCHANGELOG EL ON (E.EX_NO=EL.EL_EX_NO)
+		WHERE M.M_UNO=#{mUno}
+		ORDER BY EL.EL_DATE DESC)
+	</select> 
 
 </mapper>
 

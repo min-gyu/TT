@@ -15,6 +15,10 @@
 		<result property="elStatus" column="EL_STATUS"/>
 	</resultMap>
 	
+	<insert id="insertExchangeLog">
+		INSERT INTO EXCHANGELOG 
+		VALUES (SEQ_EL_NO.NEXTVAL, SEQ_EX_NO.CURRVAL, SYSDATE , '환전신청')
+	</insert>
 
 
 </mapper>
