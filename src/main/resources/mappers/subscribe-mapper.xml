@@ -11,9 +11,19 @@
 		<result property="rChNO" 		column="R_CH_NO"/>
 		<result property="rTargetUno" 	column="R_TARGET_UNO"/>
 		<result property="rType" 		column="R_TYPE"/>
-		<result property="mId" 		column="M_ID"/>
+		<result property="mId" 			column="M_ID"/>
 		<result property="nickName" 	column="M_NICKNAME"/>
 		<result property="chNo" 		column="CH_NO"/>
+		<result property="atNo" 		column="AT_NO"/>
+		<result property="atModifyName" column="AT_MODIFY_NAME"/>
+		<result property="atType" 		column="AT_TYPE"/>
+		<result property="bNo" 			column="B_NO"/>
+		<result property="bTitle" 		column="B_TITLE"/>
+		<result property="bWriteDate" 	column="B_WRITE_DATE"/>
+		<result property="btNo" 		column="BT_NO"/>
+		<result property="btTitle" 		column="BT_TITLE"/>
+		<result property="btStartTime" 	column="BT_START_TIME"/>
+		
 	</resultMap>
 	
 	<!-- 구독한 채널 리스트 조회 -->
@@ -26,4 +36,27 @@
 		AND R_TARGET_UNO = #{value}
 	</select>
 	
+	<!-- 구독한 VOD 리스트 조회 -->
+	<select id="vodList" parameterType="int" resultMap="SubscribeVO">
+		SELECT CH_NO, M_NICKNAME, B_NO, B_TITLE, B_WRITE_DATE, AT_NO, AT_MODIFY_NAME
+		FROM RELATION
+		    JOIN MEMBER ON (M_UNO = R_CH_NO)
+		    JOIN CHANNEL ON (CH_NO = R_CH_NO)
+		    JOIN BOARD ON (B_CH_NO = R_CH_NO)
+		    JOIN ATTACHMENT ON (AT_B_NO = B_NO)
+		WHERE R_TYPE='SUBSCRIBE'
+		AND R_TARGET_UNO = #{value}
+		AND AT_TYPE = 'VOD'
+	</select>
+	
+	<!-- 구독한 생방송 리스트 조회 -->
+	<select id="liveList" parameterType="int" resultMap="SubscribeVO">
+		SELECT CH_NO, M_NICKNAME, BT_NO, BT_TITLE, BT_START_TIME
+		FROM RELATION
+		    JOIN MEMBER ON (M_UNO = R_CH_NO)
+		    JOIN CHANNEL ON (CH_NO = R_CH_NO)
+		    JOIN BROADCAST ON (BT_CH_NO = R_CH_NO)
+		WHERE R_TYPE = 'SUBSCRIBE'
+		AND R_TARGET_UNO = #{value}
+	</select>
 </mapper>

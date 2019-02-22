@@ -58,9 +58,35 @@ public class SubscribeController {
 		
 		List<Subscribe> cList = ss.channelList(uno);
 		
-		System.out.println("cList > " + cList);
-		System.out.println(" 조회 결과 리스트사이즈 > " + cList.size());
+		//System.out.println("cList > " + cList);
+		//System.out.println(" 조회 결과 리스트사이즈 > " + cList.size());
 		
 		return cList;
+	}
+	
+	// 구독한 VOD 리스트
+	@RequestMapping("subVod")
+	public @ResponseBody List<Subscribe> vodList(Model model, HttpServletRequest request, HttpServletResponse response) {
+		int uno = Integer.parseInt(request.getParameter("uno"));
+		
+		List<Subscribe> vList = ss.vodList(uno);
+		
+		//System.out.println("vList > " + vList);
+		//System.out.println(" 조회 결과 리스트사이즈 > " + vList.size());
+		
+		return vList;
+	}
+	
+	// 구독한 생방송 리스트
+	@RequestMapping("subLive")
+	public @ResponseBody List<Subscribe> liveList(Model model, HttpServletRequest request, HttpServletResponse response) {
+		int uno = Integer.parseInt(request.getParameter("uno"));
+		
+		List<Subscribe> lList = ss.liveList(uno);
+		
+		System.out.println("lList > " + lList);
+		System.out.println(" 조회 결과 리스트사이즈 > " + lList.size());
+		
+		return lList;
 	}
 }

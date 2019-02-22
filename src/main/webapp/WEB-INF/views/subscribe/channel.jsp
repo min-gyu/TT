@@ -128,18 +128,16 @@
 
 <script type="text/javascript">
 	var uno = ${sessionScope.loginUser.uno};
-	console.log(uno);
 	
 	$(document).ready(function(){
 		subChannelList(uno);
 	});
 	
 	function subChannelList(uno){
-		console.log("HI");
-		console.log("uno >" + uno);
+		// url		:	"${pageContext.request.contextPath}/subChannel.sub"
 		
 		$.ajax({
-			url		:	"${pageContext.request.contextPath}/subChannel.sub",
+			url		:	"/subChannel.sub",
 			type	:	"post",
 			data	:	{
 							uno	: uno
@@ -160,6 +158,7 @@
 					htmlCode += "<a href='goChannel.ch?uNo=" + chNo + "'>";
 					htmlCode += '<span class="nick">' + nickName + '</span>';
 					htmlCode += '<span class="afid">' + id + '</span>';
+					htmlCode += '</a>';
 					htmlCode += '</div>';
 					htmlCode += '</li>';
 				}
