@@ -36,6 +36,9 @@ import com.kh.tt.member.model.vo.Member;
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginLoggin.class);
 	
+	//javascript 인증코드
+	private final String KAKAO_JS_AUTH_CODES = "41f4585e7739019ab56a3fd81ac273c4";
+	
 	@Autowired
 	private MemberService ms;
 	
@@ -55,7 +58,8 @@ public class MemberController {
 	}
 
 	@RequestMapping("loginView.me")
-	public String showLoignView() {
+	public String showLoignView(Model model) {
+		model.addAttribute("kakaoAuth", KAKAO_JS_AUTH_CODES);
 		return jspPath + "login";
 	}
 
@@ -78,11 +82,6 @@ public class MemberController {
 	public String completeCQView() {
 		return jspPath + "completeCQ";
 	}
-	
-	@RequestMapping("kakaoLogin.me")
-	public String kakaoLoginView() {
-		return jspPath + "kakaoLogin";
-	}	
 	
 	@RequestMapping("login.me")
 	public String loginCheck(Member m, Model model) {
