@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -88,10 +88,11 @@ div.upload-btn_wrap button { /*버튼 div*/
 	width: 20%;
 }
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
+	<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
 	<!-- Start post-content Area -->
 	<section class="post-content-area single-post-area">
 		<div class="container">
@@ -101,8 +102,9 @@ div.upload-btn_wrap button { /*버튼 div*/
 						<h5>VOD 업로드</h5>
 					</div>
 					<div class="row">
-					
-						<form action="insertvod.ch" method="post" id="frm" name="frm" enctype="multipart/form-data">
+
+						<form action="insertvod.ch" method="post" id="frm" name="frm"
+							enctype="multipart/form-data">
 							<table class="table table-bordered"
 								style="width: 702px; height: 502px;">
 								<thead>
@@ -111,28 +113,50 @@ div.upload-btn_wrap button { /*버튼 div*/
 												style="margin-bottom: 15%;">제목</div></th>
 										<td>
 											<div class="input-group mb-3" style="margin-top: 2%">
-												<input type="text" name="bTitle" class="form-control" aria-label="Default"
-													aria-describedby="inputGroup-sizing-default">
-													<input type="hidden" name="buNo" value="${sessionScope.loginUser.uno }">
-													
+												<input type="text" name="bTitle" class="form-control"
+													aria-label="Default"
+													aria-describedby="inputGroup-sizing-default"> <input
+													type="hidden" name="buNo"
+													value="${sessionScope.loginUser.uno }">
+
 											</div>
 
 										</td>
+									<tr>
+										<th scope="col" style="width: 20%; text-align: center"><div
+												>카테고리</div></th>
+										<td><select id="product" name="category" >
+												<option selected="selected"></option>
+												<option value="vod">스포츠</option>
+												<option value="BLOG">먹방</option>
+												<option value="BLOG">뷰티</option>
+												<option value="BLOG">VLOG</option>
+												<option value="BLOG">VOD</option>
+												<option value="BLOG">축구</option>
+												<option value="BLOG">농구</option>
+												<option value="BLOG">배구</option>
+												<option value="BLOG">야구</option>
+												<option value="BLOG">스포츠</option>
+												<option value="BLOG">기타스포츠</option>
+												<option value="BLOG">먹방</option>
+												<option value="BLOG">뷰티</option>
+												<option value="BLOG">VLOG</option>
+										</select></td>
+
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 										<th style="width: 20%; text-align: center"><div
 												style="margin-top: 40%;">내용</div></th>
-										<td><textarea name="bContent" class="form-control col-mb-5" rows="7"
-												width="100%"></textarea></td>
+										<td><textarea name="bContent"
+												class="form-control col-mb-5" rows="7" width="100%"></textarea></td>
 
 									</tr>
 									<tr>
 										<th
 											style="width: 20%; text-align: center; padding-bottom: 0px; height: 50px;">첨부동영상</th>
-										<td><input type="file" name="video"
-											title="파일찾기"></td>
+										<td><input type="file" name="video" title="파일찾기"></td>
 									</tr>
 									<tr>
 										<td colspan="2" align="center"><button type="submit"

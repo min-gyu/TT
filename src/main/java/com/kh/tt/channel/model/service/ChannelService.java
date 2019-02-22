@@ -41,6 +41,16 @@ public interface ChannelService{
 	int addSubscirbe(int cuNo, int uno);
 	Object insertDet(HashMap<String, Object> map);
 	
+	//댓글 카운트 메소드
+	int listDetCount(int bNo);
+	//댓글 리스트 출력 메소드
+	List<Board> listDet(int i, int j, int k);
+	
+	//댓글 삭제 메소드
+	Object deleteDet(HashMap<String, Integer> map);
+	//댓글 삭제후 돌아가기위한 메소드
+	int onebNo(int bNo);
+	
 	
 	
 	

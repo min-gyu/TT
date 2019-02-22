@@ -7,6 +7,7 @@ public class Board implements java.io.Serializable{
 	 private int bchNo;//채널 번호
 	 private int buNo; //작성자 번호
 	 private String buId;//작성자 아이디
+	 private String bnickName;//작성자 닉네임
 	 private int bCate;//카테고리 번호
 	 private String bTitle; //제목
 	 private String bContent; //내용
@@ -21,13 +22,14 @@ public class Board implements java.io.Serializable{
 
 	 public Board() {}
 
-	public Board(int bNo, int bchNo, int buNo, String buId, int bCate, String bTitle, String bContent, Date bwDate,
-			Date bmDate, int bCount, int bLevel, int bupNo, String bAttachs, String bDels, String bType) {
+	public Board(int bNo, int bchNo, int buNo, String buId, String bnickName, int bCate, String bTitle, String bContent,
+			Date bwDate, Date bmDate, int bCount, int bLevel, int bupNo, String bAttachs, String bDels, String bType) {
 		super();
 		this.bNo = bNo;
 		this.bchNo = bchNo;
 		this.buNo = buNo;
 		this.buId = buId;
+		this.bnickName = bnickName;
 		this.bCate = bCate;
 		this.bTitle = bTitle;
 		this.bContent = bContent;
@@ -71,6 +73,14 @@ public class Board implements java.io.Serializable{
 
 	public void setBuId(String buId) {
 		this.buId = buId;
+	}
+
+	public String getBnickName() {
+		return bnickName;
+	}
+
+	public void setBnickName(String bnickName) {
+		this.bnickName = bnickName;
 	}
 
 	public int getbCate() {
@@ -163,12 +173,13 @@ public class Board implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Board [bNo=" + bNo + ", bchNo=" + bchNo + ", buNo=" + buNo + ", buId=" + buId + ", bCate=" + bCate
-				+ ", bTitle=" + bTitle + ", bContent=" + bContent + ", bwDate=" + bwDate + ", bmDate=" + bmDate
-				+ ", bCount=" + bCount + ", bLevel=" + bLevel + ", bupNo=" + bupNo + ", bAttachs=" + bAttachs
-				+ ", bDels=" + bDels + ", bType=" + bType + "]";
+		return "Board [bNo=" + bNo + ", bchNo=" + bchNo + ", buNo=" + buNo + ", buId=" + buId + ", bnickName="
+				+ bnickName + ", bCate=" + bCate + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bwDate="
+				+ bwDate + ", bmDate=" + bmDate + ", bCount=" + bCount + ", bLevel=" + bLevel + ", bupNo=" + bupNo
+				+ ", bAttachs=" + bAttachs + ", bDels=" + bDels + ", bType=" + bType + "]";
 	}
 
+	
 	
 	
 }

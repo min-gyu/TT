@@ -59,15 +59,16 @@
 				<div class="col-lg-8 posts-list" style="background-color: white;">
 					<div class="single-post row">
 						<div class="col-lg-12">
-							<div class="feature-img">
+							<div class="feature-img" align="center">
 								<img class="img-fluid"
-									src="/resources/channel/img/blog/feature-img1.jpg"
-									style="padding-left: 0%;">
+									src="/resources/images/channel_image.png" 
+									style="padding-left: 0%;width: 700px;height: 300px;">
 							</div>
 						</div>
 						<div class="col-lg-12">
 							<div class="info"
 								style="padding-top: 20px; padding-bottom: 20px;">
+								<!-- VOD 게시판 번호 전송 -->
 								<button onclick="location.href='vod_List.ch?CuNo=${m.uno }'"
 									class="genric-btn info circle arrow">
 									VOD<span class="lnr lnr-arrow-right"></span>
@@ -325,7 +326,7 @@
 				<div class="col-lg-4 sidebar-widgets">
 					<div class="widget-wrap">
 						<div class="single-sidebar-widget user-info-widget">
-							<img src="/resources/channel/img/blog/user-info.png" alt="">
+							<img src="/resources/channel/img/blog/eun.jpg" alt=""style="width: 150px;height: 150px;border-radius: 50%;">
 							<a><h4>${m.nickName }</h4></a>
 							<p>@${m.userId }</p>
 				
@@ -335,7 +336,7 @@
 						<div class="single-sidebar-widget popular-post-widget">
 						<c:set var="loginUser" value="${sessionScope.loginUser.userId }"/>
 							<c:if test="${m.userId eq loginUser}">
-								 <a href="manage_C.ch?CuNo=${m.uno }" type="hidden"
+								 <a href="manage_C.ch?CuNo=${m.uno }" 
 									style="color: #6ac169;"><h4 class="popular-title" type="hidden">방송국 관리
 											
 											

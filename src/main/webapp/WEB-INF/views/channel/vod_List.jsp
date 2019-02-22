@@ -138,11 +138,11 @@
 											</c:choose>
 										</c:forEach>
 										<c:if
-											test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
+											test="${pagination.curPage <= pagination.pageCnt && pagination.pageCnt > 0}">
 											<a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a>
 										</c:if>
 										<c:if
-											test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
+											test="${pagination.curRange <= pagination.rangeCnt && pagination.rangeCnt > 0}">
 											<a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a>
 										</c:if>
 									</div>
@@ -253,7 +253,7 @@
 	<!-- End post-content Area -->
 	<script>
 		function fn_paging(curPage) {
-			location.href = "/channel_admin/goVodAdmin.ch?curPage=" + curPage;
+			location.href = "/vod_List.ch?curPage=" + curPage+"&CuNo="+${m.uno };
 		}
 	</script>
 

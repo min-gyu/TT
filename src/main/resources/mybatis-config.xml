@@ -31,6 +31,8 @@
 			alias="Exchange" />
 		<typeAlias type="com.kh.tt.myPage.model.vo.ExchangeLog"
 			alias="ExchangeLog" />	
+		<typeAlias type="com.kh.tt.channel.model.vo.BoardClaim"
+			alias="BoardClaim" />
 
 	</typeAliases>
 	<mappers>
@@ -47,6 +49,8 @@
 		<mapper resource="mappers/relation-mapper.xml"/>
 		<mapper resource="mappers/exchange-mapper.xml"/>
 		<mapper resource="mappers/exchangelog-mapper.xml"/>
+		<mapper resource="mappers/boardClaim-mapper.xml" />
+	
 	</mappers>
 
 </configuration>

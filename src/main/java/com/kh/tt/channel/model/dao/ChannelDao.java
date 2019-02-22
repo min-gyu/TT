@@ -36,4 +36,12 @@ public interface ChannelDao {
 
 	Object insertDet(HashMap<String, Object> map, SqlSessionTemplate sqlSession);
 
+	int listDetCount(int bNo, SqlSessionTemplate sqlSession);
+
+	List<Board> listDet(HashMap<Object, Integer> map, SqlSessionTemplate sqlSession);
+
+	Object deleteDet(HashMap<String, Integer> map, SqlSessionTemplate sqlSession);
+
+	int onebNo(int bNo, SqlSessionTemplate sqlSession);
+
 }

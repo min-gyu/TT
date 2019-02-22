@@ -199,7 +199,7 @@
 
 	<script>
 		function fn_paging(curPage) {
-			location.href = "/channel_admin/goVodAdmin.ch?curPage=" + curPage;
+			location.href = "/goVodAdmin.ch?curPage=" + curPage;
 		}
 	</script>
 
