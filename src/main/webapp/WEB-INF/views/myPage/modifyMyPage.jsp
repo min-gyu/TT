@@ -53,10 +53,13 @@
 				var userNewPwd = $("#userNewPwd").val();
 				var userNewPwdCheck = $("#userNewPwdCheck").val();
 				
+				var mUno = ${member2.getUno()};
+				console.log("mUno > "+mUno);
+				
 				if(userNewPwd!=userNewPwdCheck){
 					alert("비밀번호가 일치하지 않습니다.");
 					
-					location.href="modifyMyPage2.me?mUno=${member1.getUno()}";
+					location.href="modifyMyPage2.me?mUno=${member2.getUno()}";
 					
 				}else{
 					console.log("비번일치");
@@ -190,7 +193,7 @@
 			<div class="modal-content">
 			    
 			    <div class="modal-header">
-				    <button type="button" class="close" data-dismiss="modal">&times;</button>
+				     <button type="button" class="close" data-dismiss="modal">&times;</button>
 				    <h4 class="modal-title">탈퇴 사유</h4>
 			    </div>
 				      

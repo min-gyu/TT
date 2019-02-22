@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Exchange">
+	<resultMap type="com.kh.tt.myPage.model.vo.Exchange" id="exchangeResultSet">
+		<id property="exNo" column="EX_NO"/>
+		<result property="exUno" column="EX_UNO"/>
+		<result property="exCloverCnt" column="EX_CLOVER_CNT"/>
+		
+		<result property="mBank" column="M_BANK"/>
+		<result property="mBankNo" column="M_BANK_NO"/>
+		
+		<result property="elDate" column="EL_DATE"/>
+		<result property="elStatus" column="EL_STATUS"/>
+	</resultMap>
+	
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
