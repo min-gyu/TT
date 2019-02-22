@@ -105,7 +105,7 @@ html, body{
 	padding:10px;
 	background: #EFFBEF;
 	margin-top: 15%;
-	margin-right:1px;	
+ 	margin-right:1px;	
 }
 
 #inputChatDiv {
@@ -218,9 +218,9 @@ html, body{
 							<li id="broadLi">
 								<a href="#"><i class="fas fa-video" id="broadCatsIcon"></i>
 									<div>방송하기</div></a></li>
-							<li id="iceChat"><a href="/goMain.bc"><i class="fas fa-times-circle" id="broadCastExitIcon"></i>
+							<li id="exitBroadLi"><a href="/goMain.bc"><i class="fas fa-times-circle" id="broadCastExitIcon"></i>
 									<div>방송종료</div></a></li>
-							<li id="iceChat"><a href="#"><i class="far fa-snowflake" id="freezeIcon"></i>
+							<li id="iceChatLi"><a href="#"><i class="far fa-snowflake" id="freezeIcon"></i>
 									<div>채팅창 얼리기</div></a></li>
 							<li id="broadSettingLi"><a href="#"><i class="fas fa-cog" id="broadSettingIcon"></i>
 									<div>방송 설정</div></a></li>			
@@ -584,9 +584,17 @@ html, body{
 			    	}
 			    });
 			    
+			    socket.on('present',(data)=>{
+					console.log("present 이벤트 확인!")
+			 	  	console.log(data);
+			 		var $div = $("<div>").css("background","#81F79F");
+					$div.addClass("system");
+			      	$div.text(data.userNick+"("+data.userId+")"+"님께서 클로버"+data.clover+"개를 선물하셨습니다\n\n"+data.sendMsg);
+			      $("#chattingDiv").append($div);
+			    });
+			    
 			    socket.on('chat',(data)=>{
 			      console.log("chat 이벤트 확인!")
-			      console.log(data);
 			      var $div = $("<div>");
 			      if (data.userId === "${ loginUser.userId }" ) {
 			    	  $div.addClass('mine');
@@ -638,6 +646,29 @@ html, body{
 						  console.log(error);
 					  });
 				});
+			    
+			    //채팅 얼리기 이벤트
+			    socket.on('freeze',(data)=>{
+				console.log("채팅 얼리기 이벤트 확인!")
+		 	  	console.log(data);
+		 		var $div = $("<div>");
+				$div.addClass("system");
+		      	$div.text("관리자가 채팅창을 얼렸습니다!");
+		     	$("#chattingDiv").append($div);
+		     	$("#chattingDiv").css("background","#81DAF5");
+		   		});
+			  //채팅 얼리기 이벤트
+			    socket.on('melt',(data)=>{
+				console.log("채팅 녹이기 이벤트 확인!")
+		 	  	console.log(data);
+		 		var $div = $("<div>");
+				$div.addClass("system");
+		      	$div.text("관리자가 채팅창을 녹였습니다.");
+		     	$("#chattingDiv").append($div);	     	
+		     	$("#chattingDiv").css("background","#EFFBEF");
+		     	
+		   		});
+			    
 			};
 			function notSend(){
 				swal({
@@ -678,6 +709,13 @@ html, body{
 						  		})
 						  		.then(function (response) {
 						    		console.log(response);
+						    		if(response.data=="채팅창 얼음!"){
+						    			swal({
+										  	title: "경고",
+										  	text:"관리자가 채팅창을 얼렸습니다.",
+										  	icon: "warning",
+										})
+						    		}
 						  		})
 						  		.catch(function (error) {
 							  		console.log(error);
@@ -708,29 +746,50 @@ html, body{
 				});
 			}
 			
-			//채팅얼리기 메서드
-			function freezeChat(){
+			//채팅 얼리기 메서드
+			$("#iceChatLi").click(function(){
+				
 				axios({
 		    		method: 'post',
-		    		url: 'http://localhost:8010/room/chat',
+		    		url: 'http://localhost:8010/room/chat/freeze',
 		   			params: {
-		    			owner:"${ param.owner }",
-		    			userId:"${ loginUser.userId }",
-		    			userNickName:"${ loginUser.nickName }",
-		    			msg:msg   	
+		    			owner:"${ param.owner }", 	
 		    		}
 		  		})
 		  		.then(function (response) {
-		    		console.log(response);
+		    		console.log(response.data);
+					if(response.data=="방송중이 아닙니다."){
+						swal({
+							  title: "경고",
+							  text: "방송중이 아닙니다!",
+							  icon: "warning",
+						  });
+		    		}else if(response.data=="얼음으로 변경 성공!"){
+		    			$("#iceChatLi").children().children().eq(0).attr("id","tIntIcon").removeClass('far fa-snowflake').addClass('fas fa-tint');
+		    			$("#iceChatLi").children().children().eq(1).text("채팅 녹이기");
+		    			swal({
+ 				  			title: "성공!",
+ 				 		 	text: "채팅창을 얼렸습니다.",
+ 				 		 	icon: "success",
+ 				 		 	button: "OK",
+ 							})
+		    		}else if(response.data=="물로 변경 성공!"){
+		    			$("#iceChatLi").children().children().eq(0).attr("id","freezeIcon").removeClass('fas fa-tint').addClass('far fa-snowflake');
+		    			$("#iceChatLi").children().children().eq(1).text("채팅 얼리기");
+		    			swal({
+ 				  			title: "성공!",
+ 				 		 	text: "채팅창을 녹였습니다.",
+ 				 		 	icon: "success",
+ 				 		 	button: "OK",
+ 							})
+		    		}
+		    		
 		  		})
 		  		.catch(function (error) {
 			  		console.log(error);
 			  		console.log("채팅전달 error");
 		  		});
-			}
-			
-			
-			
+			})
 			
 		/*방 제거하기, 방송종료 메서드, 몽구스DB에서도 방을 삭제해서 이걸 지워야하나 말아야하나 고민중 
 		$("#CloseRoomBtn").click(function(){

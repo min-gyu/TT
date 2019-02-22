@@ -38,6 +38,14 @@
 	margin-left:10px;
 	margin-top:15px;
 }
+#msgSpan{
+	margin-left:5px;
+	margin-top:10px;
+	margin-right:10px;
+}
+#inputMsg{
+	width:100%
+}
 
 </style>
 <!-- jQuery CDN -->
@@ -88,17 +96,26 @@
 			<div class="five wide column">
 				<div class="ui input" id="myClover">
 						<input type="number" id="presentCloverNum">
-						<span id="dog">개 를</span>
+						<span id="dog">개 선물하기</span>
+				</div>
+			</div>
+		</div>
+		<div class="ui grid">
+			<div class="thirteen wide column">
+				<div class="ui input" id="inputMsg">
+					<span id="msgSpan">전달하고 싶은 메세지 :</span>
+						<input type="text" id="sendMsg" placeholder="전달하고 싶은 메세지를 입력하세요">						
 				</div>
 			</div>
 		</div>
 		<div class="ui grid">
 			<div class="sixteen wide column" id="presentClover" align="center">
-				<button class="ui secondary button small" id="presentBtn">선물하기</button>
+				<button class="ui secondary button small" id="presentBtn">전달</button>
 			</div>
 		</div>
 	</div>
 </body>
+<script src="http://localhost:8010/socket.io/socket.io.js"></script>
 <script type="text/javascript">
 	$(function(){
 		if(${empty loginUser}){
@@ -128,6 +145,7 @@
 			}); 
 		}, 0);
 		
+		
 	})
 	$("#presentBtn").click(function(){
 		if($("#presentCloverNum").val()!=""){
@@ -143,16 +161,54 @@
 					  	},
 						success : function(data) {
 							if(data==3){
-								swal({
-					  			title: "성공!",
-					 		 	text: "${param.owner}님을 에게 클로버를 선물했습니다!",
-					 		 	icon: "success",
-					 		 	button: "OK",
-								})
-								.then(()=>{
-									window.location.reload(); 
-								})
-							}
+									//선물 소켓 연결
+									var socket = io.connect('http://localhost:8010/present', {
+										path : '/socket.io'	}); //localhost에 연결합니다.
+									socket.on('presentInfo',(data)=>{
+										console.log("presentInfo 이벤트 확인!")
+								 	  	console.log(data);
+										axios({
+										    method: 'post',
+										    url: "http://localhost:8010/room/chat/present",	
+										    params: {
+										    	owner:"${param.owner}",
+										    	userId:"${loginUser.userId}",
+										    	userNick:"${loginUser.nickName}",
+										    	clover:$("#presentCloverNum").val(),
+										    	sendMsg:$("#sendMsg").val()			    	
+										    }
+										  })
+										  .then(function (response) {
+											   if(response.data=="방송중이 아닙니다."){
+												   swal({
+											  			title: "성공!",
+											 		 	text: "${param.owner}님을 에게 클로버를 선물했습니다!",
+											 		 	icon: "warning",
+											 		 	button: "OK",
+														})
+														.then(()=>{
+															window.location.reload()
+														})   
+											   }else{
+												   swal({
+											  			title: "성공!",
+											 		 	text: "${param.owner}님을 에게 클로버를 선물했습니다!",
+											 		 	icon: "success",
+											 		 	button: "OK",
+														})
+														.then(()=>{
+															window.location.reload()
+														})   
+											   }					
+										  })								  
+										  .catch(function (error) {
+											  console.log(error);
+										  });
+								 		
+								    });
+								
+							} 
+								
 						},
 						error : function(data) {
 							console.log("실패")
