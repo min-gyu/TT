@@ -15,6 +15,7 @@ import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.exception.MyPageException;
 import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
+import com.kh.tt.myPage.model.vo.Exchange;
 import com.kh.tt.myPage.model.vo.Payment;
 import com.kh.tt.myPage.model.vo.PtClover;
 
@@ -133,7 +134,7 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		int result = sqlSession.selectOne("PtClover.getAllGivePresent",ptUno);
 		
-		if (result <= 0) {
+		if (result < 0) {
 			result = 0;
 			return result;
 		}
@@ -166,7 +167,7 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		int result = sqlSession.selectOne("PtClover.getSearchGiveCloverCount", date1);
 		
-		if (result <= 0) {
+		if (result < 0) {
 			throw new MyPageException("선물한 클로버 검색결과 조회 실패!");
 		}
 		
@@ -203,7 +204,7 @@ public class MyPageDaoImpl implements MyPageDao{
 
 		int result = sqlSession.selectOne("PtClover.getAllTakePresent",ptUno);
 		
-		if (result <= 0) {
+		if (result < 0) {
 			throw new MyPageException("선물받은 클로버 전체 수 조회 실패!");
 		}
 		
@@ -283,5 +284,99 @@ public class MyPageDaoImpl implements MyPageDao{
 		}
 		
 		return result;
+	}
+
+
+	//환전신청 DB에 값 insert
+	@Override
+	public int insertExchange(SqlSessionTemplate sqlSession, int mUno, int cnt) throws MyPageException {
+
+		int result1 = 0; //Exchange테이블에 insert
+		int result2 = 0; //ExchangeLog테이블에 insert
+		int result=0; //반환할값
+		
+		int exresult=0;
+		
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("mUno",mUno);
+		hmap.put("cnt",cnt);
+		
+		//환전내역 추가(환전번호, 회원번호, 클로버 개수)
+		result1 = sqlSession.insert("Exchange.insertExchange",hmap);
+		System.out.println("result1의 결과 : "+result1);
+		
+		//환전상세내역 추가(일련번호, 환전번호, 날짜, 상태) 
+		result2 = sqlSession.insert("ExchangeLog.insertExchangeLog");
+		System.out.println("result2의 결과 : "+result2);
+		
+		if(result1<0||result2<0) {
+			throw new MyPageException("결제정보 삽입 실패!");
+		}else {
+			result = 1;
+		}
+	
+		return result;
+	}
+
+
+	//환전 - 카운트
+	@Override
+	public int getAllExchange(SqlSessionTemplate sqlSession, int mUno) throws MyPageException {
+		
+		int result = sqlSession.selectOne("Exchange.getAllExchange",mUno);
+		
+		if (result < 0) {
+			throw new MyPageException("환전내역 전체 수 조회 실패!");
+		}
+		
+		return result;
+	}
+
+
+	//환전 - 리스트
+	@Override
+	public List<Exchange> selectExchangeList(SqlSessionTemplate sqlSession, PageInfo pi, int mUno)
+			throws MyPageException {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<Exchange> ExchangeList = sqlSession.selectList("Exchange.selectExchangeList", mUno, rowBounds);
+
+		if(ExchangeList == null) {
+			throw new MyPageException("환전내역 페이징 처리 실패!");
+		}
+		
+		return ExchangeList;
+	}
+
+	//클로버 충전내역 조회 - 카운트
+	@Override
+	public int getAllchargeClover(SqlSessionTemplate sqlSession, int ptUno) throws MyPageException {
+		
+		int result = sqlSession.selectOne("Payment.getAllchargeClover",ptUno);
+		
+		if (result < 0) {
+			throw new MyPageException("충전내역 전체 수 조회 실패!");
+		}
+		
+		return result;
+	}
+
+	//클로버 충전내역 조회 - 리스트
+	@Override
+	public List<Payment> selectChargeList(SqlSessionTemplate sqlSession, PageInfo pi, int ptUno)
+			throws MyPageException {
+
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<Payment> chargeList = sqlSession.selectList("Payment.selectChargeList", ptUno, rowBounds);
+
+		if(chargeList == null) {
+			throw new MyPageException("충전내역 페이징 처리 실패!");
+		}
+		
+		return chargeList;
 	}
 }

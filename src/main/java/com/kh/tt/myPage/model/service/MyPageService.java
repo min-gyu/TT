@@ -8,6 +8,7 @@ import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.exception.MyPageException;
 import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
+import com.kh.tt.myPage.model.vo.Exchange;
 import com.kh.tt.myPage.model.vo.Payment;
 import com.kh.tt.myPage.model.vo.PtClover;
 
@@ -65,6 +66,21 @@ public interface MyPageService {
 
 	//회원번호, 탈퇴사유 update
 	int modifyOutStatus(int mUno, String reason) throws MyPageException;
+
+	//환전신청 내역 insert
+	int insertExchange(int mUno, int cnt) throws MyPageException;
+
+	//환전 - 카운트
+	int getAllExchange(int mUno) throws MyPageException;
+
+	//환전 - 리스트
+	List<Exchange> selectExchangeList(PageInfo pi, int mUno) throws MyPageException;
+
+	//클로버 충전내역 조회 - 카운트
+	int getAllchargeClover(int ptUno) throws MyPageException;
+
+	//클로버 충전내역 조회 - 리스트
+	List<Payment> selectChargeList(PageInfo pi, int ptUno) throws MyPageException;
 
 
 }

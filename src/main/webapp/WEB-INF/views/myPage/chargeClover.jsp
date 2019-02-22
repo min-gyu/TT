@@ -25,7 +25,7 @@
 					<div class="single-post row">
 					<div class="ui tabular menu">
 					  <a href="chargeClover.me" class="active item" >클로버 충전</a>
-					  <a href="chargeClover2.me" class="item" >클로버 충전 내역</a>
+					  <a href="chargeClover2.me?ptUno=${sessionScope.loginUser.uno}" class="item" >클로버 충전 내역</a>
 					  <a href="presentClover.me?ptUno=${sessionScope.loginUser.uno}" class="item">클로버 선물한 내역</a>
 					  <a href="presentClover2.me?ptUno=${sessionScope.loginUser.uno}" class="item">클로버 선물받은 내역</a>
 					</div>
