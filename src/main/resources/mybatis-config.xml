@@ -5,36 +5,23 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.kh.tt.member.model.vo.Member"
-			alias="Member" />
-		<typeAlias type="com.kh.tt.myPage.model.vo.Clover"
-			alias="Clover" />
-		<typeAlias type="com.kh.tt.myPage.model.vo.Payment"
-			alias="Payment" />
-		<typeAlias type="com.kh.tt.channel.model.vo.Board"
-			alias="Board" />
-		<typeAlias type="com.kh.tt.channel.model.vo.Attachment"
-			alias="Attachment" />
-		<typeAlias type="com.kh.tt.myPage.model.vo.CQBoard"
-			alias="CQBoard" />
-		<typeAlias
-			type="com.kh.tt.admin.model.vo.MemberAndMemberBanVO" alias="Admin" />
-		<typeAlias type="com.kh.tt.broadcast.model.vo.BanWord"
-			alias="BanWord" />
-		<typeAlias type="com.kh.tt.broadcast.model.vo.Relation"
-			alias="Relation2" />
-		<typeAlias type="com.kh.tt.myPage.model.vo.PtClover"
-			alias="PtClover" />
-		<typeAlias type="com.kh.tt.channel.model.vo.Relation"
-			alias="Relation" />
-		<typeAlias type="com.kh.tt.myPage.model.vo.Exchange"
-			alias="Exchange" />
-		<typeAlias type="com.kh.tt.myPage.model.vo.ExchangeLog"
-			alias="ExchangeLog" />	
-		<typeAlias type="com.kh.tt.channel.model.vo.BoardClaim"
-			alias="BoardClaim" />
-
+		<typeAlias type="com.kh.tt.member.model.vo.Member" 				alias="Member" />
+		<typeAlias type="com.kh.tt.myPage.model.vo.Clover" 				alias="Clover" />
+		<typeAlias type="com.kh.tt.myPage.model.vo.Payment" 			alias="Payment" />
+		<typeAlias type="com.kh.tt.channel.model.vo.Board" 				alias="Board" />
+		<typeAlias type="com.kh.tt.channel.model.vo.Attachment" 		alias="Attachment" />
+		<typeAlias type="com.kh.tt.myPage.model.vo.CQBoard" 			alias="CQBoard" />
+		<typeAlias type="com.kh.tt.admin.model.vo.MemberAndMemberBanVO" alias="Admin" />
+		<typeAlias type="com.kh.tt.broadcast.model.vo.BanWord" 			alias="BanWord" />
+		<typeAlias type="com.kh.tt.broadcast.model.vo.Relation" 		alias="Relation2" />
+		<typeAlias type="com.kh.tt.myPage.model.vo.PtClover" 			alias="PtClover" />
+		<typeAlias type="com.kh.tt.channel.model.vo.Relation" 			alias="Relation" />
+		<typeAlias type="com.kh.tt.myPage.model.vo.Exchange" 			alias="Exchange" />
+		<typeAlias type="com.kh.tt.myPage.model.vo.ExchangeLog" 		alias="ExchangeLog" />
+		<typeAlias type="com.kh.tt.subscribe.model.vo.Subscribe" 		alias="Subscribe" />
+    <typeAlias type="com.kh.tt.channel.model.vo.BoardClaim"			alias="BoardClaim" />
 	</typeAliases>
+	
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/clover-mapper.xml" />
@@ -50,7 +37,7 @@
 		<mapper resource="mappers/exchange-mapper.xml"/>
 		<mapper resource="mappers/exchangelog-mapper.xml"/>
 		<mapper resource="mappers/boardClaim-mapper.xml" />
-	
+		<mapper resource="mappers/subscribe-mapper.xml"/>
 	</mappers>
 
 </configuration>

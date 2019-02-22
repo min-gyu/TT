@@ -7,6 +7,7 @@ public class Exchange implements java.io.Serializable{
 	private int exNo;
 	private int exUno;
 	private int exCloverCnt;
+	private int rnum;
 	
 	//Member테이블
 	private String mBank;
@@ -18,11 +19,13 @@ public class Exchange implements java.io.Serializable{
 	
 	public Exchange() {}
 
-	public Exchange(int exNo, int exUno, int exCloverCnt, String mBank, String mBankNo, Date elDate, String elStatus) {
+	public Exchange(int exNo, int exUno, int exCloverCnt, int rnum, String mBank, String mBankNo, Date elDate,
+			String elStatus) {
 		super();
 		this.exNo = exNo;
 		this.exUno = exUno;
 		this.exCloverCnt = exCloverCnt;
+		this.rnum = rnum;
 		this.mBank = mBank;
 		this.mBankNo = mBankNo;
 		this.elDate = elDate;
@@ -51,6 +54,14 @@ public class Exchange implements java.io.Serializable{
 
 	public void setExCloverCnt(int exCloverCnt) {
 		this.exCloverCnt = exCloverCnt;
+	}
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 
 	public String getmBank() {
@@ -87,11 +98,11 @@ public class Exchange implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Exchange [exNo=" + exNo + ", exUno=" + exUno + ", exCloverCnt=" + exCloverCnt + ", mBank=" + mBank
-				+ ", mBankNo=" + mBankNo + ", elDate=" + elDate + ", elStatus=" + elStatus + "]";
+		return "Exchange [exNo=" + exNo + ", exUno=" + exUno + ", exCloverCnt=" + exCloverCnt + ", rnum=" + rnum
+				+ ", mBank=" + mBank + ", mBankNo=" + mBankNo + ", elDate=" + elDate + ", elStatus=" + elStatus + "]";
 	}
 
-	
+
 	
 	
 

@@ -20,24 +20,18 @@
 			$(this).parent().css({"background" : "white"})
 		}).click(function(e) { 
 			var num = $(this).parent().children().eq(0).text();
-			var name = $(this).parent().children().eq(1).text();
+			//var name = $(this).parent().children().eq(1).text();
 			
-			$("#myModal").modal().click(function(e){
 			detailCategory(num);
-			
-			/* console.log("num > " + num);
-			console.log("name > " + name);
-			
-			$("categNo").val(num);
-			$("categName").val(name); */
-			
-			
-			});
+			$("#myModal").modal();
+			//$("categNo").val(num);
+			//$("categName").val(name); 
 		});
 	});
 	
 	 
 	function detailCategory(num) {
+		console.log("hi")
 		var header = "";
 			header += "<tr>";
 			header += "<th>번호</th> ";
@@ -61,7 +55,7 @@
 						var no 		= rowData.ctNo;
 						var name 	= rowData.ctName;
 						
-						htmlCode += "<tr >                              ";
+						htmlCode += "<tr>                              ";
 						htmlCode += "	<td>" + no + "</td>          	";
 						htmlCode += "	<td>" + name + "    </td>	   	";
 						htmlCode += "</tr>                              ";

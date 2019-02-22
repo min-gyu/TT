@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Subscribe">
+	<resultMap type="com.kh.tt.subscribe.model.vo.Subscribe" id="SubscribeVO">
+		<!-- property 필드명, column 컬럼명과 일치해야 한다 -->
+		<id 	property="rNo" 			column="R_NO"/>
+		<result property="rChNO" 		column="R_CH_NO"/>
+		<result property="rTargetUno" 	column="R_TARGET_UNO"/>
+		<result property="rType" 		column="R_TYPE"/>
+		<result property="mId" 		column="M_ID"/>
+		<result property="nickName" 	column="M_NICKNAME"/>
+		<result property="chNo" 		column="CH_NO"/>
+	</resultMap>
+	
+	<!-- 구독한 채널 리스트 조회 -->
+	<select id="channelList" parameterType="int" resultMap="SubscribeVO">
+		SELECT CH_NO, M_ID, M_NICKNAME
+		FROM RELATION
+		    JOIN CHANNEL ON (CH_NO = R_CH_NO)
+		    JOIN MEMBER ON (M_UNO = CH_NO)
+		WHERE R_TYPE = 'SUBSCRIBE'
+		AND R_TARGET_UNO = #{value}
+	</select>
+	
+</mapper>

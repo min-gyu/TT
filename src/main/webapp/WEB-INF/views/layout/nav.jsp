@@ -18,7 +18,7 @@
 		</div>
 		<div id="menu-list">
 			<ul class="nav-list">
-				<li><a href="/subscribe.me">구독</a></li>
+				<li><a href="/subscribe.sub">구독</a></li>
 				<li><a href="/category/main.ca">전체</a></li>
 				<li><a href="#">스포츠</a></li>
 				<li><a href="#">먹방</a></li>

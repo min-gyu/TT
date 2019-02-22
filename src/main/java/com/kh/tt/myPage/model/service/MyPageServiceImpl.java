@@ -14,6 +14,7 @@ import com.kh.tt.myPage.model.dao.MyPageDao;
 import com.kh.tt.myPage.model.exception.MyPageException;
 import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
+import com.kh.tt.myPage.model.vo.Exchange;
 import com.kh.tt.myPage.model.vo.Payment;
 import com.kh.tt.myPage.model.vo.PtClover;
 
@@ -173,6 +174,42 @@ public class MyPageServiceImpl implements MyPageService{
 		public int modifyOutStatus(int mUno, String reason) throws MyPageException {
 			
 			return mpd.modifyOutStatus(sqlSession,mUno,reason);
+		}
+
+
+		//환전신청 DB에 insert
+		@Override
+		public int insertExchange(int mUno, int cnt) throws MyPageException {
+			
+			return mpd.insertExchange(sqlSession,mUno,cnt);
+		}
+
+		//환전 - 카운트
+		@Override
+		public int getAllExchange(int mUno) throws MyPageException {
+			
+			return mpd.getAllExchange(sqlSession, mUno);
+		}
+
+
+		//환전 - 리스트
+		@Override
+		public List<Exchange> selectExchangeList(PageInfo pi, int mUno) throws MyPageException {
+			
+			return mpd.selectExchangeList(sqlSession, pi,mUno);
+		}
+
+		//클로버 충전내역 조회 - 카운트
+		@Override
+		public int getAllchargeClover(int ptUno) throws MyPageException {
+			return mpd.getAllchargeClover(sqlSession, ptUno);
+		}
+
+		//클로버 충전내역 조회 - 리스트
+		@Override
+		public List<Payment> selectChargeList(PageInfo pi, int ptUno) throws MyPageException {
+			
+			return mpd.selectChargeList(sqlSession, pi,ptUno);
 		}
 
 

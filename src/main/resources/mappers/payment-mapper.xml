@@ -8,16 +8,14 @@
 	<resultMap type="com.kh.tt.myPage.model.vo.Payment" id="paymentResultSet">
 		<!-- property 필드명, column 컬럼명과 일치해야 한다 -->
 		<id property="pNo" column="P_NO"/>
+		<result property="rnum" column="ROWNUM"/>
 		<result property="pUno" column="P_UNO"/>
 		<result property="pCloverCnt" column="P_CLOVER_CNT"/>
 		<result property="pDate" column="P_DATE"/>
+		<result property="cloverCnt" column="CLOVER_CNT"/>
+		<result property="cloverMoney" column="CLOVER_MONEY"/>
 		
 	</resultMap>
-	
-	<!-- <select id="cloverInfo" resultMap="cloverResultSet" >
-		SELECT * 
-		FROM CLOVER
-	</select>  -->
 	
 	
 	<!-- 결제정보 추가 -->
@@ -26,13 +24,23 @@
 		VALUES (#{pNo},#{pUno}, #{pCloverCnt}, SYSDATE)		
 	</insert>
 	
-	<!-- <select id="selectLog" resultMap="cloverResultSet"  >
-		SELECT P_NO, P_DATE, CLOVER_CNT, CLOVER_
-		FROM CLOVER
-	</select>  -->
+	
+	<!-- 클로버 충전내역 - 카운트 -->
+	<select id="getAllchargeClover" resultType="_int">
+		SELECT COUNT(*)
+		FROM PAYMENT P JOIN CLOVER C ON (P.P_CLOVER_CNT = C.CLOVER_NO)
+		WHERE P_UNO=#{ptUno}
+	</select> 
 	
 	
-	
+	<!-- 클로버 충전내역 - 리스트 -->
+	<select id="selectChargeList"  parameterType="_int" resultMap="paymentResultSet" >
+  		SELECT ROWNUM, P_DATE,CLOVER_CNT, CLOVER_MONEY, P_NO  
+		FROM (	SELECT P.P_DATE, C.CLOVER_CNT, C.CLOVER_MONEY, P.P_NO
+				FROM PAYMENT P JOIN CLOVER C ON (P.P_CLOVER_CNT = C.CLOVER_NO)
+				WHERE P.P_UNO=#{ptUno}
+				ORDER BY P.P_DATE DESC)
+	</select> 
 	
 	
 </mapper>  

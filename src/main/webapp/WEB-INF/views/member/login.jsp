@@ -31,7 +31,6 @@
 						<div class="title-line">or</div>
 						<!-- API -->
 						<div class="center-block">
-             				<!-- <a href="#" class="btn btn-social btn-block facebook">구글로 로그인</a> -->
              				<a id="kakao-login-btn"></a>
              				<a href="http://developers.kakao.com/logout"></a>
 						</div>
@@ -48,34 +47,39 @@
 		</div>
 	</section>
 	
-	<script type="text/javascript">
-	//발급받은 javaScript 키
-	Kakao.init('41f4585e7739019ab56a3fd81ac273c4');	
-	
-	// 카카오 로그인 버튼 생성
-	Kakao.Auth.createLoginButton({
-		container: '#kakao-login-btn',
-		success : function(authObj){
-			Kakao.API.request({
-				url : "/v1/user/me"
-				, success : function(res){
-					alert(JSON.stringify(res));								// kakao.api.request 에서 불러온 결과값 json형태로 출력
-					alert(JSON.stringify(authObj));							// Kakao.Auth.createLoginButton에서 불러온 결과값 json형태로 출력
-					
-					console.log("id > " + res.id);							// 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
-					console.log("email > " + res.kaccount_email);			// 콘솔 로그에 email 정보 출력
-					console.log("nickName > " + res.properties['nickname']);// 콘솔 로그에 닉네임 출력 = res.properties.nickname
-					console.log("token > " + authObj.access_token);			// 콘솔 로그에 토큰값 출력
-					
-					alert(res.properties.nickname+'님 환영합니다.');
-					location.href="/goMain.me";
-				}	
-			})
-		},
-				fail 	: 	function(error){
-					alert(JSON.stringify(error));
-				}
+<script type="text/javascript">
+	$(document).ready(function(){
+		Kakao.init("${kakaoAuth}");	
+
+		// 카카오 로그인 버튼 생성
+		Kakao.Auth.createLoginButton({
+	       container: '#kakao-login-btn'
+	      ,persistAccessToken :false
+	      ,success: function(authObj) {
+		    	// 로그인 성공시, API를 호출합니다.
+	            Kakao.API.request({
+	            	 url: '/v2/user/me'
+	            	,success: function(res) {
+	              			  	var privateInfo = res;
+	              			  	console.log(privateInfo);
+	              			  	console.log(Kakao.Auth.getAccessToken());
+	              			  	Kakao.Auth.logout(function () {
+	              			  			console.log(Kakao.Auth.getAccessToken());
+	              			  		});
+	              			  	Kakao.cleanup();
+	              			  }
+	            	,fail: function(error) {
+				              alert(JSON.stringify(error));
+				            }
+          		});
+	      },
+	      fail: function(err) {
+	    	  alert("카카오 로그인 에러");
+	    	  console.error("error > " + JSON.stringify(err));
+	      }
+	    });
 	});
+	
 </script>
 	
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
