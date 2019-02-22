@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="ExchangeLog">
+	<resultMap type="com.kh.tt.myPage.model.vo.ExchangeLog" id="exchangeLogResultSet">
+		<id property="elNo" column="EL_NO"/>
+		<result property="elExNo" column="EL_EX_NO"/>
+		<result property="elDate" column="EL_DATE"/>
+		<result property="elStatus" column="EL_STATUS"/>
+	</resultMap>
+	
+
+
+</mapper>

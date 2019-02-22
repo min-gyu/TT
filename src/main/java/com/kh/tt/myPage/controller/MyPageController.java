@@ -326,13 +326,37 @@ public class MyPageController {
 		return "myPage/bankChk2";
 	}
 	
+	
+	/*클로버 환전관리*/
 	//환전신청 페이지
 	@RequestMapping("exchangeClover.me")
-	public String goexchange() {
+	public String goexchange(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		int mUno = Integer.parseInt(request.getParameter("mUno"));
+		
+		model.addAttribute("mUno", mUno);
+		
 		return "myPage/exchange";
 	}
 	
+	//환전신청내역 DB제출
+	@RequestMapping("exchangeClover2.me")
+	public String exchangeClover2(Model model, HttpServletRequest request, HttpServletResponse response) {
+
+		int mUno = Integer.parseInt(request.getParameter("mUno"));
+		int cnt = Integer.parseInt(request.getParameter("cnt"));
+		
+		//Exchange테이블에 insert
+		//ExchangeLog테이블에 insert
+		//Exchange,ExchangeLog,Member 조인해서 테이블출력
+		/*int result = mps.insertExchange;*/
+
+		
+		System.out.println("exchangeClover2에서 받은 : "+mUno+", "+cnt);
+		
+		return "redirect:goMain.me";
 	
+	}
 	
 	//My문의 페이지
 	@RequestMapping("question.me")

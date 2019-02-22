@@ -27,6 +27,10 @@
 			alias="PtClover" />
 		<typeAlias type="com.kh.tt.channel.model.vo.Relation"
 			alias="Relation" />
+		<typeAlias type="com.kh.tt.myPage.model.vo.Exchange"
+			alias="Exchange" />
+		<typeAlias type="com.kh.tt.myPage.model.vo.ExchangeLog"
+			alias="ExchangeLog" />	
 
 	</typeAliases>
 	<mappers>
@@ -41,7 +45,8 @@
 		<mapper resource="mappers/cqandAt-mapper.xml" />
 		<mapper resource="mappers/ptclover-mapper.xml" />
 		<mapper resource="mappers/relation-mapper.xml"/>
-		
+		<mapper resource="mappers/exchange-mapper.xml"/>
+		<mapper resource="mappers/exchangelog-mapper.xml"/>
 	</mappers>
 
 </configuration>

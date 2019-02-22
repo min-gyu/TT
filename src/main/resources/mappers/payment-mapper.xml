@@ -11,6 +11,7 @@
 		<result property="pUno" column="P_UNO"/>
 		<result property="pCloverCnt" column="P_CLOVER_CNT"/>
 		<result property="pDate" column="P_DATE"/>
+		
 	</resultMap>
 	
 	<!-- <select id="cloverInfo" resultMap="cloverResultSet" >
