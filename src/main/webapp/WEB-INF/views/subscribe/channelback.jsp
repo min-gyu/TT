@@ -24,7 +24,7 @@
     content: '';
 }
 .favor_all .ready_box {
-    height: 100px;
+    height: 175px;
     padding: 14px 0 0 0;
 }
 .favor_all .ready_box a {
@@ -125,72 +125,41 @@
     color: #999;
 }
 </style>
-
-<script type="text/javascript">
-	var uno = ${sessionScope.loginUser.uno};
-	console.log(uno);
-	
-	$(document).ready(function(){
-		subChannelList(uno);
-	});
-	
-	function subChannelList(uno){
-		console.log("HI");
-		console.log("uno >" + uno);
-		
-		$.ajax({
-			url		:	"${pageContext.request.contextPath}/subChannel.sub",
-			type	:	"post",
-			data	:	{
-							uno	: uno
-						},
-			success	:	function(data) {
-				console.log(data);
-				
-				var htmlCode = "";
-				for(var i = 0; i <data.length; i++){
-					var rowData = data[i];
-					
-					var chNo 		= rowData.chNo;
-					var id 			= rowData.mId;
-					var nickName	= rowData.nickName;
-					
-					htmlCode += '<li>';
-					htmlCode += '<div class="ready_box">';
-					htmlCode += "<a href='goChannel.ch?uNo=" + chNo + "'>";
-					htmlCode += '<span class="nick">' + nickName + '</span>';
-					htmlCode += '<span class="afid">' + id + '</span>';
-					htmlCode += '</div>';
-					htmlCode += '</li>';
-				}
-				$("#channel_area").html(htmlCode);
-			},
-			error	:	function(){
-				alert("channel 조회 실패")
-			}
-				
-		});
-	}
-</script>
-
 <section id="channel" class="container">
 	<div class="bor">
 		<div class="tit_area">
 			<h4>channel</h4>
 		</div>
 		<div class="listarea favor_all">
-			<ul id="channel_area">
-				<!-- 
+			<ul>
 				<li>
-					<div class="ready_box">
+					<div class="ready_box ">
 						<a href="http://www.afreecatv.com/seokwngud" target="_blank">
+							<!-- <span class="thumb">
+								<img src="//stimg.afreecatv.com/LOGO/se/seokwngud/seokwngud.jpg"
+									onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_profile.gif'"
+									width="62" height="62" title="">
+							</span> -->
 							<span class="nick" user_id="seokwngud">뜨뜨뜨뜨-</span>
 							<span class="afid">seokwngud</span>
+							<!-- <span class="date"><span>최근방송</span> : 2019-02-03 23:00</span> -->
 						</a>
+						<!-- 
+						<a href="javascript:;" id="favorite_delete" class="cast_delete">
+							<span class="favorite">
+								<em>즐겨찾기 삭제</em>
+							</span>
+						</a>
+						<a href="javascript:;" class="cast_fixing" favorite_no="472801856">
+							<span><em>목록 상단고정</em></span>
+						</a>
+						 -->
 					</div>
 				</li>
-				 -->
 			</ul>
+			<!-- <div class="more_list" style="display: none">
+				<a href="javascript:;">더보기<em></em></a>
+			</div> -->
 		</div>
 	</div>
 </section>
