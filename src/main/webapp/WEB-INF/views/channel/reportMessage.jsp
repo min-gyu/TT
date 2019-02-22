@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,10 @@
 </style>
 </head>
 <body>
-	<form action="#" method="post">
+<c:set var="contextPath"
+		value="${ pageContext.servletContext.contextPath }"
+		scope="application" />
+	<form action="${contextPath}/insertBReport.ch" method="post" enctype="multipart/form-data">
 		<!-- hidden 부분 수정 필요 -->
 		<input type="hidden" name="userId" id="userId">
 		<p style="color:green; margin:1px; margin-top:6px; margin-left:12px;" >신고하기</p>
@@ -20,26 +24,30 @@
 		<div style="margin-left:10px;">
 			아이디&nbsp;
 			<!-- 아이디 있는지 없는지 유효성 검사 필요 -->
-			<input type="text" name="id" size="48" style="font-size:16px; height:30px; width:86%;">
+			<c:set var="bcuNo" value="${sessionScope.loginUser.uno }" />
+				<c:set var="loginUser" value="${sessionScope.loginUser.userId}" />
+			<input type="text" name="id" size="48" style="font-size:16px; height:30px; width:86%;" value="${loginUser}" readonly>
+			<input type="hidden" name="bctargetNo" value="${bNo }">
+			<input type="hidden" name="bcuNo" value="${bcuNo }">
 		</div>
 		<br>
 		<div>사유</div>
 		<div>
-			<textarea name="content" maxlength="5000" placeholder="최대 5,000자 까지 작성 가능합니다." style="resize: none; font-size:16px; width:96%; height:360px; margin-left:10px;"></textarea>
+			<textarea name="bcReason" maxlength="5000" placeholder="최대 5,000자 까지 작성 가능합니다." style="resize: none; font-size:16px; width:96%; height:360px; margin-left:10px;"></textarea>
 		</div>
 		<br>
 		<div align="center">
-			<input type="submit" class="btn btn-success" value="신고하기">&nbsp;
+			<button type="submit" class="btn btn-success" value="신고하기"></button>&nbsp;
 			<input type="button" id="aa" class="btn btn-light" value="취소"> 
 		</div>
 	</form> 
+	</body>
 <script>
 	$("#aa").click(
 		function() {
 			window.close();
 		});
 </script>
-</body>
 </html>
 
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="BoardClaim">
+  	<resultMap type="com.kh.tt.channel.model.vo.BoardClaim"
+  	id="boardclaimResultSet">
+  	<id property="bcNo" column="BC_NO"/>
+  	<result property="bcuNo" column="BC_UNO"/>
+  	<result property="bctargetNo" column="BC_TARGET_NO"/>
+  	<result property="bcReason" column="BC_RESAON"/>
+  	<result property="bcDate" column="BC_DATE"/>
+
+  	
+  	</resultMap>
+  
+  
+  </mapper>

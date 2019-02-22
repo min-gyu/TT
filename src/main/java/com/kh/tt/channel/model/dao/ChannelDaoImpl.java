@@ -98,20 +98,47 @@ public class ChannelDaoImpl implements ChannelDao{
 		return result;
 	}
 	
+	//VOD개수 출력하기 메소드
 	@Override
 	public int getListCount(Board b,SqlSessionTemplate sqlSession) {
 		// TODO Auto-generated method stub
 		int result=sqlSession.selectOne("Board.getListCount",b);
 		return result;
 	}
+	//회원정보 뽑기 메소드
 	@Override
 	public Member selectmInfo(int uNo, SqlSessionTemplate sqlSession) {
 		Member result=sqlSession.selectOne("Member.selectmInfo", uNo);
 		return result;
 	}
+	//댓글 추가 메소드
 	@Override
 	public Object insertDet(HashMap<String, Object> map, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("Board.insertDet", map);
+	}
+	//댓글 리스트 카운트 메소드
+	@Override
+	public int listDetCount(int bNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Board.selectDCount",bNo);
+	}
+	//댓글 출력하기 메소드
+	@Override
+	public List<Board> listDet(HashMap<Object, Integer> map, SqlSessionTemplate sqlSession) {
+		
+	List<Board> result=sqlSession.selectList("Board.listDet",map);
+	System.out.println("listDet: " +result);
+	return result;//게시물 번호랑 페이지 정보로 목록 출력
+	}
+	//댓글 삭제하기 메소드
+	@Override
+	public Object deleteDet(HashMap<String, Integer> map, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("Board.deleteDet", map);	
+		}
+	//댓글 삭제 후 돌아가기 메소드
+	@Override
+	public int onebNo(int bNo, SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("Board.selectonebNo", bNo);
 	}
 	
 	

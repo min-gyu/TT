@@ -4,6 +4,15 @@
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
+<style>
+#report:hover {
+	cursor: pointer
+}
+
+#subscribe:hover {
+	cursor: pointer
+}
+</style>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="shortcut icon" href="/resources/channel/img/fav.png">
@@ -84,11 +93,6 @@
 
 					</div>
 					<div class="col-md-8" style="max-width: 100% !important";>
-						<!-- <div>
-						
-							<button onclick="location.href='update_board.ch'" class="btn btn-danger btn-sm">수정</button>
-							<button class="btn btn-danger btn-sm">삭제</button>
-						</div> -->
 
 						<div>
 							<!-- ion-ios-bell -->
@@ -97,6 +101,7 @@
 								href="addSubscribe.ch?CuNo=${m.uno }&&uNo=${loginUser}&&bNo=${b.bNo}">
 								<i class="ion-ios-bell-outline"
 								style="font-size: 28px; padding-left: 2px;"></i> 구독
+
 							</a>
 						</div>
 						<div>
@@ -111,7 +116,7 @@
 						<div class="comments">
 							<h3 class="title">댓글란</h3>
 							<div class="comment-list">
-								<div class="item">
+								<!-- <div class="item">
 									<div class="user">
 										<figure>
 											<img src="images/img01.jpg">
@@ -125,39 +130,8 @@
 												incididunt ut labore et dolore</div>
 										</div>
 									</div>
-								</div>
-								<div class="item">
-									<div class="user">
-										<figure>
-											<img src="images/img01.jpg">
-										</figure>
-										<div class="details">
-											<h5 class="name">Mark Otto</h5>
-											<h5 class="name">@abc123</h5>
-											<div class="time">24 Hours</div>
-											<div class="description">Lorem ipsum dolor sit amet,
-												consectetur adipisicing elit, sed do eiusmod tempor
-												incididunt ut labore et dolore</div>
-
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="user">
-										<figure>
-											<img src="images/img01.jpg">
-										</figure>
-										<div class="details">
-											<h5 class="name">Mark Otto</h5>
-											<h5 class="name">@abc123</h5>
-											<div class="time">24 Hours</div>
-											<div class="description">Lorem ipsum dolor sit amet,
-												consectetur adipisicing elit, sed do eiusmod tempor
-												incididunt ut labore et dolore</div>
-
-										</div>
-									</div>
-								</div>
+								</div> -->
+								<div id="listReply"></div>
 							</div>
 
 							<!-- 댓글란 : 로그인 했을때 보이기! -->
@@ -182,7 +156,7 @@
 									<label for="message">댓글 <span class="required"></span></label>
 									<textarea class="form-control" id="ReplyContent"
 										placeholder="댓글 입력란"></textarea>
-									
+
 									<!-- 작성자 회원번호 -->
 									<input type="hidden" id="buNo"
 										value="${sessionScope.loginUser.uno }">
@@ -194,6 +168,7 @@
 							</div>
 
 							<!-- 댓글란 end : 로그인 했을때 보이기! -->
+
 
 						</div>
 
@@ -319,12 +294,6 @@
 	<script src="/resources/channel/js/main.js"></script>
 </body>
 <script type="text/javascript">
-	$("#report").click(
-			function() {
-				window.open("/report.ch", "신고하기",
-						"width=550, height=550, left=100, top=100");
-			});
-
 	var msg = '<c:out value="${msg}"/>';
 	console.log(msg);
 
@@ -334,8 +303,13 @@
 		}
 	});
 
-	/* $(document).ready(function(){ */
+	$("#report").click(
+			function() {
+				window.open("/report.ch?bNo=${b.bNo}", "신고하기",
+						"width=550, height=550, left=100, top=100");
+			});
 
+	listReply("1");
 	$("#ReplyBtn").click(
 			function() {
 				var ReplyContent = $("#ReplyContent").val();
@@ -348,11 +322,25 @@
 					type : "post",
 					url : "${contextPath}/insertDet.ch",
 					data : "ReplyContent=" + ReplyContent + "&CuNo=" + CuNo
-							+ "&bNo=" + bNo+ "&uNo=" + uNo,
-					success : function() {
+							+ "&bNo=" + bNo + "&uNo=" + uNo,
+					success : function(result) {
 						alert("댓글이 등록되었습니다.");
+						listReply("1");
 					}
 				});
 			});
+
+	function listReply(num) {
+		console.log(num);
+		$.ajax({
+			type : "get",
+			url : "${contextPath}/listDet.ch?bNo=${b.bNo}&curPage=" + num,
+			success : function(result) {
+				$("#listReply").html(result);
+			}
+		});
+	}
+
+
 </script>
 </html>

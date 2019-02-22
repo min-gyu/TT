@@ -24,6 +24,7 @@ import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.channel.model.service.ChannelService;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
+import com.kh.tt.channel.model.vo.BoardClaim;
 import com.kh.tt.channel.model.vo.pagination;
 
 @Controller
@@ -42,10 +43,11 @@ public class ChannelController {
 	public ModelAndView goChannel(@RequestParam int uNo, Member m) {
 		System.out.println("채널주인회원번호 : " + uNo);
 		ModelAndView mav = new ModelAndView();
-		m = cs.selectmInfo(uNo);
+		m = cs.selectmInfo(uNo);// 채널 주인 정보 출력
 		System.out.println(m);
 		mav.setViewName("channel/channel");
 		mav.addObject("m", m);
+
 		return mav;
 
 	}
@@ -55,15 +57,22 @@ public class ChannelController {
 	public ModelAndView vod_List(HttpServletRequest request, Board b, @RequestParam(defaultValue = "1") int curPage,
 			int CuNo, Member m) {
 
-		m = cs.selectmInfo(CuNo);
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		int listCount = cs.getLisCount(b);
 
 		pagination pagination = new pagination(listCount, curPage);
 
-		System.out.println(pagination);
+		System.out.println("vod_list : " + pagination);
+		System.out.println("vod_list : " + curPage);
 
-		List<Board> list = cs.vodList(pagination.getStartIndex(), pagination.getPageSize());
+		List<Board> list;
 
+		if (curPage == 1) {
+
+			list = cs.vodList(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex());
+		} else {
+			list = cs.vodList(pagination.getStartIndex() + 1, (pagination.getPageSize() + pagination.getStartIndex()));
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("channel/vod_List");
 		mav.addObject("list", list);
@@ -79,13 +88,13 @@ public class ChannelController {
 	public ModelAndView vod_oneList(@RequestParam int bNo, HttpSession session, int CuNo, Member m, String msg) {
 		System.out.println(bNo);
 		System.out.println("vod_oneList.ch : " + CuNo);
-		m = cs.selectmInfo(CuNo);
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		cs.increaseViewC(bNo, session);
 		System.out.println(msg);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("channel/vod_oneList");
-		Board b = cs.vodOne(bNo);
+		Board b = cs.vodOne(bNo);// VOD게시글 정보
 
 		Attachment a = cs.vodOneR(bNo);
 		mav.addObject("b", b);
@@ -119,22 +128,74 @@ public class ChannelController {
 
 	}
 
-	// 게시물 번호 , 로그인 회원번호 , 채널 번호 , 내용
+	// 댓글 목록 출력 메소드
+	@RequestMapping("listDet.ch")
+	public ModelAndView listDet(@RequestParam int bNo, @RequestParam(defaultValue = "1") int curPage,
+			HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		int count = cs.listDetCount(bNo);// 댓글 갯수 뽑아오기
+		System.out.println("댓글 개수 : " + count);
+
+		pagination pagination = new pagination(count, curPage);
+
+		System.out.println("listDet : " + pagination);
+		List<Board> list;
+
+		if (curPage == 1) {
+			list = cs.listDet(bNo, pagination.getStartIndex() + 1,
+					pagination.getPageSize() + pagination.getStartIndex());
+		} else {
+			list = cs.listDet(bNo, pagination.getStartIndex() + 1,
+					(pagination.getPageSize() + pagination.getStartIndex()));
+		}
+
+		System.out.println("list출력전 : " + list);
+		mav.setViewName("channel/replyPage");
+		mav.addObject("list", list);
+		mav.addObject("count", count);
+		mav.addObject("pagination", pagination);
+
+		return mav;
+
+	}
+
+	// 댓글 추가하기 메소드
 	@RequestMapping("insertDet.ch")
-	public String insertDet(Board db, HttpSession session, @RequestParam(value = "ReplyContent") String ReplyContent,
-			@RequestParam(value = "CuNo") int CuNo, @RequestParam(value = "bNo") int bNo,
-			@RequestParam(value="uNo")int uNo) {
-		
-		HashMap<String,Object> map=new HashMap<String,Object>();
-		map.put("CuNo", CuNo);//채널 번호
-		map.put("ReplyContent",ReplyContent);//댓글 내용
-		map.put("uNo", uNo);//작성자 번호
-		map.put("bNo", bNo);//게시물 번호
-		
-		cs.insertDet(map);//댓글 추가 완료
-		
-		
-		return null;
+	public ModelAndView insertDet(Board db, HttpSession session,
+			@RequestParam(value = "ReplyContent") String ReplyContent, @RequestParam(value = "CuNo") int CuNo,
+			@RequestParam(value = "bNo") int bNo, @RequestParam(value = "uNo") int uNo) {
+		System.out.println("댓글 인서트 문");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("CuNo", CuNo);// 채널 번호
+		map.put("ReplyContent", ReplyContent);// 댓글 내용
+		map.put("uNo", uNo);// 작성자 번호
+		map.put("bNo", bNo);// 게시물 번호
+
+		cs.insertDet(map);// 댓글 추가 완료
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("channel/vod_oneList");
+
+		return mav;
+	}
+
+	// 댓글 삭제하기 메소드
+	@RequestMapping("deleteDet.ch")
+	public String deleteDet(@RequestParam(value = "CuNo") int CuNo, @RequestParam(value = "bNo") int bNo,
+			@RequestParam(value = "buId") String buId) {
+		System.out.println("삭제 : " + buId);
+		System.out.println("삭제 : " + CuNo);
+		System.out.println("삭제 : " + bNo);
+
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("CuNo", CuNo);
+		map.put("bNo", bNo);
+		cs.deleteDet(map);
+		System.out.println(cs.deleteDet(map));
+
+		int onebNo = cs.onebNo(bNo);
+
+		return "redirect:vod_oneList.ch" + "?bNo=" + onebNo + "&&CuNo=" + CuNo;
+
 	}
 
 	// 게시판 리스트 페이지
@@ -165,8 +226,20 @@ public class ChannelController {
 
 	// 게시판 신고하기 팝업 페이지
 	@RequestMapping("report.ch")
-	public String report() {
-		return "channel/reportMessage";
+	public ModelAndView report(@RequestParam int bNo) {
+		System.out.println("신고하기 전송시 게시물 번호 : "+bNo);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("bNo", bNo);
+		mav.setViewName("channel/reportMessage");
+		return mav;
+	}
+	
+	@RequestMapping("insertBReport.ch")
+	public String insertReport() {
+		
+		System.out.println("도착");
+		return null;
+		
 	}
 
 	// VOD업로드 메소드
