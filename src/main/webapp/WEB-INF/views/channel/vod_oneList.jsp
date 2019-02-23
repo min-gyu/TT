@@ -190,7 +190,7 @@
 						<div class="single-sidebar-widget popular-post-widget">
 							<c:set var="loginUser" value="${sessionScope.loginUser.userId }" />
 							<c:if test="${m.userId eq loginUser}">
-								<a href="manage_C.ch?CuNo=${m.uno }" type="hidden"
+								<a href="goBannerProfile.ch?CuNo=${m.uno }" 
 									style="color: #6ac169;"><h4 class="popular-title"
 										type="hidden">방송국 관리</h4></a>
 
@@ -298,7 +298,7 @@
 	console.log(msg);
 
 	$(function() {
-		if (msg != null) {
+		if (msg) {
 			alert(msg);
 		}
 	});

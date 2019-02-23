@@ -128,7 +128,7 @@
 	<!-- 채널 이동시 필요한 정보(은채) -->
 	<select id="selectmInfo" parameterType="Integer"
 		resultMap="memberVO">
-		SELECT M_UNO,M_ID,M_NICKNAME,M_NAME
+		SELECT M_UNO,M_ID,M_NICKNAME,M_NAME,CH_NO
 		FROM MEMBER
 		JOIN CHANNEL
 		ON(CH_UNO=M_UNO)

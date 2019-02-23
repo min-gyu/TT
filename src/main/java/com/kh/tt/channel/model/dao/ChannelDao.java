@@ -44,4 +44,6 @@ public interface ChannelDao {
 
 	int onebNo(int bNo, SqlSessionTemplate sqlSession);
 
+	int insertbImg(Attachment a, SqlSessionTemplate sqlSession);
+
 }

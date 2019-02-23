@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -90,116 +91,131 @@ div.upload-btn_wrap button { /*버튼 div*/
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
-	
+
 
 	<!-- Start post-content Area -->
 	<section class="post-content-area single-post-area">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-					<div class="row">
-						<h5>배너 설정</h5>
+					<div class="line top">
+						<div>
+							<h5>베너 사진 설정</h5>
+						</div>
 					</div>
-					<div class="row">
-						<table class="table table-bordered">
-							<tbody>
-								<tr>
-									<th style="width: 20%; text-align: center">배너설정</th>
-									<td>
-										<!--input box--> <input type="text" class="upload_text"
-										readonly="readonly"> <!--button-->
-										<div class="upload-btn_wrap">
-											<button type="button" title="파일찾기">
-												<span>파일찾기</span>
-											</button>
-											<input type="file" class="input_file" title="파일찾기">
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2" align="center"><button type="button"
-											class="btn btn-dark" id="saveBtn">저장</button></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="row">
+					<form action="updateBimg.ch?CuNo=${m.uno}" method="post"
+						enctype="multipart/form-data">
+						<div class="row">
+
+
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th style="width: 20%; text-align: center">*사진 설정</th>
+
+										<th><input type="file" name="banner" title="파일찾기"></th>
+
+									</tr>
+									<tr>
+										<td colspan="2" align="center"><button type="submit"
+												class="btn btn-primary more" id="saveBtn"
+												style="padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; width: 102px; height: 32px;">저장</button></td>
+									</tr>
+								</tbody>
+							</table>
+					</form>
+
+				</div>
+				<!-- <div class="row">
+						<h5 class="ion-android-favorite">프로필 사진 설정</h5>
+					</div> -->
+				<div id="img">
+					<c:if test="${not empty a.atMName}">
+						<img
+							src="${ contextPath }/resources/uploadFiles/banner/${a.atMName}${ext}"
+							style="width: 300px;">
+					</c:if>
+				</div>
+				<div class="line top">
+					<div>
 						<h5>프로필 사진 설정</h5>
 					</div>
-					<div class="row">
-						<table class="table table-bordered">
-							<tbody>
-								<tr>
-									<th style="width: 20%; text-align: center">배너설정</th>
-									<td>
-										<!--input box--> <input type="text" class="upload_text"
-										readonly="readonly"> <!--button-->
-										<div class="upload-btn_wrap">
-											<button type="button" title="파일찾기">
-												<span>파일찾기</span>
-											</button>
-											<input type="file" class="input_file" title="파일찾기">
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2" align="center"><button type="button"
-											class="btn btn-dark" id="saveBtn">저장</button></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
 				</div>
+				<div class="row">
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th style="width: 20%; text-align: center">*사진 설정</th>
+
+								<th><input type="file" name="profile" title="파일찾기"></th>
+
+							</tr>
+							<tr>
+								<td colspan="2" align="center"><button type="button"
+										class="btn btn-primary more" id="saveBtn"
+										style="padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; width: 102px; height: 32px;">저장</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 
 
-				<!-- 오른쪽 사이드바 이동 -->
-				<div class="col-lg-4 sidebar-widgets">
-					<div class="widget-wrap">
-						<div class="single-sidebar-widget user-info-widget">
-							<img src="/resources/channel/img/blog/user-info.png" alt="">
-							<a><h4>감스트</h4></a>
-						</div>
+			<!-- 오른쪽 사이드바 이동 -->
+			<div class="col-lg-4 sidebar-widgets">
+				<div class="widget-wrap">
+					<div class="single-sidebar-widget user-info-widget">
+						<img src="/resources/channel/img/blog/user-info.png" alt="">
+						<a><h4>${m.nickName }</h4></a>
+						<p>@${m.userId }</p>
+					</div>
 
-							<div class="single-sidebar-widget post-category-widget">
-							<h4 class="category-title">방송국 관리</h4>
-							<ul class="cat-list">
-								<li><a href="/goChannelIntro.ch" class="" style="text-align: center;">
-										<p>채널 소개 설정</p>
-								</a></li>
-								<li><a href="#" class="" style="text-align: center;">
-										<p>주력 카테고리 설정</p>
+					<div class="single-sidebar-widget post-category-widget">
+						<h4 class="category-title">방송국 관리</h4>
+						<ul class="cat-list">
+							<li><a href="/goChannelIntro.ch" class=""
+								style="text-align: center;">
+									<p>채널 소개 설정</p>
+							</a></li>
+							<li><a href="#" class="" style="text-align: center;">
+									<p>주력 카테고리 설정</p>
 
-								</a></li>
-								<li><a href="/goBannerProfile.ch" class="" style="text-align: center;">
-										<p>베너 & 프로필 사진 설정</p>
+							</a></li>
+							<li><a href="/goBannerProfile.ch" class=""
+								style="text-align: center;">
+									<p>베너 & 프로필 사진 설정</p>
 
-								</a></li>
-								<li><a href="/goVodAdmin.ch" class="" style="text-align: center;">
-										<p>VOD 관리</p>
+							</a></li>
+							<li><a href="/goVodAdmin.ch?CuNo=${m.uno }" class=""
+								style="text-align: center;">
+									<p>VOD 관리</p>
 
-								</a></li>
-								<li><a href="/subscriberAdmin.ch" class="" style="text-align: center;">
-										<p>구독자 관리</p>
+							</a></li>
+							<li><a href="/subscriberAdmin.ch" class=""
+								style="text-align: center;">
+									<p>구독자 관리</p>
 
-								</a></li>
-								<li><a href="/managerAdmin.ch" class="" style="text-align: center;">
-										<p>매니저 관리</p>
+							</a></li>
+							<li><a href="/managerAdmin.ch" class=""
+								style="text-align: center;">
+									<p>매니저 관리</p>
 
-								</a></li>
-								<li><a href="#" class="" style="text-align: center;">
-										<p>채팅 필터 관리</p>
+							</a></li>
+							<li><a href="#" class="" style="text-align: center;">
+									<p>채팅 필터 관리</p>
 
-								</a></li>
-								<li><a href="manage_black.ch" class="" style="text-align: center;">
-										<p>블랙 리스트</p>
+							</a></li>
+							<li><a href="manage_black.ch" class=""
+								style="text-align: center;">
+									<p>블랙 리스트</p>
 
-								</a></li>
+							</a></li>
 
-							</ul>
-						</div>
+						</ul>
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 	</section>
 
@@ -215,6 +231,13 @@ div.upload-btn_wrap button { /*버튼 div*/
 		});
 	</script>
 
+	<script type="text/javascript">
+		var message = '${msg}';
+		console.log(message)
+		if (message) {
+			alert(message);
+		}
+	</script>
 
 	<script src="/resources/channel/js/vendor/jquery-2.2.4.min.js"></script>
 	<script
