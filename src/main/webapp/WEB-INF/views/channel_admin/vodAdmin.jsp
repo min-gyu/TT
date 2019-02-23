@@ -59,7 +59,7 @@
 						<div class="col-md-offset-9">
 							<div class="info"
 								style="padding-top: 20px; padding-bottom: 20px;">
-								<a href="/vodAdd.ch" class="genric-btn info circle arrow">VOD
+								<a href="/vodAdd.ch?CuNo=${m.uno }" class="genric-btn info circle arrow">VOD
 									추가<span class="lnr lnr-arrow-right"></span>
 								</a>
 							</div>

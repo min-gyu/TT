@@ -45,6 +45,7 @@ public class ChannelController {
 		ModelAndView mav = new ModelAndView();
 		m = cs.selectmInfo(uNo);// 채널 주인 정보 출력
 		System.out.println(m);
+		//채널 베너랑 프로필 사진 담아가기
 		mav.setViewName("channel/channel");
 		mav.addObject("m", m);
 
@@ -110,11 +111,16 @@ public class ChannelController {
 
 	// 구독하기 메소드-채널번호 , 로그인 회원 번호
 	@RequestMapping("addSubscribe.ch")
-	public String addSubscribe(Model model, int uNo, int CuNo, int bNo) {
-		System.out.println("구독 : " + CuNo);// 채널 번호
-		System.out.println("구독 : " + uNo);// 로그인 회원 아이디
+	public String addSubscribe(Model model, int uNo, int CuNo, int bNo,Member m) {
+		System.out.println("구독 : " + CuNo);// 채널 회원 번호
+		System.out.println("구독 : " + uNo);// 로그인 회원 번호
 		System.out.println("구독 : " + bNo);// 게시물번호
-		int result = cs.addSubscirbe(CuNo, uNo);
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		
+		int ChNo=m.getChNo();//채널 주인 채널 번호
+		
+		int result = cs.addSubscirbe(ChNo, uNo);
+		
 		System.out.println("결과 확인 : " + result);
 		if (result == 1) {
 			model.addAttribute("msg", "이미 구독 하셨습니다!");
@@ -161,12 +167,15 @@ public class ChannelController {
 
 	// 댓글 추가하기 메소드
 	@RequestMapping("insertDet.ch")
-	public ModelAndView insertDet(Board db, HttpSession session,
+	public ModelAndView insertDet(Board db, HttpSession session,Member m,
 			@RequestParam(value = "ReplyContent") String ReplyContent, @RequestParam(value = "CuNo") int CuNo,
 			@RequestParam(value = "bNo") int bNo, @RequestParam(value = "uNo") int uNo) {
-		System.out.println("댓글 인서트 문");
+		
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		int ChNo=m.getChNo();//채널 주인 채널 번호
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("CuNo", CuNo);// 채널 번호
+		map.put("ChNo", ChNo);// 채널 번호
 		map.put("ReplyContent", ReplyContent);// 댓글 내용
 		map.put("uNo", uNo);// 작성자 번호
 		map.put("bNo", bNo);// 게시물 번호
@@ -180,14 +189,17 @@ public class ChannelController {
 
 	// 댓글 삭제하기 메소드
 	@RequestMapping("deleteDet.ch")
-	public String deleteDet(@RequestParam(value = "CuNo") int CuNo, @RequestParam(value = "bNo") int bNo,
+	public String deleteDet(Member m,@RequestParam(value = "CuNo") int CuNo, @RequestParam(value = "bNo") int bNo,
 			@RequestParam(value = "buId") String buId) {
 		System.out.println("삭제 : " + buId);
 		System.out.println("삭제 : " + CuNo);
 		System.out.println("삭제 : " + bNo);
 
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		int ChNo=m.getChNo();//채널 주인 채널 번호
+		
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("CuNo", CuNo);
+		map.put("ChNo", CuNo);
 		map.put("bNo", bNo);
 		cs.deleteDet(map);
 		System.out.println(cs.deleteDet(map));
@@ -227,28 +239,33 @@ public class ChannelController {
 	// 게시판 신고하기 팝업 페이지
 	@RequestMapping("report.ch")
 	public ModelAndView report(@RequestParam int bNo) {
-		System.out.println("신고하기 전송시 게시물 번호 : "+bNo);
-		ModelAndView mav=new ModelAndView();
+		System.out.println("신고하기 전송시 게시물 번호 : " + bNo);
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("bNo", bNo);
 		mav.setViewName("channel/reportMessage");
 		return mav;
 	}
-	
+
 	@RequestMapping("insertBReport.ch")
 	public String insertReport() {
-		
+
 		System.out.println("도착");
 		return null;
-		
+
 	}
 
 	// VOD업로드 메소드
 	@RequestMapping("insertvod.ch")
-	public String insertvod(Model model, Board b, Attachment a, HttpSession session, HttpServletRequest request,
+	public String insertvod(int CuNo,Member m,Model model, Board b, Attachment a, HttpSession session, HttpServletRequest request,
 			@RequestParam(value = "video", required = false) MultipartFile video) {
 
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		int ChNo=m.getChNo();//채널 주인 채널 번호
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		
 		System.out.println("Board" + b);
 		System.out.println("Video" + video);
+		b.setBchNo(ChNo);
 
 		String root = request.getSession().getServletContext().getRealPath("resources");
 
@@ -264,8 +281,6 @@ public class ChannelController {
 
 		try {
 			video.transferTo(new File(filePath + "\\" + changeName + ext));
-
-			System.out.println(video);
 
 			cs.insertVod(b);
 
@@ -285,8 +300,8 @@ public class ChannelController {
 			a.setAtBno(bNo);
 
 			cs.insertAt(a);
-
-			return "redirect:goVodAdmin.ch";// VOD관리 페이지로 이동
+			
+			return "redirect:goVodAdmin.ch"+"?CuNo="+CuNo;// VOD관리 페이지로 이동
 
 		} catch (Exception e) {
 			new File(filePath + "\\" + changeName + ext).delete();
@@ -297,12 +312,69 @@ public class ChannelController {
 
 	}
 
-	// ---------관리자------------
-	@RequestMapping("manage_C.ch")
-	public String manage_C(int CuNo, Member m) {
+	// ***********관리자************
 
-		System.out.println(CuNo);
-		return "channel_admin/channel_admin";
+	// 배너프로필 설정 페이지로 이동하는 메서드(관리자 메인)
+	@RequestMapping("/goBannerProfile.ch")
+	public ModelAndView goBannerProfile(int CuNo, Member m) {
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		System.out.println("채널 주인 정보 : "+m);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("channel_admin/bannerAndProfile");
+		mav.addObject("m", m);
+		return mav;
+	}
+
+	@RequestMapping("updateBimg.ch")
+	public ModelAndView updateBimg(Model model, HttpSession session,int CuNo,Attachment a, HttpServletRequest request,Member m,
+			@RequestParam(value = "banner", required = false) MultipartFile image){
+		System.out.println("updateBimg.ch : " + image);
+		System.out.println(CuNo);// 채널 주인 회원번호
+		
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		int ChNo=m.getChNo();//채널 주인 채널 번호
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String filePath = root + "\\uploadFiles\\banner";
+		ModelAndView mav = new ModelAndView();
+
+		String originFileName = image.getOriginalFilename();
+		String ext = originFileName.substring(originFileName.lastIndexOf("."));
+		
+		//사진 형식이 아닐시 
+		if(!ext.equals(".jpg")&&!ext.equals(".png")&&!ext.equals(".jpeg")) {
+			mav.addObject("msg", "사진이 아닌 파일입니다.(jpg,png.jpeg)");
+			mav.setViewName("channel_admin/bannerAndProfile");
+			return mav;
+		}
+		//-----------------
+		
+		String changeName = CommonUtils.getRandomString();
+		
+		try {
+			image.transferTo(new File(filePath + "\\" + changeName + ext));
+			
+			a.setAtName(originFileName);//원본이름
+			a.setAtMName(changeName);//바뀐이름
+			a.setAtPath(filePath);//파일경로
+			a.setAtCHno(ChNo);//채널 번호
+			
+			
+			int result=cs.insertBimg(a);
+			System.out.println("베너 삽입  : "+result);
+			
+			mav.addObject("a", a);
+			mav.addObject("ext", ext);
+			mav.setViewName("channel_admin/bannerAndProfile");
+			return mav;
+		} catch (Exception e) {
+			
+			new File(filePath + "\\" + changeName + ext).delete();
+
+			model.addAttribute("msg", "VOD 업로드 실패!");
+			mav.setViewName("common/errorPage");
+			return mav;
+		}
 	}
 
 	@RequestMapping("manage_Black.ch")
@@ -322,8 +394,10 @@ public class ChannelController {
 
 	// VOD 관리페이지로 이동시키는 메서드
 	@RequestMapping("goVodAdmin.ch")
-	public ModelAndView goVodAdmin(HttpServletRequest request, Board b, @RequestParam(defaultValue = "1") int curPage) {
-
+	public ModelAndView goVodAdmin(Member m,HttpServletRequest request, int CuNo,Board b, @RequestParam(defaultValue = "1") int curPage) {
+		
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		int ChNo=m.getChNo();//채널 주인 채널 번호
 		List<Board> list;
 		System.out.println("현재 페이지" + curPage);
 		int listCount = cs.getLisCount(b);
@@ -343,13 +417,22 @@ public class ChannelController {
 		mav.addObject("list", list);
 		mav.addObject("listCount", listCount);
 		mav.addObject("pagination", pagination);
+		mav.addObject("m", m);
+		
 		return mav;
 	}
 
 	// VOD 추가 페이지로 이동시키는 메서드
 	@RequestMapping("vodAdd.ch")
-	public String vodAdd() {
-		return "channel_admin/vodAdd";
+	public ModelAndView vodAdd(Member m,int CuNo) {
+		ModelAndView mav = new ModelAndView();
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		int ChNo=m.getChNo();//채널 주인 채널 번호
+		
+		mav.setViewName("channel_admin/vodAdd");
+		mav.addObject("m", m);
+		return mav;
+		
 	}
 
 	// VOD 수정 페이지로 이동하는 메서드
@@ -368,12 +451,6 @@ public class ChannelController {
 	@RequestMapping("/managerAdmin.ch")
 	public String goManagerAdmin() {
 		return "channel_admin/managerAdmin";
-	}
-
-	// 배너프로필 설정 페이지로 이동하는 메서드
-	@RequestMapping("/goBannerProfile.ch")
-	public String goBannerProfile() {
-		return "channel_admin/bannerAndProfile";
 	}
 
 	// 채널소개 페이지로 이동하는 메서드

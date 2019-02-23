@@ -51,6 +51,8 @@ public interface ChannelService{
 	//댓글 삭제후 돌아가기위한 메소드
 	int onebNo(int bNo);
 	
+	int insertBimg(Attachment a);
+	
 	
 	
 	

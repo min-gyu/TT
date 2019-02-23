@@ -61,7 +61,7 @@
 						<div class="col-lg-12">
 							<div class="feature-img" align="center">
 								<img class="img-fluid"
-									src="/resources/images/channel_image.png" 
+									src="/resources/uploadFiles/banner/banner.png" 
 									style="padding-left: 0%;width: 700px;height: 300px;">
 							</div>
 						</div>
@@ -336,7 +336,7 @@
 						<div class="single-sidebar-widget popular-post-widget">
 						<c:set var="loginUser" value="${sessionScope.loginUser.userId }"/>
 							<c:if test="${m.userId eq loginUser}">
-								 <a href="manage_C.ch?CuNo=${m.uno }" 
+								 <a href="goBannerProfile.ch?CuNo=${m.uno }" 
 									style="color: #6ac169;"><h4 class="popular-title" type="hidden">방송국 관리
 											
 											

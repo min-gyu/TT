@@ -30,9 +30,9 @@
 		INSERT INTO BOARD
 		VALUES(
 		SEQ_B_NO.NEXTVAL,
-		'3',
+		#{bchNo},
 		#{buNo},
-		'3',
+		#{bCate},
 		#{bTitle},
 		#{bContent},
 		SYSDATE,
@@ -95,9 +95,9 @@
 	<insert id="insertDet" parameterType="java.util.Map">
 		INSERT INTO BOARD VALUES (
 		SEQ_B_NO.NEXTVAL,
-		#{CuNo},
+		#{ChNo},
 		#{uNo},
-		16,
+		5,
 		null,
 		#{ReplyContent},
 		SYSDATE,
@@ -141,7 +141,7 @@
 		UPDATE BOARD
 		SET
 		B_DEL_STATUS='Y'
-		WHERE B_NO=#{bNo} AND B_CH_NO=#{CuNo}
+		WHERE B_NO=#{bNo} AND B_CH_NO=#{ChNo}
 
 	</update>
 

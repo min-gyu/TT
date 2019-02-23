@@ -141,6 +141,12 @@ public class ChannelDaoImpl implements ChannelDao{
 		return sqlSession.selectOne("Board.selectonebNo", bNo);
 	}
 	
+	//베너사진 추가 메소드
+	@Override
+	public int insertbImg(Attachment a, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("Attachment.insertbImg", a);
+	}
+	
 	
 
 	

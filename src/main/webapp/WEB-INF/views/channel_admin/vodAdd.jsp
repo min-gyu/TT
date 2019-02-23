@@ -103,7 +103,7 @@ div.upload-btn_wrap button { /*버튼 div*/
 					</div>
 					<div class="row">
 
-						<form action="insertvod.ch" method="post" id="frm" name="frm"
+						<form action="insertvod.ch?CuNo=${m.uno}" method="post" id="frm" name="frm"
 							enctype="multipart/form-data">
 							<table class="table table-bordered"
 								style="width: 702px; height: 502px;">
@@ -125,22 +125,11 @@ div.upload-btn_wrap button { /*버튼 div*/
 									<tr>
 										<th scope="col" style="width: 20%; text-align: center"><div
 												>카테고리</div></th>
-										<td><select id="product" name="category" >
-												<option selected="selected"></option>
-												<option value="vod">스포츠</option>
-												<option value="BLOG">먹방</option>
-												<option value="BLOG">뷰티</option>
-												<option value="BLOG">VLOG</option>
-												<option value="BLOG">VOD</option>
-												<option value="BLOG">축구</option>
-												<option value="BLOG">농구</option>
-												<option value="BLOG">배구</option>
-												<option value="BLOG">야구</option>
-												<option value="BLOG">스포츠</option>
-												<option value="BLOG">기타스포츠</option>
-												<option value="BLOG">먹방</option>
-												<option value="BLOG">뷰티</option>
-												<option value="BLOG">VLOG</option>
+										<td><select id="product" name="bCate" >
+												<option value="12">스포츠</option>
+												<option value="13">먹방</option>
+												<option value="14">뷰티</option>
+												<option value="15">VLOG</option>
 										</select></td>
 
 									</tr>

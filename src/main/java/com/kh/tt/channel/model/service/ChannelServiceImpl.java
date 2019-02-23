@@ -156,4 +156,10 @@ public class ChannelServiceImpl implements ChannelService {
 		return cd.onebNo(bNo,sqlSession);
 	}
 
+	//베너사진 추가 메소드
+	@Override
+	public int insertBimg(Attachment a) {
+		return cd.insertbImg(a,sqlSession);
+	}
+
 }
