@@ -1,28 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
 
-<script type="text/javascript">
-	$(document).ready(function(){
-		//mainVodList();
-	});
-	
-	function mainVodList(){
-		$.ajax({
-			url		:	"/mainVodList.me",
-			type	:	"post",
-			data	:	{
-							
-						},
-			success	:	function(data) {
-						console.log(data);
-			},
-			error	:	function(){
-			}
-		});
-	
-</script>
-
-
 <section class="home">
 	<div class="container">
 		<div class="row" >
@@ -50,6 +28,7 @@
 											<div class="creater"><a href="#">뜨뜨</div>
 										<h2><a href="#">[생]한국 축구 중계</a></h2>
 										<footer>
+											<!-- <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>1263</div></a> -->
 											<a href="#" class="love"><i class="fas fa-bullseye"></i> <div>1263</div></a>
 											<a class="btn btn-primary more" href="#">
 												<div>More</div>
@@ -68,6 +47,7 @@
 				</div>
 				
 				<div class="row">
+				
 					<article class="col-md-12 article-list">
 						<div class="inner">
 							<figure>
@@ -97,6 +77,41 @@
 							</div>
 						</div>
 					</article>
+					
+					<!-- 
+					<article class="col-md-12 article-list">
+						<div class="inner">
+							<figure>
+								<a href="#">
+									<img src="/resources/images/news/img11.jpg" alt="Sample Article">
+								</a>
+							</figure>
+							<div class="details">
+								<div class="detail">
+									<div class="category">
+										<a href="#">게임</a>
+									</div>
+									<div class="time">December 19, 2016</div>
+								</div>
+								<div>
+								<div class="creater"><a href="#">뜨뜨</div>
+									<h1>[생] 배틀그라운드</a></h1>
+								</div>
+								<p>
+								방송시간 + 아이콘 조회수로 바꾸기
+								</p>
+								<footer>
+									<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>273</div></a>
+									<a class="btn btn-primary more" href="#">
+										<div>More</div>
+										<div><i class="ion-ios-arrow-thin-right"></i></div>
+									</a>
+								</footer>
+							</div>
+						</div>
+					</article>
+					 -->
+					
 				</div>
 				
 				<div class="line top">
@@ -104,6 +119,7 @@
 				</div>
 				
 				<div class="row">
+				
 					<article class="col-md-12 article-list">
 						<div class="inner">
 							<figure>
@@ -133,6 +149,40 @@
 							</div>
 						</div>
 					</article>
+					
+					<!-- 
+					<article class="col-md-12 article-list">
+						<div class="inner">
+							<figure>
+								<a href="#">
+									<img src="/resources/images/news/img11.jpg" alt="Sample Article">
+								</a>
+							</figure>
+							<div class="details">
+								<div class="detail">
+									<div class="category">
+										<a href="#">게임</a>
+									</div>
+									<div class="time">December 19, 2016</div>
+								</div>
+								<div>
+								<div class="creater"><a href="#">뜨뜨</div>
+									<h1>[생] 배틀그라운드</a></h1>
+								</div>
+								<p>
+								방송시간 + 아이콘 조회수로 바꾸기
+								</p>
+								<footer>
+									<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>273</div></a>
+									<a class="btn btn-primary more" href="#">
+										<div>More</div>
+										<div><i class="ion-ios-arrow-thin-right"></i></div>
+									</a>
+								</footer>
+							</div>
+						</div>
+					</article>
+					 -->
 				</div>
 				
 			</div>

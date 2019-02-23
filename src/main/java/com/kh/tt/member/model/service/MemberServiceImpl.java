@@ -1,6 +1,7 @@
 package com.kh.tt.member.model.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,10 @@ import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.member.model.dao.MemberDao;
 import com.kh.tt.member.model.exception.LoginException;
 import com.kh.tt.member.model.vo.CQAndAttach;
+import com.kh.tt.member.model.vo.MainRanking;
 import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.vo.CQBoard;
+import com.kh.tt.subscribe.model.vo.Subscribe;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -182,7 +185,10 @@ public class MemberServiceImpl implements MemberService {
 		return resultMap;
 	}
 
-	
-
+	// 메인 페이지 vod 랭킹
+	@Override
+	public List<MainRanking> mainVodList() {
+		return md.mainVodList();
+	}
 
 }

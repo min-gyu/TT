@@ -2,9 +2,11 @@ package com.kh.tt.member.controller;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +31,9 @@ import com.kh.tt.common.MailUtils;
 import com.kh.tt.member.model.exception.LoginException;
 import com.kh.tt.member.model.service.MemberService;
 import com.kh.tt.member.model.vo.CQAndAttach;
+import com.kh.tt.member.model.vo.MainRanking;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.subscribe.model.vo.Subscribe;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -281,4 +285,14 @@ public class MemberController {
 		return resultMap;
 	}
 	
+	// 메인페이지 VOD 리스트
+	@RequestMapping("/mainVodList.me")
+	public @ResponseBody List<MainRanking> mainVodList(Model model) {
+		List<MainRanking> vList = ms.mainVodList();
+		
+		System.out.println("vList > " + vList);
+		System.out.println(" 조회 결과 리스트사이즈 > " + vList.size());
+		
+		return vList;
+	}
 }

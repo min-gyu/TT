@@ -28,14 +28,14 @@
 							var startTime	= rowData.btStartTime;
 							
 							htmlCode += '<li>';
-							htmlCode += '<span class="tit" title="' + title +'"></span>';
+							htmlCode += '<span class="tit">'+ title +'</span>';
 							htmlCode += '<span class="bj">';
 							htmlCode += "<a href='goChannel.ch?uNo=" + chNo + "' target='_blank'>" + nickName + "</a>";
 							htmlCode += '</span>';
 							htmlCode += '<span class="date">' + startTime + "</span>";
 							htmlCode += '</li>';
 						}
-						$("#recomm_broading").html(htmlCode);
+						$("#broadcast_area").html(htmlCode);
 						
 			},
 			error	:	function(){
@@ -55,7 +55,7 @@
 		</div>
 
 		<div class="recommend">
-			<ul id="recomm_broading" class="vod_w">
+			<ul id="broadcast_area" class="vod_w">
 				<!-- <li>
 					<a href="javascript:playBroad('lshooooo', 'flash');">
 						<img src="//liveimg.afreecatv.com/211151092.jpg"
