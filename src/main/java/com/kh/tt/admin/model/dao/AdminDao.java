@@ -2,10 +2,14 @@ package com.kh.tt.admin.model.dao;
 
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
+
 import com.kh.tt.admin.model.exception.AdminException;
+import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.vo.Payment;
 
 public interface AdminDao {
 
@@ -51,6 +55,12 @@ public interface AdminDao {
 	List<Category> selectCategList() throws AdminException;
 
 	List<Category> detailCateg(int num);
+
+	//충전내역 조회 - 카운트
+	int getChargeClover(SqlSessionTemplate sqlSession) throws AdminException;
+
+	//충전내역 조회 - 리스트
+	List<Payment> selectChargeCloverList(SqlSessionTemplate sqlSession, PageInfo pi) throws AdminException;
 	
 	
 	

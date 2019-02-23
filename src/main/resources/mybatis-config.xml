@@ -19,7 +19,10 @@
 		<typeAlias type="com.kh.tt.myPage.model.vo.Exchange" 			alias="Exchange" />
 		<typeAlias type="com.kh.tt.myPage.model.vo.ExchangeLog" 		alias="ExchangeLog" />
 		<typeAlias type="com.kh.tt.subscribe.model.vo.Subscribe" 		alias="Subscribe" />
-    <typeAlias type="com.kh.tt.channel.model.vo.BoardClaim"			alias="BoardClaim" />
+   		<typeAlias type="com.kh.tt.channel.model.vo.BoardClaim"			alias="BoardClaim" />
+   		<typeAlias type="com.kh.tt.admin.model.vo.AdClover"				alias="AdClover" />
+   		
+   		
 	</typeAliases>
 	
 	<mappers>
@@ -38,6 +41,7 @@
 		<mapper resource="mappers/exchangelog-mapper.xml"/>
 		<mapper resource="mappers/boardClaim-mapper.xml" />
 		<mapper resource="mappers/subscribe-mapper.xml"/>
+		<mapper resource="mappers/adclover-mapper.xml"/>
 	</mappers>
 
 </configuration>

@@ -43,7 +43,7 @@
 						  <table class="ui green table">
 						  <thead>
 						    <tr>
-						    <th>번호</th>
+						    <th>No.</th>
 						    <th>클로버 개수</th>
 						    <th>선물한 BJ</th>
 						    <th>선물일시</th>
