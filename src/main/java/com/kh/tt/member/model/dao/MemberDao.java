@@ -1,14 +1,17 @@
 package com.kh.tt.member.model.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.member.model.exception.LoginException;
 import com.kh.tt.member.model.vo.CQAndAttach;
+import com.kh.tt.member.model.vo.MainRanking;
 import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.vo.CQBoard;
+import com.kh.tt.subscribe.model.vo.Subscribe;
 
 public interface MemberDao {
 
@@ -48,6 +51,9 @@ public interface MemberDao {
 
 	// 신고 아이디 체크
 	int targetIdCheck(SqlSessionTemplate sqlSession, String targetId);
+
+	// 구독한 생방송 리스트
+	List<MainRanking> mainVodList();
 
 	
 

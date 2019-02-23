@@ -29,7 +29,7 @@
 						<img src="//liveimg.afreecatv.com/211148332.jpg"
 							onerror="this.src='http://www.afreecatv.com/images/aftv_search/non.jpg'"
 							title="[생]깨박이X싸패VS종욱X사장 80킬내..">
-						<span class="tit" title="[생]깨박이X싸패VS종욱X사장 80킬내..">[생]깨박이X싸패VS종욱X사장 80킬내..</span>
+						<span class="tit">[생]깨박이X싸패VS종욱X사장 80킬내..</span>
 					</a>
 					<span class="bj">
 						<a href="http://afreecatv.com/dlghfjs" target="_blank">깨박이깨박이</a>
@@ -42,7 +42,7 @@
 						<img src="//liveimg.afreecatv.com/211153178.jpg"
 							onerror="this.src='http://www.afreecatv.com/images/aftv_search/non.jpg'"
 							title="[생]감스트 레이드돌고 본캐14강도..">
-						<span class="tit" title="[생]감스트 레이드돌고 본캐14강도..">[생]감스트 레이드돌고 본캐14강도..</span>
+						<span class="tit" title="[생]감스트 레이드돌고 본캐14강도.."></span>
 					</a> 
 					<span class="bj"> 
 						<a href="http://afreecatv.com/devil0108" target="_blank">감스트</a>

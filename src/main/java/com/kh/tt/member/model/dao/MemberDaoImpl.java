@@ -1,5 +1,7 @@
 package com.kh.tt.member.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -7,8 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.member.model.exception.LoginException;
 import com.kh.tt.member.model.vo.CQAndAttach;
+import com.kh.tt.member.model.vo.MainRanking;
 import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.vo.CQBoard;
+import com.kh.tt.subscribe.model.vo.Subscribe;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -103,6 +107,13 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int targetIdCheck(SqlSessionTemplate sqlSession, String targetId) {
 		return sqlSession.selectOne("Member.targetIdCheck", targetId);
+	}
+
+	// 메인 페이지 vod 랭킹
+	@Override
+	public List<MainRanking> mainVodList() {
+		//return sqlSession.selectList("MainRank.vodList");
+		return null;
 	}
 
 	

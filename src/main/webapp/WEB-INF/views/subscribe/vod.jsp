@@ -29,9 +29,8 @@
 							
 							htmlCode += '<li>';
 							htmlCode += "<a href='goChannel.ch?uNo=" + chNo + "'>";
-							htmlCode += '<video style="height: 200px; width: 220px;"src="${ contextPath }/resources/uploadFiles/' + atName + '.mp4" type="video/mp4"';
-							htmlCode += '<span class="tit" title="' + title + '">';
-							htmlCode += title + '</span>';
+							htmlCode += '<video style="height: 200px; width: 220px;"src="${ contextPath }/resources/uploadFiles/' + atName + '.mp4" type="video/mp4"></video>';
+							htmlCode += '<span class="tit">'+ title +'</span>';
 							htmlCode += "</a>";
 							htmlCode += '<span class="bj">';
 							htmlCode += "<a href='goChannel.ch?uNo=" + chNo + "' target='_blank'>" + nickName + "</a>";
@@ -39,13 +38,14 @@
 							htmlCode += '<span class="date">' + date + "</span>";
 							htmlCode += '</li>';
 						}
-						$("#recomm_broading").html(htmlCode);
+						$("#vod_area").html(htmlCode);
 			},
 			error	:	function(){
-				alert("vod 조회 실패")
+				alert("vod 조회 실패");
 			}
 				
 		});
+		
 	}
 </script>
 
@@ -58,7 +58,7 @@
 		</div>
 		
 		<div class="recommend">
-			<ul id="recomm_broading" class="vod_w">
+			<ul id="vod_area" class="vod_w">
 			</ul>
 		</div>
 	</div>
