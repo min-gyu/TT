@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.tt.admin.model.exception.AdminException;
 import com.kh.tt.admin.model.service.AdminService;
+import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.common.Pagination;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.exception.MyPageException;
+import com.kh.tt.myPage.model.vo.Payment;
 
 @Controller
 @RequestMapping("*.ad")
@@ -198,7 +201,33 @@ public class AdminController {
 	// ADMIN - CLOVER
 	//클로버 충전내역
 	@RequestMapping("chargeClover")
-	public String goCloverCharge() {
+	public String goCloverCharge(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		int currentPage = 1;
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			//리스트 카운트
+			int listCount = as.getChargeClover();
+			System.out.println("listCount : " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			//충전내역 - 리스트
+			List<Payment> chargeList = as.selectChargeCloverList(pi);
+			
+			model.addAttribute("chargeList", chargeList);
+			System.out.println("가져온리스트! "+chargeList);
+			
+			request.setAttribute("pi", pi);
+			
+		} catch (AdminException e) {
+			e.printStackTrace();
+		}
+		
 		return cloverPath + "chargeClover";
 	}
 	

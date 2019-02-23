@@ -42,6 +42,23 @@
 				ORDER BY P.P_DATE DESC)
 	</select> 
 	
+	<!-- 클로버 충전내역(관리자) - 카운트 -->
+	<select id="getChargeClover" resultType="_int">
+		SELECT COUNT(*)
+		FROM PAYMENT P JOIN CLOVER C ON (P.P_CLOVER_CNT=C.CLOVER_NO)
+		ORDER BY P.P_DATE DESC
+	</select> 
+	
+	
+	<!-- 클로버 충전내역(관리자) - 리스트 -->
+	<select id="selectAdChargeList"  parameterType="_int" resultMap="paymentResultSet" >
+  		SELECT ROWNUM, P_UNO, CLOVER_CNT, CLOVER_MONEY, P_NO, P_DATE
+		FROM (
+		SELECT P.P_UNO, C.CLOVER_CNT, C.CLOVER_MONEY , P.P_NO, P.P_DATE
+		FROM PAYMENT P JOIN CLOVER C ON (P.P_CLOVER_CNT=C.CLOVER_NO)
+		ORDER BY P.P_DATE DESC)
+	</select> 
+	
 	
 </mapper>  
   

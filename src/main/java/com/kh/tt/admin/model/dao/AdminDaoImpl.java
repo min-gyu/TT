@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tt.admin.model.exception.AdminException;
+import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.exception.MyPageException;
+import com.kh.tt.myPage.model.vo.Payment;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -188,6 +191,35 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<Category> detailCateg(int num) {
 		return sqlSession.selectList("Admin.selectDetailCateg", num);
+	}
+
+	//충전내역 조회 - 카운트
+	@Override
+	public int getChargeClover(SqlSessionTemplate sqlSession) throws AdminException {
+		int result = sqlSession.selectOne("Payment.getChargeClover");
+		
+		if (result < 0) {
+			throw new AdminException("충전내역 전체 수 조회 실패!");
+		}
+		
+		return result;
+	}
+
+
+	//충전내역 조회 - 리스트
+	@Override
+	public List<Payment> selectChargeCloverList(SqlSessionTemplate sqlSession, PageInfo pi) throws AdminException {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<Payment> chargeList = sqlSession.selectList("Payment.selectAdChargeList", null , rowBounds);
+
+		if(chargeList == null) {
+			throw new AdminException("충전내역 페이징 처리 실패!");
+		}
+		
+		return chargeList;
 	}
 	
 

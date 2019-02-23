@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.kh.tt.admin.model.dao.AdminDao;
 import com.kh.tt.admin.model.exception.AdminException;
+import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.vo.Payment;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -102,6 +104,21 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Category> detailCateg(int num) {
 		return md.detailCateg(num);
+	}
+
+	
+	//충전내역 조회 - 카운트
+	@Override
+	public int getChargeClover() throws AdminException {
+		
+		return md.getChargeClover(sqlSession);
+	}
+	
+	//충전내역 조회 - 리스트
+	@Override
+	public List<Payment> selectChargeCloverList(PageInfo pi) throws AdminException {
+		
+		return md.selectChargeCloverList(sqlSession, pi);
 	}
 	
 	
