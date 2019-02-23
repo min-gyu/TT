@@ -112,8 +112,7 @@ public class MemberDaoImpl implements MemberDao {
 	// 메인 페이지 vod 랭킹
 	@Override
 	public List<MainRanking> mainVodList() {
-		//return sqlSession.selectList("MainRank.vodList");
-		return null;
+		return sqlSession.selectList("MainRank.mainVodList");
 	}
 
 	

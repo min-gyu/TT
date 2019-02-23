@@ -10,7 +10,9 @@ import com.kh.tt.member.model.vo.Member;
 
 @Repository
 public class KaKaoDao {
-
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
 	private final String MAPPER_NAME = "KAKAO.";
 	
 	@Autowired
@@ -21,8 +23,7 @@ public class KaKaoDao {
 	}
 	
 	public int selectFindLoginUser(HashMap<String, Object> params) {
-		return 0;
-		//return sqlSession.selectOne(MAPPER_NAME + "selectFindLoginUser", params);
+		return sqlSession.selectOne(MAPPER_NAME + "selectFindLoginUser", params);
 	}
 
 	public Member selectLoginMember(HashMap<String, Object> params) {
@@ -31,8 +32,7 @@ public class KaKaoDao {
 		member.setUserId(Integer.toString(intId));
 		member.setUserPwd(Integer.toString(intId));
 		
-		return member;
-		//return sqlSession.selectOne(MAPPER_NAME + "selectLoginMember", params);
+		return sqlSession.selectOne(MAPPER_NAME + "selectLoginMember", params);
 	}
 
 }

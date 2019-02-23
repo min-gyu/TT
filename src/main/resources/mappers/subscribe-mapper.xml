@@ -13,6 +13,7 @@
 		<result property="rType" 		column="R_TYPE"/>
 		<result property="mId" 			column="M_ID"/>
 		<result property="nickName" 	column="M_NICKNAME"/>
+		<result property="btYN"		 	column="M_BT_YN"/>
 		<result property="chNo" 		column="CH_NO"/>
 		<result property="atNo" 		column="AT_NO"/>
 		<result property="atModifyName" column="AT_MODIFY_NAME"/>
@@ -47,6 +48,7 @@
 		WHERE R_TYPE='SUBSCRIBE'
 		AND R_TARGET_UNO = #{value}
 		AND AT_TYPE = 'VOD'
+		ORDER BY B_WRITE_DATE DESC
 	</select>
 	
 	<!-- 구독한 생방송 리스트 조회 -->
@@ -58,5 +60,7 @@
 		    JOIN BROADCAST ON (BT_CH_NO = R_CH_NO)
 		WHERE R_TYPE = 'SUBSCRIBE'
 		AND R_TARGET_UNO = #{value}
+		AND M_BT_YN = 'Y'
+		ORDER BY BT_START_TIME DESC
 	</select>
 </mapper>

@@ -25,4 +25,9 @@ public class CategoryController {
 	public String goCategoryMain() {
 		return jspPath + "main";
 	}
+	
+	@RequestMapping("sports.ca")
+	public String goCategorySports() {
+		return jspPath + "sports";
+	}
 }

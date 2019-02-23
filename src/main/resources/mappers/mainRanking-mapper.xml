@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="MainRank">
+	<resultMap type="com.kh.tt.member.model.vo.MainRanking" id="MainRankingVO">
+		<id 	property="bNo" 			column="B_NO"/>
+		<result property="bTitle" 		column="B_TITLE"/>
+		<result property="bContent" 	column="B_CONTENT"/>
+		<result property="bWriteDate" 	column="B_WRITE_DATE"/>
+		<result property="bCount" 		column="B_COUNT"/>
+		<result property="bLevel" 		column="B_LEVEL"/>
+		<result property="bType" 		column="B_TYPE"/>
+		<result property="bDelStatus" 	column="B_DEL_STATUS"/>
+		<result property="bAttachYN" 	column="B_ATTACH_YN"/>
+		<result property="nickName" 	column="M_NICKNAME"/>
+		<result property="chNo" 		column="CH_NO"/>
+		<result property="ctName" 		column="CT_NAME"/>
+		<result property="atNo" 		column="AT_NO"/>
+		<result property="atModifyName" column="AT_MODIFY_NAME"/>
+	</resultMap>
+	
+	<!-- 메인 페이지 vod 리스트 -->
+	<select id="mainVodList" resultMap="MainRankingVO">
+		SELECT M_NICKNAME, CH_NO, CT_NAME, B_NO, B_TITLE, B_CONTENT, B_WRITE_DATE, B_COUNT, AT_NO, AT_MODIFY_NAME
+		FROM 
+		    (SELECT M_NICKNAME, CH_NO, CT_NAME, B_NO, B_TITLE, B_CONTENT, B_WRITE_DATE, B_COUNT, AT_NO, AT_MODIFY_NAME
+		    FROM BOARD
+		        JOIN MEMBER ON (B_UNO = M_UNO)
+		        JOIN CHANNEL ON (B_CH_NO = CH_NO)
+		        JOIN CATEGORY ON (B_CATEG = CT_NO)
+		        JOIN ATTACHMENT ON (B_NO = AT_B_NO)
+		    WHERE B_LEVEL = 1
+		    AND B_ATTACH_YN = 'Y'
+		    AND B_TYPE = 'VOD'
+		    AND B_DEL_STATUS = 'N'
+		    ORDER BY B_COUNT DESC)
+		WHERE ROWNUM <![CDATA[ <= ]]> 2
+	</select>
+	
+</mapper>
