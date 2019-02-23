@@ -23,4 +23,16 @@ public class SubscribeServiceImpl implements SubscribeService {
 		return sd.channelList(uno);
 	}
 
+	// 구독한 VOD 리스트
+	@Override
+	public List<Subscribe> vodList(int uno) {
+		return sd.vodList(uno);	
+	}
+
+	// 구독한 생방송 리스트
+	@Override
+	public List<Subscribe> liveList(int uno) {
+		return sd.liveList(uno);
+	}
+
 }

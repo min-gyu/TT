@@ -231,7 +231,6 @@ public class MemberController {
 		System.out.println(photo);
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
-			
 		String filePath = root + "\\uploadFiles";
 		
 		// 파일명 변경

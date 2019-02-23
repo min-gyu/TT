@@ -18,4 +18,14 @@ public class SubscribeDaoImpl implements SubscribeDao {
 		return sqlSession.selectList("Subscribe.channelList", uno);
 	}
 
+	@Override
+	public List<Subscribe> vodList(int uno) {
+		return sqlSession.selectList("Subscribe.vodList", uno);
+	}
+
+	@Override
+	public List<Subscribe> liveList(int uno) {
+		return sqlSession.selectList("Subscribe.liveList", uno);
+	}
+
 }

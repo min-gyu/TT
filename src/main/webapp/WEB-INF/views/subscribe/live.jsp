@@ -1,6 +1,50 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<script type="text/javascript">
+	var uno = ${sessionScope.loginUser.uno};
+	
+	$(document).ready(function(){
+		subLiveList(uno);
+	});
+	
+	function subLiveList(uno){
+		$.ajax({
+			url		:	"/subLive.sub",
+			type	:	"post",
+			data	:	{
+							uno	: uno
+						},
+			success	:	function(data) {
+				
+						console.log(data);
+						
+						var htmlCode = "";
+						for(var i = 0; i <data.length; i++){
+							var rowData = data[i];
+							
+							var chNo 		= rowData.chNo;
+							var nickName	= rowData.nickName;
+							var title		= rowData.btTitle;
+							var startTime	= rowData.btStartTime;
+							
+							htmlCode += '<li>';
+							htmlCode += '<span class="tit" title="' + title +'"></span>';
+							htmlCode += '<span class="bj">';
+							htmlCode += "<a href='goChannel.ch?uNo=" + chNo + "' target='_blank'>" + nickName + "</a>";
+							htmlCode += '</span>';
+							htmlCode += '<span class="date">' + startTime + "</span>";
+							htmlCode += '</li>';
+						}
+						$("#recomm_broading").html(htmlCode);
+						
+			},
+			error	:	function(){
+				alert("vod 조회 실패")
+			}
+				
+		});
+	}
+</script>
 
 <section id="live" class="container">
 	<div class="bor">
@@ -12,7 +56,7 @@
 
 		<div class="recommend">
 			<ul id="recomm_broading" class="vod_w">
-				<li>
+				<!-- <li>
 					<a href="javascript:playBroad('lshooooo', 'flash');">
 						<img src="//liveimg.afreecatv.com/211151092.jpg"
 							onerror="this.src='http://www.afreecatv.com/images/aftv_search/non.jpg'"
@@ -23,33 +67,7 @@
 						<a href="http://afreecatv.com/lshooooo" target="_blank">BJ이상호</a>
 					</span>
 					<span class="date">2019-02-05 17:03</span>
-				</li>
-
-				<li>
-					<a href="javascript:playBroad('dlghfjs', 'flash');">
-						<img src="//liveimg.afreecatv.com/211148332.jpg"
-							onerror="this.src='http://www.afreecatv.com/images/aftv_search/non.jpg'"
-							title="[생]깨박이X싸패VS종욱X사장 80킬내..">
-						<span class="tit" title="[생]깨박이X싸패VS종욱X사장 80킬내..">[생]깨박이X싸패VS종욱X사장 80킬내..</span>
-					</a>
-					<span class="bj">
-						<a href="http://afreecatv.com/dlghfjs" target="_blank">깨박이깨박이</a>
-					</span> 
-					<span class="date">2019-02-05 14:44</span>
-				</li>
-				
-				<li>
-					<a href="javascript:playBroad('devil0108', 'flash');">
-						<img src="//liveimg.afreecatv.com/211153178.jpg"
-							onerror="this.src='http://www.afreecatv.com/images/aftv_search/non.jpg'"
-							title="[생]감스트 레이드돌고 본캐14강도..">
-						<span class="tit" title="[생]감스트 레이드돌고 본캐14강도..">[생]감스트 레이드돌고 본캐14강도..</span>
-					</a> 
-					<span class="bj"> 
-						<a href="http://afreecatv.com/devil0108" target="_blank">감스트</a>
-					</span> 
-					<span class="date">2019-02-05 18:42</span>
-				</li>
+				</li> -->
 			</ul>
 		</div>
 	</div>
