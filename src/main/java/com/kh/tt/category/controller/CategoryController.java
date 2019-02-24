@@ -30,4 +30,14 @@ public class CategoryController {
 	public String goCategorySports() {
 		return jspPath + "sports";
 	}
+	
+	@RequestMapping("vod.ca")
+	public String goCategoryVod() {
+		return jspPath + "vod";
+	}
+	
+	@RequestMapping("vodList.ca")
+	public String vodList() {
+		return null;
+	}
 }
