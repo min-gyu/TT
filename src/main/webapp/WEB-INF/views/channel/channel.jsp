@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-	
+
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -60,9 +60,18 @@
 					<div class="single-post row">
 						<div class="col-lg-12">
 							<div class="feature-img" align="center">
-								<img class="img-fluid"
-									src="/resources/uploadFiles/banner/banner.png" 
-									style="padding-left: 0%;width: 700px;height: 300px;">
+								<c:choose>
+									<c:when test="${not empty bi.atMName}">
+										<img class="img-fluid"
+											src="${ contextPath }/resources/uploadFiles/banner/${bi.atMName}${ext1}"
+											style="padding-left: 0%; width: 700px; height: 300px;">
+									</c:when>
+									<c:otherwise>
+										<img class="img-fluid"
+											src="/resources/uploadFiles/banner/banner.png"
+											style="padding-left: 0%; width: 700px; height: 300px;">
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 						<div class="col-lg-12">
@@ -326,22 +335,30 @@
 				<div class="col-lg-4 sidebar-widgets">
 					<div class="widget-wrap">
 						<div class="single-sidebar-widget user-info-widget">
-							<img src="/resources/channel/img/blog/eun.jpg" alt=""style="width: 150px;height: 150px;border-radius: 50%;">
+							<c:choose>
+								<c:when test="${not empty pi.atMName}">
+									<img
+										src="${ contextPath }/resources/uploadFiles/profile/${pi.atMName}${ext2}"
+										style="width: 150px; height: 150px; border-radius: 50%;">
+								</c:when>
+								<c:otherwise>
+									<img src="/resources/channel/img/blog/eun.jpg" alt=""
+										style="width: 150px; height: 150px; border-radius: 50%;">
+								</c:otherwise>
+							</c:choose>
 							<a><h4>${m.nickName }</h4></a>
 							<p>@${m.userId }</p>
-				
+
 							<p>아 이렇게 제 채널에 방문해 주셔서 감사합니다. 이렇게 소개창이 기니 정말 할말이 많습니다. 방송을 한지
 								어언 10년쨰 모든 분들께 감사드리고 앞으로 더 재밌는</p>
 						</div>
 						<div class="single-sidebar-widget popular-post-widget">
-						<c:set var="loginUser" value="${sessionScope.loginUser.userId }"/>
+							<c:set var="loginUser" value="${sessionScope.loginUser.userId }" />
 							<c:if test="${m.userId eq loginUser}">
-								 <a href="goBannerProfile.ch?CuNo=${m.uno }" 
-									style="color: #6ac169;"><h4 class="popular-title" type="hidden">방송국 관리
-											
-											
-											</h4></a>
-								
+								<a href="goBannerProfile.ch?CuNo=${m.uno }"
+									style="color: #6ac169;"><h4 class="popular-title"
+										type="hidden">방송국 관리</h4></a>
+
 							</c:if>
 						</div>
 
@@ -410,10 +427,10 @@
 										<p>44</p>
 								</a></li>
 							</ul>
-							
-			
-							
-							
+
+
+
+
 						</div>
 					</div>
 				</div>

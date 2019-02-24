@@ -46,4 +46,20 @@ public interface ChannelDao {
 
 	int insertbImg(Attachment a, SqlSessionTemplate sqlSession);
 
+	int lastBimg(SqlSessionTemplate sqlSession);
+
+	int updateBimg(Attachment a, SqlSessionTemplate sqlSession);
+
+	int lastPimg(SqlSessionTemplate sqlSession);
+
+	int insertPimg(Attachment a, SqlSessionTemplate sqlSession);
+
+	int updatePimg(Attachment a, SqlSessionTemplate sqlSession);
+
+	Attachment selectbInfo(int chNo, SqlSessionTemplate sqlSession);
+
+	Attachment selectpInfo(int chNo, SqlSessionTemplate sqlSession);
+
+	
+
 }

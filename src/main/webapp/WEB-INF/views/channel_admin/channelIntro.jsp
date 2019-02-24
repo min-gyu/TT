@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -47,7 +48,7 @@
 </head>
 <body>
 
-<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
+	<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
 
 
 	<!-- Start post-content Area -->
@@ -58,27 +59,32 @@
 					<div class="single-post row">
 						<div class="col-lg-12">
 							<div class="line transparent little"></div>
-							<div >
+							<div>
 								<div class="row">
 									<h5>채널 소개 설정하기</h5>
 								</div>
-								<div class="row">
-									<table class="table table-bordered">
-										<tbody>
-											<tr>
-												<th style="width: 20%; text-align: center"><div
-														style="margin-top: 40%;">내용</div></th>
-												<td><textarea class="form-control col-mb-5" rows="7"
-														width="100%"></textarea></td>
+								<form action="updateCin.ch?CuNo=${m.uno}" method="post">
+									<div class="row">
+										<table class="table table-bordered">
 
-											</tr>
-											<tr>
-												<td colspan="2" align="center"><button type="button"
-														class="btn btn-danger btn-sm" id="saveBtn">저장</button></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
+											<tbody>
+												<tr>
+													<th style="width: 20%; text-align: center"><div
+															style="margin-top: 40%;">내용</div></th>
+													<td><textarea class="form-control col-mb-5"
+															name="chName" rows="7" width="100%"
+															placeholder="최대 50자 까지 작성 가능합니다."></textarea></td>
+
+												</tr>
+												<tr>
+													<td colspan="2" align="center"><button type="submit"
+															class="btn btn-danger btn-sm" id="saveBtn">저장</button></td>
+												</tr>
+											</tbody>
+										</table>
+
+									</div>
+								</form>
 							</div>
 
 						</div>
@@ -106,36 +112,52 @@
 
 				<!-- 오른쪽 사이드바 이동 -->
 
-					<div class="col-lg-4 sidebar-widgets">
+				<div class="col-lg-4 sidebar-widgets">
 					<div class="widget-wrap">
 						<div class="single-sidebar-widget user-info-widget">
-							<img src="/resources/channel/img/blog/user-info.png" alt="">
-							<a><h4>감스트</h4></a>
+							<c:choose>
+								<c:when test="${not empty pi.atMName}">
+									<img
+										src="${ contextPath }/resources/uploadFiles/profile/${pi.atMName}${ext2}"
+										style="width: 150px; height: 150px; border-radius: 50%;">
+								</c:when>
+								<c:otherwise>
+									<img src="/resources/channel/img/blog/eun.jpg" alt=""
+										style="width: 150px; height: 150px; border-radius: 50%;">
+								</c:otherwise>
+							</c:choose>
+							<a><h4>${m.nickName }</h4></a>
+							<p>@${m.userId }</p>
 						</div>
 
 						<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
 							<ul class="cat-list">
-								<li><a href="/goChannelIntro.ch" class="" style="text-align: center;">
+								<li><a href="/goChannelIntro.ch" class=""
+									style="text-align: center;">
 										<p>채널 소개 설정</p>
 								</a></li>
 								<li><a href="#" class="" style="text-align: center;">
 										<p>주력 카테고리 설정</p>
 
 								</a></li>
-								<li><a href="/goBannerProfile.ch" class="" style="text-align: center;">
+								<li><a href="/goBannerProfile.ch" class=""
+									style="text-align: center;">
 										<p>베너 & 프로필 사진 설정</p>
 
 								</a></li>
-								<li><a href="/goVodAdmin.ch" class="" style="text-align: center;">
+								<li><a href="/goVodAdmin.ch" class=""
+									style="text-align: center;">
 										<p>VOD 관리</p>
 
 								</a></li>
-								<li><a href="/subscriberAdmin.ch" class="" style="text-align: center;">
+								<li><a href="/subscriberAdmin.ch" class=""
+									style="text-align: center;">
 										<p>구독자 관리</p>
 
 								</a></li>
-								<li><a href="/managerAdmin.ch" class="" style="text-align: center;">
+								<li><a href="/managerAdmin.ch" class=""
+									style="text-align: center;">
 										<p>매니저 관리</p>
 
 								</a></li>
@@ -143,7 +165,8 @@
 										<p>채팅 필터 관리</p>
 
 								</a></li>
-								<li><a href="manage_black.ch" class="" style="text-align: center;">
+								<li><a href="manage_black.ch" class=""
+									style="text-align: center;">
 										<p>블랙 리스트</p>
 
 								</a></li>

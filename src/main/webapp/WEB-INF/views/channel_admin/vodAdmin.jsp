@@ -198,9 +198,9 @@
 	<!-- End post-content Area -->
 
 	<script>
-		function fn_paging(curPage) {
-			location.href = "/goVodAdmin.ch?curPage=" + curPage;
-		}
+	function fn_paging(curPage) {
+		location.href = "/vod_List.ch?curPage=" + curPage+"&CuNo="+${m.uno };
+	}
 	</script>
 
 	<script src="/resources/channel/js/vendor/jquery-2.2.4.min.js"></script>

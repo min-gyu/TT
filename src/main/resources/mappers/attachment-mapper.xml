@@ -43,7 +43,8 @@
 
 	<insert id="insertbImg" parameterType="Attachment">
 		INSERT INTO
-		ATTACHMENT VALUES
+		ATTACHMENT
+		VALUES
 		(SEQ_AT_NO.NEXTVAL,
 		NULL,NULL,
 		#{atCHno},
@@ -54,5 +55,60 @@
 
 	</insert>
 
+
+	<select id="selectlastBimg" resultType="int">
+		SELECT count(*) FROM ATTACHMENT
+		WHERE AT_TYPE='BACK'
+	</select>
+
+	<update id="updateBimg" parameterType="Attachment">
+		UPDATE ATTACHMENT SET
+		AT_NAME=#{atName},
+		AT_MODIFY_NAME=#{atMName},
+		AT_PATH=#{atPath}
+		WHERE AT_CH_NO=#{atCHno} AND AT_TYPE='BACK'
+	</update>
+	
+	<select id="selectPimg" resultType="int">
+		SELECT COUNT(*) FROM ATTACHMENT
+		WHERE AT_TYPE='PROFILE'
+	</select>
+	
+	<update id="updatePimg" parameterType="Attachment">
+		UPDATE ATTACHMENT SET
+		AT_NAME=#{atName},
+		AT_MODIFY_NAME=#{atMName},
+		AT_PATH=#{atPath}
+		WHERE AT_CH_NO=#{atCHno} AND AT_TYPE='PROFILE'
+	</update>
+	
+	<insert id="insertPimg" parameterType="Attachment">
+		INSERT INTO
+		ATTACHMENT
+		VALUES
+		(SEQ_AT_NO.NEXTVAL,
+		NULL,NULL,
+		#{atCHno},
+		#{atName},
+		#{atMName},
+		#{atPath},
+		SYSDATE,'CHANNEL','PROFILE')
+	
+	
+	</insert>
+	
+	<select id="selectbInfo" parameterType="int" resultMap="attachmentResultSet">
+		SELECT *
+		FROM ATTACHMENT
+		WHERE AT_CH_NO=#{chNo} AND AT_TYPE='BACK'
+	
+	</select>
+	
+	<select id="selectpInfo" parameterType="int" resultMap="attachmentResultSet">
+		SELECT *
+		FROM ATTACHMENT
+		WHERE AT_CH_NO=#{chNo} AND AT_TYPE='PROFILE'
+	
+	</select>
 
 </mapper>

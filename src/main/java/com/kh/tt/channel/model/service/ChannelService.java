@@ -22,7 +22,7 @@ public interface ChannelService{
 	int insertAt(Attachment a);
 
 	//채널관리-VOD리스트 메소드
-	List<Board> vodList(int i,int j);
+	List<Board> vodList(int i,int j,int ChNo);
 	//VOD리스트 총 개수 메소드
 	int getLisCount(Board b);
 	
@@ -51,7 +51,21 @@ public interface ChannelService{
 	//댓글 삭제후 돌아가기위한 메소드
 	int onebNo(int bNo);
 	
+	//베너 사진 업로드 메소드
 	int insertBimg(Attachment a);
+	//베너 적용전 확인 메소드
+	int lastBimg();
+	int updateBimg(Attachment a);
+	int lastPimg();
+	int insertPimg(Attachment a);
+	int updatePimg(Attachment a);
+
+	Attachment selectbInfo(int chNo);
+	Attachment selectpInfo(int chNo);
+	
+	
+	
+	
 	
 	
 	
