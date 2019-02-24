@@ -1,4 +1,4 @@
-package com.kh.tt.login.controller;
+package com.kh.tt.login.google;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,15 +22,15 @@ import com.kh.tt.member.model.vo.Member;
 
 @Controller
 @SessionAttributes("loginUser")
-@RequestMapping("*.kakao")
-public class KaKaoController {
+@RequestMapping("*.google")
+public class GoogleController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginLoggin.class);
 	
 	@Autowired
-	private KaKaoService kaKaoService;
+	private GoogleService googleService;
 	
-	public KaKaoController(KaKaoService kaKaoService) {
-		this.kaKaoService = kaKaoService;
+	public GoogleController(GoogleService googleService) {
+		this.googleService = googleService;
 	}
 	
 	@PostMapping("login")
@@ -40,16 +40,18 @@ public class KaKaoController {
 		System.out.println(">>>");
 		System.out.println(requestBody);
 		
-		int cnt = kaKaoService.selectFindLoginUser(requestBody);
+		int cnt = googleService.selectFindLoginUser(requestBody);
 		
 		if(cnt > 0){
-			Member loginUser = kaKaoService.selectLoginMember(requestBody);
+			Member loginUser = googleService.selectLoginMember(requestBody);
 			model.addAttribute("loginUser", loginUser);
 		}
 		
 		resultMap.put("cnt", cnt);
 		resultMap.put("id", requestBody.get("id"));
 		resultMap.put("nickName", requestBody.get("nickName"));
+		resultMap.put("email", requestBody.get("email"));
+		resultMap.put("image", requestBody.get("image"));
 		
 		return resultMap;
 	}

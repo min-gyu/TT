@@ -35,14 +35,14 @@
 
 <!-- Sidebar -->
 <div class=" border-right" id="sidebar-wrapper">
-  <div class="sidebar-heading">Category </div>
+  <div class="sidebar-heading">VOD</div>
   <div class="list-group list-group-flush">
-    <a href="#" class="list-group-item list-group-item-action ">전체</a>
     <a href="#" class="list-group-item list-group-item-action ">스포츠</a>
-    <a href="#" class="list-group-item list-group-item-action ">변경</a>
+    <a href="#" class="list-group-item list-group-item-action ">먹방</a>
+    <a href="#" class="list-group-item list-group-item-action ">뷰티</a>
+    <a href="#" class="list-group-item list-group-item-action ">VLOG</a>
     <hr>
-    <a href="#" class="list-group-item list-group-item-action ">변경</a>
-    <a href="#" class="list-group-item list-group-item-action ">변경</a>
+    <a href="#" class="list-group-item list-group-item-action ">기타</a>
   </div>
 </div>
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="GOOGLE">
+	<resultMap type="com.kh.tt.member.model.vo.Member" id="memberVO">
+		<!-- property 필드명, column 컬럼명과 일치해야 한다 -->
+		<id property="uno" 				column="M_UNO" />
+		<result property="userId" 		column="M_ID" />
+		<result property="nickName" 	column="M_NICKNAME" />
+		<result property="userName" 	column="M_NAME" />
+		<result property="userPwd" 		column="M_PWD" />
+		<result property="birth" 		column="M_BIRTH" />
+		<result property="gender" 		column="M_GENDER" />
+		<result property="email" 		column="M_EMAIL" />
+		<result property="enrollDate" 	column="M_ENROLL_DATE" />
+		<result property="bank" 		column="M_BANK" />
+		<result property="bankNo" 		column="M_BANK_NO" />
+		<result property="warningNo" 	column="M_WARNING_NO" />
+		<result property="banStatus" 	column="M_BAN_STATUS" />
+		<result property="status" 		column="M_STATUS" />
+		<result property="reason" 		column="M_REASON" />
+		<result property="leaveDate" 	column="M_LEAVE_DATE" />
+		<result property="btYN" 		column="M_BT_YN" />
+		<result property="totalClover" 	column="M_TOTAL_CLOVER" />
+		<result property="adminYN" 		column="M_ADMIN_YN" />
+		<result property="loginType" 	column="M_LOGIN_TYPE" />
+		<result property="chNo" 		column="CH_NO" />
+		<result property="chUno" 		column="CH_UNO" />
+		<result property="chName" 		column="CH_NAME" />
+	</resultMap>
+	
+	<select id="selectFindLoginUser" parameterType="java.util.HashMap" resultType="Integer">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE M_ID = #{id}
+			AND M_LOGIN_TYPE = 'GOOGLE'
+	</select>
+	
+	<select id="selectLoginMember" parameterType="java.util.HashMap" resultMap="memberVO">
+		SELECT *
+		FROM MEMBER
+		WHERE M_ID = #{id}
+			AND M_STATUS = 'Y'
+			AND M_LOGIN_TYPE = 'GOOGLE'
+	</select>
+	
+</mapper>
