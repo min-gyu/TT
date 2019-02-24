@@ -27,9 +27,9 @@
 							var title		= rowData.bTitle;
 							var date		= rowData.bWriteDate;
 							
-							htmlCode += '<li>';
+							htmlCode += '<li style="width: 30%;">';
 							htmlCode += "<a href='goChannel.ch?uNo=" + chNo + "'>";
-							htmlCode += '<video style="height: 200px; width: 220px;"src="${ contextPath }/resources/uploadFiles/' + atName + '.mp4" type="video/mp4"></video>';
+							htmlCode += '<video style="height: 200px; width: 200px;"src="${ contextPath }/resources/uploadFiles/' + atName + '.mp4" type="video/mp4"></video>';
 							htmlCode += '<span class="tit">'+ title +'</span>';
 							htmlCode += "</a>";
 							htmlCode += '<span class="bj">';

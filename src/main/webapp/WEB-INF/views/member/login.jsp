@@ -104,7 +104,7 @@
 				      
 			    <div class="modal-body">
 			   		<form id="myForm" action="/insertMember.me" method="post" class="form-horizontal">
-			   			<input type="hidden" name="m_login_type" value="KAKAO">
+			   			<input type="text" name="loginType" value="KAKAO" readonly>
 			   			<input type="hidden" name="userId" id="userId">
 			   			
 						<div class="form-group">
@@ -118,15 +118,11 @@
 							<input type="text" name="userName" class="form-control">
 						</div>
 						 
-						<div class="form-group">
+						 <input type="hidden" name="userPwd" value="">
+						<!-- <div class="form-group">
 							<label class="fw">비밀번호</label>
 							<input type="password" name="userPwd" class="form-control">
-						</div>
-						
-						<div class="form-group">
-							<label class="fw">비밀번호 확인</label>
-							<input type="password" id="userPwdCheck" class="form-control">
-						</div>
+						</div> -->
 						 
 						<div class="form-group">
 							<label class="fw">생년월일</label>
@@ -149,7 +145,7 @@
 							<input type="email" id="email" name="email" class="form-control">
 						</div>
 						
-						<div class="join_div">
+						<div class="join_div" align="center">
 							<button type="button" class="btn btn-success bt-lg" onclick="fn_sendEmail();">인증</button>
 						</div>
 						
@@ -158,7 +154,7 @@
 							<input type="text" id="cNum" class="form-control">
 						</div>
 						
-						<div class="join_div">
+						<div class="join_div" align="center">
 							<button type="button" class="btn btn-secondary bt-lg" onclick="fn_confirm();">확인</button>
 						</div>
 						

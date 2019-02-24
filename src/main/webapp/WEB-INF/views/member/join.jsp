@@ -95,6 +95,9 @@
 					<div class="box-body">
 						<h3>회원가입</h3>
 						<form id="myForm" action="/insertMember.me" method="post" class="form-horizontal">
+							
+							<input type="hidden" name="loginType" value="" readonly>
+							
 							<div class="form-group">
 								<label>아이디</label>
 								<!-- <a href="#" class="pull-right result"><span class="msg">아이디를 확인해주세요</span></a> -->

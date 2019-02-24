@@ -25,6 +25,7 @@ public class Member implements java.io.Serializable{
 	private String btYN;
 	private int totalClover;
 	private String adminYN;
+	private String loginType;
 	
 	private int chNo;
 	private int chUno;
@@ -34,8 +35,8 @@ public class Member implements java.io.Serializable{
 
 	public Member(int uno, String userId, String nickName, String userName, String userPwd, String birth, String gender,
 			String email, String enrollDate, String bank, String bankNo, int warningNo, String banStatus, String status,
-			String reason, String leaveDate, String btYN, int totalClover, String adminYN, int chNo, int chUno,
-			String chName) {
+			String reason, String leaveDate, String btYN, int totalClover, String adminYN, String loginType, int chNo,
+			int chUno, String chName) {
 		super();
 		this.uno = uno;
 		this.userId = userId;
@@ -56,6 +57,7 @@ public class Member implements java.io.Serializable{
 		this.btYN = btYN;
 		this.totalClover = totalClover;
 		this.adminYN = adminYN;
+		this.loginType = loginType;
 		this.chNo = chNo;
 		this.chUno = chUno;
 		this.chName = chName;
@@ -213,6 +215,14 @@ public class Member implements java.io.Serializable{
 		this.adminYN = adminYN;
 	}
 
+	public String getLoginType() {
+		return loginType;
+	}
+
+	public void setLoginType(String loginType) {
+		this.loginType = loginType;
+	}
+
 	public int getChNo() {
 		return chNo;
 	}
@@ -243,10 +253,11 @@ public class Member implements java.io.Serializable{
 				+ ", userPwd=" + userPwd + ", birth=" + birth + ", gender=" + gender + ", email=" + email
 				+ ", enrollDate=" + enrollDate + ", bank=" + bank + ", bankNo=" + bankNo + ", warningNo=" + warningNo
 				+ ", banStatus=" + banStatus + ", status=" + status + ", reason=" + reason + ", leaveDate=" + leaveDate
-				+ ", btYN=" + btYN + ", totalClover=" + totalClover + ", adminYN=" + adminYN + ", chNo=" + chNo
-				+ ", chUno=" + chUno + ", chName=" + chName + "]";
+				+ ", btYN=" + btYN + ", totalClover=" + totalClover + ", adminYN=" + adminYN + ", loginType="
+				+ loginType + ", chNo=" + chNo + ", chUno=" + chUno + ", chName=" + chName + "]";
 	}
 
+	
 	
 	
 }
