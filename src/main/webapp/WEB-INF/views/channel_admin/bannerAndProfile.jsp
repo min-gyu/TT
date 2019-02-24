@@ -103,6 +103,7 @@ div.upload-btn_wrap button { /*버튼 div*/
 							<h5>베너 사진 설정</h5>
 						</div>
 					</div>
+
 					<form action="updateBimg.ch?CuNo=${m.uno}" method="post"
 						enctype="multipart/form-data">
 						<div class="row">
@@ -126,37 +127,48 @@ div.upload-btn_wrap button { /*버튼 div*/
 					</form>
 
 				</div>
-				<!-- <div class="row">
-						<h5 class="ion-android-favorite">프로필 사진 설정</h5>
-					</div> -->
+				<!-- 설정해놓은 이미지를 띄워준다 -->
 				<div id="img">
 					<c:if test="${not empty a.atMName}">
 						<img
 							src="${ contextPath }/resources/uploadFiles/banner/${a.atMName}${ext}"
-							style="width: 300px;">
+							style="width: 400px;">
 					</c:if>
+
 				</div>
 				<div class="line top">
 					<div>
 						<h5>프로필 사진 설정</h5>
 					</div>
 				</div>
-				<div class="row">
-					<table class="table table-bordered">
-						<tbody>
-							<tr>
-								<th style="width: 20%; text-align: center">*사진 설정</th>
+				<form action="updatePimg.ch?CuNo=${m.uno }" method="post"
+					enctype="multipart/form-data">
+					<div class="row">
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<th style="width: 20%; text-align: center">*사진 설정</th>
 
-								<th><input type="file" name="profile" title="파일찾기"></th>
+									<th><input type="file" name="profile" title="파일찾기"></th>
 
-							</tr>
-							<tr>
-								<td colspan="2" align="center"><button type="button"
-										class="btn btn-primary more" id="saveBtn"
-										style="padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; width: 102px; height: 32px;">저장</button></td>
-							</tr>
-						</tbody>
-					</table>
+								</tr>
+								<tr>
+									<td colspan="2" align="center"><button type="submit"
+											class="btn btn-primary more" id="saveBtn"
+											style="padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; width: 102px; height: 32px;">저장</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+				<!-- 설정해놓은 이미지를 띄워준다 -->
+				<div id="img">
+					<c:if test="${not empty pa.atMName}">
+						<img
+							src="${ contextPath }/resources/uploadFiles/profile/${pa.atMName}${ext}"
+							style="width: 300px;">
+					</c:if>
+
 				</div>
 			</div>
 
@@ -165,7 +177,18 @@ div.upload-btn_wrap button { /*버튼 div*/
 			<div class="col-lg-4 sidebar-widgets">
 				<div class="widget-wrap">
 					<div class="single-sidebar-widget user-info-widget">
-						<img src="/resources/channel/img/blog/user-info.png" alt="">
+
+						<c:choose>
+							<c:when test="${not empty pi.atMName}">
+								<img
+									src="${ contextPath }/resources/uploadFiles/profile/${pi.atMName}${ext2}"
+									style="width: 150px; height: 150px; border-radius: 50%;">
+							</c:when>
+							<c:otherwise>
+								<img src="/resources/channel/img/blog/eun.jpg" alt=""
+									style="width: 150px; height: 150px; border-radius: 50%;">
+							</c:otherwise>
+						</c:choose>
 						<a><h4>${m.nickName }</h4></a>
 						<p>@${m.userId }</p>
 					</div>
@@ -173,7 +196,7 @@ div.upload-btn_wrap button { /*버튼 div*/
 					<div class="single-sidebar-widget post-category-widget">
 						<h4 class="category-title">방송국 관리</h4>
 						<ul class="cat-list">
-							<li><a href="/goChannelIntro.ch" class=""
+							<li><a href="/goChannelIntro.ch?CuNo=${m.uno }" class=""
 								style="text-align: center;">
 									<p>채널 소개 설정</p>
 							</a></li>
@@ -181,7 +204,7 @@ div.upload-btn_wrap button { /*버튼 div*/
 									<p>주력 카테고리 설정</p>
 
 							</a></li>
-							<li><a href="/goBannerProfile.ch" class=""
+							<li><a href="goBannerProfile.ch?CuNo=${m.uno }" class=""
 								style="text-align: center;">
 									<p>베너 & 프로필 사진 설정</p>
 

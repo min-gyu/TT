@@ -48,10 +48,11 @@ public class ChannelServiceImpl implements ChannelService {
 
 	// 채널 관리 - VOD 리스트 메소드
 	@Override
-	public List<Board> vodList(int i, int j) {
+	public List<Board> vodList(int i, int j,int ChNo) {
 		HashMap<Object, Integer> map = new HashMap<Object, Integer>(); // MAP을 이용해 담기
 		map.put("current", i);
 		map.put("limit", j);
+		map.put("ChNo", ChNo);
 
 		return cd.vodList(sqlSession, map);
 	}
@@ -134,6 +135,7 @@ public class ChannelServiceImpl implements ChannelService {
 		return cd.listDetCount(bNo, sqlSession);
 	}
 
+	//댓글 리스트 메소드
 	@Override
 	public List<Board> listDet(int i, int j, int k) {
 		HashMap<Object, Integer> map = new HashMap<Object, Integer>(); // MAP을 이용해 담기
@@ -144,6 +146,7 @@ public class ChannelServiceImpl implements ChannelService {
 
 	}
 
+	//댓글 삭제 메소드
 	@Override
 	public Object deleteDet(HashMap<String, Integer> map) {
 		
@@ -161,5 +164,48 @@ public class ChannelServiceImpl implements ChannelService {
 	public int insertBimg(Attachment a) {
 		return cd.insertbImg(a,sqlSession);
 	}
+
+	//베너 사진 적용전 확인 메소드
+	@Override
+	public int lastBimg() {
+		
+		return cd.lastBimg(sqlSession);
+	}
+
+	//베너 사진 업데이트 메소드
+	@Override
+	public int updateBimg(Attachment a) {
+		return cd.updateBimg(a,sqlSession);
+		
+	}
+
+	//프로필 사진 조회 메소드
+	@Override
+	public int lastPimg() {
+		return cd.lastPimg(sqlSession);
+	}
+//프로필 사진 업로드 메소드
+	@Override
+	public int insertPimg(Attachment a) {
+		return cd.insertPimg(a,sqlSession);
+	}
+//프로필 사진 업데이트 메소드
+	@Override
+	public int updatePimg(Attachment a) {
+		return cd.updatePimg(a,sqlSession);
+		
+	}
+//채널 메인 사진 조회용 메소드
+	@Override
+	public Attachment selectbInfo(int chNo) {
+		return cd.selectbInfo(chNo,sqlSession);
+	}
+//사이드바 프로필 사진 조회용 메소드
+	@Override
+	public Attachment selectpInfo(int chNo) {
+		return cd.selectpInfo(chNo,sqlSession);
+	}
+
+	
 
 }

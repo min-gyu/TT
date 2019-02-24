@@ -146,6 +146,44 @@ public class ChannelDaoImpl implements ChannelDao{
 	public int insertbImg(Attachment a, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("Attachment.insertbImg", a);
 	}
+	//베너 사진 추가전 확인 메소드
+	@Override
+	public int lastBimg(SqlSessionTemplate sqlSession) {
+		
+		int result=sqlSession.selectOne("Attachment.selectlastBimg");
+		System.out.println(result);
+		return result;
+	}
+	@Override
+	public int updateBimg(Attachment a, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("Attachment.updateBimg",a);
+	}
+	//프로필 사진 추가 전 확인 메소드
+	@Override
+	public int lastPimg(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Attachment.selectPimg");
+	}
+	//프로필 사진 추가 메소드
+	@Override
+	public int insertPimg(Attachment a, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("Attachment.insertPimg",a);
+	}
+	//프로필 사진 업데이트 메소드
+	@Override
+	public int updatePimg(Attachment a, SqlSessionTemplate sqlSession) {
+	return sqlSession.update("Attachment.updatePimg",a);
+	}
+	//채널 메인 베너 사진 조회용
+	@Override
+	public Attachment selectbInfo(int chNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Attachment.selectbInfo", chNo);
+	}
+	//채널 메인 프로필 사진 조회용
+	@Override
+	public Attachment selectpInfo(int chNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Attachment.selectpInfo", chNo);
+	}
+	
 	
 	
 
