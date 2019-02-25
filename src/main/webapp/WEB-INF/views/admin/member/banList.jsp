@@ -37,7 +37,7 @@
 			</div>
 			
 			<div class="line"></div>
-			
+			<h5 style="color: orangered;">* 시작일 순</h5>
 			<div class="center-block">
 				<table class="table" id= "listArea">
 					<tr id="listHeader">

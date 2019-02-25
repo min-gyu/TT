@@ -16,10 +16,16 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryDao cd;
 	
-	// 카테고리 - vod
+	// 카테고리 - vod 조회순
 	@Override
-	public List<CategoryVod> vodList(int cNo) {
-		return cd.vodList(cNo);
+	public List<CategoryVod> countVodList(int cNo) {
+		return cd.countVodList(cNo);
+	}
+
+	// 카테고리 - vod 업로드순
+	@Override
+	public List<CategoryVod> latestVodList(int cNo) {
+		return cd.latestVodList(cNo);
 	}
 
 }
