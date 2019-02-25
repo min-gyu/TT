@@ -129,6 +129,12 @@
 		ON(CH_UNO=M_UNO)
 		WHERE M_UNO=#{uNo}
 	</select>
+	<!-- 채널 설명 업데이트 메소드(은채) -->
+	<update id="updatecInfo" parameterType="java.util.Map" >
+		UPDATE CHANNEL
+		SET CH_NAME=#{cin}
+		WHERE CH_NO=#{ChNo}
+	</update>
 
 	<!-- 개인정보 수정하기전, 비밀번호 확인 및 아이디추출하기위해 객체 반환 -->	
 	<select id="checkMember" parameterType="_int" resultMap="memberVO">

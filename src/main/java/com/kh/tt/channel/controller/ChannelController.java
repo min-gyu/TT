@@ -25,6 +25,7 @@ import com.kh.tt.channel.model.service.ChannelService;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.channel.model.vo.BoardClaim;
+import com.kh.tt.channel.model.vo.Relation;
 import com.kh.tt.channel.model.vo.pagination;
 
 @Controller
@@ -96,7 +97,7 @@ public class ChannelController {
 
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		int listCount = cs.getLisCount(b);
-		int ChNo=m.getChNo();
+		int ChNo = m.getChNo();
 		pagination pagination = new pagination(listCount, curPage);
 
 		System.out.println("vod_list : " + pagination);
@@ -106,9 +107,11 @@ public class ChannelController {
 
 		if (curPage == 1) {
 
-			list = cs.vodList(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),ChNo);
+			list = cs.vodList(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),
+					ChNo);
 		} else {
-			list = cs.vodList(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),ChNo);
+			list = cs.vodList(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),
+					ChNo);
 		}
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("channel/vod_List");
@@ -565,9 +568,11 @@ public class ChannelController {
 
 		if (curPage == 1) {
 
-			list = cs.vodList(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),ChNo);
+			list = cs.vodList(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),
+					ChNo);
 		} else {
-			list = cs.vodList(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),ChNo);
+			list = cs.vodList(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),
+					ChNo);
 		}
 		System.out.println("list" + list);
 		ModelAndView mav = new ModelAndView();
@@ -601,8 +606,52 @@ public class ChannelController {
 
 	// 구독자 관리 페이지로 이동하는 메서드
 	@RequestMapping("subscriberAdmin.ch")
-	public String goSubscriberAdmin() {
-		return "channel_admin/subscriberAdmin";
+	public ModelAndView goSubscriberAdmin(int CuNo,Member m,Attachment pi,
+			@RequestParam(defaultValue = "1") int curPage) {
+		ModelAndView mav = new ModelAndView();
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		
+		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
+		
+		//총 구독자수와 구독자 리스트 출력하기
+		
+		int listCount=cs.totalSub(m.getChNo());
+		System.out.println("총 구독자수 : "+listCount);
+		
+		pagination pagination = new pagination(listCount, curPage);
+		System.out.println(pagination);
+		
+		List<Relation> list;
+		mav.setViewName("channel_admin/subscriberAdmin");
+		if (curPage == 1) {
+
+			list = cs.selecttSub(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),
+					m.getChNo());
+		} else {
+			list = cs.selecttSub(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),
+					m.getChNo());
+		}
+		System.out.println(list);
+		
+		if (pi != null) {
+			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
+			mav.addObject("ext2", ext2);
+			mav.addObject("pi", pi);
+			mav.addObject("m", m);
+			mav.addObject(list);
+			mav.addObject(listCount);
+			mav.addObject("pagination", pagination);
+			return mav;
+		} else {
+			mav.addObject("m", m);
+			mav.addObject(list);
+			mav.addObject(listCount);
+			mav.addObject("pagination", pagination);
+			return mav;
+		}
+		
+		
+		
 	}
 
 	// 매니저 관리 페이지로 이동하는 메서드
@@ -613,50 +662,51 @@ public class ChannelController {
 
 	// 채널소개 페이지로 이동하는 메서드
 	@RequestMapping("/goChannelIntro")
-	public ModelAndView goChannelIntro(int CuNo,Member m,Attachment pi) {
-		ModelAndView mav=new ModelAndView();
+	public ModelAndView goChannelIntro(int CuNo, Member m, Attachment pi) {
+		ModelAndView mav = new ModelAndView();
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		mav.setViewName("channel_admin/channelIntro");
-		pi=cs.selectpInfo(m.getChNo()); //채널 프로필 정보 출력
-		if(pi!=null) {
+		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
+		if (pi != null) {
 			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
 			mav.addObject("ext2", ext2);
 			mav.addObject("pi", pi);
 			mav.addObject("m", m);
-			}
-		else {
+		} else {
 			mav.addObject("m", m);
 		}
 		return mav;
 	}
-	
+
 	@RequestMapping("updateCin.ch")
-	public ModelAndView updateCin(int CuNo,Member m,Attachment pi,Member inm) {
-		ModelAndView mav=new ModelAndView();
-		String cin=inm.getChName();//채널 제목 입력값 가져오기
-		System.out.println(cin);
-		
+	public ModelAndView updateCin(int CuNo, Member m, Attachment pi, Member inm) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("channel_admin/channelIntro");
+		String cin = inm.getChName();// 채널 제목 입력값 가져오기
+
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
-		int ChNo=m.getChNo();
-		pi=cs.selectpInfo(m.getChNo()); //채널 프로필 정보 출력
+		int ChNo = m.getChNo();
+		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("ChNo", ChNo);
+		map.put("cin", cin);
+		// 채널 제목 업데이트
+		int result1 = cs.updatecInfo(map);
 		
-		//채널 제목이 있는지 조회
-		/*int result1=cs.updatecInfo(ChNo);
-		System.out.println(result1);*/
-		//있을시 업데이트
-		//없으면 인서트
-		
-		if(pi!=null) {
+
+		if (pi != null) {
 			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
 			mav.addObject("ext2", ext2);
 			mav.addObject("pi", pi);
 			mav.addObject("m", m);
-			}
-		else {
+			mav.addObject("cin", cin);
+			return mav;
+		} else {
 			mav.addObject("m", m);
+			mav.addObject("cin", cin);
+			return mav;
 		}
-		
-		return mav;
-	
+
 	}
 }

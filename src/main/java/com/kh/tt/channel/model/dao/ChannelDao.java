@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
+import com.kh.tt.channel.model.vo.Relation;
 import com.kh.tt.member.model.vo.Member;
 
 public interface ChannelDao {
@@ -59,6 +60,12 @@ public interface ChannelDao {
 	Attachment selectbInfo(int chNo, SqlSessionTemplate sqlSession);
 
 	Attachment selectpInfo(int chNo, SqlSessionTemplate sqlSession);
+
+	int updatecInfo(HashMap<String, Object> map, SqlSessionTemplate sqlSession);
+
+	int totalSub(int chNo, SqlSessionTemplate sqlSession);
+
+	List<Relation> selecttSub(int i, int j, int chNo, SqlSessionTemplate sqlSession);
 
 	
 

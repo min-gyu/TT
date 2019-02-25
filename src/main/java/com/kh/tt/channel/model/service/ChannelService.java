@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
+import com.kh.tt.channel.model.vo.Relation;
 import com.kh.tt.member.model.vo.Member;
 
 
@@ -62,6 +63,10 @@ public interface ChannelService{
 
 	Attachment selectbInfo(int chNo);
 	Attachment selectpInfo(int chNo);
+	int updatecInfo(HashMap<String, Object> map);
+	int totalSub(int chNo);
+	
+	List<Relation> selecttSub(int i, int j, int chNo);
 	
 	
 	

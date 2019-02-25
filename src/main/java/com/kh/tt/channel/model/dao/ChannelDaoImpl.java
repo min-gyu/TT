@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
+import com.kh.tt.channel.model.vo.Relation;
 import com.kh.tt.member.model.vo.Member;
 
 @Repository
@@ -183,6 +184,25 @@ public class ChannelDaoImpl implements ChannelDao{
 	public Attachment selectpInfo(int chNo, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("Attachment.selectpInfo", chNo);
 	}
+	//채널 제목 업데이트 메소드
+	@Override
+	public int updatecInfo(HashMap<String, Object> map, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("Member.updatecInfo", map);
+	}
+	//구독자 수 메소드
+	@Override
+	public int totalSub(int chNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Relation2.totalSub",chNo);
+	}
+	//구독자 리스트 출력 메소드
+	@Override
+	public List<Relation> selecttSub(int i, int j, int chNo, SqlSessionTemplate sqlSession) {
+		HashMap<String,Object>  map=new HashMap<String,Object>();
+		map.put("chNo", chNo);
+		map.put("current", i);
+		map.put("limit", j);
+		return sqlSession.selectList("Relation2.selecttSub",map);
+
 	
 	
 	
@@ -198,5 +218,5 @@ public class ChannelDaoImpl implements ChannelDao{
 
 	
 	
-
+	}
 }
