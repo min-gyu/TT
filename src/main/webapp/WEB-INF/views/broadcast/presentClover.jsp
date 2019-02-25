@@ -115,7 +115,7 @@
 		</div>
 	</div>
 </body>
-<script src="http://localhost:8010/socket.io/socket.io.js"></script>
+<script src="https://192.168.30.51:8010/socket.io/socket.io.js"></script>
 <script type="text/javascript">
 	$(function(){
 		if(${empty loginUser}){
@@ -148,9 +148,12 @@
 		
 	})
 	$("#presentBtn").click(function(){
+		console.log("myCloverP :"+$("#myCloverP").val());
+		console.log("presentCloverNum :"+$("#presentCloverNum").val());
+		console.log(Number($("#myCloverP").val()) >= $("#presentCloverNum").val())
 		if($("#presentCloverNum").val()!=""){
 			if($("#presentCloverNum").val()>0){
-				if(${loginUser.totalClover}>$("#presentCloverNum").val()){
+				if(Number($("#myCloverP").val()) >= $("#presentCloverNum").val()){
 					$.ajax({
 						url : "/presentClover.bc",
 						type : "post",
@@ -162,14 +165,14 @@
 						success : function(data) {
 							if(data==3){
 									//선물 소켓 연결
-									var socket = io.connect('http://localhost:8010/present', {
+									var socket = io.connect('https://192.168.30.51:8010/present', {
 										path : '/socket.io'	}); //localhost에 연결합니다.
 									socket.on('presentInfo',(data)=>{
 										console.log("presentInfo 이벤트 확인!")
 								 	  	console.log(data);
 										axios({
 										    method: 'post',
-										    url: "http://localhost:8010/room/chat/present",	
+										    url: "https://192.168.30.51:8010/room/chat/present",	
 										    params: {
 										    	owner:"${param.owner}",
 										    	userId:"${loginUser.userId}",

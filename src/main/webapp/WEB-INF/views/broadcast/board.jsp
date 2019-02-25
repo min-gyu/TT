@@ -148,7 +148,7 @@ html, body{
 .system { 
 	text-align: center;
 	font-weight: bold;
-	font-size: large;
+	font-size: medium;
 	}
 #broadCatsIcon, #presentIcon, #broadSettingIcon, #subscribeIcon, #broadCastExitIcon, #freezeIcon, #userCheckIcon{
 	margin-top: 2px;
@@ -270,9 +270,6 @@ html, body{
 					</div>
 					<div id="titleDiv">
 						<span id="title">방송 제목 적는 곳 입니다.</span>
-					</div>
-					<div>
-						<input type="text" value="0">
 					</div>
 				</div>				
 			</div>
@@ -461,7 +458,7 @@ html, body{
 
 </script>
 <!-- socket.io를 가져오는 스크립트 -->
-<script src="http://localhost:8010/socket.io/socket.io.js"></script>
+<script src="https://192.168.30.51:8010/socket.io/socket.io.js"></script>
 <script>
 	/* 소켓 통신 하는곳  */
 	$(function(){
@@ -523,11 +520,11 @@ html, body{
 	
 	//방만들기, 방송시작과 같음 채팅 방을 만드는 메서드
 		function roomFunc() {
-			var socket = io.connect('http://localhost:8010/room', {
+			var socket = io.connect('https://192.168.30.51:8010/room', {
 				path : '/socket.io'	}); //localhost에 연결합니다.
 				axios({
 				    method: 'post',
-				    url: 'http://localhost:8010/room',
+				    url: 'https://192.168.30.51:8010/room',
 				    params: {
 				      title:$("#title").text(),	
 				      owner:"${ param.owner }"
@@ -542,7 +539,7 @@ html, body{
 		//채팅방 입장하기
 		function chatFunc(){
 			console.log("채팅창 연결");
-			var socket = io.connect('http://localhost:8010/chat', {
+			var socket = io.connect('https://192.168.30.51:8010/chat', {
 				path : '/socket.io'	}); //localhost에 연결합니다.
 				
 			/* var userListSocket = io.connect('http://localhost:8010/userList',{
@@ -577,10 +574,12 @@ html, body{
 							});				
 				    	console.log("socket 연결 해제!");
 			    	}else{
+			    		 $("#chattingDiv").append("<br>");
 			    		var $div = $("<div>");
 						$div.addClass("system");
 			      		$div.text(data.chat);
 				    	$("#chattingDiv").append($div);
+				    	 $("#chattingDiv").append("<br>");
 			    	}
 			    });
 			    
@@ -589,8 +588,18 @@ html, body{
 			 	  	console.log(data);
 			 		var $div = $("<div>").css("background","#81F79F");
 					$div.addClass("system");
-			      	$div.text(data.userNick+"("+data.userId+")"+"님께서 클로버"+data.clover+"개를 선물하셨습니다\n\n"+data.sendMsg);
+			      	$div.text(data.userNick+"("+data.userId+")"+"님께서");
+			      	var $divMsg = $("<div>").css("background","#81F79F");
+			      	$divMsg.text(data.sendMsg);
+			      	$divMsg.addClass("system");
+			      	var $divUser = $("<div>").css("background","#81F79F");
+			      	$divUser.addClass("system");
+			      	$divUser.text("클로버"+data.clover+"개를 선물하셨습니다.")
+			      $("#chattingDiv").append("<br>");
 			      $("#chattingDiv").append($div);
+			      $("#chattingDiv").append($divUser);
+			      $("#chattingDiv").append($divMsg); 
+			      $("#chattingDiv").append("<br>");
 			    });
 			    
 			    socket.on('chat',(data)=>{
@@ -601,9 +610,14 @@ html, body{
 			      } else {
 			    	  $div.addClass('other');
 			      }
-			      var $divId = $("<div>").text(data.userNickName+"("+data.userId+")");
+			      var $divId = $("<div>").text(data.userNickName+"("+data.userId+")").css("display","inline-block").css("margin-left","3px");
 			      var $divChat = $("<div>").text(data.chat);
+			      if(data.userId=="${param.owner}"){
+			    	  var $i =$("<i class='fas fa-crown'>").css("display","inline");
+			    	  $div.append($i);
+			      }
 			      $div.append($divId);
+			      $div.append("<br>");
 			      $div.append($divChat);
 			      $("#chattingDiv").append($div);
 			      //스크롤을 아래로 따라가게 만드는 스크립트
@@ -614,7 +628,7 @@ html, body{
 			    	console.log("joinRoom 신호받음")
 			    	axios({
 					    method: 'get',
-					    url: 'http://localhost:8010/chat/joinRoom/'+"${ param.owner }",	
+					    url: 'https://192.168.30.51:8010/chat/joinRoom/'+"${ param.owner }",	
 					    params: {
 					    	userSocketId:data,
 					    }
@@ -654,7 +668,9 @@ html, body{
 		 		var $div = $("<div>");
 				$div.addClass("system");
 		      	$div.text("관리자가 채팅창을 얼렸습니다!");
+		      	$("#chattingDiv").append("<br>");
 		     	$("#chattingDiv").append($div);
+		     	$("#chattingDiv").append("<br>");
 		     	$("#chattingDiv").css("background","#81DAF5");
 		   		});
 			  //채팅 얼리기 이벤트
@@ -664,7 +680,9 @@ html, body{
 		 		var $div = $("<div>");
 				$div.addClass("system");
 		      	$div.text("관리자가 채팅창을 녹였습니다.");
-		     	$("#chattingDiv").append($div);	     	
+		      	$("#chattingDiv").append("<br>");
+		     	$("#chattingDiv").append($div);	  
+		     	$("#chattingDiv").append("<br>");
 		     	$("#chattingDiv").css("background","#EFFBEF");
 		     	
 		   		});
@@ -699,7 +717,7 @@ html, body{
 								$("#msg").val("");
 								axios({
 						    		method: 'post',
-						    		url: 'http://localhost:8010/room/chat',
+						    		url: 'https://192.168.30.51:8010/room/chat',
 						   			params: {
 						    			owner:"${ param.owner }",
 						    			userId:"${ loginUser.userId }",
@@ -751,7 +769,7 @@ html, body{
 				
 				axios({
 		    		method: 'post',
-		    		url: 'http://localhost:8010/room/chat/freeze',
+		    		url: 'https://192.168.30.51:8010/room/chat/freeze',
 		   			params: {
 		    			owner:"${ param.owner }", 	
 		    		}
