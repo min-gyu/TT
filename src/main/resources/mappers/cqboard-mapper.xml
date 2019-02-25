@@ -7,6 +7,7 @@
 <mapper namespace="CQBoard">
 	<resultMap type="com.kh.tt.myPage.model.vo.CQBoard" id="cqBoardResultSet">
 		<id property="cqNo" column="CQ_NO"/>
+		<result property="rnum" column="ROWNUM"/>
 		<result property="cqUno" column="CQ_UNO"/>
 		<result property="cqTargetId" column="CQ_TARGET_ID"/>
 		<result property="cqClass" column="CQ_CLASS"/>
@@ -20,11 +21,22 @@
 		<result property="cqType" column="CQ_TYPE"/>
 	</resultMap>
 	
-	<!-- My문의 내역 조회 -->
-	<select id="selectQuestion" parameterType="_int"  resultMap="cqBoardResultSet" >
-		SELECT *
+		
+	<!-- My문의 내역 조회 - 카운트 -->
+	<select id="getQuestionCount" resultType="_int">
+		SELECT COUNT(*)
 		FROM CQBOARD
-		WHERE CQ_TYPE = 'QUESTION' AND CQ_UNO=#{cqUno}
+		WHERE CQ_TYPE = 'QUESTION' AND CQ_UNO=#{value}
+	</select> 
+	
+	<!-- My문의 내역 조회 - 리스트 -->
+	<select id="selectQuestion" parameterType="_int"  resultMap="cqBoardResultSet" >
+		SELECT ROWNUM, CQ_NO, CQ_UNO, CQ_TARGET_ID, CQ_BT_NO, CQ_CLASS, CQ_TITLE, CQ_CONTENT, CQ_DATE,
+				CQ_UPPER_NO, CQ_ATTACH_YN, CQ_DEL_STATUS, CQ_TYPE
+		FROM (SELECT CQ_NO, CQ_UNO, CQ_TARGET_ID, CQ_BT_NO, CQ_CLASS, CQ_TITLE, CQ_CONTENT, CQ_DATE,
+				CQ_UPPER_NO, CQ_ATTACH_YN, CQ_DEL_STATUS, CQ_TYPE
+			FROM CQBOARD
+			WHERE CQ_TYPE = 'QUESTION' AND CQ_UNO=#{value})
 	</select> 
 	
 	<!-- My문의 게시물 상세보기 -->
@@ -34,14 +46,31 @@
 		WHERE CQ_NO=#{bid}
 	</select> 
 	
-	<!-- My신고 내역 조회 -->
-	<select id="selectClaim"  parameterType="_int" resultMap="cqBoardResultSet" >
-		SELECT *
+	
+	
+	
+	
+	
+	
+	<!-- My신고 내역 조회 - 카운트 -->
+	<select id="getClaimCount" resultType="_int">
+		SELECT COUNT(*)
 		FROM CQBOARD
-		WHERE CQ_TYPE = 'CLAIM' AND CQ_UNO=#{cqUno}
+		WHERE CQ_TYPE = 'CLAIM' AND CQ_UNO=#{value}
 	</select> 
 	
-	<!-- My신고 게시물 상세보기 -->
+	
+	<!-- My신고 내역 조회 - 리스트 -->
+	<select id="selectClaim"  parameterType="_int" resultMap="cqBoardResultSet" >
+		SELECT ROWNUM, CQ_NO, CQ_UNO, CQ_TARGET_ID, CQ_BT_NO, CQ_CLASS, CQ_TITLE, CQ_CONTENT, CQ_DATE,
+				CQ_UPPER_NO, CQ_ATTACH_YN, CQ_DEL_STATUS, CQ_TYPE
+		FROM (SELECT CQ_NO, CQ_UNO, CQ_TARGET_ID, CQ_BT_NO, CQ_CLASS, CQ_TITLE, CQ_CONTENT, CQ_DATE,
+				CQ_UPPER_NO, CQ_ATTACH_YN, CQ_DEL_STATUS, CQ_TYPE
+			FROM CQBOARD
+			WHERE CQ_TYPE = 'CLAIM' AND CQ_UNO=#{value})
+	</select> 
+	
+	<!-- My신고 게시물  - 상세보기 -->
 	<select id="selectClaimOne" parameterType="_int" resultMap="cqBoardResultSet" >
 		SELECT *
 		FROM CQBOARD

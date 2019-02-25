@@ -146,7 +146,7 @@
 	<!-- 개인정보 수정 -->
 	<update id="updateNickName" parameterType="java.util.Map">
 		UPDATE MEMBER
-		SET M_NICKNAME=#{nickName}, M_PWD=#{userPwd}
+		SET M_NICKNAME=#{nickName}, M_PWD=#{encPassword}
 		WHERE M_UNO=#{mUno}
 	</update>
 	

@@ -25,14 +25,14 @@ public interface MyPageService {
 	Map<Object, Object> selectChargeLog() throws MyPageException;
 
 	//My문의 페이지 조회
-	List<CQBoard> selectQuestion(int cqUno) throws MyPageException;
+	List<CQBoard> selectQuestion(PageInfo pi, int cqUno) throws MyPageException;
 
 	//My문의 게시글 상세보기
 	CQBoard selectQuestionOne(int bid) throws MyPageException;
 	
 	
 	//My신고 페이지 조회
-	List<CQBoard> selectClaim(int cqUno) throws MyPageException;
+	List<CQBoard> selectClaim(PageInfo pi, int cqUno) throws MyPageException;
 
 	//My신고 게시글 상세보기
 	CQBoard selectClaimOne(int bid) throws MyPageException;
@@ -62,7 +62,7 @@ public interface MyPageService {
 	Member checkMember(int mUno) throws MyPageException;
 
 	//개인정보수정
-	int updateModify(String nickName, String userPwd, int mUno) throws MyPageException;
+	int updateModify(String nickName, String encPassword, int mUno) throws MyPageException;
 
 	//회원번호, 탈퇴사유 update
 	int modifyOutStatus(int mUno, String reason) throws MyPageException;
@@ -81,6 +81,12 @@ public interface MyPageService {
 
 	//클로버 충전내역 조회 - 리스트
 	List<Payment> selectChargeList(PageInfo pi, int ptUno) throws MyPageException;
+
+	//신고 - 카운트
+	int getClaimCount(int cqUno) throws MyPageException;
+
+	//문의 - 카운트
+	int getQuestionCount(int cqUno) throws MyPageException;
 
 
 }

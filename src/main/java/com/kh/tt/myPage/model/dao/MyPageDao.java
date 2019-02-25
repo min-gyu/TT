@@ -27,13 +27,13 @@ public interface MyPageDao {
 	Map<Object, Object> selectChargeLog(SqlSessionTemplate sqlSession) throws MyPageException;
 
 	//My문의 페이지
-	List<CQBoard> selectQuesion(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException;
+	List<CQBoard> selectQuesion(SqlSessionTemplate sqlSession, PageInfo pi, int cqUno) throws MyPageException;
 
 	//My문의 게시물 상세보기
 	CQBoard selectQuestionOne(SqlSessionTemplate sqlSession, int bid) throws MyPageException;
 
 	//My신고 페이지
-	List<CQBoard> selectClaim(SqlSessionTemplate sqlSession,int cqUno) throws MyPageException;
+	List<CQBoard> selectClaim(SqlSessionTemplate sqlSession,PageInfo pi,int cqUno) throws MyPageException;
 
 	//My신고 게시물 상세보기
 	CQBoard selectClaimOne(SqlSessionTemplate sqlSession, int bid) throws MyPageException;
@@ -64,7 +64,7 @@ public interface MyPageDao {
 	Member checkMember(SqlSessionTemplate sqlSession, int mUno) throws MyPageException;
 
 	//개인정보수정
-	int updateModify(SqlSessionTemplate sqlSession, String nickName, String userPwd, int mUno) throws MyPageException;
+	int updateModify(SqlSessionTemplate sqlSession, String nickName, String encPassword, int mUno) throws MyPageException;
 
 	//회원번호, 탈퇴사유 update
 	int modifyOutStatus(SqlSessionTemplate sqlSession, int mUno, String reason) throws MyPageException;
@@ -83,6 +83,12 @@ public interface MyPageDao {
 
 	//클로버 충전내역 조회 - 리스트
 	List<Payment> selectChargeList(SqlSessionTemplate sqlSession, PageInfo pi, int ptUno) throws MyPageException;
+
+	//신고 - 카운트
+	int getClaimCount(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException;
+
+	//문의 - 카운트
+	int getQuestionCount(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException;
 
 
 	

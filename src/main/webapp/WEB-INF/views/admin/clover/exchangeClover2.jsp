@@ -1,63 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/layout/header.jsp" />
+<jsp:include page="/WEB-INF/views/layout/admin/ad_header.jsp" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- jstl -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!-- 자바스크립트 선언 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-		
-	<section class="post-content-area single-post-area">
-		<div class="container">
-			<h2>My신고</h2>
-			<div class="row">
-				<div class="col-lg-8 posts-list">
-					<div class="single-post row">
-						<br>
-						<!-- My신고 내역 조회 -->
-						<div>
-						  <table class="ui green table" id="claimTable">
-						  <thead>
-						    <th>No.</th>
-						    <th>신고유형</th>
-						    <th>제목</th>
-						    <th>내용</th>
-						    <th>신고날짜</th>
-						    <!-- ** jstl 반복문 ** - jstl 선언문 반드시 쓰기!! -->  
-						 <c:forEach items="${ claimList }" var="cl"> 
-						   <tr>
-						      <td>${cl.rnum }</td>
-						      <td>${cl.cqClass }</td>
-						      <td>${cl.cqTitle }</td>
-						      <td>${cl.cqContent}</td>
-						      <td>${cl.cqDate }</td>
-						    </tr> 
-						 </c:forEach>
-						  </tbody>
-						</table>
-						</div>
-						
-						
-						<!-- 게시판 클릭시 -->
-						<script>
-							$(function(){
-								$("#claimTable").find("td").mouseenter(function(){
-									$(this).parents("tr").css({"background":"green","color":"white","cursor":"pointer"});
-								}).mouseout(function(){
-									$(this).parents("tr").css({"background":"white","color":"black"});
-								}).click(function(){
-									var bid=$(this).parents().children("td").eq(0).text();
-									/* console.log(bid2); */
-									location.href="selectClaimOne.me?bid="+bid;
-								});
-							});
-						</script>
-						
-						
-					</div>	
-					
-					<!-- 페이징 영역 -->
+
+<style>
+	{
+		font-color:white;
+	}
+</style>
+
+<section class="home">
+	<div class="container">
+		<div class="row" >
+			<div class="col-lg-8 posts-list">
+			<div class="single-post row">
+			<div class="ui tabular menu">
+			  <a href="chargeClover.ad" class=" item" >충전 내역</a>
+			  <a href="exchangeClover.ad" class="active item" >환전 내역</a>
+			</div>
+			<br>
+			
+			<div class="form-inline">
+				<h3><image src="/resources/images/clover/clover.jpg" width="50px" height="50px">
+				환전 관리</h3>
+				<!-- <input class="form-control mr-sm-2" type="search" placeholder="아이디/닉네임을 입력하세요" aria-label="Search" id="searchName"> 
+				<button class="btn btn-success" id="searchBtn">Search</button> -->
+			</div>
+			<div class="ui tabular menu">
+					  <a href="exchangeClover.ad" class="item" >환전신청 내역</a>
+					  <a href="exchangeClover2.ad" class="active item" >환전 완료내역</a>
+			</div>
+			
+			<!-- 테이블 -->
+			<div class="center-block">
+				<table class="table" id= "listArea">
+					<tr id="listHeader">
+						<th>No.</th>
+						<th>아이디</th>
+						<th>이름</th>
+						<th>신청클로버</th>
+						<th>실수령액</th>
+						<th>은행명</th>
+						<th>계좌번호</th>
+						<th>일시</th>
+						<th>상태</th>
+					</tr>
+					<!-- ** jstl 반복문 ** -->  
+					<c:forEach items="${ exchange2List }" var="exchange2List"> 
+					   <tr>
+					   	  <td>${exchange2List.rnum }</td>
+					   	  <td>${exchange2List.mId }</td>
+					   	  <td>${exchange2List.mName }</td>
+					      <td>${exchange2List.exCloverCnt }</td>
+					      <td>${exchange2List.exCloverCnt *90} 원</td>
+					      <td>${exchange2List.mBank }</td>
+					      <td>${exchange2List.mBankNo }</td>
+					      <td>${exchange2List.elDate }</td>
+					      <td>${exchange2List.elStatus }</td>
+					    </tr> 
+					 </c:forEach>
+				</table>
+			</div>
+			
+        	<!-- 페이징 영역 -->
 			<div class="center-block">
 				<ul class="pagination mx-auto" style="justify-content: center;">
 					<c:if test="${ pi.currentPage <= 1 }">
@@ -70,7 +80,7 @@
 					</c:if>
 					
 					<c:if test="${ pi.currentPage > 1 }">
-						<c:url var="listBack" value="/claim.me?cqUno=${sessionScope.loginUser.uno}">
+						<c:url var="listBack" value="/exchangeClover2.ad">
 							<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
 						</c:url>
 						<li class="page-item disabled">
@@ -87,7 +97,7 @@
 						</c:if>
 						
 						<c:if test="${ p ne pi.currentPage }">
-							<c:url var="listCheck" value="/claim.me?cqUno=${sessionScope.loginUser.uno}">
+							<c:url var="listCheck" value="/exchangeClover2.ad">
 								<c:param name="currentPage" value="${ p }" />
 							</c:url>
 							<li class="page-item"><a href="${ listCheck }">${ p }</a></li>
@@ -104,7 +114,7 @@
 					</c:if>
 					
 					<c:if test="${ pi.currentPage < pi.maxPage }">
-						<c:url var="listEnd" value="/claim.me?cqUno=${sessionScope.loginUser.uno}">
+						<c:url var="listEnd" value="/exchangeClover2.ad">
 							<c:param name="currentPage" value="${ pi.currentPage + 1 }" />
 						</c:url>
 						<li class="page-item">
@@ -116,9 +126,13 @@
 					</c:if>
 				</ul>
 			</div>
-				</div>
+        	
+        	
+        	</div>
 			</div>
-		</div>	
-	</section>
+		</div>
+	</div>
+</section>
 
+		
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />

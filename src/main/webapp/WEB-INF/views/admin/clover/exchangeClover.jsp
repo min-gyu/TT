@@ -174,19 +174,30 @@
 					type:"GET",
 					data:{arr1:arr1},
 					success:function(data){
-						if(data=="성공"){
+						alert("환전접수 완료!");
+						window.location.reload();
+						/* if(data=="성공"){
 							console.log("성공");
 							alert("환전접수 완료되었습니다.");
+							
 							window.location.reload();
-						}
+						} */
 					},
 					error:function(data){
-						if(data=="실패"){
+						/* if(data=="실패"){
 							console.log("실패");
-							alert("탈퇴회원 복구처리 실패ㅠㅜ");
-						}
+							alert("환전접수처리 실패");
+						} */
+						alert("환전접수처리 실패");
+						window.location.reload();
 					}
 				}); 
+			});
+			
+			
+			//화면인쇄
+			$("#print").click(function(){
+				window.print();
 			});
 			
 		});	

@@ -70,9 +70,12 @@ public class MyPageDaoImpl implements MyPageDao{
 	
 	//My문의 페이지
 	@Override
-	public List<CQBoard> selectQuesion(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException {
+	public List<CQBoard> selectQuesion(SqlSessionTemplate sqlSession, PageInfo pi,  int cqUno) throws MyPageException {
 		
-		List<CQBoard> questionList = sqlSession.selectList("CQBoard.selectQuestion", cqUno);
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<CQBoard> questionList = sqlSession.selectList("CQBoard.selectQuestion", cqUno, rowBounds);
 		System.out.println("Dao결과 : "+questionList);
 		
 		if(questionList == null) {
@@ -101,9 +104,15 @@ public class MyPageDaoImpl implements MyPageDao{
 	
 	//My신고 페이지
 	@Override
-	public List<CQBoard> selectClaim(SqlSessionTemplate sqlSession,int cqUno) throws MyPageException {
+	public List<CQBoard> selectClaim(SqlSessionTemplate sqlSession,PageInfo pi,int cqUno) throws MyPageException {
 
-		List<CQBoard> claimList = sqlSession.selectList("CQBoard.selectClaim",cqUno);
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		System.out.println("신고 Dao에서 cqUno : "+cqUno);
+		
+		
+		List<CQBoard> claimList = sqlSession.selectList("CQBoard.selectClaim",cqUno, rowBounds);
 		
 		if(claimList == null) {
 			throw new MyPageException("My신고 페이지 조회 실패!");
@@ -113,7 +122,7 @@ public class MyPageDaoImpl implements MyPageDao{
 		return claimList;
 	}
 
-	//My문의 게시글 상세보기
+	//My신고 게시글 상세보기
 	@Override
 	public CQBoard selectClaimOne(SqlSessionTemplate sqlSession, int bid) throws MyPageException {
 
@@ -245,7 +254,7 @@ public class MyPageDaoImpl implements MyPageDao{
 
 	//개인정보수정
 	@Override
-	public int updateModify(SqlSessionTemplate sqlSession, String nickName, String userPwd, int mUno) throws MyPageException {
+	public int updateModify(SqlSessionTemplate sqlSession, String nickName, String encPassword, int mUno) throws MyPageException {
 		
 		int result1=0;
 		
@@ -253,7 +262,7 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		hmap.put("mUno",mUno );
 		hmap.put("nickName",nickName );
-		hmap.put("userPwd",userPwd );
+		hmap.put("encPassword",encPassword );
 		
 		result1 = sqlSession.update("Member.updateNickName",hmap);
 		
@@ -378,5 +387,29 @@ public class MyPageDaoImpl implements MyPageDao{
 		}
 		
 		return chargeList;
+	}
+
+	//신고 - 카운트
+	@Override
+	public int getClaimCount(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException {
+
+		int result = sqlSession.selectOne("CQBoard.getClaimCount",cqUno);
+		if (result < 0) {
+			throw new MyPageException("My신고 전체 수 조회 실패!");
+		}
+		
+		return result;
+	}
+
+	//문의 - 카운트
+	@Override
+	public int getQuestionCount(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException {
+
+		int result = sqlSession.selectOne("CQBoard.getQuestionCount",cqUno);
+		if (result < 0) {
+			throw new MyPageException("My문의 전체 수 조회 실패!");
+		}
+		
+		return result;
 	}
 }

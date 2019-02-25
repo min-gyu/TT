@@ -8,11 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.tt.admin.model.exception.AdminException;
+import com.kh.tt.common.CommonUtils;
+import com.kh.tt.common.MailUtils;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.common.Pagination;
 import com.kh.tt.member.model.vo.Member;
@@ -30,6 +33,15 @@ public class MyPageController {
 	//의존성 주입용 필드선언
 	@Autowired
 	private MyPageService mps;
+	
+
+	@Autowired
+	private MailUtils mailUtils;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
+	private CommonUtils commonUtils = new CommonUtils();
 
 	
 	//개인정보 수정페이지 - 비밀번호 확인 후 진행
@@ -96,7 +108,11 @@ public class MyPageController {
 		
 		//비밀번호, 닉네임 변경
 		try {
-			int result = mps.updateModify(nickName,userPwd,mUno);
+			
+			String encPassword = passwordEncoder.encode(userPwd);
+			System.out.println("변경 후 암호 > " + encPassword);
+			
+			int result = mps.updateModify(encPassword, nickName,mUno);
 			
 			if(result ==0) {
 				System.out.println("변경 실패!");
@@ -421,16 +437,28 @@ public class MyPageController {
 	@RequestMapping("question.me")
 	public String goquestion(Model model, HttpServletRequest request, HttpServletResponse response) {
 		
+		int currentPage = 1;
 		List<CQBoard> questionList;
-
 		//접속중인 사용자 번호
 		int cqUno = Integer.parseInt(request.getParameter("cqUno"));
 		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
 		try {
-			questionList = mps.selectQuestion(cqUno);
+			//문의 - 카운트
+			int listCount = mps.getQuestionCount(cqUno);
+			System.out.println("신고 listCount : " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			//문의 - 리스트
+			questionList = mps.selectQuestion(pi, cqUno);
 			
 			/* model에 담아서 jsp페이지로 넘겨주기 > jsp에서는 ${ list.get(0).getCloverCnt} 이런식으로 불러다 쓰기 */
 			model.addAttribute("questionList", questionList);
+			request.setAttribute("pi", pi);
 			
 		} catch (MyPageException e) {
 			e.printStackTrace();
@@ -464,15 +492,27 @@ public class MyPageController {
 	@RequestMapping("claim.me")
 	public String goclaim(Model model,HttpServletRequest request, HttpServletResponse response) {
 		
+		int currentPage = 1;
 		List<CQBoard> claimList;
-		
 		int cqUno = Integer.parseInt(request.getParameter("cqUno"));
 		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
 		try {
-			claimList = mps.selectClaim(cqUno);
+			//신고 - 카운트
+			int listCount = mps.getClaimCount(cqUno);
+			System.out.println("신고 listCount : " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			//신고 - 리스트
+			claimList = mps.selectClaim(pi, cqUno);
 			
 			/* model에 담아서 jsp페이지로 넘겨주기 > jsp에서는 ${ list.get(0).getCloverCnt} 이런식으로 불러다 쓰기 */
 			model.addAttribute("claimList", claimList);
+			request.setAttribute("pi", pi);
 			
 		} catch (MyPageException e) {
 			e.printStackTrace();

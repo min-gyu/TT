@@ -311,7 +311,7 @@ public class AdminDaoImpl implements AdminDao {
 			}
 		}
 		
-		if(sum/resultArr.length==1 && sum/resultArr2.length==1) {
+		if(sum/resultArr.length==1 && sum2/resultArr2.length==1) {
 			result = 1;
 		}else {
 			result = 0;

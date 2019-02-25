@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class CQBoard implements java.io.Serializable{
 	
+	private int rnum;
 	private int cqNo; //게시글번호
 	private int cqUno; //작성회원번호
 	private int cqTargetId; //신고당한 회원번호
@@ -19,9 +20,10 @@ public class CQBoard implements java.io.Serializable{
 	
 	public CQBoard() {}
 
-	public CQBoard(int cqNo, int cqUno, int cqTargetId, String cqClass, String cqTitle, String cqContent, Date cqDate,
-			int cqLevel, int cqUpperNo, String cqAttachYn, String cqDelStatus, String cqType) {
+	public CQBoard(int rnum, int cqNo, int cqUno, int cqTargetId, String cqClass, String cqTitle, String cqContent,
+			Date cqDate, int cqLevel, int cqUpperNo, String cqAttachYn, String cqDelStatus, String cqType) {
 		super();
+		this.rnum = rnum;
 		this.cqNo = cqNo;
 		this.cqUno = cqUno;
 		this.cqTargetId = cqTargetId;
@@ -34,6 +36,14 @@ public class CQBoard implements java.io.Serializable{
 		this.cqAttachYn = cqAttachYn;
 		this.cqDelStatus = cqDelStatus;
 		this.cqType = cqType;
+	}
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 
 	public int getCqNo() {
@@ -134,12 +144,13 @@ public class CQBoard implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "CQBoard [cqNo=" + cqNo + ", cqUno=" + cqUno + ", cqTargetId=" + cqTargetId + ", cqClass=" + cqClass
-				+ ", cqTitle=" + cqTitle + ", cqContent=" + cqContent + ", cqDate=" + cqDate + ", cqLevel=" + cqLevel
-				+ ", cqUpperNo=" + cqUpperNo + ", cqAttachYn=" + cqAttachYn + ", cqDelStatus=" + cqDelStatus
-				+ ", cqType=" + cqType + "]";
+		return "CQBoard [rnum=" + rnum + ", cqNo=" + cqNo + ", cqUno=" + cqUno + ", cqTargetId=" + cqTargetId
+				+ ", cqClass=" + cqClass + ", cqTitle=" + cqTitle + ", cqContent=" + cqContent + ", cqDate=" + cqDate
+				+ ", cqLevel=" + cqLevel + ", cqUpperNo=" + cqUpperNo + ", cqAttachYn=" + cqAttachYn + ", cqDelStatus="
+				+ cqDelStatus + ", cqType=" + cqType + "]";
 	}
 
+	
 	
 
 }

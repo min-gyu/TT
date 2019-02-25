@@ -87,15 +87,15 @@
 	<!-- 환전신청 수락 -->
 	<!-- EXCHAGE의 EX_STATUS를 update 후, EXCHANGELOG에 insert -->
 	
-	<update id="updateExchangeStatus" parameterType="java.lang.Integer">
+	<update id="updateExchangeStatus" parameterType="_int">
 		UPDATE EXCHANGE
 		SET EX_STATUS='환전완료'
-		WHERE EX_NO = ${exNo}
+		WHERE EX_NO = ${value}
 	</update>
 	
-	<insert id="insertExchangeStatus" parameterType="java.lang.Integer">
+	<insert id="insertExchangeStatus" parameterType="_int">
 		INSERT INTO EXCHANGELOG 
-		VALUES (SEQ_EL_NO.NEXTVAL, ${exNo} , SYSDATE, '환전완료')
+		VALUES (SEQ_EL_NO.NEXTVAL, ${value} , SYSDATE, '환전완료')
 	</insert>
 	
 	
