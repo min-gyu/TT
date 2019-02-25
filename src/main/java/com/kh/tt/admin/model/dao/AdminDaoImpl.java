@@ -14,6 +14,7 @@ import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.exception.MyPageException;
+import com.kh.tt.myPage.model.vo.Exchange;
 import com.kh.tt.myPage.model.vo.Payment;
 
 @Repository
@@ -220,6 +221,104 @@ public class AdminDaoImpl implements AdminDao {
 		}
 		
 		return chargeList;
+	}
+
+	//환전신청내역 - 카운트
+	@Override
+	public int getExchangeClover(SqlSessionTemplate sqlSession) throws AdminException {
+		
+		int result = sqlSession.selectOne("Exchange.getExchangeClover");
+		
+		if (result < 0) {
+			throw new AdminException("환전신청내역 전체 수 조회 실패!");
+		}
+		
+		return result;
+	}
+
+	//환전신청내역 - 리스트
+	@Override
+	public List<Exchange> selectExchangeCloverList(SqlSessionTemplate sqlSession, PageInfo pi) throws AdminException {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<Exchange> exchangeList = sqlSession.selectList("Exchange.selectExchangeCloverList", null , rowBounds);
+
+		if(exchangeList == null) {
+			throw new AdminException("환전신청내역 페이징 처리 실패!");
+		}
+		
+		return exchangeList;
+	}
+
+	//환전완료내역 - 카운트
+	@Override
+	public int getExchange2Clover(SqlSessionTemplate sqlSession) throws AdminException {
+
+		int result = sqlSession.selectOne("Exchange.getExchange2Clover");
+		
+		if (result < 0) {
+			throw new AdminException("환전완료내역 전체 수 조회 실패!");
+		}
+		
+		return result;
+	}
+
+	//환전완료내역 - 리스트
+	@Override
+	public List<Exchange> selectExchange2CloverList(SqlSessionTemplate sqlSession, PageInfo pi) throws AdminException {
+
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<Exchange> exchange2List = sqlSession.selectList("Exchange.selectExchange2CloverList", null , rowBounds);
+
+		if(exchange2List == null) {
+			throw new AdminException("환전신청내역 페이징 처리 실패!");
+		}
+		
+		return exchange2List;
+	}
+
+	//환전수락
+	@Override
+	public int updateExchangeStatus(SqlSessionTemplate sqlSession, int[] arr) throws AdminException {
+		
+		// arr배열에는 회원들의 아이디 담겨있음
+		
+		int[] resultArr = new int[arr.length];
+		int[] resultArr2 = new int[arr.length];
+		int sum = 0;
+		int sum2=0;
+		int result=0;
+		
+		for(int i=0;i<arr.length;i++) {
+			
+			int exNo = arr[i];
+			
+			//EXCHANGE에 상태 update
+			resultArr2[i] = sqlSession.update("Exchange.updateExchangeStatus",exNo);
+			
+			//EXCHANGELOG에 insert
+			resultArr[i] = sqlSession.insert("Exchange.insertExchangeStatus",exNo);
+			
+			if(resultArr[i]==0 || resultArr2[i]==0) {
+				throw new AdminException("환전 접수처리 실패!");
+			}else {
+				sum2+=resultArr2[i]; //EXCHANGE에 상태 update
+				sum+=resultArr[i];//EXCHANGELOG에 insert
+			}
+		}
+		
+		if(sum/resultArr.length==1 && sum/resultArr2.length==1) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		
+		
+		return result;
 	}
 	
 

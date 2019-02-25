@@ -1,5 +1,6 @@
 package com.kh.tt.admin.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.kh.tt.common.PageInfo;
 import com.kh.tt.common.Pagination;
 import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.exception.MyPageException;
+import com.kh.tt.myPage.model.vo.Exchange;
 import com.kh.tt.myPage.model.vo.Payment;
 
 @Controller
@@ -231,11 +233,109 @@ public class AdminController {
 		return cloverPath + "chargeClover";
 	}
 	
-	//클로버 환전내역
+	//클로버 환전내역 - 환전신청내역
 	@RequestMapping("exchangeClover")
-	public String goCloverExchange() {
+	public String goCloverExchange(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		int currentPage = 1;
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			//리스트 카운트
+			int listCount = as.getExchangeClover();
+			System.out.println("listCount : " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			//환전신청내역 - 리스트
+			List<Exchange> exchangeList = as.selectExchangeCloverList(pi);
+			
+			model.addAttribute("exchangeList", exchangeList);
+			System.out.println("가져온리스트! "+exchangeList);
+			
+			request.setAttribute("pi", pi);
+			
+		} catch (AdminException e) {
+			e.printStackTrace();
+		}
+		
+		
 		return cloverPath + "exchangeClover";
 	}
+	
+	
+	@RequestMapping("okayExchange")
+	public String okayExchange(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String[] ar=request.getParameterValues("arr1[]"); 
+		
+		int[] arr = new int[ar.length]; //정수배열 초기화
+		
+		for(int i=0;i<arr.length;i++) {
+			//int형으로 변환 후 배열에 담기
+			arr[i] = Integer.parseInt(ar[i]);
+		}
+		
+		for(int i=0;i<arr.length;i++) {
+			System.out.println("arr["+i+"] : "+arr[i]);
+		}
+		
+		//환전수락
+		int result;
+		try {
+			result = as.updateExchangeStatus(arr);
+			
+			if(result!=0) {
+				response.getWriter().print("성공");
+			}else {
+				response.getWriter().print("실패");
+			}
+			
+		} catch (AdminException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return cloverPath + "exchangeClover";
+	}
+	
+	//클로버 환전내역 - 환전완료내역
+		@RequestMapping("exchangeClover2")
+		public String exchangeClover2(Model model, HttpServletRequest request, HttpServletResponse response) {
+			
+			int currentPage = 1;
+			
+			if (request.getParameter("currentPage") != null) {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+			
+			try {
+				//리스트 카운트
+				int listCount = as.getExchange2Clover();
+				System.out.println("listCount : " + listCount);
+				
+				PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+				
+				//환전완료내역 - 리스트
+				List<Exchange> exchange2List = as.selectExchange2CloverList(pi);
+				
+				model.addAttribute("exchangeList", exchange2List);
+				System.out.println("가져온리스트! "+exchange2List);
+				
+				request.setAttribute("pi", pi);
+				
+			} catch (AdminException e) {
+				e.printStackTrace();
+			}
+			
+			
+			return cloverPath + "exchangeClover2";
+		}
+	
+	
 	
 	// claim & inquire
 	@RequestMapping("adminInquiry")

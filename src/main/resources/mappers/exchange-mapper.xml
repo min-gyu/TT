@@ -12,10 +12,14 @@
 		<result property="rnum" column="ROWNUM"/>
 		<result property="exUno" column="EX_UNO"/>
 		<result property="exCloverCnt" column="EX_CLOVER_CNT"/>
+		<result property="exStatus" column="EX_STATUS"/>
 		
+		<result property="mId" column="M_ID"/>
+		<result property="mName" column="M_NAME"/>
 		<result property="mBank" column="M_BANK"/>
 		<result property="mBankNo" column="M_BANK_NO"/>
 		
+		<result property="elExNo" column="EL_EX_NO"/>
 		<result property="elDate" column="EL_DATE"/>
 		<result property="elStatus" column="EL_STATUS"/>
 	</resultMap>
@@ -23,7 +27,7 @@
 	<!-- 환전신청 -->
 	<insert id="insertExchange">
 		INSERT INTO EXCHANGE 
-		VALUES (SEQ_EX_NO.NEXTVAL, #{mUno}, #{cnt})	
+		VALUES (SEQ_EX_NO.NEXTVAL, #{mUno}, #{cnt}, '환전신청')	
 	</insert>
 	
 	<!-- 환전내역 수 카운트 -->
@@ -34,6 +38,7 @@
 	</select> 
 	
 	<!-- 환전내역 페이징처리  - 리스트 -->
+	<!-- 환전신청/완료 내역으로 나눠야하나? -->
 	<select id="selectExchangeList"  parameterType="_int" resultMap="exchangeResultSet" >
   		SELECT ROWNUM, EX_CLOVER_CNT, M_BANK, M_BANK_NO, EL_DATE, EL_STATUS
 		FROM (
@@ -42,7 +47,59 @@
 		WHERE M.M_UNO=#{mUno}
 		ORDER BY EL.EL_DATE DESC)
 	</select> 
+	
+	
+	<!-- 환전신청내역 수 카운트(관리자) -->
+	<select id="getExchangeClover" resultType="_int">
+		SELECT COUNT(*)
+		FROM EXCHANGE E JOIN MEMBER M ON (E.EX_UNO=M.M_UNO) JOIN EXCHANGELOG EL ON (E.EX_NO=EL.EL_EX_NO)
+		WHERE E.EX_STATUS='환전신청' AND M.M_BANK IS NOT NULL
+	</select> 
+	
+	<!-- 환전신청내역 페이징처리(관리자)  - 리스트 -->
+	<select id="selectExchangeCloverList" resultMap="exchangeResultSet" >
+  		SELECT ROWNUM, EX_NO, M_ID, M_NAME, EX_CLOVER_CNT, M_BANK, M_BANK_NO, EL_DATE, EL_STATUS
+		FROM (
+		SELECT  E.EX_NO, M.M_ID, M.M_NAME,E.EX_CLOVER_CNT, M.M_BANK, M.M_BANK_NO, EL.EL_DATE, EL.EL_STATUS
+		FROM EXCHANGE E JOIN MEMBER M ON (E.EX_UNO=M.M_UNO) JOIN EXCHANGELOG EL ON (E.EX_NO=EL.EL_EX_NO)
+		WHERE E.EX_STATUS='환전신청' AND EL.EL_STATUS='환전신청' AND M.M_BANK IS NOT NULL
+		ORDER BY EL.EL_DATE DESC)
+	</select> 
+	
+	
+	<!-- 환전완료내역 수 카운트(관리자) -->
+	<select id="getExchange2Clover" resultType="_int">
+		SELECT COUNT(*)
+		FROM EXCHANGE E JOIN MEMBER M ON (E.EX_UNO=M.M_UNO) JOIN EXCHANGELOG EL ON (E.EX_NO=EL.EL_EX_NO)
+		WHERE E.EX_STATUS='환전완료' AND M.M_BANK IS NOT NULL
+	</select> 
+	
+	<!-- 환전완료내역 페이징처리(관리자)  - 리스트 -->
+	<select id="selectExchange2CloverList" resultMap="exchangeResultSet" >
+  		SELECT ROWNUM, EX_NO, M_ID, M_NAME, EX_CLOVER_CNT, M_BANK, M_BANK_NO, EL_DATE, EL_STATUS
+		FROM (
+		SELECT  E.EX_NO, M.M_ID, M.M_NAME,E.EX_CLOVER_CNT, M.M_BANK, M.M_BANK_NO, EL.EL_DATE, EL.EL_STATUS
+		FROM EXCHANGE E JOIN MEMBER M ON (E.EX_UNO=M.M_UNO) JOIN EXCHANGELOG EL ON (E.EX_NO=EL.EL_EX_NO)
+		WHERE E.EX_STATUS='환전완료' AND M.M_BANK IS NOT NULL
+		ORDER BY EL.EL_DATE DESC)
+	</select> 
 
+	<!-- 환전신청 수락 -->
+	<!-- EXCHAGE의 EX_STATUS를 update 후, EXCHANGELOG에 insert -->
+	
+	<update id="updateExchangeStatus" parameterType="java.lang.Integer">
+		UPDATE EXCHANGE
+		SET EX_STATUS='환전완료'
+		WHERE EX_NO = ${exNo}
+	</update>
+	
+	<insert id="insertExchangeStatus" parameterType="java.lang.Integer">
+		INSERT INTO EXCHANGELOG 
+		VALUES (SEQ_EL_NO.NEXTVAL, ${exNo} , SYSDATE, '환전완료')
+	</insert>
+	
+	
+	
 </mapper>
 
 

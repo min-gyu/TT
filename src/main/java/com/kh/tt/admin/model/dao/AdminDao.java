@@ -9,6 +9,7 @@ import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.vo.Exchange;
 import com.kh.tt.myPage.model.vo.Payment;
 
 public interface AdminDao {
@@ -61,6 +62,22 @@ public interface AdminDao {
 
 	//충전내역 조회 - 리스트
 	List<Payment> selectChargeCloverList(SqlSessionTemplate sqlSession, PageInfo pi) throws AdminException;
+
+
+	//환전신청내역 - 카운트
+	int getExchangeClover(SqlSessionTemplate sqlSession) throws AdminException;
+
+	//환전신청내역 - 리스트
+	List<Exchange> selectExchangeCloverList(SqlSessionTemplate sqlSession, PageInfo pi)  throws AdminException;
+
+	//환전완료내역 - 카운트
+	int getExchange2Clover(SqlSessionTemplate sqlSession) throws AdminException;
+	
+	//환전완료내역 - 리스트
+	List<Exchange> selectExchange2CloverList(SqlSessionTemplate sqlSession, PageInfo pi) throws AdminException;
+
+	//환전수락
+	int updateExchangeStatus(SqlSessionTemplate sqlSession, int[] arr) throws AdminException;
 	
 	
 	

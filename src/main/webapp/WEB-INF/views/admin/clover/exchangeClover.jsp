@@ -33,37 +33,57 @@
 			</div>
 			<div class="ui tabular menu">
 					  <a href="exchangeClover.ad" class="active item" >환전신청 내역</a>
-					  <a href="exchangeClover.ad" class="item" >환전 완료내역</a>
-					</div>
-			<div class="line"></div>
+					  <a href="exchangeClover2.ad" class="item" >환전 완료내역</a>
+			</div>
 			
+			<!-- 테이블 -->
 			<div class="center-block">
 				<table class="table" id= "listArea">
 					<tr id="listHeader">
+						<th> </th>
 						<th>No.</th>
 						<th>아이디</th>
 						<th>이름</th>
 						<th>신청클로버</th>
 						<th>실수령액</th>
 						<th>은행명</th>
+						<th>계좌번호</th>
 						<th>일시</th>
 						<th>상태</th>
 					</tr>
 					<!-- ** jstl 반복문 ** -->  
-					 <%-- <c:forEach items="${ ExchangeList }" var="ExchangeList"> 
+					<c:forEach items="${ exchangeList }" var="exchangeList"> 
 					   <tr>
-					   	  <td>${ExchangeList.rnum }</td>
-					      <td>${ExchangeList.exCloverCnt }</td>
-					      <td>${ExchangeList.exCloverCnt *90} 원</td>
-					      <td>${ExchangeList.mBank }</td>
-					      <td>${ExchangeList.mBankNo }</td>
-					      <td>${ExchangeList.elDate }</td>
-					      <td>${ExchangeList.elStatus }</td>
+					   	  <td><input id = "check" type="checkbox" value=${exchangeList.exNo }></td>
+					   	  <td>${exchangeList.rnum }</td>
+					   	  <td>${exchangeList.mId }</td>
+					   	  <td>${exchangeList.mName }</td>
+					      <td>${exchangeList.exCloverCnt }</td>
+					      <td>${exchangeList.exCloverCnt *90} 원</td>
+					      <td>${exchangeList.mBank }</td>
+					      <td>${exchangeList.mBankNo }</td>
+					      <td>${exchangeList.elDate }</td>
+					      <td>${exchangeList.elStatus }</td>
 					    </tr> 
-					 </c:forEach> --%>
+					 </c:forEach>
 				</table>
 			</div>
-        	
+        	<!-- 인쇄하기 버튼 -->		
+			<div>	
+			<a class="btn btn-primary more" id="okay" margin-left="700px">
+					<div>신청 접수하기(click)</div>
+					<div>
+						<i class="ion-ios-arrow-thin-right"></i>
+					</div>
+			</a>
+			<a class="btn btn-primary more" id="print" margin-left="700px" >
+					<div>인쇄하기(click)</div>
+					<div>
+						<i class="ion-ios-arrow-thin-right"></i>
+					</div>
+			</a>
+			</div>	
+			
         	<!-- 페이징 영역 -->
 			<div class="center-block">
 				<ul class="pagination mx-auto" style="justify-content: center;">
@@ -130,5 +150,47 @@
 		</div>
 	</div>
 </section>
+
+    	
+   	 <script>
+		$(function(){
+    		var arr=new Array;
+			
+			//환전수락
+			$("#okay").click(function(){
+				var exchangeList = new Array;
+				//체크박스중 선택된값 있으면 배열에 담기
+				$("#check:checked").each(function(){
+					exchangeList.push($(this).val());	
+				});
+				
+				var arr1=new Array;
+				arr1 = exchangeList;
+				
+				console.log(arr1);
+				
+				$.ajax({
+					url:"okayExchange.ad",
+					type:"GET",
+					data:{arr1:arr1},
+					success:function(data){
+						if(data=="성공"){
+							console.log("성공");
+							alert("환전접수 완료되었습니다.");
+							window.location.reload();
+						}
+					},
+					error:function(data){
+						if(data=="실패"){
+							console.log("실패");
+							alert("탈퇴회원 복구처리 실패ㅠㅜ");
+						}
+					}
+				}); 
+			});
+			
+		});	
+   	</script>
+
 		
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
