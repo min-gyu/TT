@@ -24,8 +24,8 @@
 		<result property="ctName"		column="CT_NAME"/>
 	</resultMap>
 	
-	<!-- VOD 리스트 조회 -->
-	<select id="vodList" parameterType="int" resultMap="CategoryVodVO">
+	<!-- VOD 리스트 조회순 -->
+	<select id="countVodList" parameterType="int" resultMap="CategoryVodVO">
 		SELECT M_NICKNAME, CH_NO, CT_NAME, B_NO, B_TITLE, B_WRITE_DATE, B_COUNT, AT_MODIFY_NAME
 		FROM BOARD
 		    JOIN MEMBER ON (B_UNO = M_UNO)
@@ -37,6 +37,23 @@
 		AND B_TYPE = 'VOD'
 		AND B_DEL_STATUS = 'N'
 		AND CT_UPPER_NO = #{value}
+		ORDER BY B_COUNT DESC
+	</select>
+	
+	<!-- VOD 리스트 업로드순 -->
+	<select id="latestVodList" parameterType="int" resultMap="CategoryVodVO">
+		SELECT M_NICKNAME, CH_NO, CT_NAME, B_NO, B_TITLE, B_WRITE_DATE, B_COUNT, AT_MODIFY_NAME
+		FROM BOARD
+		    JOIN MEMBER ON (B_UNO = M_UNO)
+		    JOIN CHANNEL ON (B_CH_NO = CH_NO)
+		    JOIN CATEGORY ON (B_CATEG = CT_NO)
+		    JOIN ATTACHMENT ON (B_NO = AT_B_NO)
+		WHERE B_LEVEL = 1
+		AND B_ATTACH_YN = 'Y'
+		AND B_TYPE = 'VOD'
+		AND B_DEL_STATUS = 'N'
+		AND CT_UPPER_NO = #{value}
+		ORDER BY B_WRITE_DATE DESC
 	</select>
 	
 </mapper>

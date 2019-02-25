@@ -12,10 +12,16 @@ public class CategoryDaoImpl implements CategoryDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	// 카테고리 - vod
+	// 카테고리 - vod 조회순
 	@Override
-	public List<CategoryVod> vodList(int cNo) {
-		return sqlSession.selectList("Category.vodList", cNo);
+	public List<CategoryVod> countVodList(int cNo) {
+		return sqlSession.selectList("Category.countVodList", cNo);
+	}
+
+	// 카테고리 - vod 조회순
+	@Override
+	public List<CategoryVod> latestVodList(int cNo) {
+		return sqlSession.selectList("Category.latestVodList", cNo);
 	}
 
 }

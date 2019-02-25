@@ -1,5 +1,6 @@
 package com.kh.tt.category.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,12 +52,25 @@ public class CategoryController {
 		return jspPath + "vod";
 	}
 	
-	@RequestMapping("vodList.ca")
-	public @ResponseBody List<CategoryVod> vodList(Model model, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "categCountVod.ca")
+	public @ResponseBody List<CategoryVod> countVodList(Model model, HttpServletRequest request, HttpServletResponse response) {
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
 		
-		List<CategoryVod> vodList = cs.vodList(cNo);
-		
-		return vodList;
+		List<CategoryVod> cvList = cs.countVodList(cNo);
+
+		return cvList;
 	}
+	
+	@RequestMapping(value = "categLatestVod.ca")
+	public @ResponseBody List<CategoryVod> latestVodList(Model model, HttpServletRequest request, HttpServletResponse response) {
+		int cNo = Integer.parseInt(request.getParameter("cNo"));
+		
+		List<CategoryVod> lvList = cs.latestVodList(cNo);
+		
+		return lvList;
+	}
+	
+	
+	
+	
 }

@@ -50,6 +50,7 @@
 						<th>경고횟수</th>
 						<th>정지여부</th>
 						<th>탈퇴여부</th>
+						<th>로그인구분</th>
 					</tr>
 					
 					<c:forEach var="m" items="${mList}">
@@ -63,6 +64,7 @@
 						<td>${m.warningNo}회</td>
 						<td>${m.banStatus}</td>
 						<td>${m.status}</td>
+						<td>${m.loginType}</td>
 					</tr>
 					</c:forEach>
 				</table>

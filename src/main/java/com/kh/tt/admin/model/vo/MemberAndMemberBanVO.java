@@ -15,6 +15,8 @@ public class MemberAndMemberBanVO implements java.io.Serializable {
 	private String leaveReason;
 	private String leaveDate;
 	private String adminYN;
+	private String enrollDate;
+	private String loginType;
 	
 	private String banReason;
 	private String startDate;
@@ -24,7 +26,7 @@ public class MemberAndMemberBanVO implements java.io.Serializable {
 
 	public MemberAndMemberBanVO(int rownum, int uno, String userId, String nickName, String userName, String gender,
 			String bank, int warningNo, String banStatus, String status, String leaveReason, String leaveDate,
-			String adminYN, String banReason, String startDate, String endDate) {
+			String adminYN, String enrollDate, String loginType, String banReason, String startDate, String endDate) {
 		super();
 		this.rownum = rownum;
 		this.uno = uno;
@@ -39,6 +41,8 @@ public class MemberAndMemberBanVO implements java.io.Serializable {
 		this.leaveReason = leaveReason;
 		this.leaveDate = leaveDate;
 		this.adminYN = adminYN;
+		this.enrollDate = enrollDate;
+		this.loginType = loginType;
 		this.banReason = banReason;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -148,6 +152,22 @@ public class MemberAndMemberBanVO implements java.io.Serializable {
 		this.adminYN = adminYN;
 	}
 
+	public String getEnrollDate() {
+		return enrollDate;
+	}
+
+	public void setEnrollDate(String enrollDate) {
+		this.enrollDate = enrollDate;
+	}
+
+	public String getLoginType() {
+		return loginType;
+	}
+
+	public void setLoginType(String loginType) {
+		this.loginType = loginType;
+	}
+
 	public String getBanReason() {
 		return banReason;
 	}
@@ -177,9 +197,10 @@ public class MemberAndMemberBanVO implements java.io.Serializable {
 		return "MemberAndMemberBanVO [rownum=" + rownum + ", uno=" + uno + ", userId=" + userId + ", nickName="
 				+ nickName + ", userName=" + userName + ", gender=" + gender + ", bank=" + bank + ", warningNo="
 				+ warningNo + ", banStatus=" + banStatus + ", status=" + status + ", leaveReason=" + leaveReason
-				+ ", leaveDate=" + leaveDate + ", adminYN=" + adminYN + ", banReason=" + banReason + ", startDate="
-				+ startDate + ", endDate=" + endDate + "]";
+				+ ", leaveDate=" + leaveDate + ", adminYN=" + adminYN + ", enrollDate=" + enrollDate + ", loginType="
+				+ loginType + ", banReason=" + banReason + ", startDate=" + startDate + ", endDate=" + endDate + "]";
 	}
 
+	
 	
 }
