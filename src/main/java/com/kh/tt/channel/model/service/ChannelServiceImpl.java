@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.kh.tt.channel.model.dao.ChannelDao;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
+import com.kh.tt.channel.model.vo.Relation;
 import com.kh.tt.member.model.vo.Member;
 
 @Service
@@ -205,6 +206,28 @@ public class ChannelServiceImpl implements ChannelService {
 	public Attachment selectpInfo(int chNo) {
 		return cd.selectpInfo(chNo,sqlSession);
 	}
+
+	//채널 소개 업데이트 메소드
+	@Override
+	public int updatecInfo(HashMap<String, Object> map) {
+		return cd.updatecInfo(map,sqlSession);
+	}
+
+	//총 구독자수 메소드
+	@Override
+	public int totalSub(int chNo) {
+		return cd.totalSub(chNo,sqlSession);
+	}
+
+	@Override
+	public List<Relation> selecttSub(int i, int j, int chNo) {
+		// TODO Auto-generated method stub
+		return cd.selecttSub(i, j,chNo,sqlSession);
+	}
+
+
+	//구독자 리스트 출력 메소드
+
 
 	
 

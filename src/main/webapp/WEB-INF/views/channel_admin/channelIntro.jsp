@@ -60,8 +60,10 @@
 						<div class="col-lg-12">
 							<div class="line transparent little"></div>
 							<div>
-								<div class="row">
-									<h5>채널 소개 설정하기</h5>
+								<div class="line top">
+									<div>
+										<h5>채널 제목 설정</h5>
+									</div>
 								</div>
 								<form action="updateCin.ch?CuNo=${m.uno}" method="post">
 									<div class="row">
@@ -85,6 +87,20 @@
 
 									</div>
 								</form>
+
+								<c:if test="${not empty cin }">
+									<div class="line top">
+										<div>
+											<h5>변경된 채널 제목</h5>
+										</div>
+									</div>
+									<div>
+										<br>
+										<br>
+										<h5>${cin }</h5>
+									</div>
+
+								</c:if>
 							</div>
 
 						</div>
@@ -94,7 +110,6 @@
 						<div class="col-lg-9 col-md-9">
 
 							<div class="row"></div>
-
 							<!-- 게시글 3개 아이콘 -->
 							<div class="col-lg-12"></div>
 							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
@@ -104,7 +119,6 @@
 
 
 						</div>
-
 					</div>
 
 
@@ -133,7 +147,7 @@
 						<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
 							<ul class="cat-list">
-								<li><a href="/goChannelIntro.ch" class=""
+								<li><a href="/goChannelIntro.ch?CuNo=${m.uno }" class=""
 									style="text-align: center;">
 										<p>채널 소개 설정</p>
 								</a></li>
@@ -141,17 +155,17 @@
 										<p>주력 카테고리 설정</p>
 
 								</a></li>
-								<li><a href="/goBannerProfile.ch" class=""
+								<li><a href="goBannerProfile.ch?CuNo=${m.uno }" class=""
 									style="text-align: center;">
 										<p>베너 & 프로필 사진 설정</p>
 
 								</a></li>
-								<li><a href="/goVodAdmin.ch" class=""
+								<li><a href="/goVodAdmin.ch?CuNo=${m.uno }" class=""
 									style="text-align: center;">
 										<p>VOD 관리</p>
 
 								</a></li>
-								<li><a href="/subscriberAdmin.ch" class=""
+								<li><a href="/subscriberAdmin.ch?CuNo=${m.uno }" class=""
 									style="text-align: center;">
 										<p>구독자 관리</p>
 

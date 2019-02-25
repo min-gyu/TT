@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -81,6 +82,7 @@
 						</table>
 
 					</div>
+					
 				</div>
 
 
@@ -88,9 +90,21 @@
 				<div class="col-lg-4 sidebar-widgets">
 					<div class="widget-wrap">
 						<div class="single-sidebar-widget user-info-widget">
-							<img src="/resources/channel/img/blog/user-info.png" alt="">
-							<a><h4>감스트</h4></a>
-						</div>
+
+						<c:choose>
+							<c:when test="${not empty pi.atMName}">
+								<img
+									src="${ contextPath }/resources/uploadFiles/profile/${pi.atMName}${ext2}"
+									style="width: 150px; height: 150px; border-radius: 50%;">
+							</c:when>
+							<c:otherwise>
+								<img src="/resources/channel/img/blog/eun.jpg" alt=""
+									style="width: 150px; height: 150px; border-radius: 50%;">
+							</c:otherwise>
+						</c:choose>
+						<a><h4>${m.nickName }</h4></a>
+						<p>@${m.userId }</p>
+					</div>
 
 							<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
