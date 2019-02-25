@@ -87,7 +87,7 @@
 	</div>
 </body>
 <!-- socket.io를 가져오는 스크립트 -->
-<script src="http://localhost:8010/socket.io/socket.io.js"></script>
+<script src="https://192.168.30.51:8010/socket.io/socket.io.js"></script>
 <script type="text/javascript">
 
 $(function(){
@@ -140,12 +140,12 @@ $(function(){
 });
 $("#searchI").click(function(){
 	if("${loginUser}"!=null){
-		var socket = io.connect('http://localhost:8010/search', {
+		var socket = io.connect('https://192.168.30.51:8010/search', {
 		path : '/socket.io'	}); //localhost에 연결합니다.
 		console.log("search 소켓 연결!");
 		axios({
 	 	    method: 'get',
-	    	url: 'http://localhost:8010/search',
+	    	url: 'https://192.168.30.51:8010/search',
 	   		params: {	
 	      	owner:"${ param.owner }"
 	    	}
