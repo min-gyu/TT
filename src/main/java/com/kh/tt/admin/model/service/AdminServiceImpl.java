@@ -12,6 +12,7 @@ import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.vo.Exchange;
 import com.kh.tt.myPage.model.vo.Payment;
 
 @Service
@@ -119,6 +120,42 @@ public class AdminServiceImpl implements AdminService {
 	public List<Payment> selectChargeCloverList(PageInfo pi) throws AdminException {
 		
 		return md.selectChargeCloverList(sqlSession, pi);
+	}
+	
+	//환전신청내역 - 카운트
+	@Override
+	public int getExchangeClover() throws AdminException {
+		
+		return md.getExchangeClover(sqlSession);
+	}
+
+	//환전신청내역 - 리스트
+	@Override
+	public List<Exchange> selectExchangeCloverList(PageInfo pi) throws AdminException {
+		
+		return md.selectExchangeCloverList(sqlSession, pi);
+	}
+
+	//환전완료내역 - 카운트
+	@Override
+	public int getExchange2Clover() throws AdminException {
+		
+		return md.getExchange2Clover(sqlSession);
+	}
+
+	//환전완료내역 - 리스트
+	@Override
+	public List<Exchange> selectExchange2CloverList(PageInfo pi) throws AdminException {
+
+		return md.selectExchange2CloverList(sqlSession, pi);
+	}
+
+	//환전수락
+	@Override
+	public int updateExchangeStatus(int[] arr) throws AdminException {
+
+		return md.updateExchangeStatus(sqlSession, arr);
+		
 	}
 	
 	
