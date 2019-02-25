@@ -5,6 +5,7 @@ public class CategoryVod implements java.io.Serializable{
 	private int chNo;
 	
 	// member
+	private int uNo;
 	private String nickName;
 	
 	// attachment
@@ -28,11 +29,12 @@ public class CategoryVod implements java.io.Serializable{
 	
 	public CategoryVod() {}
 
-	public CategoryVod(int chNo, String nickName, int atNo, String atModifyName, int ctNo, int ctUpperNo, String ctName,
-			int bNo, String bTitle, String bWriteDate, int bCount, int bLevel, String bAttachYN, String bDelStatus,
-			String bType) {
+	public CategoryVod(int chNo, int uNo, String nickName, int atNo, String atModifyName, int ctNo, int ctUpperNo,
+			String ctName, int bNo, String bTitle, String bWriteDate, int bCount, int bLevel, String bAttachYN,
+			String bDelStatus, String bType) {
 		super();
 		this.chNo = chNo;
+		this.uNo = uNo;
 		this.nickName = nickName;
 		this.atNo = atNo;
 		this.atModifyName = atModifyName;
@@ -55,6 +57,14 @@ public class CategoryVod implements java.io.Serializable{
 
 	public void setChNo(int chNo) {
 		this.chNo = chNo;
+	}
+
+	public int getuNo() {
+		return uNo;
+	}
+
+	public void setuNo(int uNo) {
+		this.uNo = uNo;
 	}
 
 	public String getNickName() {
@@ -171,10 +181,12 @@ public class CategoryVod implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "CategoryVod [chNo=" + chNo + ", nickName=" + nickName + ", atNo=" + atNo + ", atModifyName="
-				+ atModifyName + ", ctNo=" + ctNo + ", ctUpperNo=" + ctUpperNo + ", ctName=" + ctName + ", bNo=" + bNo
-				+ ", bTitle=" + bTitle + ", bWriteDate=" + bWriteDate + ", bCount=" + bCount + ", bLevel=" + bLevel
-				+ ", bAttachYN=" + bAttachYN + ", bDelStatus=" + bDelStatus + ", bType=" + bType + "]";
+		return "CategoryVod [chNo=" + chNo + ", uNo=" + uNo + ", nickName=" + nickName + ", atNo=" + atNo
+				+ ", atModifyName=" + atModifyName + ", ctNo=" + ctNo + ", ctUpperNo=" + ctUpperNo + ", ctName="
+				+ ctName + ", bNo=" + bNo + ", bTitle=" + bTitle + ", bWriteDate=" + bWriteDate + ", bCount=" + bCount
+				+ ", bLevel=" + bLevel + ", bAttachYN=" + bAttachYN + ", bDelStatus=" + bDelStatus + ", bType=" + bType
+				+ "]";
 	}
+
 	
 }

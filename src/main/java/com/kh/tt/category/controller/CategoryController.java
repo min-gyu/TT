@@ -70,6 +70,26 @@ public class CategoryController {
 		return lvList;
 	}
 	
+	@RequestMapping(value = "/category/{type}Vod.ca")
+	public @ResponseBody List<CategoryVod> categVodList(Model model, @PathVariable String type, HttpServletRequest request, HttpServletResponse response) {
+		int cNo = Integer.parseInt(request.getParameter("cNo"));
+		
+		List<CategoryVod> list = null;
+		
+		switch(type) {
+		case "count" : 
+			list =  cs.countVodList(cNo);
+		break;
+		
+		case "latest" : 
+			list =  cs.latestVodList(cNo);
+		break;
+		}
+		
+		System.out.println("list > " + list);
+		return list;
+	}
+	
 	
 	
 	

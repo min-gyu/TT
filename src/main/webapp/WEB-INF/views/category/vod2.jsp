@@ -43,19 +43,26 @@
 	var cNo = 5;
 	
 	$(document).ready(function(){
-		categCountVod(cNo);
-		//categLatestVod(cNo);
+		fn_categVodList('count');
 	});
 	
-	function categCountVod(cNo){
+	function fn_categVodList(type){
+		
+		url = "";
+		
+		if(type === "count") 	{url = "/category/" + type + "Vod.ca"}
+		if(type === "latest") 	{url = "/category/" + type + "Vod.ca"}
+		
 		console.log(cNo);
+		
 		$.ajax({
-			url		:	"/category/categCountVod.ca",
+			url		:	url,
 			type	:	"post",
 			data	:	{
 							cNo	: cNo
 						},
 			success	:	function(data) {
+				
 						console.log(data);
 						
 						var htmlCode = "";
@@ -84,50 +91,11 @@
 						$("#recomm_broading").html(htmlCode);
 			},
 			error	:	function(){
-				alert("카테고리 vod 조회 순 조회 실패");
+				alert("실패");
 			}
 		});
 	};
 	
-	function categLatestVod(cNo){
-		console.log(cNo);
-		$.ajax({
-			url		:	"/category/categLatestVod.ca",
-			type	:	"post",
-			data	:	{
-							cNo	: cNo
-						},
-			success	:	function(data) {
-						console.log(data);
-						
-						var htmlCode = "";
-						for(var i = 0; i <data.length; i++){
-							var rowData = data[i];
-							
-							var chNo 		= rowData.chNo;
-							var atName 		= rowData.atModifyName;
-							var nickName	= rowData.nickName;
-							var title		= rowData.bTitle;
-							var date		= rowData.bWriteDate;
-							
-							htmlCode += '<li>';
-							htmlCode += "<a href='goChannel.ch?uNo=" + chNo + "'>";
-							htmlCode += '<video style="height: 150px; width: 150px;"src="${ contextPath }/resources/uploadFiles/' + atName + '.mp4" type="video/mp4"></video>';
-							htmlCode += '<span class="tit">'+ title +'</span>';
-							htmlCode += "</a>";
-							htmlCode += '<span class="bj">';
-							htmlCode += "<a href='goChannel.ch?uNo=" + chNo + "' target='_blank'>" + nickName + "</a>";
-							htmlCode += '</span>';
-							htmlCode += '<span class="date">' + date + "</span>";
-							htmlCode += '</li>';
-						}
-						$("#recomm_broading").html(htmlCode);
-			},
-			error	:	function(){
-				alert("카테고리 vod 업로드 순 조회 실패");
-			}
-		});
-	};
 </script>
 
 <section>
@@ -155,8 +123,8 @@
 			<div class="container-fluid">
 			
 				<div class="toggle-btn">
-					<button type="button" class="btn btn-outline-warning" onclick="categCountVod(cNo);">조회순</button>
-					<button type="button" class="btn btn-outline-info" onclick="categLatestVod(cNo);">최신순</button>
+					<button type="button" class="btn btn-outline-warning" onclick="fn_categVodList('count');">조회순</button>
+					<button type="button" class="btn btn-outline-info" onclick="fn_categVodList('latest');">최신순</button>
 				</div>
 				
 				<!-- vod 리스트 -->

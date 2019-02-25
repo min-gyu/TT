@@ -9,7 +9,7 @@ public class Subscribe implements java.io.Serializable {
 	private String rAlarmYN;
 	
 	// member table
-	//private int uno;
+	private int uNo;
 	private String mId;
 	private String nickName;
 	private String btYN;
@@ -29,16 +29,18 @@ public class Subscribe implements java.io.Serializable {
 	
 	// broadcast table
 	private int btNo;
+	private String btUrl;
 	private String btTitle;
+	private int btCount;
 	private String btStartTime;
 	
 
 	public Subscribe() {}
 
 
-	public Subscribe(int rNO, int rChNO, int rTargetUno, String rDate, String rType, String rAlarmYN, String mId,
-			String nickName, String btYN, int chNo, int atNo, String atModifyName, String atType, int bNo,
-			String bTitle, String bWriteDate, int btNo, String btTitle, String btStartTime) {
+	public Subscribe(int rNO, int rChNO, int rTargetUno, String rDate, String rType, String rAlarmYN, int uNo,
+			String mId, String nickName, String btYN, int chNo, int atNo, String atModifyName, String atType, int bNo,
+			String bTitle, String bWriteDate, int btNo, String btUrl, String btTitle, int btCount, String btStartTime) {
 		super();
 		this.rNO = rNO;
 		this.rChNO = rChNO;
@@ -46,6 +48,7 @@ public class Subscribe implements java.io.Serializable {
 		this.rDate = rDate;
 		this.rType = rType;
 		this.rAlarmYN = rAlarmYN;
+		this.uNo = uNo;
 		this.mId = mId;
 		this.nickName = nickName;
 		this.btYN = btYN;
@@ -57,7 +60,9 @@ public class Subscribe implements java.io.Serializable {
 		this.bTitle = bTitle;
 		this.bWriteDate = bWriteDate;
 		this.btNo = btNo;
+		this.btUrl = btUrl;
 		this.btTitle = btTitle;
+		this.btCount = btCount;
 		this.btStartTime = btStartTime;
 	}
 
@@ -119,6 +124,16 @@ public class Subscribe implements java.io.Serializable {
 
 	public void setrAlarmYN(String rAlarmYN) {
 		this.rAlarmYN = rAlarmYN;
+	}
+
+
+	public int getuNo() {
+		return uNo;
+	}
+
+
+	public void setuNo(int uNo) {
+		this.uNo = uNo;
 	}
 
 
@@ -232,6 +247,16 @@ public class Subscribe implements java.io.Serializable {
 	}
 
 
+	public String getBtUrl() {
+		return btUrl;
+	}
+
+
+	public void setBtUrl(String btUrl) {
+		this.btUrl = btUrl;
+	}
+
+
 	public String getBtTitle() {
 		return btTitle;
 	}
@@ -239,6 +264,16 @@ public class Subscribe implements java.io.Serializable {
 
 	public void setBtTitle(String btTitle) {
 		this.btTitle = btTitle;
+	}
+
+
+	public int getBtCount() {
+		return btCount;
+	}
+
+
+	public void setBtCount(int btCount) {
+		this.btCount = btCount;
 	}
 
 
@@ -255,11 +290,13 @@ public class Subscribe implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "Subscribe [rNO=" + rNO + ", rChNO=" + rChNO + ", rTargetUno=" + rTargetUno + ", rDate=" + rDate
-				+ ", rType=" + rType + ", rAlarmYN=" + rAlarmYN + ", mId=" + mId + ", nickName=" + nickName + ", btYN="
-				+ btYN + ", chNo=" + chNo + ", atNo=" + atNo + ", atModifyName=" + atModifyName + ", atType=" + atType
-				+ ", bNo=" + bNo + ", bTitle=" + bTitle + ", bWriteDate=" + bWriteDate + ", btNo=" + btNo + ", btTitle="
-				+ btTitle + ", btStartTime=" + btStartTime + "]";
+				+ ", rType=" + rType + ", rAlarmYN=" + rAlarmYN + ", uNo=" + uNo + ", mId=" + mId + ", nickName="
+				+ nickName + ", btYN=" + btYN + ", chNo=" + chNo + ", atNo=" + atNo + ", atModifyName=" + atModifyName
+				+ ", atType=" + atType + ", bNo=" + bNo + ", bTitle=" + bTitle + ", bWriteDate=" + bWriteDate
+				+ ", btNo=" + btNo + ", btUrl=" + btUrl + ", btTitle=" + btTitle + ", btCount=" + btCount
+				+ ", btStartTime=" + btStartTime + "]";
 	}
+
 
 	
 	

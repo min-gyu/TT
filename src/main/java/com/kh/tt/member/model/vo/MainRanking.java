@@ -1,6 +1,7 @@
 package com.kh.tt.member.model.vo;
 
 public class MainRanking implements java.io.Serializable {
+	private int uNo;
 	private String nickName;		// member
 	
 	private int chNo;				// channel
@@ -22,10 +23,11 @@ public class MainRanking implements java.io.Serializable {
 	
 	public MainRanking() {}
 
-	public MainRanking(String nickName, int chNo, int bNo, String bTitle, String bContent, String bWriteDate,
+	public MainRanking(int uNo, String nickName, int chNo, int bNo, String bTitle, String bContent, String bWriteDate,
 			int bCount, int bLevel, String bType, String bDelStatus, String bAttachYN, String ctName, int atNo,
 			String atModifyName) {
 		super();
+		this.uNo = uNo;
 		this.nickName = nickName;
 		this.chNo = chNo;
 		this.bNo = bNo;
@@ -40,6 +42,14 @@ public class MainRanking implements java.io.Serializable {
 		this.ctName = ctName;
 		this.atNo = atNo;
 		this.atModifyName = atModifyName;
+	}
+
+	public int getuNo() {
+		return uNo;
+	}
+
+	public void setuNo(int uNo) {
+		this.uNo = uNo;
 	}
 
 	public String getNickName() {
@@ -156,11 +166,12 @@ public class MainRanking implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "MainRanking [nickName=" + nickName + ", chNo=" + chNo + ", bNo=" + bNo + ", bTitle=" + bTitle
-				+ ", bContent=" + bContent + ", bWriteDate=" + bWriteDate + ", bCount=" + bCount + ", bLevel=" + bLevel
-				+ ", bType=" + bType + ", bDelStatus=" + bDelStatus + ", bAttachYN=" + bAttachYN + ", ctName=" + ctName
-				+ ", atNo=" + atNo + ", atModifyName=" + atModifyName + "]";
+		return "MainRanking [uNo=" + uNo + ", nickName=" + nickName + ", chNo=" + chNo + ", bNo=" + bNo + ", bTitle="
+				+ bTitle + ", bContent=" + bContent + ", bWriteDate=" + bWriteDate + ", bCount=" + bCount + ", bLevel="
+				+ bLevel + ", bType=" + bType + ", bDelStatus=" + bDelStatus + ", bAttachYN=" + bAttachYN + ", ctName="
+				+ ctName + ", atNo=" + atNo + ", atModifyName=" + atModifyName + "]";
 	}
+
 	
 	
 }

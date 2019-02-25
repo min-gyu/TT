@@ -6,6 +6,7 @@ public class CQAndAttach implements java.io.Serializable {
 	private int targetNo;
 	private String userId;
 	private String targetId;
+	private int btNo;
 	private String cqClass;
 	private String cqTitle;
 	private String cqContent;
@@ -29,16 +30,17 @@ public class CQAndAttach implements java.io.Serializable {
 	
 	public CQAndAttach() {}
 
-	public CQAndAttach(int cqNo, int uno, int targetNo, String userId, String targetId, String cqClass, String cqTitle,
-			String cqContent, String cqDate, int level, int upperNo, String attachYN, String delStatus, String cqtype,
-			int atNo, int atCqNO, int atBNo, int atChNo, String atName, String modifyName, String path, String atDate,
-			String atClass, String atType) {
+	public CQAndAttach(int cqNo, int uno, int targetNo, String userId, String targetId, int btNo, String cqClass,
+			String cqTitle, String cqContent, String cqDate, int level, int upperNo, String attachYN, String delStatus,
+			String cqtype, int atNo, int atCqNO, int atBNo, int atChNo, String atName, String modifyName, String path,
+			String atDate, String atClass, String atType) {
 		super();
 		this.cqNo = cqNo;
 		this.uno = uno;
 		this.targetNo = targetNo;
 		this.userId = userId;
 		this.targetId = targetId;
+		this.btNo = btNo;
 		this.cqClass = cqClass;
 		this.cqTitle = cqTitle;
 		this.cqContent = cqContent;
@@ -98,6 +100,14 @@ public class CQAndAttach implements java.io.Serializable {
 
 	public void setTargetId(String targetId) {
 		this.targetId = targetId;
+	}
+
+	public int getBtNo() {
+		return btNo;
+	}
+
+	public void setBtNo(int btNo) {
+		this.btNo = btNo;
 	}
 
 	public String getCqClass() {
@@ -255,12 +265,14 @@ public class CQAndAttach implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "CQAndAttach [cqNo=" + cqNo + ", uno=" + uno + ", targetNo=" + targetNo + ", userId=" + userId
-				+ ", targetId=" + targetId + ", cqClass=" + cqClass + ", cqTitle=" + cqTitle + ", cqContent="
-				+ cqContent + ", cqDate=" + cqDate + ", level=" + level + ", upperNo=" + upperNo + ", attachYN="
-				+ attachYN + ", delStatus=" + delStatus + ", cqtype=" + cqtype + ", atNo=" + atNo + ", atCqNO=" + atCqNO
-				+ ", atBNo=" + atBNo + ", atChNo=" + atChNo + ", atName=" + atName + ", modifyName=" + modifyName
-				+ ", path=" + path + ", atDate=" + atDate + ", atClass=" + atClass + ", atType=" + atType + "]";
+				+ ", targetId=" + targetId + ", btNo=" + btNo + ", cqClass=" + cqClass + ", cqTitle=" + cqTitle
+				+ ", cqContent=" + cqContent + ", cqDate=" + cqDate + ", level=" + level + ", upperNo=" + upperNo
+				+ ", attachYN=" + attachYN + ", delStatus=" + delStatus + ", cqtype=" + cqtype + ", atNo=" + atNo
+				+ ", atCqNO=" + atCqNO + ", atBNo=" + atBNo + ", atChNo=" + atChNo + ", atName=" + atName
+				+ ", modifyName=" + modifyName + ", path=" + path + ", atDate=" + atDate + ", atClass=" + atClass
+				+ ", atType=" + atType + "]";
 	}
+
 
 
 }
