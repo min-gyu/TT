@@ -72,14 +72,7 @@
 		<script>
 		/* 결제 API */
 		function pay(payment, cnt, cno){
-			
-			/* console.log("결제금액 : "+payment);
-			console.log("클로버 개수 : "+cnt);
-			console.log("클로버 번호 : "+cno);
-			console.log(${ sessionScope.loginUser.uno}); */
 			var pUno = ${ sessionScope.loginUser.uno}; //접속중인 유저 회원번호
-			
-			
 			var IMP = window.IMP; // 생략가능
 			IMP.init('imp14691996'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 			
@@ -103,12 +96,9 @@
 			        //결제번호 담기
 			        var pay = rsp.apply_num;
 			        
-			        
 			        //결제번호, 클로버번호, 회원번호 
-			        /* 회원번호도 넘기기 */
 			        location.href="payment.me?pno="+pay+"&pCloverCnt="+cno+"&pUno="+pUno;
-			        
-			    } else {
+			      } else {
 			        var msg = '결제에 실패하였습니다.';
 			        msg += '에러내용 : ' + rsp.error_msg;
 				    alert(msg);

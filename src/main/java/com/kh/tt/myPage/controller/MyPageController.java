@@ -344,12 +344,34 @@ public class MyPageController {
 	public String gobankChk(Model model, HttpServletRequest request, HttpServletResponse response) {
 		
 		int mUno = Integer.parseInt(request.getParameter("mUno"));
+		Member m;
 		
+		//만약 계좌등록이 되어있으면 alert로 계좌삭제한 후 등록해달라고 창띄우기
+		//계좌값이 null이면 계좌인증 후 등록시켜주기
+		
+		try {
+			m = mps.checkMember(mUno);
+			System.out.println("사용자의 은행명 : "+m.getBank());
+			
+			if(m.getBank()==null) {
+				//계좌등록먼저!
+			}
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}
 		
 		model.addAttribute("mUno", mUno);
 		
 		
 		return "myPage/bankChk";
+	}
+	
+	//계좌등록 
+	@RequestMapping("insertBank.me")
+	public String insertBank(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		return "redirect:goMain.me";
 	}
 	
 	//계좌관리 페이지 - 비밀번호 확인 후, 진행

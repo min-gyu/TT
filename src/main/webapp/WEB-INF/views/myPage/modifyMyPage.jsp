@@ -78,15 +78,12 @@
 			function outReason() {
 				
 				$("#myModal").modal().show();
-				
 				var mUno = ${member2.getUno()};
-				
 				
 				//탈퇴사유 선택 후 확인클릭시
 				$("#btn").click(function(){
 					var reason = $("input[name='reason']:checked").val();
 					console.log(reason);
-					
 					
 					//이제 회원번호랑 이유 넘기기
 					location.href="out.me?mUno="+mUno+"&reason="+reason;
