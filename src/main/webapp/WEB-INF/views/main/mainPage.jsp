@@ -18,8 +18,9 @@
 						for(var i = 0; i <data.length; i++){
 							var rowData = data[i];
 							
-							var chNo 		= rowData.chNo;
+							var uNo			= rowData.uNo;
 							var nickName	= rowData.nickName;
+							var chNo 		= rowData.chNo;
 							var categ 		= rowData.ctName;
 							var bNo 		= rowData.bNo;
 							var title 		= rowData.bTitle;
@@ -31,7 +32,7 @@
 							htmlCode += '<article class="col-md-12 article-list">';
 							htmlCode += '<div class="inner">';
 							htmlCode += '<figure>';
-							htmlCode += '<a href="#">';
+							htmlCode += '<a href="/vod_oneList.ch?bNo='+ bNo +'&&CuNo='+ uNo +'">';
 							htmlCode += '<video style="width: 100%;"src="${ contextPath }/resources/uploadFiles/' + atName + '.mp4" type="video/mp4"></video>';
 							htmlCode += '</a>';
 							htmlCode += '</figure>';
@@ -43,13 +44,13 @@
 							htmlCode += '<div class="time">'+ date +'</div>';
 							htmlCode += '</div>';
 							htmlCode += '<div>';
-							htmlCode += '<div class="creater"><a href="#">'+ nickName +'</div>';
+							htmlCode += '<div class="creater"><a href="/goChannel.ch?uNo=' + chNo + '" target="_blank">'+ nickName +'</a></div>';
 							htmlCode += '<h1>'+ title +'</a></h1>';
 							htmlCode += '</div>';
 							htmlCode += '<p>'+ content +'</p>';
 							htmlCode += '<footer>';
 							htmlCode += '<div class="love"><i class="fas fa-bullseye"></i><div>'+ count +'</div></div>';
-							htmlCode += '<a href="goChannel.ch?uNo=' + chNo + '" target="_blank">';
+							htmlCode += '<a href="/vod_oneList.ch?bNo='+ bNo +'&&CuNo='+ uNo +'">';
 							htmlCode += '<button type="button" class="btn btn-primary more">More</button>';
 							htmlCode += '</a>'
 							htmlCode += '</footer>';

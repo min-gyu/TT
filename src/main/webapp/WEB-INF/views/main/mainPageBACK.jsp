@@ -25,7 +25,7 @@
 											<div class="time">December 10, 2016</div>
 											<div class="category"><a href="#">스포츠</a></div>
 										</div>
-											<div class="creater"><a href="#">뜨뜨</div>
+											<div class="creater"><a href="#">뜨뜨</a></div>
 										<h2><a href="#">[생]한국 축구 중계</a></h2>
 										<footer>
 											<!-- <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>1263</div></a> -->

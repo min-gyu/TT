@@ -23,17 +23,19 @@
 							
 							var chNo 		= rowData.chNo;
 							var atName 		= rowData.atModifyName;
+							var uNo			= rowData.uNo;
 							var nickName	= rowData.nickName;
+							var bNo 		= rowData.bNo;
 							var title		= rowData.bTitle;
 							var date		= rowData.bWriteDate;
 							
 							htmlCode += '<li style="width: 30%;">';
-							htmlCode += "<a href='goChannel.ch?uNo=" + chNo + "'>";
+							htmlCode += '<a href="/vod_oneList.ch?bNo='+ bNo +'&&CuNo='+ uNo +'">';
 							htmlCode += '<video style="height: 200px; width: 200px;"src="${ contextPath }/resources/uploadFiles/' + atName + '.mp4" type="video/mp4"></video>';
 							htmlCode += '<span class="tit">'+ title +'</span>';
 							htmlCode += "</a>";
 							htmlCode += '<span class="bj">';
-							htmlCode += "<a href='goChannel.ch?uNo=" + chNo + "' target='_blank'>" + nickName + "</a>";
+							htmlCode += "<a href='/goChannel.ch?uNo=" + chNo + "' target='_blank'>" + nickName + "</a>";
 							htmlCode += '</span>';
 							htmlCode += '<span class="date">' + date + "</span>";
 							htmlCode += '</li>';

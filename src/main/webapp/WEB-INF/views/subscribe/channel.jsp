@@ -24,7 +24,7 @@
     content: '';
 }
 .favor_all .ready_box {
-    height: 100px;
+    height: 140px;
     padding: 14px 0 0 0;
 }
 .favor_all .ready_box a {
@@ -105,25 +105,6 @@
     left: 110px;
     color: #555;
 }
-.favor_all .ready_box .date {
-    position: absolute;
-    top: auto;
-    bottom: 8px;
-    font-size: 12px;
-    letter-spacing: -.5px;
-}
-.ready_box .date {
-    display: block;
-    position: absolute;
-    top: 92px;
-    left: 0;
-    width: 100%;
-    border-top: 1px solid #ebebeb;
-    padding-top: 9px;
-    text-align: center;
-    font-size: 11px;
-    color: #999;
-}
 </style>
 
 <script type="text/javascript">
@@ -152,10 +133,14 @@
 					var chNo 		= rowData.chNo;
 					var id 			= rowData.mId;
 					var nickName	= rowData.nickName;
+					var atName 		= rowData.atModifyName;
 					
 					htmlCode += '<li>';
 					htmlCode += '<div class="ready_box">';
 					htmlCode += "<a href='goChannel.ch?uNo=" + chNo + "'>";
+					htmlCode += '<span class="thumb">';
+					htmlCode += '<img src="${ contextPath }/resources/uploadFiles/profile/' + atName + '.jpg" width="65" height="65" title="">';
+					htmlCode += '</span>';
 					htmlCode += '<span class="nick">' + nickName + '</span>';
 					htmlCode += '<span class="afid">' + id + '</span>';
 					htmlCode += '</a>';

@@ -16,6 +16,7 @@
 		<result property="bDelStatus" 	column="B_DEL_STATUS"/>
 		<result property="bType" 		column="B_TYPE"/>
 		<result property="chNo" 		column="CH_NO"/>
+		<result property="uNo" 			column="M_UNO"/>
 		<result property="nickName" 	column="M_NICKNAME"/>
 		<result property="atNo" 		column="AT_NO"/>
 		<result property="atModifyName" column="AT_MODIFY_NAME"/>

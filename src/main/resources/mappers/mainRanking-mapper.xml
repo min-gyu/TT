@@ -15,6 +15,7 @@
 		<result property="bType" 		column="B_TYPE"/>
 		<result property="bDelStatus" 	column="B_DEL_STATUS"/>
 		<result property="bAttachYN" 	column="B_ATTACH_YN"/>
+		<result property="uNo" 			column="M_UNO"/>
 		<result property="nickName" 	column="M_NICKNAME"/>
 		<result property="chNo" 		column="CH_NO"/>
 		<result property="ctName" 		column="CT_NAME"/>
@@ -24,9 +25,9 @@
 	
 	<!-- 메인 페이지 vod 리스트 -->
 	<select id="mainVodList" resultMap="MainRankingVO">
-		SELECT M_NICKNAME, CH_NO, CT_NAME, B_NO, B_TITLE, B_CONTENT, B_WRITE_DATE, B_COUNT, AT_NO, AT_MODIFY_NAME
+		SELECT M_UNO, M_NICKNAME, CH_NO, CT_NAME, B_NO, B_TITLE, B_CONTENT, B_WRITE_DATE, B_COUNT, AT_NO, AT_MODIFY_NAME
 		FROM 
-		    (SELECT M_NICKNAME, CH_NO, CT_NAME, B_NO, B_TITLE, B_CONTENT, B_WRITE_DATE, B_COUNT, AT_NO, AT_MODIFY_NAME
+		    (SELECT M_UNO, M_NICKNAME, CH_NO, CT_NAME, B_NO, B_TITLE, B_CONTENT, B_WRITE_DATE, B_COUNT, AT_NO, AT_MODIFY_NAME
 		    FROM BOARD
 		        JOIN MEMBER ON (B_UNO = M_UNO)
 		        JOIN CHANNEL ON (B_CH_NO = CH_NO)
@@ -37,7 +38,7 @@
 		    AND B_TYPE = 'VOD'
 		    AND B_DEL_STATUS = 'N'
 		    ORDER BY B_COUNT DESC)
-		WHERE ROWNUM <![CDATA[ <= ]]> 2
+		WHERE ROWNUM <![CDATA[ <= ]]> 3
 	</select>
 	
 </mapper>
