@@ -16,11 +16,11 @@
 				var inputPwd = $("#password1").val();
 				var chkPwd = "${member1.getUserPwd()}";
 				
-				console.log(mUno+", "+inputPwd+", "+chkPwd);
+				console.log("chkPwd : "+chkPwd);
 				
 				if(inputPwd=="pass"){
 					console.log("로그인 성공");
-					location.href="modifyMyPage2.me?mUno="+mUno;
+					location.href="modifyMyPage2.me?mUno="+mUno; 
 				}else{
 					console.log("로그인 실패!");
 				} 

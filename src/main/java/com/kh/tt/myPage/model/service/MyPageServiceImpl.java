@@ -65,9 +65,9 @@ public class MyPageServiceImpl implements MyPageService{
 
 	//My문의 페이지
 	@Override
-	public List<CQBoard> selectQuestion(int cqUno) throws MyPageException {
+	public List<CQBoard> selectQuestion(PageInfo pi, int cqUno) throws MyPageException {
 
-		List<CQBoard> questionList = mpd.selectQuesion(sqlSession,cqUno);
+		List<CQBoard> questionList = mpd.selectQuesion(sqlSession,pi, cqUno);
 		
 		
 		return questionList;
@@ -86,9 +86,9 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	//My신고 페이지
 		@Override
-		public List<CQBoard> selectClaim(int cqUno) throws MyPageException {
+		public List<CQBoard> selectClaim(PageInfo pi,int cqUno) throws MyPageException {
 			
-			List<CQBoard> claimList = mpd.selectClaim(sqlSession, cqUno);
+			List<CQBoard> claimList = mpd.selectClaim(sqlSession,pi, cqUno);
 			
 			return claimList;
 		}
@@ -163,9 +163,9 @@ public class MyPageServiceImpl implements MyPageService{
 
 		//개인정보수정
 		@Override
-		public int updateModify(String nickName, String userPwd, int mUno) throws MyPageException {
+		public int updateModify(String nickName, String encPassword, int mUno) throws MyPageException {
 
-			return mpd.updateModify(sqlSession,nickName,userPwd, mUno);
+			return mpd.updateModify(sqlSession,encPassword, nickName,mUno);
 		}
 
 
@@ -210,6 +210,18 @@ public class MyPageServiceImpl implements MyPageService{
 		public List<Payment> selectChargeList(PageInfo pi, int ptUno) throws MyPageException {
 			
 			return mpd.selectChargeList(sqlSession, pi,ptUno);
+		}
+
+		//신고 - 카운트
+		@Override
+		public int getClaimCount(int cqUno) throws MyPageException {
+			return mpd.getClaimCount(sqlSession, cqUno);
+		}
+
+		//문의 - 카운트
+		@Override
+		public int getQuestionCount(int cqUno) throws MyPageException {
+			return mpd.getQuestionCount(sqlSession, cqUno);
 		}
 
 

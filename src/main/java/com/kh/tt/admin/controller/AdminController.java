@@ -267,19 +267,21 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("okayExchange")
+	//환전 수락
+	@RequestMapping("okayExchange.ad")
 	public String okayExchange(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String[] ar=request.getParameterValues("arr1[]"); 
+		System.out.println("String배열 크기 : "+ ar.length);
 		
 		int[] arr = new int[ar.length]; //정수배열 초기화
 		
-		for(int i=0;i<arr.length;i++) {
+		for(int i=0;i<ar.length;i++) {
 			//int형으로 변환 후 배열에 담기
 			arr[i] = Integer.parseInt(ar[i]);
 		}
 		
-		for(int i=0;i<arr.length;i++) {
+		for(int i=0;i<ar.length;i++) {
 			System.out.println("arr["+i+"] : "+arr[i]);
 		}
 		
@@ -297,7 +299,6 @@ public class AdminController {
 		} catch (AdminException e) {
 			e.printStackTrace();
 		}
-		
 		
 		return cloverPath + "exchangeClover";
 	}
@@ -322,8 +323,8 @@ public class AdminController {
 				//환전완료내역 - 리스트
 				List<Exchange> exchange2List = as.selectExchange2CloverList(pi);
 				
-				model.addAttribute("exchangeList", exchange2List);
-				System.out.println("가져온리스트! "+exchange2List);
+				model.addAttribute("exchange2List", exchange2List);
+				System.out.println("환전완료 가져온리스트! "+exchange2List);
 				
 				request.setAttribute("pi", pi);
 				

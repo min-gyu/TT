@@ -4,6 +4,9 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!-- 자바스크립트 선언 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 		
 	<section class="post-content-area single-post-area">
 		<div class="container">
@@ -25,7 +28,7 @@
 						  <!-- ** jstl 반복문 ** -->  
 						 <c:forEach items="${ questionList }" var="ql"> 
 						   <tr>
-						      <td>${ql.cqNo }</td>
+						      <td>${ql.rnum }</td>
 						      <td>${ql.cqClass }</td>
 						      <td>${ql.cqTitle }</td>
 						      <td>${ql.cqContent}</td>
@@ -35,11 +38,6 @@
 						    
 						  </tbody>
 						</table>
-						
-						<!-- 페이징 버튼 영역 -->
-						<div align="center">
-							 <button class="ui green basic button">1</button>
-						</div>
 						</div>
 						
 						<!-- 게시판 클릭시 -->
@@ -57,10 +55,68 @@
 								});
 							});
 						</script>
-
-						
-						
 					</div>	
+					
+			<!-- 페이징 영역 -->
+			<div class="center-block">
+				<ul class="pagination mx-auto" style="justify-content: center;">
+					<c:if test="${ pi.currentPage <= 1 }">
+						<li class="page-item disabled">
+		                    <a class="page-link" href="#" aria-label="Previous">
+		                        <span aria-hidden="true">«</span>
+		                        <span class="sr-only">Previous</span>
+		                    </a>
+		                </li>
+					</c:if>
+					
+					<c:if test="${ pi.currentPage > 1 }">
+						<c:url var="listBack" value="/question.me?cqUno=${sessionScope.loginUser.uno}">
+							<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
+						</c:url>
+						<li class="page-item disabled">
+		                    <a class="page-link" href="${ listBack }" aria-label="Previous">
+		                        <span aria-hidden="true">«</span>
+		                        <span class="sr-only">Previous</span>
+		                    </a>
+		                </li>
+					</c:if>
+					
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:if test="${ p eq pi.currentPage }">
+							<li class="page-item active"><a class="page-link" href="#">${ p }</a></li>
+						</c:if>
+						
+						<c:if test="${ p ne pi.currentPage }">
+							<c:url var="listCheck" value="/question.me?cqUno=${sessionScope.loginUser.uno}">
+								<c:param name="currentPage" value="${ p }" />
+							</c:url>
+							<li class="page-item"><a href="${ listCheck }">${ p }</a></li>
+						</c:if>
+					</c:forEach>
+					
+					<c:if test="${ pi.currentPage >= pi.maxPage }">
+						<li class="page-item">
+		                    <a class="page-link" href="#" aria-label="Next">
+		                        <span aria-hidden="true">»</span>
+		                        <span class="sr-only">Next</span>
+		                    </a>
+		                </li>
+					</c:if>
+					
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="listEnd" value="/question.me?cqUno=${sessionScope.loginUser.uno}">
+							<c:param name="currentPage" value="${ pi.currentPage + 1 }" />
+						</c:url>
+						<li class="page-item">
+		                    <a class="page-link" href="${ listEnd }" aria-label="Next">
+		                        <span aria-hidden="true">»</span>
+		                        <span class="sr-only">Next</span>
+		                    </a>
+		                </li>
+					</c:if>
+				</ul>
+			</div>
+					
 				</div>
 			</div>
 		</div>	
