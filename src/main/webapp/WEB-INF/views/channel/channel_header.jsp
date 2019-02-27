@@ -54,8 +54,11 @@
 	<header id="header">
 		<div class="container main-menu"  style="background: #f9f9ff;padding-bottom: 0px;padding-top: 0px;padding-left: 0px;padding-right: 0px;">
 			<div class="row align-items-center justify-content-between d-flex">
-				<a href="goMain.me"><img src="/resources/images/logo.png"
-					alt="Today's TV" style="width: 300px;"></a>
+				<div class="brand">
+							<a  href="/goMain.me"> <img src="/resources/images/logo.png" alt="Today's TV" style="width: 300px;"></a>
+							<span><a href="/goChannel.ch?uNo=${sessionScope.loginUser.uno}"><h5  style="color:#088A29;text-align:center;font-size: 15px !important;">Channel</h5></a></span>
+						</div>
+				
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
 						<!-- 공간 비율때문에 넣음 -->
@@ -64,7 +67,7 @@
 						<li><a style="color: #f9f9ff;">방송하기</a> <!-- 공간 비율때문에 넣음 end -->
 						<li class="menu-has-children"><a><c:out value="${sessionScope.loginUser.userName }"/></a>
 							<ul>
-								<li><a href="blog-home.html">로그아웃</a></li>
+								<li><a href="/logout.me">로그아웃</a></li>
 							</ul></li>
 						<li class="menu-has-children"><a><i class="ion-ios-videocam"></i></a>
 							<ul>

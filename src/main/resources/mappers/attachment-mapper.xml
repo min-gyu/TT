@@ -25,7 +25,7 @@
 		SEQ_AT_NO.NEXTVAL,
 		#{atBno},
 		NULL,
-		NULL,
+		#{atCHno},
 		#{atName},
 		#{atMName},
 		#{atPath},
@@ -56,9 +56,10 @@
 	</insert>
 
 
-	<select id="selectlastBimg" resultType="int">
+	<select id="selectlastBimg" parameterType="int" resultType="int">
 		SELECT count(*) FROM ATTACHMENT
 		WHERE AT_TYPE='BACK'
+		WHERE AT_CH_NO=#{i}
 	</select>
 
 	<update id="updateBimg" parameterType="Attachment">
@@ -69,9 +70,10 @@
 		WHERE AT_CH_NO=#{atCHno} AND AT_TYPE='BACK'
 	</update>
 	
-	<select id="selectPimg" resultType="int">
+	<select id="selectPimg" parameterType="int" resultType="int">
 		SELECT COUNT(*) FROM ATTACHMENT
 		WHERE AT_TYPE='PROFILE'
+		WHERE AT_CH_NO=#{i}
 	</select>
 	
 	<update id="updatePimg" parameterType="Attachment">

@@ -101,11 +101,10 @@ public class ChannelDaoImpl implements ChannelDao{
 	
 	//VOD개수 출력하기 메소드
 	@Override
-	public int getListCount(Board b,SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
-		int result=sqlSession.selectOne("Board.getListCount",b);
-		return result;
+	public int getListCount(int i, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Board.selectLCount",i);
 	}
+
 	//회원정보 뽑기 메소드
 	@Override
 	public Member selectmInfo(int uNo, SqlSessionTemplate sqlSession) {
@@ -149,9 +148,9 @@ public class ChannelDaoImpl implements ChannelDao{
 	}
 	//베너 사진 추가전 확인 메소드
 	@Override
-	public int lastBimg(SqlSessionTemplate sqlSession) {
+	public int lastBimg(int i,SqlSessionTemplate sqlSession) {
 		
-		int result=sqlSession.selectOne("Attachment.selectlastBimg");
+		int result=sqlSession.selectOne("Attachment.selectlastBimg",i);
 		System.out.println(result);
 		return result;
 	}
@@ -159,10 +158,11 @@ public class ChannelDaoImpl implements ChannelDao{
 	public int updateBimg(Attachment a, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("Attachment.updateBimg",a);
 	}
+	
 	//프로필 사진 추가 전 확인 메소드
 	@Override
-	public int lastPimg(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("Attachment.selectPimg");
+	public int lastPimg(int i,SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Attachment.selectPimg",i);
 	}
 	//프로필 사진 추가 메소드
 	@Override
@@ -183,6 +183,11 @@ public class ChannelDaoImpl implements ChannelDao{
 	@Override
 	public Attachment selectpInfo(int chNo, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("Attachment.selectpInfo", chNo);
+	}
+	//채널 메인 제목 사진 조회용
+	@Override
+	public Member selecttInfo(int chNo, SqlSessionTemplate sqlSession) {
+	return sqlSession.selectOne("Member.selecttInfo",chNo);
 	}
 	//채널 제목 업데이트 메소드
 	@Override
@@ -210,4 +215,11 @@ public class ChannelDaoImpl implements ChannelDao{
 		System.out.println(result);
 		return result;
 	}
+	//메인 채널 VOD출력용 메소드
+	@Override
+	public List<Board> getMainVList(int chNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Board.getMainVList", chNo);
+	}
+	
+	
 }

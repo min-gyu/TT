@@ -29,10 +29,10 @@
 
 	</select>
 
-	<insert id="addSub" parameterType="java.util.Map">
+	<insert id="addSub" parameterType="java.util.Map" >
 		INSERT INTO RELATION VALUES (
 		SEQ_R_NO.NEXTVAL,
-		#{ChNo},
+		#{cuNo},
 		#{uNo},
 		SYSDATE,
 		'SUBSCRIBE',

@@ -185,56 +185,63 @@ div.upload-btn_wrap button { /*버튼 div*/
 									style="width: 150px; height: 150px; border-radius: 50%;">
 							</c:when>
 							<c:otherwise>
-								<img src="/resources/channel/img/blog/eun.jpg" alt=""
-									style="width: 150px; height: 150px; border-radius: 50%;">
-							</c:otherwise>
+									<img src="/resources/uploadFiles/profile/profile1.png" alt=""
+										style="width: 150px; height: 150px; border-radius: 50%;">
+								</c:otherwise>
 						</c:choose>
 						<a><h4>${m.nickName }</h4></a>
 						<p>@${m.userId }</p>
+						<c:set var="stitle" value="채널명을 입력해주세요" />
+							
+							<c:choose>
+									<c:when test="${title ne stitle }">
+										<p>${title }</p>
+									</c:when>
+								</c:choose>
 					</div>
 
 					<div class="single-sidebar-widget post-category-widget">
 						<h4 class="category-title">방송국 관리</h4>
 						<ul class="cat-list">
-							<li><a href="/goChannelIntro.ch?CuNo=${m.uno }" class=""
-								style="text-align: center;">
-									<p>채널 소개 설정</p>
-							</a></li>
-							<li><a href="#" class="" style="text-align: center;">
-									<p>주력 카테고리 설정</p>
+								<li><a href="/goChannelIntro.ch?CuNo=${m.uno }" class=""
+									style="text-align: center;">
+										<p>채널 소개 설정</p>
+								</a></li>
+								<li><a href="#" class="" style="text-align: center;">
+										<p>주력 카테고리 설정</p>
 
-							</a></li>
-							<li><a href="goBannerProfile.ch?CuNo=${m.uno }" class=""
-								style="text-align: center;">
-									<p>베너 & 프로필 사진 설정</p>
+								</a></li>
+								<li><a href="/goBannerProfile.ch?CuNo=${m.uno }" class=""
+									style="text-align: center;">
+										<p>베너 & 프로필 사진 설정</p>
 
-							</a></li>
-							<li><a href="/goVodAdmin.ch?CuNo=${m.uno }" class=""
-								style="text-align: center;">
-									<p>VOD 관리</p>
+								</a></li>
+								<li><a href="/goVodAdmin.ch?CuNo=${m.uno }" class=""
+									style="text-align: center;">
+										<p>VOD 관리</p>
 
-							</a></li>
-							<li><a href="/subscriberAdmin.ch" class=""
-								style="text-align: center;">
-									<p>구독자 관리</p>
+								</a></li>
+								<li><a href="/subscriberAdmin.ch?CuNo=${m.uno }" class=""
+									style="text-align: center;">
+										<p>구독자 관리</p>
 
-							</a></li>
-							<li><a href="/managerAdmin.ch" class=""
-								style="text-align: center;">
-									<p>매니저 관리</p>
+								</a></li>
+								<li><a href="/managerAdmin.ch?CuNo=${m.uno }" class=""
+									style="text-align: center;">
+										<p>매니저 관리</p>
 
-							</a></li>
-							<li><a href="#" class="" style="text-align: center;">
-									<p>채팅 필터 관리</p>
+								</a></li>
+								<li><a href="/manage_Chat.ch?CuNo=${m.uno }" class="" style="text-align: center;">
+										<p>채팅 필터 관리</p>
 
-							</a></li>
-							<li><a href="manage_black.ch" class=""
-								style="text-align: center;">
-									<p>블랙 리스트</p>
+								</a></li>
+								<li><a href="manage_black.ch?CuNo=${m.uno }" class=""
+									style="text-align: center;">
+										<p>블랙 리스트</p>
 
-							</a></li>
+								</a></li>
 
-						</ul>
+							</ul>
 					</div>
 				</div>
 			</div>

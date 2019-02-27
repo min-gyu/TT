@@ -97,12 +97,14 @@
 						<div>
 							<!-- ion-ios-bell -->
 							<c:set var="loginUser" value="${sessionScope.loginUser.uno }" />
+							<c:if test="${m.uno ne sessionScope.loginUser.uno }">
 							<a
 								href="addSubscribe.ch?CuNo=${m.uno }&&uNo=${loginUser}&&bNo=${b.bNo}">
 								<i class="ion-ios-bell-outline"
 								style="font-size: 28px; padding-left: 2px;"></i> 구독
 
 							</a>
+							</c:if>
 						</div>
 						<div>
 							<a href="#" class="love active"><i
@@ -181,11 +183,26 @@
 				<div class="col-lg-4 sidebar-widgets">
 					<div class="widget-wrap">
 						<div class="single-sidebar-widget user-info-widget">
-							<img src="/resources/channel/img/blog/user-info.png" alt="">
+							<c:choose>
+								<c:when test="${not empty pi.atMName}">
+									<img
+										src="${ contextPath }/resources/uploadFiles/profile/${pi.atMName}${ext2}"
+										style="width: 150px; height: 150px; border-radius: 50%;">
+								</c:when>
+								<c:otherwise>
+									<img src="/resources/uploadFiles/profile/profile1.png" alt=""
+										style="width: 150px; height: 150px; border-radius: 50%;">
+								</c:otherwise>
+							</c:choose>
 							<a><h4>${m.nickName }</h4></a>
 							<p>@${m.userId }</p>
-							<p>아 이렇게 제 채널에 방문해 주셔서 감사합니다. 이렇게 소개창이 기니 정말 할말이 많습니다. 방송을 한지
-								어언 10년쨰 모든 분들께 감사드리고 앞으로 더 재밌는</p>
+							<c:set var="stitle" value="채널명을 입력해주세요" />
+							
+							<c:choose>
+									<c:when test="${title ne stitle }">
+										<p>${title }</p>
+									</c:when>
+								</c:choose>
 						</div>
 						<div class="single-sidebar-widget popular-post-widget">
 							<c:set var="loginUser" value="${sessionScope.loginUser.userId }" />
@@ -325,6 +342,7 @@
 							+ "&bNo=" + bNo + "&uNo=" + uNo,
 					success : function(result) {
 						alert("댓글이 등록되었습니다.");
+						$("#ReplyContent").val("");
 						listReply("1");
 					}
 				});

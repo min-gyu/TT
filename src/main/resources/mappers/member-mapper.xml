@@ -135,6 +135,13 @@
 		SET CH_NAME=#{cin}
 		WHERE CH_NO=#{ChNo}
 	</update>
+	
+	<!-- 채널 제목 로드 메소드 (은채)-->
+	<select id="selecttInfo" parameterType="int" resultMap="memberVO">
+		SELECT *
+		FROM CHANNEL
+		WHERE CH_NO=#{chNo}
+	</select>
 
 	<!-- 개인정보 수정하기전, 비밀번호 확인 및 아이디추출하기위해 객체 반환 -->	
 	<select id="checkMember" parameterType="_int" resultMap="memberVO">
