@@ -219,4 +219,10 @@
 	<insert id="insertPTClover" parameterType="hashmap">
 		INSERT INTO PTCLOVER VALUES (SEQ_PC_NO.NEXTVAL, #{uno}, #{targetUno}, #{clover}, SYSDATE)
 	</insert>
+	
+	<!-- 채널에서 금칙어 추가하는 sql문(은채) -->
+	<insert id="insertBanLan" parameterType="java.util.Map">
+		INSERT INTO FILTER VALUES(SEQ_F_NO.NEXTVAL,
+		#{ChNo},#{banLan},#{reLan},SYSDATE)
+	</insert>
 </mapper>

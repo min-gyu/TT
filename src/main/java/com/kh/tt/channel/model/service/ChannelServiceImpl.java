@@ -219,14 +219,21 @@ public class ChannelServiceImpl implements ChannelService {
 		return cd.totalSub(chNo,sqlSession);
 	}
 
+	//총 구독자 목록 메소드
 	@Override
 	public List<Relation> selecttSub(int i, int j, int chNo) {
 		// TODO Auto-generated method stub
 		return cd.selecttSub(i, j,chNo,sqlSession);
 	}
+	
+	//금칙어 추가 메소드
+		@Override
+		public int insertBanLan(HashMap<String, Object> map) {
+			return cd.insertBanLan(map,sqlSession);
+		}
 
 
-	//구독자 리스트 출력 메소드
+	
 
 
 	

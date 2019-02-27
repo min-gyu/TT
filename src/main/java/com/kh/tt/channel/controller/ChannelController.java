@@ -542,9 +542,52 @@ public class ChannelController {
 		return "channel_admin/channel_black";
 	}
 
+	//관리자-채팅필터 관리 메소드
 	@RequestMapping("manage_Chat.ch")
-	public String manage_Chat() {
-		return "channel_admin/channel_chat";
+	public ModelAndView manage_Chat(int CuNo,Member m,Attachment pi) {
+		ModelAndView mav = new ModelAndView();
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		mav.setViewName("channel_admin/channel_chat");
+		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
+		if(pi!=null) {
+			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
+			mav.addObject("ext2", ext2);
+			mav.addObject("m", m);
+			mav.addObject("pi", pi);
+			return mav;
+		}
+		mav.addObject("m", m);
+		return mav;
+	}
+	
+	@RequestMapping("insertBanLan.ch")
+	public ModelAndView insertBanLan(@RequestParam(value = "banLan") String banLan,
+			@RequestParam(value = "reLan") String reLan,
+			@RequestParam(value = "CuNo") int CuNo,Member m) {
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		ModelAndView mav=new ModelAndView();
+		System.out.println(reLan);
+		System.out.println(CuNo);
+		System.out.println(banLan);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("ChNo", m.getChNo());
+		map.put("banLan", banLan);
+		map.put("reLan", reLan);
+		int result=cs.insertBanLan(map);
+		System.out.println("금칙어 추가 결과 : "+result);
+		mav.setViewName("channel_admin/channel_chat");
+		mav.addObject("CuNo",CuNo);
+		mav.addObject("m", m);
+		
+		return mav;
+	}
+	
+	@RequestMapping("listBan.ch")
+	public ModelAndView listBan(int curPage) {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("channel_admin/channel_chat");
+		return mav;
 	}
 
 	@RequestMapping("manage_Cate.ch")
@@ -638,14 +681,14 @@ public class ChannelController {
 			mav.addObject("ext2", ext2);
 			mav.addObject("pi", pi);
 			mav.addObject("m", m);
-			mav.addObject(list);
-			mav.addObject(listCount);
+			mav.addObject("list",list);
+			mav.addObject("listCount",listCount);
 			mav.addObject("pagination", pagination);
 			return mav;
 		} else {
 			mav.addObject("m", m);
-			mav.addObject(list);
-			mav.addObject(listCount);
+			mav.addObject("list",list);
+			mav.addObject("listCount",listCount);
 			mav.addObject("pagination", pagination);
 			return mav;
 		}
