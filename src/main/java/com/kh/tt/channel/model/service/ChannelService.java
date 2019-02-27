@@ -67,6 +67,7 @@ public interface ChannelService{
 	int totalSub(int chNo);
 	
 	List<Relation> selecttSub(int i, int j, int chNo);
+	int  insertBanLan(HashMap<String, Object> map);
 	
 	
 	

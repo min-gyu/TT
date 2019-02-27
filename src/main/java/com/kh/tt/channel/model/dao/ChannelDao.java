@@ -67,6 +67,8 @@ public interface ChannelDao {
 
 	List<Relation> selecttSub(int i, int j, int chNo, SqlSessionTemplate sqlSession);
 
+	int insertBanLan(HashMap<String, Object> map, SqlSessionTemplate sqlSession);
+
 	
 
 }

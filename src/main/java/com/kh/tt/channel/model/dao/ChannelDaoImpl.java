@@ -203,20 +203,11 @@ public class ChannelDaoImpl implements ChannelDao{
 		map.put("limit", j);
 		return sqlSession.selectList("Relation2.selecttSub",map);
 
-	
-	
-	
-
-	
-
-	
-	
-
-	
-
-
-
-	
-	
+	}
+	@Override
+	public int insertBanLan(HashMap<String, Object> map, SqlSessionTemplate sqlSession) {
+		int result= sqlSession.insert("BanWord.insertBanLan", map);
+		System.out.println(result);
+		return result;
 	}
 }
