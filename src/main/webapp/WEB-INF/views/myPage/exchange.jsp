@@ -215,7 +215,7 @@
 			    
 			    <div class="modal-header">
 			     	<button type="button" class="close" data-dismiss="modal">&times;</button>
-				    <h4 class="modal-title">탈퇴 사유</h4>
+				    <h4 class="modal-title">환전신청 클로버 수 </h4>
 			    </div>
 				      
 			    <div class="modal-body">

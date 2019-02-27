@@ -15,8 +15,8 @@
 	</context-param>
 
 	
-	<!-- 
-	<security-constraint>
+	
+	<!-- <security-constraint>
 
 		<web-resource-collection>
 			<web-resource-name>my-secure-app</web-resource-name>

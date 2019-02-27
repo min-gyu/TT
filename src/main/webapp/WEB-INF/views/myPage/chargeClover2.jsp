@@ -32,6 +32,7 @@
 						  <thead>
 						    <tr>
 						    <!-- <th>번호</th> -->
+						    <th>No.</th>
 						    <th>구매일</th>
 						    <th>충전 개수</th>
 						    <th>결제 금액</th>
