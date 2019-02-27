@@ -66,6 +66,9 @@
 		})
 	};
 	
+	function goUser01(){
+		location.href="/goBroadCast.bc?owner=user01";
+	}
 </script>
 
 
@@ -85,19 +88,19 @@
 								<div class="inner">
 									<figure>
 										<a href="#">
-											<img src="/resources/images/news/img10.jpg" alt="Sample Article">
+											<img src="/resources/images/mainBest.gif" alt="Sample Article" style="width: 350px; margin-right: 83px;">
 										</a>
 									</figure>
 									<div class="padding">
 										<div class="detail">
-											<div class="time">December 10, 2016</div>
+											<div class="time">February 28, 2019</div>
 											<div class="category"><a href="#">스포츠</a></div>
 										</div>
-											<div class="creater"><a href="#">뜨뜨</div>
-										<h2><a href="#">[생]한국 축구 중계</a></h2>
+											<div class="creater"><a href="#">유저01</a></div>
+										<h2><a href="#">[생]T.T 중간발표</a></h2>
 										<footer>
 											<a href="#" class="love"><i class="fas fa-bullseye"></i> <div>1263</div></a>
-											<button type="button" class="btn btn-primary more">More</button>
+											<button type="button" class="btn btn-primary more" onclick="goUser01();">More</button>
 										</footer>
 									</div>
 								</div>
