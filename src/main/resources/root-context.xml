@@ -74,7 +74,7 @@
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="username" value="ljy960819@gmail.com" />
-		<property name="password" value="?" />
+		<property name="password" value="wndud960819!" />
 		
 		<!-- email 요청시는 SMTP -->
 		<property name="javaMailProperties">
@@ -95,7 +95,7 @@
 	 
 	<bean id = "googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
 		<property name="scope" value="https://www.googleapis.com/auth/userinfo.email"></property>
-		<property name="redirectUri" value="http://localhost:8002/googleCallBack"/>
+		<property name="redirectUri" value="https://localhost:8443/googleCallBack"/>
 	</bean>
 	
 	

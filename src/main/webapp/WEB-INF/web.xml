@@ -26,8 +26,8 @@
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
 
-	</security-constraint> -->
-
+	</security-constraint> 
+ -->
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 
 	<listener>
