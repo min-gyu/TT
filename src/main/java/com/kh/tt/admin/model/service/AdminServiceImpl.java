@@ -10,6 +10,7 @@ import com.kh.tt.admin.model.dao.AdminDao;
 import com.kh.tt.admin.model.exception.AdminException;
 import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
+import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.vo.Exchange;
@@ -157,6 +158,13 @@ public class AdminServiceImpl implements AdminService {
 		return md.updateExchangeStatus(sqlSession, arr);
 		
 	}
+
+	@Override
+	public List<Board> totalVod() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 	
 	

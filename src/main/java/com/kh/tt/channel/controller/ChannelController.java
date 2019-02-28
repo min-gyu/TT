@@ -605,18 +605,28 @@ public class ChannelController {
 
 	// VOD 관리페이지로 이동시키는 메서드
 	@RequestMapping("goVodAdmin.ch")
-	public ModelAndView goVodAdmin(Member m, HttpServletRequest request, Member ti, int CuNo, Board b,
+	public ModelAndView goVodAdmin(Member m, Attachment pi,HttpServletRequest request, Member ti, int CuNo, Board b,
 			@RequestParam(defaultValue = "1") int curPage) {
-
+		
+	
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("channel_admin/vodAdmin");
+		
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		int ChNo = m.getChNo();// 채널 주인 채널 번호
 		
+		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
+		if (pi != null) {
+			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
+			mav.addObject("ext2", ext2);
+			mav.addObject("m", m);
+			mav.addObject("pi", pi);
+		}
 		System.out.println("현재 페이지" + curPage);
 		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
 
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("channel_admin/vodAdmin");
-
+		
+		
 		if (ti != null) {
 			mav.addObject("title", ti.getChName());
 		}
@@ -645,10 +655,17 @@ public class ChannelController {
 
 	// VOD 추가 페이지로 이동시키는 메서드
 	@RequestMapping("vodAdd.ch")
-	public ModelAndView vodAdd(Member m, Member ti, int CuNo) {
+	public ModelAndView vodAdd(Member m, Member ti, int CuNo,Attachment pi) {
 		ModelAndView mav = new ModelAndView();
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		int ChNo = m.getChNo();// 채널 주인 채널 번호
+		
+		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
+		if (pi != null) {
+			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
+			mav.addObject("ext2", ext2);
+			mav.addObject("pi", pi);
+		}
 
 		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
 		if (ti != null) {
@@ -662,10 +679,12 @@ public class ChannelController {
 	}
 
 	// VOD 수정 페이지로 이동하는 메서드
-	@RequestMapping("vodRevise")
+	@RequestMapping("goside.ch")
 	public String vodRevies() {
-		return "channel_admin/vodRevise";
+		return "channe/channel_sidebar";
 	}
+	
+
 
 	// 구독자 관리 페이지로 이동하는 메서드
 	@RequestMapping("subscriberAdmin.ch")

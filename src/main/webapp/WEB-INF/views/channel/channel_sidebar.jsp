@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -46,91 +49,113 @@
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
 
-	<!-- Start post-content Area -->
-	<section class="post-content-area single-post-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 posts-list">
-					<div class="single-post row">
-						<div class="col-lg-12">
-							<div class="feature-img"></div>
-						</div>
-						<div class="col-lg-12"></div>
-						<div class="col-lg-9 col-md-9">
-							<div class="row"></div>
-							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
-								<div class="row"></div>
-							</div>
-						</div>
-					</div>
-				
-				</div>
+	<div class="col-lg-4 sidebar-widgets">
+		<div class="widget-wrap">
+			<div class="single-sidebar-widget user-info-widget">
+				<c:choose>
+					<c:when test="${not empty pi.atMName}">
+						<img
+							src="${ contextPath }/resources/uploadFiles/profile/${pi.atMName}${ext2}"
+							style="width: 150px; height: 150px; border-radius: 50%;">
+					</c:when>
+					<c:otherwise>
+						<img src="/resources/uploadFiles/profile/profile1.png" alt=""
+							style="width: 150px; height: 150px; border-radius: 50%;">
+					</c:otherwise>
+				</c:choose>
+				<a><h4>${m.nickName }</h4></a>
+				<p>@${m.userId }</p>
+				<c:set var="stitle" value="채널명을 입력해주세요" />
+
+				<c:choose>
+					<c:when test="${title ne stitle }">
+						<p>${title }</p>
+					</c:when>
+				</c:choose>
+			</div>
+			<div class="single-sidebar-widget popular-post-widget">
+				<c:set var="loginUser" value="${sessionScope.loginUser.userId }" />
+				<c:if test="${m.userId eq loginUser}">
+					<a href="goBannerProfile.ch?CuNo=${m.uno }" style="color: #6ac169;">
+						<h4 class="popular-title" type="hidden">방송국 관리</h4>
+					</a>
+
+				</c:if>
+			</div>
 
 
-				<!-- 오른쪽 사이드바 이동 -->
-				<div class="col-lg-4 sidebar-widgets">
-					<div class="widget-wrap">
-						<div class="single-sidebar-widget user-info-widget">
-							<img src="/resources/channel/img/blog/user-info.png" alt="">
-							<a><h4>감스트</h4></a>
-						</div>
-
-						<div class="single-sidebar-widget post-category-widget">
-							<h4 class="category-title">방송국 관리</h4>
-							<ul class="cat-list">
-								<li><a href="/goChannelIntro.ch?CuNo=${m.uno }" class=""
-									style="text-align: center;">
-										<p>채널 소개 설정</p>
-								</a></li>
-								<li><a href="#" class="" style="text-align: center;">
-										<p>주력 카테고리 설정</p>
-
-								</a></li>
-								<li><a href="/goBannerProfile.ch?CuNo=${m.uno }" class=""
-									style="text-align: center;">
-										<p>베너 & 프로필 사진 설정</p>
-
-								</a></li>
-								<li><a href="/goVodAdmin.ch?CuNo=${m.uno }" class=""
-									style="text-align: center;">
-										<p>VOD 관리</p>
-
-								</a></li>
-								<li><a href="/subscriberAdmin.ch?CuNo=${m.uno }" class=""
-									style="text-align: center;">
-										<p>구독자 관리</p>
-
-								</a></li>
-								<li><a href="/managerAdmin.ch?CuNo=${m.uno }" class=""
-									style="text-align: center;">
-										<p>매니저 관리</p>
-
-								</a></li>
-								<li><a href="/manage_Chat.ch?CuNo=${m.uno }" class="" style="text-align: center;">
-										<p>채팅 필터 관리</p>
-
-								</a></li>
-								<li><a href="manage_black.ch?CuNo=${m.uno }" class=""
-									style="text-align: center;">
-										<p>블랙 리스트</p>
-
-								</a></li>
-
-							</ul>
-						</div>
+			<div class="single-sidebar-widget ads-widget">
+				<a href="#"><img class="img-fluid"
+					src="/resources/channel/img/blog/ads-banner.jpg" alt=""
+					style="width: 250px"></a>
+			</div>
+			<div class="single-sidebar-widget popular-post-widget">
+				<h4 class="popular-title">Write board</h4>
+				<div class="popular-post-list">
+					<div class="single-post-list d-flex flex-row align-items-center">
 					</div>
 				</div>
 			</div>
+			<div class="single-sidebar-widget post-category-widget">
+				<div class="single-sidebar-widget newsletter-widget">
+
+
+					<p class="text-bottom">순위</p>
+				</div>
+				<ul class="cat-list">
+					<li><a href="#" class="d-flex justify-content-between">
+							<p>회장</p>
+							<p>내이름은</p>
+					</a></li>
+					<li><a href="#" class="d-flex justify-content-between">
+							<p>1등</p>
+							<p>내가 1등이다</p>
+					</a></li>
+					<li><a href="#" class="d-flex justify-content-between">
+							<p>2등</p>
+							<p>아앗2등</p>
+					</a></li>
+					<li><a href="#" class="d-flex justify-content-between">
+							<p>3등</p>
+							<p>29</p>
+					</a></li>
+					<li><a href="#" class="d-flex justify-content-between">
+							<p>4등</p>
+							<p>15</p>
+					</a></li>
+					<li><a href="#" class="d-flex justify-content-between">
+							<p>5등</p>
+							<p>09</p>
+					</a></li>
+					<li><a href="#" class="d-flex justify-content-between">
+							<p>6등</p>
+							<p>44</p>
+					</a></li>
+					<li><a href="#" class="d-flex justify-content-between">
+							<p>7등</p>
+							<p>44</p>
+					</a></li>
+					<li><a href="#" class="d-flex justify-content-between">
+							<p>8등</p>
+							<p>44</p>
+					</a></li>
+					<li><a href="#" class="d-flex justify-content-between">
+							<p>9등</p>
+							<p>44</p>
+					</a></li>
+					<li><a href="#" class="d-flex justify-content-between">
+							<p>10등</p>
+							<p>44</p>
+					</a></li>
+				</ul>
+
+
+
+
+			</div>
 		</div>
-	</section>
-
-	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
-	<!-- End post-content Area -->
-
-
-
+	</div>
 	<script src="/resources/channel/js/vendor/jquery-2.2.4.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
