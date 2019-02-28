@@ -13,6 +13,11 @@
 <meta name="keywords" content="">
 <meta charset="UTF-8">
 <title>Channel</title>
+<style>
+#num {
+	font-size: 24px;
+}
+</style>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
@@ -79,7 +84,7 @@
 											<figure>
 												<video class="img-fluid"
 													src="${ contextPath }/resources/uploadFiles/${row.atMName}.mp4"
-													type="video/mp4"  style="padding-left: 0%;"></video>
+													type="video/mp4" style="padding-left: 0%;"></video>
 											</figure>
 											<div class="details"
 												style="width: 410px; border-bottom: 1px solid #eee;">
@@ -117,32 +122,37 @@
 							<div class="col-lg-12"></div>
 							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
 								<div class="col-md-8">
-									<div>
+									<div
+										style="width: 700px;
+	/* align-items: center; */ text-align: center; padding-top: 10%;">
 										<c:if test="${pagination.curRange ne 1 }">
-											<a href="#" onClick="fn_paging(1)">[처음]</a>
+											<a id="num" href="#" onClick="fn_paging(1)">[처음]</a>
 										</c:if>
 										<c:if test="${pagination.curPage ne 1}">
-											<a href="#" onClick="fn_paging('${pagination.prevPage }')">[이전]</a>
+											<a id="num" href="#"
+												onClick="fn_paging('${pagination.prevPage }')">[이전]</a>
 										</c:if>
 										<c:forEach var="pageNum" begin="${pagination.startPage }"
 											end="${pagination.endPage }">
 											<c:choose>
 												<c:when test="${pageNum eq  pagination.curPage}">
-													<span style="font-weight: bold;"><a href="#"
-														onClick="fn_paging('${pageNum }')">${pageNum }</a></span>
+													<span style="font-weight: bold;"><a id="num"
+														href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a></span>
 												</c:when>
 												<c:otherwise>
-													<a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+													<a id="num" href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
 										<c:if
 											test="${pagination.curPage <= pagination.pageCnt && pagination.pageCnt > 0}">
-											<a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a>
+											<a id="num" href="#"
+												onClick="fn_paging('${pagination.nextPage }')">[다음]</a>
 										</c:if>
 										<c:if
 											test="${pagination.curRange <= pagination.rangeCnt && pagination.rangeCnt > 0}">
-											<a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a>
+											<a id="num" href="#"
+												onClick="fn_paging('${pagination.pageCnt }')">[끝]</a>
 										</c:if>
 									</div>
 									<div class="row"></div>
@@ -153,110 +163,7 @@
 					</div>
 				</div>
 
-				<!-- 오른쪽 사이드바 이동 -->
-
-				<div class="col-lg-4 sidebar-widgets">
-					<div class="widget-wrap">
-						<div class="single-sidebar-widget user-info-widget">
-							<c:choose>
-								<c:when test="${not empty pi.atMName}">
-									<img
-										src="${ contextPath }/resources/uploadFiles/profile/${pi.atMName}${ext2}"
-										style="width: 150px; height: 150px; border-radius: 50%;">
-								</c:when>
-								<c:otherwise>
-									<img src="/resources/uploadFiles/profile/profile1.png" alt=""
-										style="width: 150px; height: 150px; border-radius: 50%;">
-								</c:otherwise>
-							</c:choose>
-							<a><h4>${m.nickName }</h4></a>
-							<p>@${m.userId }</p>
-							<c:set var="stitle" value="채널명을 입력해주세요" />
-
-							<c:choose>
-								<c:when test="${title ne stitle }">
-									<p>${title }</p>
-								</c:when>
-							</c:choose>
-						</div>
-						<div class="single-sidebar-widget popular-post-widget">
-							<c:set var="loginUser" value="${sessionScope.loginUser.userId }" />
-							<c:if test="${m.userId eq loginUser}">
-								<a href="goBannerProfile.ch?CuNo=${m.uno }"
-									style="color: #6ac169;"><h4 class="popular-title"
-										type="hidden">방송국 관리</h4></a>
-
-							</c:if>
-						</div>
-
-
-						<div class="single-sidebar-widget ads-widget">
-							<a href="#"><img class="img-fluid"
-								src="/resources/channel/img/blog/ads-banner.jpg" alt=""
-								style="width: 250px"></a>
-						</div>
-						<div class="single-sidebar-widget popular-post-widget">
-							<h4 class="popular-title">Write board</h4>
-							<div class="popular-post-list">
-								<div class="single-post-list d-flex flex-row align-items-center">
-								</div>
-							</div>
-						</div>
-						<div class="single-sidebar-widget post-category-widget">
-							<div class="single-sidebar-widget newsletter-widget">
-
-
-								<p class="text-bottom">순위</p>
-							</div>
-							<ul class="cat-list">
-								<li><a href="#" class="d-flex justify-content-between">
-										<p>회장</p>
-										<p>내이름은</p>
-								</a></li>
-								<li><a href="#" class="d-flex justify-content-between">
-										<p>1등</p>
-										<p>내가 1등이다</p>
-								</a></li>
-								<li><a href="#" class="d-flex justify-content-between">
-										<p>2등</p>
-										<p>아앗2등</p>
-								</a></li>
-								<li><a href="#" class="d-flex justify-content-between">
-										<p>3등</p>
-										<p>29</p>
-								</a></li>
-								<li><a href="#" class="d-flex justify-content-between">
-										<p>4등</p>
-										<p>15</p>
-								</a></li>
-								<li><a href="#" class="d-flex justify-content-between">
-										<p>5등</p>
-										<p>09</p>
-								</a></li>
-								<li><a href="#" class="d-flex justify-content-between">
-										<p>6등</p>
-										<p>44</p>
-								</a></li>
-								<li><a href="#" class="d-flex justify-content-between">
-										<p>7등</p>
-										<p>44</p>
-								</a></li>
-								<li><a href="#" class="d-flex justify-content-between">
-										<p>8등</p>
-										<p>44</p>
-								</a></li>
-								<li><a href="#" class="d-flex justify-content-between">
-										<p>9등</p>
-										<p>44</p>
-								</a></li>
-								<li><a href="#" class="d-flex justify-content-between">
-										<p>10등</p>
-										<p>44</p>
-								</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
+				<jsp:include page="/WEB-INF/views/channel/channel_sidebar.jsp"/>
 			</div>
 		</div>
 	</section>
@@ -266,10 +173,7 @@
 	<script>
 		function fn_paging(curPage) {
 			location.href = "/vod_List.ch?curPage=" + curPage + "&CuNo=" + $
-			{
-				m.uno
-			}
-			;
+			{m.uno};
 		}
 	</script>
 

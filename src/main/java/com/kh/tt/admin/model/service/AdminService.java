@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.tt.admin.model.exception.AdminException;
 import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
+import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.vo.Exchange;
@@ -75,5 +76,7 @@ public interface AdminService {
 
 	//환전수락
 	int updateExchangeStatus(int[] arr) throws AdminException;
+
+	List<Board> totalVod();
 
 }

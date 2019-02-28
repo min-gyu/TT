@@ -34,6 +34,7 @@ public class AdminController {
 	private final String inquiryPath = "/admin/inquiry/";
 	private final String vodPath = "/admin/vod/";
 	
+	
 	@Autowired
 	private AdminService as;
 	
@@ -351,6 +352,8 @@ public class AdminController {
 	
 	@RequestMapping("adminVod")
 	public String Vod() {
+		List<com.kh.tt.channel.model.vo.Board> list;
+		list=as.totalVod();
 		return "admin/vod/vod";
 	}
 	
