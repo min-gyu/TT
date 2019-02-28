@@ -50,6 +50,7 @@ $(function(){
             }
          });
 	});
+	
       /* 계좌실명조회API */
       function fnSearchRealName() {
          var depositor = $("#SName").val(); //이름
@@ -67,7 +68,6 @@ $(function(){
          console.log("tran_dtime : " + tran_dtime);
          console.log("access_token" + access_token);
          
-         
          var resData = {
             "bank_code_std" : bank_code_std,
             "account_num" : account_num,
@@ -78,26 +78,24 @@ $(function(){
          $.ajax({
                   url : "https://testapi.open-platform.or.kr/v1.0/inquiry/real_name",
                   beforeSend : function(request) {
-                     request.setRequestHeader("Authorization",
-                           access_token);
+                     request.setRequestHeader("Authorization", access_token);
                   },
                   type : "POST",
                   data : JSON.stringify(resData),
                   dataType : "json",
                   success : function(data) {
-                     /* console.log(data); */
-                     if (data.account_holder_name == depositor &&
-                    		 data.account_holder_info == account_holder_info &&
-                     data.account_num == account_num && data.bank_code_std == bank_code_std) {
-                    	 alert("계좌 인증 성공");
-                    	 console.log(data);
-                    	 
-                    	 window.location.reload();
-                     } else {
-                        alert("계좌 인증 실패");
-                     }
-                  }
-            
+		                     if (data.account_holder_name == depositor &&
+		                    	 data.account_holder_info == account_holder_info &&
+		                     	 data.account_num == account_num &&
+		                     	 data.bank_code_std == bank_code_std) {
+		                    	
+		                    	 alert("계좌 인증 성공");
+		                    	 console.log(data);
+		                    	 /* window.location.reload(); */
+		                     } else {
+		                        alert("계좌 인증 실패");
+		                     }
+		                  }
                });
       }
 });
