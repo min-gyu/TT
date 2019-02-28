@@ -147,8 +147,9 @@ public class MemberController {
 	 * 		 ,resultValue: jsp value
 	 * */
 	@PostMapping(value = "/overlayCheck/{type}.me")
-	public @ResponseBody HashMap<String, Object> overlayCheck(@RequestBody Map<String, Object> requestBody
-															,@PathVariable String type){
+	public @ResponseBody HashMap<String, Object> overlayCheck
+	(@RequestBody Map<String, Object> requestBody, @PathVariable String type){
+		
 		Map<String, Object> reqMap = (Map)requestBody.get("params");
 		String resultValue = (String) reqMap.get("resultValue");
 		
@@ -290,8 +291,8 @@ public class MemberController {
 	public @ResponseBody List<MainRanking> mainVodList(Model model) {
 		List<MainRanking> vList = ms.mainVodList();
 		
-		System.out.println("vList > " + vList);
-		System.out.println(" 조회 결과 리스트사이즈 > " + vList.size());
+		//System.out.println("vList > " + vList);
+		//System.out.println(" 조회 결과 리스트사이즈 > " + vList.size());
 		
 		return vList;
 	}

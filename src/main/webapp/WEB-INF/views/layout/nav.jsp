@@ -21,10 +21,10 @@
 			<ul class="nav-list">
 				<li><a href="/subscribe.sub">구독</a></li>
 				<li><a href="/category/main.ca">전체</a></li>
-				<li><a href="/category/sports.ca">스포츠</a></li>
+				<!-- <li><a href="/category/sports.ca">스포츠</a></li>
 				<li><a href="#">먹방</a></li>
 				<li><a href="#">뷰티</a></li>
-				<li><a href="#">VLOG</a></li>
+				<li><a href="#">VLOG</a></li> -->
 				<li><a href="/category/vod.ca">VOD</a></li>
 				<li><a href="/goChannel.ch?uNo=2">Channel</a></li>
 				<li class="dropdown magz-dropdown"><a href="#">고객센터 <i class="ion-ios-arrow-right"></i></a>
@@ -65,9 +65,7 @@
 						 </a>
 					 </li>
        			 </c:if>
-       			 
-                 <li><a href="/broadTest.bc">BroadTest</a></li>
-                 <li><a href="/goBroadCast.bc?owner=user01">user01 방송</a></li>
+                 <!-- <li><a href="/goBroadCast.bc?owner=user01">user01 방송</a></li> -->
 			</ul>
 		</div>
 	</div>

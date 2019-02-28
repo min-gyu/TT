@@ -20,12 +20,9 @@
 			$(this).parent().css({"background" : "white"})
 		}).click(function(e) { 
 			var num = $(this).parent().children().eq(0).text();
-			//var name = $(this).parent().children().eq(1).text();
 			
 			detailCategory(num);
 			$("#myModal").modal();
-			//$("categNo").val(num);
-			//$("categName").val(name); 
 		});
 	});
 	
