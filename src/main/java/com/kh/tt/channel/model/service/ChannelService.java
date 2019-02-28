@@ -25,7 +25,7 @@ public interface ChannelService{
 	//채널관리-VOD리스트 메소드
 	List<Board> vodList(int i,int j,int ChNo);
 	//VOD리스트 총 개수 메소드
-	int getLisCount(Board b);
+	int getLisCount(int i);
 	
 	//VOD상세보기-조회수 메소드
 	void increaseViewC(int bNo, HttpSession session);
@@ -55,9 +55,9 @@ public interface ChannelService{
 	//베너 사진 업로드 메소드
 	int insertBimg(Attachment a);
 	//베너 적용전 확인 메소드
-	int lastBimg();
+	int lastBimg(int i);
 	int updateBimg(Attachment a);
-	int lastPimg();
+	int lastPimg(int i);
 	int insertPimg(Attachment a);
 	int updatePimg(Attachment a);
 
@@ -68,6 +68,9 @@ public interface ChannelService{
 	
 	List<Relation> selecttSub(int i, int j, int chNo);
 	int  insertBanLan(HashMap<String, Object> map);
+	Member selecttInfo(int chNo);
+	List<Board> getMainVList(int chNo);
+	
 	
 	
 	

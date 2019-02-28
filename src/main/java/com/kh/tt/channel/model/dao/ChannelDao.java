@@ -27,7 +27,7 @@ public interface ChannelDao {
 
 	Attachment vodOneR(int bNo, SqlSessionTemplate sqlSession);
 
-	int getListCount(Board b, SqlSessionTemplate sqlSession);
+	int getListCount(int i, SqlSessionTemplate sqlSession);
 
 	Member selectmInfo(int uNo, SqlSessionTemplate sqlSession);
 
@@ -47,11 +47,11 @@ public interface ChannelDao {
 
 	int insertbImg(Attachment a, SqlSessionTemplate sqlSession);
 
-	int lastBimg(SqlSessionTemplate sqlSession);
+	int lastBimg(int i, SqlSessionTemplate sqlSession);
 
 	int updateBimg(Attachment a, SqlSessionTemplate sqlSession);
 
-	int lastPimg(SqlSessionTemplate sqlSession);
+	int lastPimg(int i, SqlSessionTemplate sqlSession);
 
 	int insertPimg(Attachment a, SqlSessionTemplate sqlSession);
 
@@ -68,6 +68,10 @@ public interface ChannelDao {
 	List<Relation> selecttSub(int i, int j, int chNo, SqlSessionTemplate sqlSession);
 
 	int insertBanLan(HashMap<String, Object> map, SqlSessionTemplate sqlSession);
+
+	Member selecttInfo(int chNo, SqlSessionTemplate sqlSession);
+
+	List<Board> getMainVList(int chNo, SqlSessionTemplate sqlSession);
 
 	
 

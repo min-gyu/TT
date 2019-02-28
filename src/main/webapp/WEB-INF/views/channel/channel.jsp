@@ -90,115 +90,45 @@
 						<div class="col-lg-9 col-md-9">
 
 							<div class="row">
-								<article class="col-md-12 article-list">
-									<div class="inner">
-										<figure>
-											<a href="single.html"> <img
-												src="/resources/channel/channel2/images/news/img11.jpg"
-												alt="Sample Article">
-											</a>
-										</figure>
-										<div class="details"
-											style="width: 410px; border-bottom: 1px solid #eee;">
-											<div class="detail">
-												<div class="category">
-													<a href="#">Film</a>
-												</div>
-												<div class="time">December 19, 2016</div>
-											</div>
-											<h1>
-												<a href="single.html">Donec consequat arcu at ultrices
-													sodales quam erat aliquet diam</a>
-											</h1>
-											<p>Donec consequat, arcu at ultrices sodales, quam erat
-												aliquet diam, sit amet interdum libero nunc accumsan nisi.</p>
-											<footer>
-												<a href="#" class="love active"><i
-													class="ion-android-favorite"></i>
-													<div>302</div></a> <a class="btn btn-primary more"
-													href="vod_oneList.ch">
-													<div>More</div>
-													<div>
-														<i class="ion-ios-arrow-thin-right"></i>
+								<c:forEach var="row" items="${vlist}">
+									<article class="col-md-12 article-list">
+										<div class="inner">
+											<figure>
+												<video class="img-fluid"
+													src="${ contextPath }/resources/uploadFiles/${row.atMName}.mp4"
+													type="video/mp4"  style="padding-left: 0%;"></video>
+											</figure>
+											<div class="details"
+												style="width: 410px; border-bottom: 1px solid #eee;">
+												<div class="detail">
+													<div class="category">
+														<a>VOD</a>
 													</div>
-												</a>
-											</footer>
-										</div>
-									</div>
-								</article>
-								<article class="col-md-12 article-list">
-									<div class="inner">
-										<figure>
-											<a href="single.html"> <img
-												src="/resources/channel/channel2/images/news/img02.jpg"
-												alt="Sample Article">
-											</a>
-										</figure>
-										<div class="details"
-											style="width: 410px; border-bottom: 1px solid #eee;">
-											<div class="detail">
-												<div class="category">
-													<a href="#">Travel</a>
-												</div>
-												<div class="time">December 18, 2016</div>
-											</div>
-											<h1>
-												<a href="single.html">Maecenas accumsan tortor ut velit
-													pharetra mollis</a>
-											</h1>
-											<p>Maecenas accumsan tortor ut velit pharetra mollis.
-												Proin eu nisl et arcu iaculis placerat sollicitudin ut est.
-												In fringilla dui.</p>
-											<footer>
-												<a href="#" class="love active"><i
-													class="ion-android-favorite"></i>
-													<div>302</div></a> <a class="btn btn-primary more"
-													href="single.html">
-													<div>More</div>
-													<div>
-														<i class="ion-ios-arrow-thin-right"></i>
+													<div class="time">${row.bwDate }
+														<input type="hidden" name="bNo" value="${row.bNo }">
 													</div>
-												</a>
-											</footer>
-										</div>
-									</div>
-								</article>
-								<article class="col-md-12 article-list">
-									<div class="inner"">
-										<figure>
-											<a href="single.html"> <img
-												src="/resources/channel/channel2/images/news/img03.jpg"
-												alt="Sample Article">
-											</a>
-										</figure>
-										<div class="details"
-											style="width: 410px; border-bottom: 1px solid #eee;">
-											<div class="detail">
-												<div class="category">
-													<a href="#">Travel</a>
 												</div>
-												<div class="time">December 16, 2016</div>
+												<h1>
+													<a
+														href="${contextPath}/vod_oneList.ch?bNo=${row.bNo}&&CuNo=${m.uno }">${row.bTitle }</a>
+												</h1>
+												<p>${row.bContent }</p>
+												<footer>
+													<a class="love active"><i class="ion-android-favorite"></i>
+														<div>${row.bCount }</div></a> <a class="btn btn-primary more"
+														href="${contextPath}/vod_oneList.ch?bNo=${row.bNo}&&CuNo=${m.uno }">
+														<div>More</div>
+														<div>
+															<i class="ion-ios-arrow-thin-right"></i>
+														</div>
+													</a>
+												</footer>
 											</div>
-											<h1>
-												<a href="single.html">Nulla facilisis odio quis gravida
-													vestibulum Proin venenatis pellentesque arcu</a>
-											</h1>
-											<p>Nulla facilisis odio quis gravida vestibulum. Proin
-												venenatis pellentesque arcu, ut mattis nulla placerat et.</p>
-											<footer>
-												<a href="#" class="love active"><i
-													class="ion-android-favorite"></i>
-													<div>302</div></a> <a class="btn btn-primary more"
-													href="single.html">
-													<div>More</div>
-													<div>
-														<i class="ion-ios-arrow-thin-right"></i>
-													</div>
-												</a>
-											</footer>
 										</div>
-									</div>
-								</article>
+									</article>
+
+								</c:forEach>
+						
 							</div>
 
 							<!-- 게시글 3개 아이콘 -->
@@ -342,22 +272,26 @@
 										style="width: 150px; height: 150px; border-radius: 50%;">
 								</c:when>
 								<c:otherwise>
-									<img src="/resources/channel/img/blog/eun.jpg" alt=""
+									<img src="/resources/uploadFiles/profile/profile1.png" alt=""
 										style="width: 150px; height: 150px; border-radius: 50%;">
 								</c:otherwise>
 							</c:choose>
 							<a><h4>${m.nickName }</h4></a>
 							<p>@${m.userId }</p>
-
-							<p>아 이렇게 제 채널에 방문해 주셔서 감사합니다. 이렇게 소개창이 기니 정말 할말이 많습니다. 방송을 한지
-								어언 10년쨰 모든 분들께 감사드리고 앞으로 더 재밌는</p>
+							<c:set var="stitle" value="채널명을 입력해주세요" />
+							
+							<c:choose>
+									<c:when test="${title ne stitle }">
+										<p>${title }</p>
+									</c:when>
+								</c:choose>
 						</div>
 						<div class="single-sidebar-widget popular-post-widget">
 							<c:set var="loginUser" value="${sessionScope.loginUser.userId }" />
 							<c:if test="${m.userId eq loginUser}">
 								<a href="goBannerProfile.ch?CuNo=${m.uno }"
-									style="color: #6ac169;"><h4 class="popular-title"
-										type="hidden">방송국 관리</h4></a>
+									style="color: #6ac169;">
+									<h4 class="popular-title" type="hidden">방송국 관리</h4></a>
 
 							</c:if>
 						</div>
@@ -445,6 +379,8 @@
 		function matchId() {
 			$("#manage").hide();
 		}
+		
+		console.log(${title});
 	</script>
 
 	<script src="/resources/channel/js/vendor/jquery-2.2.4.min.js"></script>

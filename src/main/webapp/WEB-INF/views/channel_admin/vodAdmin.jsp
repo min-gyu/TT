@@ -72,10 +72,9 @@
 								<article class="col-md-12 article-list">
 									<div class="inner">
 										<figure>
-											<a href="single.html"> <img
-												src="/resources/channel/channel2/images/news/img11.jpg"
-												alt="Sample Article">
-											</a>
+											<video class="img-fluid"
+													src="${ contextPath }/resources/uploadFiles/${row.atMName}.mp4"
+													type="video/mp4"  style="padding-left: 0%;"></video>
 										</figure>
 										<div class="details"
 											style="width: 410px; border-bottom: 1px solid #eee;">
@@ -86,7 +85,7 @@
 												<div class="time">${row.bwDate }</div>
 											</div>
 											<h1>
-												<a href="single.html">${row.bTitle }</a>
+												<a href="${contextPath}/vod_oneList.ch?bNo=${row.bNo}&&CuNo=${m.uno }">${row.bTitle }</a>
 											</h1>
 											<p>${row.bContent }</p>
 											<footer>
@@ -141,14 +140,32 @@
 				<div class="col-lg-4 sidebar-widgets">
 					<div class="widget-wrap">
 						<div class="single-sidebar-widget user-info-widget">
-							<img src="/resources/channel/img/blog/user-info.png" alt="">
-							<a><h4>감스트</h4></a>
+							<c:choose>
+								<c:when test="${not empty pi.atMName}">
+									<img
+										src="${ contextPath }/resources/uploadFiles/profile/${pi.atMName}${ext2}"
+										style="width: 150px; height: 150px; border-radius: 50%;">
+								</c:when>
+								<c:otherwise>
+									<img src="/resources/uploadFiles/profile/profile1.png" alt=""
+										style="width: 150px; height: 150px; border-radius: 50%;">
+								</c:otherwise>
+							</c:choose>
+							<a><h4>${m.nickName }</h4></a>
+							<p>@${m.userId }</p>
+							<c:set var="stitle" value="채널명을 입력해주세요" />
+							
+							<c:choose>
+									<c:when test="${title ne stitle }">
+										<p>${title }</p>
+									</c:when>
+								</c:choose>
 						</div>
 
 						<div class="single-sidebar-widget post-category-widget">
 							<h4 class="category-title">방송국 관리</h4>
 							<ul class="cat-list">
-								<li><a href="/goChannelIntro.ch" class=""
+								<li><a href="/goChannelIntro.ch?CuNo=${m.uno }" class=""
 									style="text-align: center;">
 										<p>채널 소개 설정</p>
 								</a></li>
@@ -156,31 +173,31 @@
 										<p>주력 카테고리 설정</p>
 
 								</a></li>
-								<li><a href="/goBannerProfile.ch" class=""
+								<li><a href="/goBannerProfile.ch?CuNo=${m.uno }" class=""
 									style="text-align: center;">
 										<p>베너 & 프로필 사진 설정</p>
 
 								</a></li>
-								<li><a href="/goVodAdmin.ch" class=""
+								<li><a href="/goVodAdmin.ch?CuNo=${m.uno }" class=""
 									style="text-align: center;">
 										<p>VOD 관리</p>
 
 								</a></li>
-								<li><a href="/subscriberAdmin.ch" class=""
+								<li><a href="/subscriberAdmin.ch?CuNo=${m.uno }" class=""
 									style="text-align: center;">
 										<p>구독자 관리</p>
 
 								</a></li>
-								<li><a href="/managerAdmin.ch" class=""
+								<li><a href="/managerAdmin.ch?CuNo=${m.uno }" class=""
 									style="text-align: center;">
 										<p>매니저 관리</p>
 
 								</a></li>
-								<li><a href="#" class="" style="text-align: center;">
+								<li><a href="/manage_Chat.ch?CuNo=${m.uno }" class="" style="text-align: center;">
 										<p>채팅 필터 관리</p>
 
 								</a></li>
-								<li><a href="manage_black.ch" class=""
+								<li><a href="manage_black.ch?CuNo=${m.uno }" class=""
 									style="text-align: center;">
 										<p>블랙 리스트</p>
 

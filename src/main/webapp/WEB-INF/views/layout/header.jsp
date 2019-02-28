@@ -111,7 +111,8 @@
 									</c:if>
 											
 									<c:if test="${ 'N' eq adminYN }">
-										<li><a href="#"><div>${ sessionScope.loginUser.userName }님 ^ㅁ^</div></li>
+										<li><a href="/goChannel.ch?uNo=${sessionScope.loginUser.uno}"><div>${ sessionScope.loginUser.userName }님 ^ㅁ^</div></li>
+								
 									</c:if>
 								
 									<li><a href="/logout.me"><i class="ion-person"></i>

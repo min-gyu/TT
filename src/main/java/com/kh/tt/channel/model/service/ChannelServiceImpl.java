@@ -61,22 +61,12 @@ public class ChannelServiceImpl implements ChannelService {
 	// VOD상세보기-조회수 추가
 	@Override
 	public void increaseViewC(int bNo, HttpSession session) {
-		// 세션에 저장된 조회시간 검색
-		long update_time = 0;
-
-		// 최초로 조회할 경우 세션에 저장된 값이 없기 때문에 if문 실행x
-		if (session.getAttribute("update_time_" + bNo) != null) {
-			update_time = (Long) session.getAttribute("update_time_" + bNo);
-		}
-		// 시스템의 현재 시간을 current_time에 저장
-		long current_time = System.currentTimeMillis();
-
-		if (current_time - update_time > 5 * 1000) {
+	
 			cd.increaseViewC(bNo, sqlSession);
-			session.setAttribute("update_time_" + bNo, current_time);
+		
 		}
 
-	}
+	
 
 	// VOD상세보기-구독하기 메소드
 	@Override
@@ -112,9 +102,10 @@ public class ChannelServiceImpl implements ChannelService {
 
 	// VOD리스트 총 개수 메소드
 	@Override
-	public int getLisCount(Board b) {
-		return cd.getListCount(b, sqlSession);
+	public int getLisCount(int i) {
+		return cd.getListCount(i, sqlSession);
 	}
+	
 
 	// 채널 회원 정보 메소드
 	@Override
@@ -168,9 +159,9 @@ public class ChannelServiceImpl implements ChannelService {
 
 	//베너 사진 적용전 확인 메소드
 	@Override
-	public int lastBimg() {
+	public int lastBimg(int i) {
 		
-		return cd.lastBimg(sqlSession);
+		return cd.lastBimg(i,sqlSession);
 	}
 
 	//베너 사진 업데이트 메소드
@@ -182,8 +173,8 @@ public class ChannelServiceImpl implements ChannelService {
 
 	//프로필 사진 조회 메소드
 	@Override
-	public int lastPimg() {
-		return cd.lastPimg(sqlSession);
+	public int lastPimg(int i) {
+		return cd.lastPimg(i,sqlSession);
 	}
 //프로필 사진 업로드 메소드
 	@Override
@@ -231,6 +222,19 @@ public class ChannelServiceImpl implements ChannelService {
 		public int insertBanLan(HashMap<String, Object> map) {
 			return cd.insertBanLan(map,sqlSession);
 		}
+
+		@Override
+		public Member selecttInfo(int chNo) {
+			return cd.selecttInfo(chNo,sqlSession);
+		}
+
+		//메인 VOD출력용 메소드
+		@Override
+		public List<Board> getMainVList(int chNo) {
+			return cd.getMainVList(chNo,sqlSession);
+		}
+
+		
 
 
 	

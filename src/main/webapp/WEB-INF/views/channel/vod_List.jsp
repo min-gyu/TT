@@ -77,28 +77,27 @@
 									<article class="col-md-12 article-list">
 										<div class="inner">
 											<figure>
-												<a href="single.html"> <img
-													src="/resources/channel/channel2/images/news/img11.jpg"
-													alt="Sample Article">
-												</a>
+												<video class="img-fluid"
+													src="${ contextPath }/resources/uploadFiles/${row.atMName}.mp4"
+													type="video/mp4"  style="padding-left: 0%;"></video>
 											</figure>
 											<div class="details"
 												style="width: 410px; border-bottom: 1px solid #eee;">
 												<div class="detail">
 													<div class="category">
-														<a >Film</a>
+														<a>Film</a>
 													</div>
 													<div class="time">${row.bwDate }
 														<input type="hidden" name="bNo" value="${row.bNo }">
 													</div>
 												</div>
 												<h1>
-													<a href="${contextPath}/vod_oneList.ch?bNo=${row.bNo}&&CuNo=${m.uno }">${row.bTitle }</a>
+													<a
+														href="${contextPath}/vod_oneList.ch?bNo=${row.bNo}&&CuNo=${m.uno }">${row.bTitle }</a>
 												</h1>
 												<p>${row.bContent }</p>
 												<footer>
-													<a class="love active"><i
-														class="ion-android-favorite"></i>
+													<a class="love active"><i class="ion-android-favorite"></i>
 														<div>${row.bCount }</div></a> <a class="btn btn-primary more"
 														href="${contextPath}/vod_oneList.ch?bNo=${row.bNo}&&CuNo=${m.uno }">
 														<div>More</div>
@@ -159,21 +158,34 @@
 				<div class="col-lg-4 sidebar-widgets">
 					<div class="widget-wrap">
 						<div class="single-sidebar-widget user-info-widget">
-							<img src="/resources/channel/img/blog/user-info.png" alt="">
+							<c:choose>
+								<c:when test="${not empty pi.atMName}">
+									<img
+										src="${ contextPath }/resources/uploadFiles/profile/${pi.atMName}${ext2}"
+										style="width: 150px; height: 150px; border-radius: 50%;">
+								</c:when>
+								<c:otherwise>
+									<img src="/resources/uploadFiles/profile/profile1.png" alt=""
+										style="width: 150px; height: 150px; border-radius: 50%;">
+								</c:otherwise>
+							</c:choose>
 							<a><h4>${m.nickName }</h4></a>
 							<p>@${m.userId }</p>
-							<p>아 이렇게 제 채널에 방문해 주셔서 감사합니다. 이렇게 소개창이 기니 정말 할말이 많습니다. 방송을 한지
-								어언 10년쨰 모든 분들께 감사드리고 앞으로 더 재밌는</p>
+							<c:set var="stitle" value="채널명을 입력해주세요" />
+
+							<c:choose>
+								<c:when test="${title ne stitle }">
+									<p>${title }</p>
+								</c:when>
+							</c:choose>
 						</div>
 						<div class="single-sidebar-widget popular-post-widget">
-							<c:set var="loginUser" value="${sessionScope.loginUser.userId }"/>
+							<c:set var="loginUser" value="${sessionScope.loginUser.userId }" />
 							<c:if test="${m.userId eq loginUser}">
-								 <a href="manage_C.ch?CuNo=${m.uno }" type="hidden"
-									style="color: #6ac169;"><h4 class="popular-title" type="hidden">방송국 관리
-											
-											
-											</h4></a>
-								
+								<a href="goBannerProfile.ch?CuNo=${m.uno }"
+									style="color: #6ac169;"><h4 class="popular-title"
+										type="hidden">방송국 관리</h4></a>
+
 							</c:if>
 						</div>
 
@@ -253,7 +265,11 @@
 	<!-- End post-content Area -->
 	<script>
 		function fn_paging(curPage) {
-			location.href = "/vod_List.ch?curPage=" + curPage+"&CuNo="+${m.uno };
+			location.href = "/vod_List.ch?curPage=" + curPage + "&CuNo=" + $
+			{
+				m.uno
+			}
+			;
 		}
 	</script>
 

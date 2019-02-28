@@ -23,6 +23,9 @@
 		<result property="bAttachs" column="B_ATTACH_YN" />
 		<result property="bDels" column="B_DEL_STATUS" />
 		<result property="bType" column="B_TYPE" />
+		
+		<result property="atCHno" column="AT_CH_NO" />
+		<result property="atMName" column="AT_MODIFY_NAME" />
 	</resultMap>
 
 
@@ -37,7 +40,7 @@
 		#{bContent},
 		SYSDATE,
 		SYSDATE,
-		'3','1','1','Y','N','VOD')
+		'0','1',NULL,'Y','N','VOD')
 
 	</insert>
 
@@ -51,24 +54,44 @@
 	</select>
 
 	<select id="vodList" parameterType="java.util.Map"
-		resultMap="channelResultSet">
-
-		SELECT RNUM, B_NO ,B_UNO ,M_ID, B_CATEG ,B_TITLE ,B_CONTENT
+		resultMap="channelResultSet">SELECT RNUM, B_NO ,B_UNO ,M_ID, B_CATEG ,B_TITLE ,B_CONTENT
 		,B_WRITE_DATE ,
-		B_MODIFY_DATE ,B_COUNT ,B_TYPE FROM(
+		B_MODIFY_DATE ,B_COUNT ,B_TYPE, AT_MODIFY_NAME FROM(
 		SELECT ROWNUM AS RNUM, B_NO ,B_UNO ,M_ID, B_CATEG ,B_TITLE ,B_CONTENT
 		,B_WRITE_DATE ,
-		B_MODIFY_DATE ,B_COUNT ,B_TYPE
+		B_MODIFY_DATE ,B_COUNT ,B_TYPE,AT_MODIFY_NAME
 		FROM(
 		SELECT B_NO ,B_UNO ,M_ID, B_CATEG ,B_TITLE ,B_CONTENT
 		,B_WRITE_DATE ,
-		B_MODIFY_DATE ,B_COUNT ,B_TYPE
+		B_MODIFY_DATE ,B_COUNT ,B_TYPE,AT_MODIFY_NAME
 		FROM BOARD JOIN MEMBER ON(B_UNO=M_UNO)
+        JOIN ATTACHMENT ON(B_NO=AT_B_NO)
 		WHERE B_DEL_STATUS='N' AND B_LEVEL=1 AND B_CH_NO=#{ChNo}
 		ORDER BY B_NO DESC))
 		WHERE RNUM BETWEEN #{current} AND #{limit}
+		
 
 
+
+	</select>
+	
+	<select id="getMainVList" parameterType="int" resultMap="channelResultSet">
+		SELECT RNUM, B_NO ,B_UNO ,M_ID, B_CATEG ,B_TITLE ,B_CONTENT
+		,B_WRITE_DATE ,
+		B_MODIFY_DATE ,B_COUNT ,B_TYPE, AT_MODIFY_NAME FROM(
+		SELECT ROWNUM AS RNUM, B_NO ,B_UNO ,M_ID, B_CATEG ,B_TITLE ,B_CONTENT
+		,B_WRITE_DATE ,
+		B_MODIFY_DATE ,B_COUNT ,B_TYPE,AT_MODIFY_NAME
+		FROM(
+		SELECT B_NO ,B_UNO ,M_ID, B_CATEG ,B_TITLE ,B_CONTENT
+		,B_WRITE_DATE ,
+		B_MODIFY_DATE ,B_COUNT ,B_TYPE,AT_MODIFY_NAME
+		FROM BOARD JOIN MEMBER ON(B_UNO=M_UNO)
+        JOIN ATTACHMENT ON(B_NO=AT_B_NO)
+		WHERE B_DEL_STATUS='N' AND B_LEVEL=1 AND B_CH_NO=#{chNo}
+		ORDER BY B_COUNT DESC))
+		WHERE RNUM BETWEEN 1 AND 3
+	
 	</select>
 
 	<update id="increaseVC">
@@ -87,10 +110,13 @@
 
 	</select>
 
-	<select id="getListCount" resultType="int">
+	<select id="selectLCount" resultType="int">
 		SELECT COUNT(*)
 		FROM BOARD
 		WHERE B_DEL_STATUS='N'
+		AND B_CH_NO=#{i}
+		AND B_LEVEL=1
+		AND B_TYPE='VOD'
 	</select>
 
 	<insert id="insertDet" parameterType="java.util.Map">

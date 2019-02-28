@@ -41,62 +41,57 @@ public class ChannelController {
 
 	// 채널 메인
 	@RequestMapping("goChannel.ch")
-	public ModelAndView goChannel(@RequestParam int uNo, Member m, Attachment bi, Attachment pi) {
+	public ModelAndView goChannel(@RequestParam int uNo, Member m, Attachment bi, Attachment pi, Member ti) {
 		System.out.println("채널주인회원번호 : " + uNo);
 		ModelAndView mav = new ModelAndView();
 		m = cs.selectmInfo(uNo);// 채널 주인 정보 출력
 		System.out.println(m);
+		
+		int listCount = cs.getLisCount(m.getChNo());//VOD리스트 카운트
+		
+		List<Board> list=cs.getMainVList(m.getChNo());
+		mav.addObject("vlist", list);
+		
 
-		bi = cs.selectbInfo(m.getChNo());// 채널 베너 정보 출력
-		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
-		System.out.println(bi);
-		System.out.println(pi);
 
-		if (bi != null && pi == null) {
-
+		mav.setViewName("channel/channel");
+		bi = cs.selectbInfo(m.getChNo());// 베너 사진 정보 출력
+		pi = cs.selectpInfo(m.getChNo()); // 프로필 사진 정보 출력
+		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
+		if (bi != null) {
 			String ext1 = bi.getAtName().substring(bi.getAtName().lastIndexOf("."));
-			System.out.println(ext1);
-			mav.setViewName("channel/channel");
 			mav.addObject("m", m);
 			mav.addObject("bi", bi);
 			mav.addObject("ext1", ext1);
-
-			return mav;
-		} else if (pi != null && bi == null) {
-
-			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
-			System.out.println(ext2);
-			mav.setViewName("channel/channel");
-			mav.addObject("m", m);
-			mav.addObject("pi", pi);
-			mav.addObject("ext2", ext2);
-			return mav;
-		} else if (pi != null && bi != null) {
-			String ext1 = bi.getAtName().substring(bi.getAtName().lastIndexOf("."));
-			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
-			System.out.println(ext1);
-			mav.addObject("bi", bi);
-			mav.addObject("ext1", ext1);
-			mav.addObject("pi", pi);
-			mav.addObject("ext2", ext2);
-			mav.addObject("m", m);
-			mav.setViewName("channel/channel");
-
-			return mav;
-		} else {
-			mav.setViewName("channel/channel");
-			mav.addObject("m", m);
-			return mav;
 		}
+		if (pi != null) {
+			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
+			mav.addObject("m", m);
+			mav.addObject("pi", pi);
+			mav.addObject("ext2", ext2);
+		}
+		if (ti != null) {
+			mav.addObject("title", ti.getChName());
+			mav.addObject("m", m);
+		}
+		
+	
+		return mav;
 	}
 
 	// VOD리스트 페이지
 	@RequestMapping("vod_List.ch")
-	public ModelAndView vod_List(HttpServletRequest request, Board b, @RequestParam(defaultValue = "1") int curPage,
-			int CuNo, Member m) {
+	public ModelAndView vod_List(HttpServletRequest request, Board b, Attachment pi, Member ti,
+			@RequestParam(defaultValue = "1") int curPage, int CuNo, Member m) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("channel/vod_List");
 
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
-		int listCount = cs.getLisCount(b);
+		pi = cs.selectpInfo(m.getChNo()); // 프로필 사진 정보 출력
+		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
+
+		int listCount = cs.getLisCount(m.getChNo());
+		System.out.println("listCount"+listCount);
 		int ChNo = m.getChNo();
 		pagination pagination = new pagination(listCount, curPage);
 
@@ -113,27 +108,51 @@ public class ChannelController {
 			list = cs.vodList(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),
 					ChNo);
 		}
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("channel/vod_List");
+
+		System.out.println(list);
+		if (pi != null) {
+			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
+			mav.addObject("pi", pi);
+			mav.addObject("ext2", ext2);
+		}
+		if (ti != null) {
+			mav.addObject("title", ti.getChName());
+		}
+
 		mav.addObject("list", list);
 		mav.addObject("listCount", listCount);
 		mav.addObject("pagination", pagination);
 		mav.addObject("m", m);
+
 		return mav;
 
 	}
 
 	// VOD상세보기 페이지
 	@RequestMapping("vod_oneList.ch")
-	public ModelAndView vod_oneList(@RequestParam int bNo, HttpSession session, int CuNo, Member m, String msg) {
+	public ModelAndView vod_oneList(@RequestParam int bNo, Attachment pi, Member ti, HttpSession session, int CuNo,
+			Member m, String msg) {
 		System.out.println(bNo);
 		System.out.println("vod_oneList.ch : " + CuNo);
-		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
-		cs.increaseViewC(bNo, session);
-		System.out.println(msg);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("channel/vod_oneList");
+
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		pi = cs.selectpInfo(m.getChNo()); // 프로필 사진 정보 출력
+		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
+
+		if (pi != null) {
+			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
+			mav.addObject("pi", pi);
+			mav.addObject("ext2", ext2);
+		}
+		if (ti != null) {
+			mav.addObject("title", ti.getChName());
+		}
+		cs.increaseViewC(bNo, session);
+		System.out.println("메세지 출력 : "+msg);
+
 		Board b = cs.vodOne(bNo);// VOD게시글 정보
 
 		Attachment a = cs.vodOneR(bNo);
@@ -161,6 +180,7 @@ public class ChannelController {
 		int result = cs.addSubscirbe(ChNo, uNo);
 
 		System.out.println("결과 확인 : " + result);
+		
 		if (result == 1) {
 			model.addAttribute("msg", "이미 구독 하셨습니다!");
 			model.addAttribute("CuNo", CuNo);
@@ -168,6 +188,7 @@ public class ChannelController {
 		} else {
 			model.addAttribute("msg", "구독이 완료되었습니다!");
 		}
+		
 		model.addAttribute("CuNo", CuNo);
 		return "redirect:vod_oneList.ch" + "?bNo=" + bNo;
 
@@ -302,16 +323,10 @@ public class ChannelController {
 		int ChNo = m.getChNo();// 채널 주인 채널 번호
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
-		System.out.println("Board" + b);
-		System.out.println("Video" + video);
 		b.setBchNo(ChNo);
 
 		String root = request.getSession().getServletContext().getRealPath("resources");
-
 		String filePath = root + "\\uploadFiles";
-
-		System.out.println("filePath" + filePath);
-
 		String originFileName = video.getOriginalFilename();
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 		String changeName = CommonUtils.getRandomString();
@@ -320,23 +335,18 @@ public class ChannelController {
 
 		try {
 			video.transferTo(new File(filePath + "\\" + changeName + ext));
-
 			cs.insertVod(b);
-
-			System.out.println(originFileName);
-			System.out.println(changeName);
-			System.out.println(filePath);
-
-			// 게시물 번호 뽑아오기 --start
+		
 			cs.selectbNo(b);
 			Board boardOne = cs.selectbNo(b);
 			int bNo = boardOne.getbNo();
-			// 게시물 번호 뽑아오기 --end
+			
 
 			a.setAtName(originFileName);
 			a.setAtMName(changeName);
 			a.setAtPath(filePath);
 			a.setAtBno(bNo);
+			a.setAtCHno(ChNo);
 
 			cs.insertAt(a);
 
@@ -355,36 +365,39 @@ public class ChannelController {
 
 	// 배너프로필 설정 페이지로 이동하는 메서드(관리자 메인)
 	@RequestMapping("/goBannerProfile.ch")
-	public ModelAndView goBannerProfile(int CuNo, Member m, Attachment pi) {
+	public ModelAndView goBannerProfile(int CuNo, Member m, Member ti, Attachment pi) {
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		System.out.println("채널 주인 정보 : " + m);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("channel_admin/bannerAndProfile");
 
 		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
+		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
+		if (ti != null) {
+			mav.addObject("title", ti.getChName());
+		}
+
 		if (pi != null) {
 			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
 			mav.addObject("ext2", ext2);
 			mav.addObject("m", m);
 			mav.addObject("pi", pi);
 			return mav;
-		} else {
-			mav.addObject("m", m);
-			return mav;
 		}
+
+		mav.addObject("m", m);
+		return mav;
 	}
 
 	@RequestMapping("updateBimg.ch")
-	public ModelAndView updateBimg(Model model, HttpSession session, int CuNo, Attachment a, Attachment pi,
+	public ModelAndView updateBimg(Model model, HttpSession session, int CuNo, Attachment a, Attachment bi,
 			HttpServletRequest request, Member m,
 			@RequestParam(value = "banner", required = false) MultipartFile image) {
-		System.out.println("updateBimg.ch : " + image);
-		System.out.println(CuNo);// 채널 주인 회원번호
 
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		int ChNo = m.getChNo();// 채널 주인 채널 번호
-
-		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
+		bi = cs.selectbInfo(m.getChNo()); // 채널 프로필 정보 출력
+	
 
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String filePath = root + "\\uploadFiles\\banner";
@@ -393,12 +406,12 @@ public class ChannelController {
 		String originFileName = image.getOriginalFilename();
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 
-		// 사진 형식이 아닐시
+		// 사진 형식이 아닐시 alert전송-------------------------
 		if (!ext.equals(".jpg") && !ext.equals(".png") && !ext.equals(".jpeg")) {
-			if (pi != null) {
-				String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
+			if (bi != null) {
+				String ext2 = bi.getAtName().substring(bi.getAtName().lastIndexOf("."));
 				mav.addObject("ext2", ext2);
-				mav.addObject("pi", pi);
+				mav.addObject("pi", bi);
 				mav.addObject("msg", "사진이 아닌 파일입니다.(jpg,png.jpeg)");
 				mav.setViewName("channel_admin/bannerAndProfile");
 				mav.addObject("m", m);
@@ -410,7 +423,7 @@ public class ChannelController {
 				return mav;
 			}
 		}
-		// -----------------
+		// -------------------------------------
 
 		String changeName = CommonUtils.getRandomString();
 
@@ -422,21 +435,19 @@ public class ChannelController {
 			a.setAtPath(filePath);// 파일경로
 			a.setAtCHno(ChNo);// 채널 번호
 
-			// 전에 베너를 올렸는지 조회해오기
-			int result1 = cs.lastBimg();
-
-			if (result1 == 0) {// 전에 추가한 이력이 없는 경우
+			if (bi == null) {// 전에 추가한 이력이 없는 경우
 				int result = cs.insertBimg(a);
 				System.out.println("베너 삽입  : " + result);
 
 			} else {// 전에 추가한 이력이 있는 경우
 				cs.updateBimg(a);
+				System.out.println("베너 삽입  : " + cs.updateBimg(a));
 			}
-			if (pi != null) {
-				String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
+			if (bi != null) {
+				String ext2 = bi.getAtName().substring(bi.getAtName().lastIndexOf("."));
 				mav.addObject("ext2", ext2);
 				mav.addObject("a", a);
-				mav.addObject("pi", pi);
+				mav.addObject("pi", bi);
 				mav.addObject("m", m);
 				mav.addObject("ext", ext);
 				mav.setViewName("channel_admin/bannerAndProfile");
@@ -502,9 +513,8 @@ public class ChannelController {
 			a.setAtCHno(ChNo);// 채널 번호
 
 			// 전에 프로필을 올렸는지 조회해오기
-			int result1 = cs.lastPimg();
 
-			if (result1 == 0) {// 전에 추가한 이력이 없는 경우
+			if (pi == null) {// 전에 추가한 이력이 없는 경우
 				int result = cs.insertPimg(a);
 
 			} else {// 전에 추가한 이력이 있는 경우
@@ -542,14 +552,14 @@ public class ChannelController {
 		return "channel_admin/channel_black";
 	}
 
-	//관리자-채팅필터 관리 메소드
+	// 관리자-채팅필터 관리 메소드
 	@RequestMapping("manage_Chat.ch")
-	public ModelAndView manage_Chat(int CuNo,Member m,Attachment pi) {
+	public ModelAndView manage_Chat(int CuNo, Member m, Attachment pi) {
 		ModelAndView mav = new ModelAndView();
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		mav.setViewName("channel_admin/channel_chat");
 		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
-		if(pi!=null) {
+		if (pi != null) {
 			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
 			mav.addObject("ext2", ext2);
 			mav.addObject("m", m);
@@ -559,33 +569,31 @@ public class ChannelController {
 		mav.addObject("m", m);
 		return mav;
 	}
-	
+
 	@RequestMapping("insertBanLan.ch")
 	public ModelAndView insertBanLan(@RequestParam(value = "banLan") String banLan,
-			@RequestParam(value = "reLan") String reLan,
-			@RequestParam(value = "CuNo") int CuNo,Member m) {
+			@RequestParam(value = "reLan") String reLan, @RequestParam(value = "CuNo") int CuNo, Member m) {
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
-		ModelAndView mav=new ModelAndView();
+		ModelAndView mav = new ModelAndView();
 		System.out.println(reLan);
 		System.out.println(CuNo);
 		System.out.println(banLan);
-		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("ChNo", m.getChNo());
 		map.put("banLan", banLan);
 		map.put("reLan", reLan);
-		int result=cs.insertBanLan(map);
-		System.out.println("금칙어 추가 결과 : "+result);
+		int result = cs.insertBanLan(map);
+		System.out.println("금칙어 추가 결과 : " + result);
 		mav.setViewName("channel_admin/channel_chat");
-		mav.addObject("CuNo",CuNo);
+		mav.addObject("CuNo", CuNo);
 		mav.addObject("m", m);
-		
+
 		return mav;
 	}
-	
+
 	@RequestMapping("listBan.ch")
 	public ModelAndView listBan(int curPage) {
-		ModelAndView mav=new ModelAndView();
+		ModelAndView mav = new ModelAndView();
 		mav.setViewName("channel_admin/channel_chat");
 		return mav;
 	}
@@ -597,18 +605,26 @@ public class ChannelController {
 
 	// VOD 관리페이지로 이동시키는 메서드
 	@RequestMapping("goVodAdmin.ch")
-	public ModelAndView goVodAdmin(Member m, HttpServletRequest request, int CuNo, Board b,
+	public ModelAndView goVodAdmin(Member m, HttpServletRequest request, Member ti, int CuNo, Board b,
 			@RequestParam(defaultValue = "1") int curPage) {
 
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		int ChNo = m.getChNo();// 채널 주인 채널 번호
-		List<Board> list;
+		
 		System.out.println("현재 페이지" + curPage);
-		int listCount = cs.getLisCount(b);
+		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
 
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("channel_admin/vodAdmin");
+
+		if (ti != null) {
+			mav.addObject("title", ti.getChName());
+		}
+
+		
+		List<Board> list;
+		int listCount = cs.getLisCount(m.getChNo());
 		pagination pagination = new pagination(listCount, curPage);
-		System.out.println("pagination" + pagination);
-
 		if (curPage == 1) {
 
 			list = cs.vodList(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),
@@ -618,8 +634,7 @@ public class ChannelController {
 					ChNo);
 		}
 		System.out.println("list" + list);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("channel_admin/vodAdmin");
+
 		mav.addObject("list", list);
 		mav.addObject("listCount", listCount);
 		mav.addObject("pagination", pagination);
@@ -630,10 +645,15 @@ public class ChannelController {
 
 	// VOD 추가 페이지로 이동시키는 메서드
 	@RequestMapping("vodAdd.ch")
-	public ModelAndView vodAdd(Member m, int CuNo) {
+	public ModelAndView vodAdd(Member m, Member ti, int CuNo) {
 		ModelAndView mav = new ModelAndView();
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		int ChNo = m.getChNo();// 채널 주인 채널 번호
+
+		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
+		if (ti != null) {
+			mav.addObject("title", ti.getChName());
+		}
 
 		mav.setViewName("channel_admin/vodAdd");
 		mav.addObject("m", m);
@@ -649,52 +669,52 @@ public class ChannelController {
 
 	// 구독자 관리 페이지로 이동하는 메서드
 	@RequestMapping("subscriberAdmin.ch")
-	public ModelAndView goSubscriberAdmin(int CuNo,Member m,Attachment pi,
+	public ModelAndView goSubscriberAdmin(int CuNo, Member m, Member ti, Attachment pi,
 			@RequestParam(defaultValue = "1") int curPage) {
 		ModelAndView mav = new ModelAndView();
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
-		
+
 		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
-		
-		//총 구독자수와 구독자 리스트 출력하기
-		
-		int listCount=cs.totalSub(m.getChNo());
-		System.out.println("총 구독자수 : "+listCount);
-		
+		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
+		if (ti != null) {
+			mav.addObject("title", ti.getChName());
+		}
+
+		// 총 구독자수와 구독자 리스트 출력하기
+
+		int listCount = cs.totalSub(m.getChNo());
+		System.out.println("총 구독자수 : " + listCount);
+
 		pagination pagination = new pagination(listCount, curPage);
 		System.out.println(pagination);
-		
+
 		List<Relation> list;
 		mav.setViewName("channel_admin/subscriberAdmin");
 		if (curPage == 1) {
 
-			list = cs.selecttSub(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),
-					m.getChNo());
+			list = cs.selecttSub(pagination.getStartIndex() + 1, pagination.getPageSize()
+					+ pagination.getStartIndex(), m.getChNo());
 		} else {
-			list = cs.selecttSub(pagination.getStartIndex() + 1, pagination.getPageSize() + pagination.getStartIndex(),
-					m.getChNo());
+			list = cs.selecttSub(pagination.getStartIndex() + 1, pagination.getPageSize() 
+					+ pagination.getStartIndex(), m.getChNo());
 		}
-		System.out.println(list);
 		
+
 		if (pi != null) {
 			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
 			mav.addObject("ext2", ext2);
 			mav.addObject("pi", pi);
 			mav.addObject("m", m);
-			mav.addObject("list",list);
-			mav.addObject("listCount",listCount);
-			mav.addObject("pagination", pagination);
-			return mav;
-		} else {
-			mav.addObject("m", m);
-			mav.addObject("list",list);
-			mav.addObject("listCount",listCount);
+			mav.addObject("list", list);
+			mav.addObject("listCount", listCount);
 			mav.addObject("pagination", pagination);
 			return mav;
 		}
-		
-		
-		
+		mav.addObject("m", m);
+		mav.addObject("list", list);
+		mav.addObject("listCount", listCount);
+		mav.addObject("pagination", pagination);
+		return mav;
 	}
 
 	// 매니저 관리 페이지로 이동하는 메서드
@@ -722,7 +742,7 @@ public class ChannelController {
 	}
 
 	@RequestMapping("updateCin.ch")
-	public ModelAndView updateCin(int CuNo, Member m, Attachment pi, Member inm) {
+	public ModelAndView updateCin(int CuNo, Member ti, Member m, Attachment pi, Member inm) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("channel_admin/channelIntro");
 		String cin = inm.getChName();// 채널 제목 입력값 가져오기
@@ -736,7 +756,10 @@ public class ChannelController {
 		map.put("cin", cin);
 		// 채널 제목 업데이트
 		int result1 = cs.updatecInfo(map);
-		
+		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
+		if (ti != null) {
+			mav.addObject("title", ti.getChName());
+		}
 
 		if (pi != null) {
 			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
@@ -745,11 +768,9 @@ public class ChannelController {
 			mav.addObject("m", m);
 			mav.addObject("cin", cin);
 			return mav;
-		} else {
-			mav.addObject("m", m);
-			mav.addObject("cin", cin);
-			return mav;
 		}
-
+		mav.addObject("m", m);
+		mav.addObject("cin", cin);
+		return mav;
 	}
 }
