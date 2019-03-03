@@ -11,15 +11,9 @@
 			<form class="form-horizontal" role="form">
 				<div class="form-group">
 					<label for="inputReportReason" class="col-sm-2 control-label">문의사항</label>
-					<div class="col-sm-8">
+					<div class="col-sm-8" width="200px">
 						<input type="text" class="form-control" value="${questionOne.getCqClass()}" readonly>
-						<!-- <select class="form-control" name="reason">
-							<option>저작권 침해</option>
-							<option>청소년 유해</option> 
-							<option>불법 & 문란</option> 
-							<option>명예 회손</option> 
-							<option>기타 사항</option>
-						</select> -->
+						
 					</div>
 				</div>
 				
@@ -27,25 +21,6 @@
 					<label for="inputTitle" class="col-sm-2 control-label">제목</label>
 					<div class="col-sm-8">
 						<input type="text" class="form-control" id="title" name="title" value="${questionOne.getCqTitle() }" readonly>
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label for="inputId" class="col-sm-2 control-label">아이디</label>
-					<div class="col-sm-3">
-						<input type="text" class="form-control" id="userID" name="userId" value="${questionOne.getCqUno() }" readonly>
-					</div>
-					
-					<!-- <label for="inputRId" class="col-sm-2 control-label">신고 아이디</label>
-					<div class="col-sm-3">
-						<input type="text" class="form-control" id="reportId" name="reportId" value="#" readonly>
-					</div> -->
-				</div>
-				
-				<div class="form-group">
-					<label for="inputEmail" class="col-sm-2 control-label">문의 신청한 이메일</label>
-					<div class="col-sm-8">
-						<input type="email" class="form-control" id="email" name="email" value="${ sessionScope.loginUser.email }" readonly>
 					</div>
 				</div>
 

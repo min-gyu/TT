@@ -20,6 +20,7 @@
 						  <table class="ui green table" id="claimTable">
 						  <thead>
 						    <th>No.</th>
+						    <th>접수번호</th>
 						    <th>신고유형</th>
 						    <th>제목</th>
 						    <th>내용</th>
@@ -28,6 +29,7 @@
 						 <c:forEach items="${ claimList }" var="cl"> 
 						   <tr>
 						      <td>${cl.rnum }</td>
+						       <td>${cl.cqNo }</td>
 						      <td>${cl.cqClass }</td>
 						      <td>${cl.cqTitle }</td>
 						      <td>${cl.cqContent}</td>
@@ -47,7 +49,7 @@
 								}).mouseout(function(){
 									$(this).parents("tr").css({"background":"white","color":"black"});
 								}).click(function(){
-									var bid=$(this).parents().children("td").eq(0).text();
+									var bid=$(this).parents().children("td").eq(1).text();
 									/* console.log(bid2); */
 									location.href="selectClaimOne.me?bid="+bid;
 								});

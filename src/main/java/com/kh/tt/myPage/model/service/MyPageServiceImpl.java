@@ -224,5 +224,23 @@ public class MyPageServiceImpl implements MyPageService{
 			return mpd.getQuestionCount(sqlSession, cqUno);
 		}
 
+		//계좌등록
+		@Override
+		public int updateBank(HashMap<String, Object> hmap) throws MyPageException {
+			return mpd.updateBank(sqlSession, hmap);
+		}
+
+		//계좌 삭제하기
+		@Override
+		public int deleteBank(int mUno) throws MyPageException {
+			return mpd.deleteBank(sqlSession, mUno);
+		}
+
+		//보유클로버 업데이트
+		@Override
+		public int updateClover(HashMap<String, Object> hmap) throws MyPageException {
+			return mpd.updateClover(sqlSession, hmap);
+		}
+
 
 }

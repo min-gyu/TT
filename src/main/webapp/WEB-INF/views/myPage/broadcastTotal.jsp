@@ -5,6 +5,8 @@
 <!-- 차트api 때문에 선언 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- jstl -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 		
 	<section class="post-content-area single-post-area">
@@ -73,25 +75,19 @@
 						<div>
 						  <table class="ui green table">
 						  <thead>
-						    <tr><th>&nbsp;</th>
+						    <tr>
 						    <th>No.</th>
 						    <th>시작시간</th>
 						    <th>종료시간</th>
 						    <th>시청자 수</th>
 						    <tr>
-						      <td><input type="checkbox"></td>
+						    
 						      <td>1</td>
 						      <td>2019/01/08 12:02</td>
 						      <td>2019/01/08 13:02</td>
 						      <td>133</td>
 						    </tr>
-						    <tr>
-						      <td><input type="checkbox"></td>
-						      <td>1</td>
-						      <td>2019/01/10 13:02</td>
-						      <td>2019/01/10 15:02</td>
-						      <td>133</td>
-						    </tr>
+						    
 						  </tbody>
 						</table>
 						

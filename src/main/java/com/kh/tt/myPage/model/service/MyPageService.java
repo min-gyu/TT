@@ -1,5 +1,6 @@
 package com.kh.tt.myPage.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -87,6 +88,15 @@ public interface MyPageService {
 
 	//문의 - 카운트
 	int getQuestionCount(int cqUno) throws MyPageException;
+
+	//계좌등록
+	int updateBank(HashMap<String, Object> hmap) throws MyPageException;
+
+	//계좌 삭제하기
+	int deleteBank(int mUno) throws MyPageException;
+	
+	//보유클로버 업데이트
+	int updateClover(HashMap<String, Object> hmap) throws MyPageException;
 
 
 }

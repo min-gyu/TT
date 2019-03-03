@@ -132,9 +132,26 @@ public class MyPageController {
 		
 		int mUno = Integer.parseInt(request.getParameter("mUno"));
 		
-		System.out.println("삭제누른 mUno ; "+mUno);
+		Member m ;
 		
-		return "redirect:goMain.me";
+		try {
+			m = mps.checkMember(mUno);
+			
+			model.addAttribute("m", m);
+			System.out.println("컨트롤러에서 받은 m : "+m);
+			
+			int result = mps.deleteBank(mUno);
+			
+			if(result==0) {
+				System.out.println("계좌 삭제 실패");
+			}
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "myPage/bankChk";
 	}
 	
 	//회원탈퇴하기
@@ -198,11 +215,16 @@ public class MyPageController {
 		int ptUno = Integer.parseInt(request.getParameter("ptUno"));
 		int currentPage = 1;
 		
+		Member m;
+		
 		if (request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
 		try {
+			
+			m = mps.checkMember(ptUno);
+			
 			//리스트 카운트
 			int listCount = mps.getAllchargeClover(ptUno);
 			System.out.println("listCount : " + listCount);
@@ -212,10 +234,12 @@ public class MyPageController {
 			//충전내역 - 리스트
 			List<Payment> chargeList = mps.selectChargeList(pi, ptUno);
 			
+			model.addAttribute("m", m);
 			model.addAttribute("chargeList", chargeList);
 			System.out.println("가져온리스트! "+chargeList);
 			
 			request.setAttribute("pi", pi);
+			
 			
 		} catch (MyPageException e) {
 			e.printStackTrace();
@@ -346,21 +370,26 @@ public class MyPageController {
 		int mUno = Integer.parseInt(request.getParameter("mUno"));
 		Member m;
 		
+		int res = 0;
+		
 		//만약 계좌등록이 되어있으면 alert로 계좌삭제한 후 등록해달라고 창띄우기
 		//계좌값이 null이면 계좌인증 후 등록시켜주기
 		
 		try {
 			m = mps.checkMember(mUno);
-			System.out.println("사용자의 은행명 : "+m.getBank());
+			/*System.out.println("사용자의 은행명 : "+m.getBank());*/
 			
-			if(m.getBank()==null) {
-				//계좌등록먼저!
+			if(m.getBank()!=null) {
+				res=0;
+			}else {
+				res=1;
 			}
 			
 		} catch (MyPageException e) {
 			e.printStackTrace();
 		}
 		
+		model.addAttribute("res", res);
 		model.addAttribute("mUno", mUno);
 		
 		
@@ -376,14 +405,78 @@ public class MyPageController {
 	
 	//계좌관리 페이지 - 비밀번호 확인 후, 진행
 	@RequestMapping("bankChk2.me")
-	public String gobankChk2(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String bankChk2(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		String mBank=request.getParameter("mBank"); 
+		String mBankNo=request.getParameter("mBankNo"); 
 		
 		int mUno = Integer.parseInt(request.getParameter("mUno"));
+		System.out.println("mUno : "+mUno);
 		
-		model.addAttribute("member3", mUno);
+		//계좌가 등록되어있는경우는 삭제 후 등록하라고 띄워주기
+		
+		
+		if(mBank.equals("004")) {
+			mBank="국민은행";	
+		}else if(mBank.equals("003")) {
+			mBank="기업은행";
+		}else if(mBank.equals("088")) {
+			mBank="신한은행";
+		}else if(mBank.equals("011")) {
+			mBank="농협";
+		}else if(mBank.equals("020")) {
+			mBank="우리은행";
+		}
+
+		System.out.println("은행코드 : "+mBank);
+		System.out.println("계좌번호 : "+mBankNo);
+		
+		HashMap<String, Object> hmap = new HashMap<String, Object>(); 
+		hmap.put("mBank",mBank );
+		hmap.put("mBankNo",mBankNo );
+		hmap.put("mUno",mUno );
+		
+		//계좌등록
+		int result;
+		try {
+			result = mps.updateBank(hmap);
+
+			if(result==0) {
+				System.out.println("계좌정보 update 실패!");
+			}
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}
 		
 		return "myPage/bankChk2";
 	}
+	
+	//계좌조회 페이지
+	@RequestMapping("bankChk3.me")
+	public String bankChk3(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		int mUno = Integer.parseInt(request.getParameter("mUno"));
+		Member m;
+		
+		//만약 계좌등록이 되어있으면 alert로 계좌삭제한 후 등록해달라고 창띄우기
+		//계좌값이 null이면 계좌인증 후 등록시켜주기
+		
+		try {
+			m = mps.checkMember(mUno);
+			
+			if(m.getBank()!=null) {
+				model.addAttribute("m", m);
+			}
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "myPage/bankChk2";
+	}
+	
 	
 	
 	/*클로버 환전관리*/
