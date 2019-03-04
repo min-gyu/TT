@@ -1,5 +1,6 @@
 package com.kh.tt.admin.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,7 +13,9 @@ import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.common.PageInfo;
+import com.kh.tt.member.model.vo.CQAndAttach;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Exchange;
 import com.kh.tt.myPage.model.vo.Payment;
 
@@ -97,6 +100,7 @@ public class AdminServiceImpl implements AdminService {
 		return md.searchLeaveList(sid, pi);
 	}
 
+	
 	// 카테고리 관리
 	@Override
 	public List<Category> selectCategList() throws AdminException {
@@ -107,58 +111,48 @@ public class AdminServiceImpl implements AdminService {
 	public List<Category> detailCateg(int num) {
 		return md.detailCateg(num);
 	}
-
 	
 	//충전내역 조회 - 카운트
 	@Override
 	public int getChargeClover() throws AdminException {
-		
 		return md.getChargeClover(sqlSession);
 	}
 	
 	//충전내역 조회 - 리스트
 	@Override
 	public List<Payment> selectChargeCloverList(PageInfo pi) throws AdminException {
-		
 		return md.selectChargeCloverList(sqlSession, pi);
 	}
 	
 	//환전신청내역 - 카운트
 	@Override
 	public int getExchangeClover() throws AdminException {
-		
 		return md.getExchangeClover(sqlSession);
 	}
 
 	//환전신청내역 - 리스트
 	@Override
 	public List<Exchange> selectExchangeCloverList(PageInfo pi) throws AdminException {
-		
 		return md.selectExchangeCloverList(sqlSession, pi);
 	}
 
 	//환전완료내역 - 카운트
 	@Override
 	public int getExchange2Clover() throws AdminException {
-		
 		return md.getExchange2Clover(sqlSession);
 	}
 
 	//환전완료내역 - 리스트
 	@Override
 	public List<Exchange> selectExchange2CloverList(PageInfo pi) throws AdminException {
-
 		return md.selectExchange2CloverList(sqlSession, pi);
 	}
 
 	//환전수락
 	@Override
 	public int updateExchangeStatus(int[] arr) throws AdminException {
-
 		return md.updateExchangeStatus(sqlSession, arr);
-		
 	}
-
 
 	//삭제 요청 메소드
 	@Override
@@ -176,17 +170,70 @@ public class AdminServiceImpl implements AdminService {
 	public List<Board> totalVod(PageInfo pi) {
 		return md.totalVod(sqlSession,pi);
 	}
-	
-	
-	
-	
-	
-	
 
-	
+	// 신고 수 카운트
+	@Override
+	public int getClaimCount() throws AdminException {
+		return md.getClaimCount();
+	}
 
+	// 페이징 신고 리스트
+	@Override
+	public List<CQAndAttach> selectClaimList(PageInfo pi) throws AdminException {
+		return md.selectClaimList(pi);
+	}
 	
+	// 신고 상세보기
+	@Override
+	public CQAndAttach claimOne(int no) {
+		return md.claimOne(no);
+	}
 	
+	// 타겟 회원 경고 증가
+	@Override
+	public int targetBanCount(int cno) {
+		return md.targetBanCount(cno);
+	}
+	
+	// 신고자 보상
+	@Override
+	public int claimReward(int cno) {
+		return md.claimReward(cno);
+	}
+	
+	// 보유 클로버 증가
+	@Override
+	public int updateTotalClover(int cno) {
+		return md.updateTotalClover(cno);
+	}
+
+	// 문의 수 카운트
+	@Override
+	public int getQCount() throws AdminException {
+		return md.getQCount();
+	}
+
+	// 페이징 문의 리스트
+	@Override
+	public List<CQAndAttach> selectQuestionList(PageInfo pi) throws AdminException {
+		return md.selectQuestionList(pi);
+	}
+	
+	// 문의 상세보기
+	@Override
+	public CQAndAttach questionOne(int no) {
+		return md.questionOne(no);
+	}
+
+	@Override
+	public Object questionReply(HashMap<String, Object> map) {
+		return md.questionReply(map);
+	}
+
+	@Override
+	public List<CQAndAttach> qReplyList(int qno) {
+		return md.qReplyList(qno);
+	}
 
 
 }

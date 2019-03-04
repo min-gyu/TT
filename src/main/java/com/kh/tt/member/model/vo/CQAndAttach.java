@@ -1,6 +1,7 @@
 package com.kh.tt.member.model.vo;
 
 public class CQAndAttach implements java.io.Serializable {
+	private int rownum;
 	private int cqNo;
 	private int uno;
 	private int targetNo;
@@ -15,7 +16,7 @@ public class CQAndAttach implements java.io.Serializable {
 	private int upperNo;
 	private String attachYN;
 	private String delStatus;
-	private String cqtype;
+	private String cqType;
 	
 	private int atNo;
 	private int atCqNO;
@@ -30,11 +31,12 @@ public class CQAndAttach implements java.io.Serializable {
 	
 	public CQAndAttach() {}
 
-	public CQAndAttach(int cqNo, int uno, int targetNo, String userId, String targetId, int btNo, String cqClass,
-			String cqTitle, String cqContent, String cqDate, int level, int upperNo, String attachYN, String delStatus,
-			String cqtype, int atNo, int atCqNO, int atBNo, int atChNo, String atName, String modifyName, String path,
-			String atDate, String atClass, String atType) {
+	public CQAndAttach(int rownum, int cqNo, int uno, int targetNo, String userId, String targetId, int btNo,
+			String cqClass, String cqTitle, String cqContent, String cqDate, int level, int upperNo, String attachYN,
+			String delStatus, String cqType, int atNo, int atCqNO, int atBNo, int atChNo, String atName,
+			String modifyName, String path, String atDate, String atClass, String atType) {
 		super();
+		this.rownum = rownum;
 		this.cqNo = cqNo;
 		this.uno = uno;
 		this.targetNo = targetNo;
@@ -49,7 +51,7 @@ public class CQAndAttach implements java.io.Serializable {
 		this.upperNo = upperNo;
 		this.attachYN = attachYN;
 		this.delStatus = delStatus;
-		this.cqtype = cqtype;
+		this.cqType = cqType;
 		this.atNo = atNo;
 		this.atCqNO = atCqNO;
 		this.atBNo = atBNo;
@@ -60,6 +62,14 @@ public class CQAndAttach implements java.io.Serializable {
 		this.atDate = atDate;
 		this.atClass = atClass;
 		this.atType = atType;
+	}
+
+	public int getRownum() {
+		return rownum;
+	}
+
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
 	}
 
 	public int getCqNo() {
@@ -174,12 +184,12 @@ public class CQAndAttach implements java.io.Serializable {
 		this.delStatus = delStatus;
 	}
 
-	public String getCqtype() {
-		return cqtype;
+	public String getCqType() {
+		return cqType;
 	}
 
-	public void setCqtype(String cqtype) {
-		this.cqtype = cqtype;
+	public void setCqType(String cqType) {
+		this.cqType = cqType;
 	}
 
 	public int getAtNo() {
@@ -264,14 +274,15 @@ public class CQAndAttach implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "CQAndAttach [cqNo=" + cqNo + ", uno=" + uno + ", targetNo=" + targetNo + ", userId=" + userId
-				+ ", targetId=" + targetId + ", btNo=" + btNo + ", cqClass=" + cqClass + ", cqTitle=" + cqTitle
-				+ ", cqContent=" + cqContent + ", cqDate=" + cqDate + ", level=" + level + ", upperNo=" + upperNo
-				+ ", attachYN=" + attachYN + ", delStatus=" + delStatus + ", cqtype=" + cqtype + ", atNo=" + atNo
-				+ ", atCqNO=" + atCqNO + ", atBNo=" + atBNo + ", atChNo=" + atChNo + ", atName=" + atName
-				+ ", modifyName=" + modifyName + ", path=" + path + ", atDate=" + atDate + ", atClass=" + atClass
-				+ ", atType=" + atType + "]";
+		return "CQAndAttach [rownum=" + rownum + ", cqNo=" + cqNo + ", uno=" + uno + ", targetNo=" + targetNo
+				+ ", userId=" + userId + ", targetId=" + targetId + ", btNo=" + btNo + ", cqClass=" + cqClass
+				+ ", cqTitle=" + cqTitle + ", cqContent=" + cqContent + ", cqDate=" + cqDate + ", level=" + level
+				+ ", upperNo=" + upperNo + ", attachYN=" + attachYN + ", delStatus=" + delStatus + ", cqType=" + cqType
+				+ ", atNo=" + atNo + ", atCqNO=" + atCqNO + ", atBNo=" + atBNo + ", atChNo=" + atChNo + ", atName="
+				+ atName + ", modifyName=" + modifyName + ", path=" + path + ", atDate=" + atDate + ", atClass="
+				+ atClass + ", atType=" + atType + "]";
 	}
+
 
 
 

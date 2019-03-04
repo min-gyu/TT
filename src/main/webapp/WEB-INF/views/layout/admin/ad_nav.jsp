@@ -27,23 +27,10 @@
 		</div>
 		<div id="menu-list">
 			<ul class="nav-list">
-			<!-- 
-				<li><a href="/memberList.ad">회원 관리</a></li>
-				<li><a href="#">신고 관리</a></li>
-				<li><a href="/adminCateg.ad">카테고리 관리</a></li>
-				<li><a href="/chargeClover.ad">클로버 관리</a></li>
-				<li><a href="/adminInquiry.ad">문의 관리</a></li>
-				<li><a href="/adminBoard.ad">게시글 관리</a></li>
-				<li><a href="/adminVod.ad">VOD관리</a></li>
-				<li><a href="/adminStatistics.ad">통계관리</a></li>
-				 -->
-				 
-				<!-- 발표용 네비 -->
 				<li><a href="/memberList.ad">회원 관리</a></li>
 				<li><a href="/adminCateg.ad">카테고리 관리</a></li>
 				<li><a href="/chargeClover.ad">클로버 관리</a></li>
-				<li><a href="/adminInquiry.ad">신고&문의 관리</a></li>
-				<li><a href="/adminBoard.ad">게시글 관리</a></li>
+				<li><a href="/claimList.ad">신고&문의 관리</a></li>
 				<li><a href="/adminVod.ad">VOD관리</a></li>
 				<li><a href="/adminStatistics.ad">통계관리</a></li>
 			</ul>

@@ -95,7 +95,7 @@
 	 
 	<bean id = "googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
 		<property name="scope" value="https://www.googleapis.com/auth/userinfo.email"></property>
-		<property name="redirectUri" value="https://localhost:8443/googleCallBack"/>
+		<property name="redirectUri" value="https://162.198.30.51:8443/googleCallBack"/>
 	</bean>
 	
 	
