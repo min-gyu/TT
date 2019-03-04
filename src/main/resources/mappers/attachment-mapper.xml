@@ -33,6 +33,15 @@
 		'BOARD',
 		'VOD')
 	</insert>
+	<update id="updatevAt" parameterType="Attachment">
+		UPDATE ATTACHMENT SET
+		AT_NAME=#{atName},
+		AT_MODIFY_NAME=#{atMName},
+		AT_PATH=#{atPath},
+		AT_DATE=SYSDATE
+		WHERE 
+		AT_B_NO=#{atBno}
+	</update>
 
 	<select id="vodOneR" parameterType="Board"
 		resultMap="attachmentResultSet">

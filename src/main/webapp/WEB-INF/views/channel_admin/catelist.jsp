@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -46,85 +46,75 @@
 	href="/resources/channel/channel2/css/skins/all.css">
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
 <style type="text/css">
-#subsccriberNum{
+#subsccriberNum {
 	display: inline-block;
 }
 </style>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
 
-	<!-- Start post-content Area -->
-	<section class="post-content-area single-post-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 posts-list">
-					<div class="row">
-						<h5>매니저 관리</h5>
-					</div>
-					<div class="row">
-						<div class="col-ms-12">
-							<h6>매니저 목록</h6>
-						</div>
-					</div>
-					<div class="row">
-						<table class="table table-bordered" style="text-align: center">
-							<thead>
-								<tr>
-									<th style="text-align: center">아이디</th>
-									<th style="text-align: center">닉네임</th>
-									<th style="text-align: center">날짜</th>
-								</tr>
-							</thead>
-							<tbody>
-							<c:forEach var="row" items="${list }">
-								<tr>
-									<td>${row.userId}</td>
-									<td>${row.nickName}</td>
-									<td>${row.rDate}</td>
-								</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
-					<div class="row">
-						<div class="col-ms-12">
-							<h6>매니저 활동내역</h6>
-						</div>
-					</div>
-					<div class="row">
-						<table class="table table-bordered" style="text-align: center">
-							<thead>
-								<tr>
-									<th style="text-align: center">매니저 아이디</th>
-									<th style="text-align: center">날짜</th>
-									<th style="text-align: center">시청자 아이디</th>
-									<th style="text-align: center">활동내역</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>비워두면</td>
-									<td>이상해</td>
-									<td>ㅇㅇ</td>
-									<td>ㅇㅇ</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
+	<section class="post-content-area single-post-area"
+	style="
+    background-color: white;
+">
+		<div id="listReply">
+			<table class="table table-bordered" style="text-align: center">
+				<thead>
+					<tr>
+						<th style="text-align: center">금지어</th>
+						<th style="text-align: center">대체어</th>
+						<th style="text-align: center">날짜</th>
+						<th style="text-align: center">상태</th>
+					</tr>
+				</thead>
+				<c:forEach var="row" items="${list}">
+					<tbody>
 
+						<tr>
+							<td>${row.fBan }</td>
+							<td>${row.fReplace }</td>
+							<td>${row.fDate }</td>
+							<td>
+							<a class="btn btn-danger btn-sm"
+							href="${contextPath }/deleteBanW.ch?fNo=${row.fNo }&&CuNo=${m.uno}">삭제</a></td>
+						</tr>
+					</tbody>
+				</c:forEach>
+			</table>
 
-	<!-- 관리자 사이드바 -->
-				<jsp:include page="/WEB-INF/views/channel_admin/channel_admin_sidebar.jsp" />
+			<div>
+				<c:if test="${pagination.curRange != 1 }">
+					<a href="javascript:listReply('1')">[처음]</a>
+				</c:if>
+				<c:if test="${pagination.curPage != 1}">
+					<a href="javascript:listReply('${ pagination.prevPage}')">[이전]</a>
+				</c:if>
+				<c:forEach var="num" begin="${pagination.startPage }"
+					end="${pagination.endPage }">
+					<c:choose>
+						<c:when test="${num ==  pagination.curPage}">
+							<span style="font-weight: bold;">${num}</span>
+						</c:when>
+						<c:otherwise>
+							<a href="javascript:listReply('${num }')">${num }</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if
+					test="${pagination.curPage <= pagination.pageCnt && pagination.pageCnt > 0}">
+					<a href="javascript:listReply('${pagination.nextPage }')">[다음]</a>
+				</c:if>
+				<c:if
+					test="${pagination.curRange <= pagination.rangeCnt && pagination.rangeCnt > 0}">
+					<a href="javascript:listReply('${pagination.pageCnt }')">[끝]</a>
+				</c:if>
 			</div>
 		</div>
+
 	</section>
 
-	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+
 	<!-- End post-content Area -->
-
-
 
 	<script src="/resources/channel/js/vendor/jquery-2.2.4.min.js"></script>
 	<script

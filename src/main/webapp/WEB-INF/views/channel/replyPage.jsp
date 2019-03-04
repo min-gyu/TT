@@ -80,7 +80,7 @@
 										value="${sessionScope.loginUser.userId }" />
 									<c:if test="${row.buId eq loginUser}">
 										<a class="love active" type="hidden" > </a>
-										<a class="btn btn-primary more" href="${contextPath}/deleteDet.ch?CuNo=${row.bchNo}&&buId=${row.buId}&&bNo=${row.bNo}"
+										<a class="btn btn-primary more" href="${contextPath}/deleteDet.ch?ChNo=${row.bchNo}&&buId=${row.buId}&&bNo=${row.bNo}"
 											style="padding-top: 10px; width: 67px; height: 42px; padding-left: 15px; padding-right: 15px;">
 											<div>삭제</div>
 											<div>

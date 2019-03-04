@@ -22,8 +22,20 @@ public class Board implements java.io.Serializable{
 	 
 	 private int atCHno;//채널번호(FK)
 	 private String atMName;//바꾼이름
+		
+	private String userId;
+	private String nickName;
 
 	 public Board() {}
+
+	@Override
+	public String toString() {
+		return "Board [bNo=" + bNo + ", bchNo=" + bchNo + ", buNo=" + buNo + ", buId=" + buId + ", bnickName="
+				+ bnickName + ", bCate=" + bCate + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bwDate="
+				+ bwDate + ", bmDate=" + bmDate + ", bCount=" + bCount + ", bLevel=" + bLevel + ", bupNo=" + bupNo
+				+ ", bAttachs=" + bAttachs + ", bDels=" + bDels + ", bType=" + bType + ", atCHno=" + atCHno
+				+ ", atMName=" + atMName + ", userId=" + userId + ", nickName=" + nickName + "]";
+	}
 
 	public int getbNo() {
 		return bNo;
@@ -169,9 +181,25 @@ public class Board implements java.io.Serializable{
 		this.atMName = atMName;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 	public Board(int bNo, int bchNo, int buNo, String buId, String bnickName, int bCate, String bTitle, String bContent,
 			Date bwDate, Date bmDate, int bCount, int bLevel, int bupNo, String bAttachs, String bDels, String bType,
-			int atCHno, String atMName) {
+			int atCHno, String atMName, String userId, String nickName) {
 		super();
 		this.bNo = bNo;
 		this.bchNo = bchNo;
@@ -191,20 +219,10 @@ public class Board implements java.io.Serializable{
 		this.bType = bType;
 		this.atCHno = atCHno;
 		this.atMName = atMName;
+		this.userId = userId;
+		this.nickName = nickName;
 	}
 
-	@Override
-	public String toString() {
-		return "Board [bNo=" + bNo + ", bchNo=" + bchNo + ", buNo=" + buNo + ", buId=" + buId + ", bnickName="
-				+ bnickName + ", bCate=" + bCate + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bwDate="
-				+ bwDate + ", bmDate=" + bmDate + ", bCount=" + bCount + ", bLevel=" + bLevel + ", bupNo=" + bupNo
-				+ ", bAttachs=" + bAttachs + ", bDels=" + bDels + ", bType=" + bType + ", atCHno=" + atCHno
-				+ ", atMName=" + atMName + "]";
-	}
-
-	
-
-	
 	
 	
 }

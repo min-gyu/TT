@@ -29,8 +29,9 @@
 
 	</select>
 
-	<insert id="addSub" parameterType="java.util.Map" >
-		INSERT INTO RELATION VALUES (
+	<insert id="addSub" parameterType="java.util.Map">
+		INSERT INTO
+		RELATION VALUES (
 		SEQ_R_NO.NEXTVAL,
 		#{cuNo},
 		#{uNo},
@@ -50,7 +51,8 @@
 
 	<select id="selecttSub" parameterType="java.util.Map"
 		resultMap="relationResultSet">
-		SELECT RNUM, R_NO ,R_CH_NO ,R_TARGET_UNO, R_DATE ,R_TYPE ,R_ALARM_YN
+		SELECT RNUM, R_NO ,R_CH_NO ,R_TARGET_UNO, R_DATE ,R_TYPE
+		,R_ALARM_YN
 		,M_ID,M_NICKNAME FROM(
 		SELECT ROWNUM AS RNUM, R_NO ,R_CH_NO
 		,R_TARGET_UNO, R_DATE ,R_TYPE ,R_ALARM_YN
@@ -60,10 +62,26 @@
 		R_NO ,R_CH_NO ,R_TARGET_UNO, R_DATE ,R_TYPE ,R_ALARM_YN
 		FROM RELATION
 		JOIN CHANNEL ON(R_CH_NO=CH_NO)
-		WHERE R_TYPE='SUBSCRIBE' AND R_CH_NO=#{chNo}
+		WHERE R_TYPE='SUBSCRIBE' AND
+		R_CH_NO=#{chNo}
 		ORDER BY R_NO DESC)
 		JOIN MEMBER ON(R_TARGET_UNO=M_UNO) )
 		WHERE RNUM BETWEEN #{current} AND #{limit}
+
+	</select>
+
+	<select id="selectManager" parameterType="int"
+		resultMap="relationResultSet">
+		SELECT
+		R_NO,
+		R_CH_NO,
+		R_TARGET_UNO,
+		R_DATE,
+		R_TYPE,
+		M_ID,
+		M_NICKNAME
+		FROM RELATION JOIN MEMBER ON(R_CH_NO=M_UNO)
+		WHERE R_CH_NO=#{cuNo} AND R_TYPE='MANAGER'
 
 	</select>
 

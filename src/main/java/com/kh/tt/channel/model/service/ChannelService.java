@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.kh.tt.broadcast.model.vo.BanWord;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.channel.model.vo.Relation;
@@ -70,6 +71,13 @@ public interface ChannelService{
 	int  insertBanLan(HashMap<String, Object> map);
 	Member selecttInfo(int chNo);
 	List<Board> getMainVList(int chNo);
+	int vodDelete(int bNo);
+	int updateVod(Board b);
+	int updatevAt(Attachment a);
+	List<Relation> selectManager(int cuNo);
+	int listBCount(int chNo);
+	List<BanWord> listBan(int chNo, int i, int j);
+	int deleteBanW(HashMap<String, Integer> map);
 	
 	
 	

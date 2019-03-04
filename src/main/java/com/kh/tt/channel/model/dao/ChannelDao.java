@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.tt.broadcast.model.vo.BanWord;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.channel.model.vo.Relation;
@@ -72,6 +73,20 @@ public interface ChannelDao {
 	Member selecttInfo(int chNo, SqlSessionTemplate sqlSession);
 
 	List<Board> getMainVList(int chNo, SqlSessionTemplate sqlSession);
+
+	int vodDelete(int bNo, SqlSessionTemplate sqlSession);
+
+	int updateVod(Board b, SqlSessionTemplate sqlSession);
+
+	int updatevAt(Attachment a, SqlSessionTemplate sqlSession);
+
+	List<Relation> selectManager(int cuNo, SqlSessionTemplate sqlSession);
+
+	int listBCount(int chNo, SqlSessionTemplate sqlSession);
+
+	List<BanWord> listBan(HashMap<Object, Integer> map, SqlSessionTemplate sqlSession);
+
+	int deleteBanW(HashMap<String, Integer> map, SqlSessionTemplate sqlSession);
 
 	
 

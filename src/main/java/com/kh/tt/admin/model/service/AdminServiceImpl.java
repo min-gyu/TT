@@ -159,10 +159,22 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
+
+	//삭제 요청 메소드
 	@Override
-	public List<Board> totalVod() {
+	public int deleteAvod(int[] arr) {
+		return md.deleteAvod(arr,sqlSession);
+	}
+
+	@Override
+	public int getAVod() {
 		// TODO Auto-generated method stub
-		return null;
+		return md.getAVod(sqlSession);
+	}
+
+	@Override
+	public List<Board> totalVod(PageInfo pi) {
+		return md.totalVod(sqlSession,pi);
 	}
 	
 	

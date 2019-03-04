@@ -45,7 +45,7 @@
 	href="/resources/channel/channel2/css/skins/all.css">
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
 <style type="text/css">
-#subsccriberNum{
+#subsccriberNum {
 	display: inline-block;
 }
 </style>
@@ -58,16 +58,49 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-					<div class="row">
-						<h5>주 카테고리 관리 관리</h5>
-					</div>
-					<div class="row">
-						<div class="col-ms-12">
-							<h6>카테고리 추가</h6>
-							<input type="text"><button class="btn btn-danger btn-sm">추가</button>
+					<form name="select_machine">
+						<div class="row">
+							<h5>주 카테고리 관리 관리</h5>
 						</div>
-					</div>
-					
+						<div class="row">
+							<div class="col-ms-12">
+								<h6>카테고리 추가</h6>
+								<select name="topCate" id="topCate"
+									onChange="showSub(this.options[this.selectedIndex].value);"
+									style="
+    											width: 230px;
+   													 height: 32px;">
+   									<option value="0" selected>상위 카테고리를 선택하세요</option>
+									<option value="1">스포츠</option>
+									<option value="2">먹방</option>
+									<option value="3">뷰티</option>
+									<option value="4">VLOG</option>
+									<option value="5">VOD</option>
+								</select> 
+								<br><br><select name="subCate1" 
+								onChange="suboneCate(this.options[this.selectedIndex].value);"style="display:;
+    											width: 230px;
+   													 height: 32px;">
+   													 <option value="0" selected>하위 카테고리를 선택하세요</option>
+									<option value="7">축구</option>
+									<option value="8">농구</option>
+									<option value="9">배구</option>
+									<option value="10">야구</option>
+								</select> <br><br><select name="subCate2" 
+								onChange="subtwoCate(this.options[this.selectedIndex].value);" style="display:;
+								width: 230px;
+   													 height: 32px;">
+   													 <option value="0" selected>하위 카테고리를 선택하세요</option>
+									<option value="11">스포츠</option>
+									<option value="12">먹방</option>
+									<option value="13">뷰티</option>
+									<option value="14">VLOG</option>
+								</select>
+								<button class="btn btn-danger btn-sm" id="insertCat" >추가</button>
+							</div>
+						</div>
+						
+					</form>
 					<div class="row">
 						<table class="table table-bordered" style="text-align: center">
 							<thead>
@@ -85,21 +118,17 @@
 									<td>ㅇㅇ</td>
 									<td><button class="btn btn-danger btn-sm">삭제</button></td>
 								</tr>
-								<tr>
-									<td>글씨</td>
-									<td>이상해</td>
-									<td>ㅇㅇ</td>
-									<td><button class="btn btn-danger btn-sm">삭제</button></td>
-								</tr>
+
 							</tbody>
 						</table>
 					</div>
-					
-					
+
+
 				</div>
 
-<!-- 관리자 사이드바 -->
-				<jsp:include page="/WEB-INF/views/channel_admin/channel_admin_sidebar.jsp" />
+				<!-- 관리자 사이드바 -->
+				<jsp:include
+					page="/WEB-INF/views/channel_admin/channel_admin_sidebar.jsp" />
 			</div>
 		</div>
 	</section>
@@ -108,6 +137,80 @@
 	<!-- End post-content Area -->
 
 
+	<script type="text/javascript">
+	
+	
+	f = document.forms.select_machine;
+	f.subCate2.style.display = "none";
+	f.subCate1.style.display = "none";
+	
+		
+		
+		function showSub(obj) {
+			f = document.forms.select_machine;
+			if (obj == 1) {
+				f.subCate1.style.display = "";
+				f.subCate2.style.display = "none";
+				var topCate=1;
+				console.log(topCate);
+				return addCate(topCate);
+				
+			}
+			else if(obj == 5){
+				f.subCate1.style.display = "none";
+				f.subCate2.style.display = "";
+				var topCate=5;
+				console.log(topCate);
+				return addCate(topCate);
+			}
+		}
+		
+		
+		function suboneCate(obj){
+			var subCate=$("select[name=subCate1]").val();
+			console.log(subCate);
+			return addCate(subCate);
+		}
+		
+		function subtwoCate(obj){
+			var sub2Cate=$("select[name=subCate2]").val();
+			console.log(sub2Cate);
+			return addCate(subCate);
+		}
+		
+		
+			function addCate(num){
+			
+		}
+			
+	$("#insertCat").click(function(){
+		var topCate=$("select[name=topCate]").val();
+		var subCate=$("select[name=subCate1]").val();
+		var sub2Cate=$("select[name=subCate2]").val();
+		
+		var arr=new Array;
+		arr.push(topCate);
+		arr.push(subCate);
+		arr.push(sub2Cate);
+		
+		$.ajax({
+			url:"insertCate.ch",
+			type:"GET",
+			data:{arr:arr},
+			success:function(data){
+				alert("삽입완료");
+				window.location.reload();
+			}
+		});
+	});
+	
+	
+
+		
+		
+		
+	
+	</script>
 
 	<script src="/resources/channel/js/vendor/jquery-2.2.4.min.js"></script>
 	<script

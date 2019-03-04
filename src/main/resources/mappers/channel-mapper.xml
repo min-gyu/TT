@@ -23,9 +23,12 @@
 		<result property="bAttachs" column="B_ATTACH_YN" />
 		<result property="bDels" column="B_DEL_STATUS" />
 		<result property="bType" column="B_TYPE" />
-		
+
 		<result property="atCHno" column="AT_CH_NO" />
 		<result property="atMName" column="AT_MODIFY_NAME" />
+
+		<result property="userId" column="M_ID" />
+		<result property="nickName" column="M_NICKNAME" />
 	</resultMap>
 
 
@@ -39,10 +42,23 @@
 		#{bTitle},
 		#{bContent},
 		SYSDATE,
-		SYSDATE,
+		NULL,
 		'0','1',NULL,'Y','N','VOD')
 
 	</insert>
+	
+	<update id="updateVod" parameterType="Board">
+		UPDATE BOARD
+		SET 
+		B_CATEG=#{bCate},
+		B_TITLE=#{bTitle},
+		B_CONTENT=#{bContent},
+		B_WRITE_DATE=SYSDATE,
+		B_COUNT=0
+		WHERE 
+		B_NO=#{bNo}
+	
+	</update>
 
 	<select id="selectbNo" parameterType="Board"
 		resultMap="channelResultSet">
@@ -64,18 +80,24 @@
 		SELECT B_NO ,B_UNO ,M_ID, B_CATEG ,B_TITLE ,B_CONTENT
 		,B_WRITE_DATE ,
 		B_MODIFY_DATE ,B_COUNT ,B_TYPE,AT_MODIFY_NAME
-		FROM BOARD JOIN MEMBER ON(B_UNO=M_UNO)
-        JOIN ATTACHMENT ON(B_NO=AT_B_NO)
-		WHERE B_DEL_STATUS='N' AND B_LEVEL=1 AND B_CH_NO=#{ChNo}
+		FROM BOARD JOIN MEMBER
+		ON(B_UNO=M_UNO)
+		JOIN ATTACHMENT ON(B_NO=AT_B_NO)
+		WHERE B_DEL_STATUS='N'
+		AND B_LEVEL=1 AND
+		B_CH_NO=#{ChNo}
 		ORDER BY B_NO DESC))
-		WHERE RNUM BETWEEN #{current} AND #{limit}
-		
+		WHERE RNUM BETWEEN
+		#{current} AND
+		#{limit}
+
 
 
 
 	</select>
-	
-	<select id="getMainVList" parameterType="int" resultMap="channelResultSet">
+
+	<select id="getMainVList" parameterType="int"
+		resultMap="channelResultSet">
 		SELECT RNUM, B_NO ,B_UNO ,M_ID, B_CATEG ,B_TITLE ,B_CONTENT
 		,B_WRITE_DATE ,
 		B_MODIFY_DATE ,B_COUNT ,B_TYPE, AT_MODIFY_NAME FROM(
@@ -86,12 +108,16 @@
 		SELECT B_NO ,B_UNO ,M_ID, B_CATEG ,B_TITLE ,B_CONTENT
 		,B_WRITE_DATE ,
 		B_MODIFY_DATE ,B_COUNT ,B_TYPE,AT_MODIFY_NAME
-		FROM BOARD JOIN MEMBER ON(B_UNO=M_UNO)
-        JOIN ATTACHMENT ON(B_NO=AT_B_NO)
-		WHERE B_DEL_STATUS='N' AND B_LEVEL=1 AND B_CH_NO=#{chNo}
+		FROM BOARD JOIN MEMBER
+		ON(B_UNO=M_UNO)
+		JOIN ATTACHMENT ON(B_NO=AT_B_NO)
+		WHERE B_DEL_STATUS='N'
+		AND B_LEVEL=1 AND
+		B_CH_NO=#{chNo}
 		ORDER BY B_COUNT DESC))
-		WHERE RNUM BETWEEN 1 AND 3
-	
+		WHERE RNUM
+		BETWEEN 1 AND 3
+
 	</select>
 
 	<update id="increaseVC">
@@ -179,5 +205,35 @@
 		WHERE B_NO=#{bNo} AND B_LEVEL=2
 
 	</select>
+
+	<select id="totalVod" resultMap="channelResultSet">
+		SELECT ROWNUM AS RNUM,B_CH_NO,B_NO,B_UNO,B_TITLE,B_WRITE_DATE,M_ID,M_NICKNAME
+		FROM BOARD
+		JOIN MEMBER ON(B_UNO=M_UNO)
+		WHERE B_TYPE='VOD' AND B_LEVEL=1 AND B_DEL_STATUS='N' 
+		ORDER BY RNUM DESC
+	</select>
+	
+	
+	<update id="updateAdminV" parameterType="int" >
+		UPDATE BOARD
+		SET 
+		B_DEL_STATUS='Y'
+		,B_MODIFY_DATE=SYSDATE
+		WHERE B_NO=${value}
+	</update>
+	
+	<select id="getAVod" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE B_TYPE='VOD' AND B_LEVEL=1 AND B_DEL_STATUS='N' 
+	</select>
+	
+	<update id="vodDelete" parameterType="int">
+		UPDATE BOARD
+		SET 
+		B_DEL_STATUS='Y'
+		WHERE B_NO=#{bNo}
+	</update>
 
 </mapper>  

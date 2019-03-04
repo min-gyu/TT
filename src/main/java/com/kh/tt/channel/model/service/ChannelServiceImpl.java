@@ -10,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.tt.broadcast.model.vo.BanWord;
 import com.kh.tt.channel.model.dao.ChannelDao;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
@@ -232,6 +233,45 @@ public class ChannelServiceImpl implements ChannelService {
 		@Override
 		public List<Board> getMainVList(int chNo) {
 			return cd.getMainVList(chNo,sqlSession);
+		}
+
+		@Override
+		public int vodDelete(int bNo) {
+			return cd.vodDelete(bNo,sqlSession);
+		}
+
+		@Override
+		public int updateVod(Board b) {
+			return cd.updateVod(b,sqlSession);
+		}
+
+		@Override
+		public int updatevAt(Attachment a) {
+			return cd.updatevAt(a,sqlSession);
+		}
+
+		@Override
+		public List<Relation> selectManager(int cuNo) {
+			return cd.selectManager(cuNo,sqlSession);
+		}
+
+		@Override
+		public int listBCount(int chNo) {
+			return cd.listBCount(chNo,sqlSession);
+		}
+
+		@Override
+		public List<BanWord> listBan(int chNo, int i, int j) {
+			HashMap<Object, Integer> map = new HashMap<Object, Integer>(); // MAP을 이용해 담기
+			map.put("chNo", chNo);
+			map.put("current", i);
+			map.put("limit", j);
+			return cd.listBan(map,sqlSession);
+		}
+
+		@Override
+		public int deleteBanW(HashMap<String, Integer> map) {
+			return cd.deleteBanW(map,sqlSession);
 		}
 
 		
