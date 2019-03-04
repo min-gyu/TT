@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.tt.admin.model.exception.AdminException;
 import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
+import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.exception.MyPageException;
@@ -319,6 +320,51 @@ public class AdminDaoImpl implements AdminDao {
 		
 		
 		return result;
+	}
+
+	
+	
+	
+	//삭제할 VOD목록
+	@Override
+	public int deleteAvod(int[] arr, SqlSessionTemplate sqlSession) {
+		
+		int sum=0;
+		int result=0;
+		int[] resultArr = new int[arr.length];
+		for(int i=0;i<arr.length;i++) {
+			
+			int bNo = arr[i];
+			System.out.println(bNo);
+			resultArr[i] = sqlSession.update("Board.updateAdminV",bNo);
+			sum+=resultArr[i];			
+		}
+		
+		if(sum/resultArr.length==1) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		
+		
+		return result;
+	}
+
+	@Override
+	public int getAVod(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Board.getAVod");
+		
+	}
+
+	@Override
+	public List<Board> totalVod(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<Board> list = sqlSession.selectList("Board.totalVod", null , rowBounds);
+
+		System.out.println(list);
+		return list;
 	}
 	
 

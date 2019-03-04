@@ -77,6 +77,11 @@ public interface AdminService {
 	//환전수락
 	int updateExchangeStatus(int[] arr) throws AdminException;
 
-	List<Board> totalVod();
+	//VOD관리-리스트
+	List<Board> totalVod(PageInfo pi);
+	//VOD 관리자 삭제
+	int deleteAvod(int[] arr);
+
+	int getAVod();
 
 }

@@ -89,11 +89,21 @@
 											</h1>
 											<p>${row.bContent }</p>
 											<footer>
+											<!-- VOD수정 -->
 												<a href="#" class="love active"><i
 													class="ion-android-favorite"></i>
-													<div>${row.bCount }</div></a> <a class="btn btn-primary more"
-													href="/vodRevise.ch">
+													<div>${row.bCount }</div></a> 
+													<a class="btn btn-primary more"
+													href="/vodRevise.ch?bNo=${row.bNo }&&CuNo=${m.uno }">
 													<div>수정</div>
+													<div>
+														<i class="ion-ios-arrow-thin-right"></i>
+													</div>
+												</a>
+												<!-- VOD삭제 -->
+												<a class="btn btn-primary more"
+													href="/vodDelete.ch?bNo=${row.bNo }&&CuNo=${m.uno }">
+													<div>삭제</div>
 													<div>
 														<i class="ion-ios-arrow-thin-right"></i>
 													</div>

@@ -67,6 +67,8 @@
 						<div class="col-ms-12">
 							<h6>금칙어</h6>
 							<input type="text" id="banLan">
+							<input type="hidden" id="CuNo" value="${CuNo }">
+							
 						</div>
 					</div>
 					<div class="row">
@@ -79,32 +81,7 @@
 
 
 
-					<div class="row">
-						<table class="table table-bordered" style="text-align: center">
-							<thead>
-								<tr>
-									<th style="text-align: center">금지어</th>
-									<th style="text-align: center">대체어</th>
-									<th style="text-align: center">날짜</th>
-									<th style="text-align: center">상태</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>글씨</td>
-									<td>이상해</td>
-									<td>ㅇㅇ</td>
-									<td><button class="btn btn-danger btn-sm">삭제</button></td>
-								</tr>
-								<tr>
-									<td>글씨</td>
-									<td>이상해</td>
-									<td>ㅇㅇ</td>
-									<td><button class="btn btn-danger btn-sm">삭제</button></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+			<div id="listReply"></div>
 
 
 				</div>
@@ -119,11 +96,14 @@
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 	<!-- End post-content Area -->
 	<script type="text/javascript">
+	
+	
 		$("#banBtn").click(
 				function() {
 					var banLan = $("#banLan").val();
 					var reLan = $("#reLan").val();
-					var CuNo = '<c:out value="${m.uno }"/>';
+					var CuNo=$("#CuNo").val();
+					
 
 					$.ajax({
 						type : "post",
@@ -138,12 +118,14 @@
 						}
 					});
 				});
-
+		listReply("1");
 		function listReply(num) {
+			var CuNo=$("#CuNo").val();
 			console.log(num);
 			$.ajax({
 				type : "get",
-				url : "${contextPath}/listDet.ch?bNo=${b.bNo}&curPage=" + num,
+				url : "${contextPath}/listBanC.ch",
+				data : "CuNo="+CuNo+"&curPage="+num,
 				success : function(result) {
 					$("#listReply").html(result);
 				}

@@ -66,7 +66,7 @@
 						</c:choose>
 						<a><h4>${m.nickName }</h4></a>
 						<p>@${m.userId }</p>
-						
+						<c:set var="stitle" value="채널명을 입력해주세요"/>
 							<c:choose>
 									<c:when test="${title ne stitle }">
 										<p>${title }</p>
@@ -81,7 +81,7 @@
 									style="text-align: center;">
 										<p>채널 소개 설정</p>
 								</a></li>
-								<li><a href="#" class="" style="text-align: center;">
+								<li><a href="/manage_Cate.ch?CuNo=${m.uno }" class="" style="text-align: center;">
 										<p>주력 카테고리 설정</p>
 
 								</a></li>

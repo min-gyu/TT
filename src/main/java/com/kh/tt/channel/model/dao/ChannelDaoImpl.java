@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.tt.broadcast.model.vo.BanWord;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.channel.model.vo.Relation;
@@ -219,6 +220,37 @@ public class ChannelDaoImpl implements ChannelDao{
 	@Override
 	public List<Board> getMainVList(int chNo, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectList("Board.getMainVList", chNo);
+	}
+	@Override
+	public int vodDelete(int bNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("Board.vodDelete",bNo);
+	}
+	@Override
+	public int updateVod(Board b, SqlSessionTemplate sqlSession) {
+		int result=sqlSession.update("Board.updateVod",b);
+		System.out.println(result);
+		return result;
+	}
+	@Override
+	public int updatevAt(Attachment a, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("Attachment.updatevAt",a);
+	}
+	@Override
+	public List<Relation> selectManager(int cuNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Relation2.selectManager",cuNo);
+	}
+	@Override
+	public int listBCount(int chNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("BanWord.listBCount",chNo);
+	}
+	@Override
+	public List<BanWord> listBan(HashMap<Object, Integer> map, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("BanWord.listBan", map);
+	}
+	@Override
+	public int deleteBanW(HashMap<String, Integer> map, SqlSessionTemplate sqlSession) {
+		System.out.println(map);
+		return sqlSession.delete("BanWord.deleteBanW",map);
 	}
 	
 	

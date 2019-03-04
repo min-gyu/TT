@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -87,10 +88,11 @@ div.upload-btn_wrap button { /*버튼 div*/
 	width: 20%;
 }
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
-
 	<!-- Start post-content Area -->
 	<section class="post-content-area single-post-area">
 		<div class="container">
@@ -100,64 +102,75 @@ div.upload-btn_wrap button { /*버튼 div*/
 						<h5>VOD 수정하기</h5>
 					</div>
 					<div class="row">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th scope="col" style="width: 20%; text-align: center"><div
-											style="margin-bottom: 15%;">제목</div></th>
-									<td>
-										<div class="input-group mb-3" style="margin-top: 2%">
-											<input type="text" class="form-control" aria-label="Default"
-												aria-describedby="inputGroup-sizing-default">
-										</div>
 
-									</td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th style="width: 20%; text-align: center"><div
-											style="margin-top: 40%;">내용</div></th>
-									<td><textarea class="form-control col-mb-5" rows="7"
-											width="100%"></textarea></td>
+						<form action="updateVod.ch?CuNo=${m.uno}&&bNo=${bNo}" method="post" id="frm" name="frm"
+							enctype="multipart/form-data">
+							<table class="table table-bordered"
+								style="width: 702px; height: 502px;">
+								<c:set var="bNo" value="${bNo}"/> 
+								<thead>
+									<tr>
+										<th scope="col" style="width: 20%; text-align: center"><div
+												style="margin-bottom: 15%;">제목</div></th>
+										<td>
+											<div class="input-group mb-3" style="margin-top: 2%">
+												<input type="text" name="bTitle" class="form-control"
+													aria-label="Default"
+													aria-describedby="inputGroup-sizing-default"> <input
+													type="hidden" name="buNo"
+													value="${sessionScope.loginUser.uno }">
 
-								</tr>
-								<tr>
-									<th style="width: 20%; text-align: center">첨부동영상</th>
-									<td>
-										<!--input box--> <input type="text" class="upload_text"
-										readonly="readonly"> <!--button-->
-										<div class="upload-btn_wrap">
-											<button type="button" title="파일찾기">
-												<span>파일찾기</span>
-											</button>
-											<input type="file" class="input_file" title="파일찾기">
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2" align="center"><button type="button"
-											class="btn btn-dark" id="saveBtn">수정</button></td>
-								</tr>
-							</tbody>
-						</table>
+											</div>
+
+										</td>
+									<tr>
+										<th scope="col" style="width: 20%; text-align: center"><div
+												>카테고리</div></th>
+										<td><select id="product" name="bCate" >
+												<option value="12">스포츠</option>
+												<option value="13">먹방</option>
+												<option value="14">뷰티</option>
+												<option value="15">VLOG</option>
+										</select></td>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th style="width: 20%; text-align: center"><div
+												style="margin-top: 40%;">내용</div></th>
+										<td><textarea name="bContent"
+												class="form-control col-mb-5" rows="7" width="100%"></textarea></td>
+
+									</tr>
+									<tr>
+										<th
+											style="width: 20%; text-align: center; padding-bottom: 0px; height: 50px;">첨부동영상</th>
+										<td><input type="file" name="video" title="파일찾기"></td>
+										
+									</tr>
+									<tr>
+										<td colspan="2" align="center"><button type="submit"
+												class="btn btn-dark" id="saveBtn">저장</button></td>
+									</tr>
+								</tbody>
+							</table>
+						</form>
 					</div>
 				</div>
-<jsp:include page="/WEB-INF/views/channel_admin/channel_admin_sidebar.jsp" />
+
+
+<!-- 관리자 사이드바 -->
+				<jsp:include page="/WEB-INF/views/channel_admin/channel_admin_sidebar.jsp" />
 			</div>
 		</div>
 	</section>
 
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 	<!-- End post-content Area -->
+
 	<script type="text/javascript">
-		$(function() {
-			$('.upload_text').val('미리보여줄 텍스트.');
-			$('.input_file').change(function() {
-				var i = $(this).val();
-				$('.upload_text').val(i);
-			});
-		});
+		
 	</script>
 
 

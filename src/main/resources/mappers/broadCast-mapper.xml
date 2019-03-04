@@ -3,7 +3,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="BanWord">
 	<resultMap type="BanWord" id="banWordResultSet">
 		<id property="fNo" column="F_NO" />
@@ -12,217 +12,264 @@
 		<result property="fReplace" column="F_REPLACE" />
 		<result property="fDate" column="F_DATE" />
 	</resultMap>
-	
+
 	<resultMap type="Member" id="memberResultSet">
-		<id property="uno" column="M_UNO"/>
-		<result property="userId" column="M_ID"/>
-		<result property="nickName" column="M_NICKNAME"/>
-		<result property="userName" column="M_NAME"/>
-		<result property="userPwd" column="M_PWD"/>
-		<result property="birth" column="M_BIRTH"/>
-		<result property="gender" column="M_GENDER"/>
-		<result property="email" column="M_EMAIL"/>
-		<result property="enrollDate" column="M_ENROLL_DATE"/>
-		<result property="bank" column="M_BANK"/>
-		<result property="bankNo" column="M_BANK_NO"/>
-		<result property="warningNo" column="M_WARNING_NO"/>
-		<result property="banStatus" column="M_BAN_STATUS"/>
-		<result property="status" column="M_STATUS"/>
-		<result property="reason" column="M_REASON"/>
-		<result property="leaveDate" column="M_LEAVE_DATE"/>
-		<result property="btYN" column="M_BT_YN"/>
-		<result property="totalClover" column="M_TOTAL_CLOVER"/>
-		<result property="adminYN" 		column="M_ADMIN_YN"/>
+		<id property="uno" column="M_UNO" />
+		<result property="userId" column="M_ID" />
+		<result property="nickName" column="M_NICKNAME" />
+		<result property="userName" column="M_NAME" />
+		<result property="userPwd" column="M_PWD" />
+		<result property="birth" column="M_BIRTH" />
+		<result property="gender" column="M_GENDER" />
+		<result property="email" column="M_EMAIL" />
+		<result property="enrollDate" column="M_ENROLL_DATE" />
+		<result property="bank" column="M_BANK" />
+		<result property="bankNo" column="M_BANK_NO" />
+		<result property="warningNo" column="M_WARNING_NO" />
+		<result property="banStatus" column="M_BAN_STATUS" />
+		<result property="status" column="M_STATUS" />
+		<result property="reason" column="M_REASON" />
+		<result property="leaveDate" column="M_LEAVE_DATE" />
+		<result property="btYN" column="M_BT_YN" />
+		<result property="totalClover" column="M_TOTAL_CLOVER" />
+		<result property="adminYN" column="M_ADMIN_YN" />
 	</resultMap>
 
 	<resultMap type="Relation2" id="relationResultSet">
-		<id property="rNo" column="R_NO"/>
-		<result property="rChNo" column="R_CH_NO"/>
-		<result property="rTargetUno" column="R_TARGET_UNO"/>
-		<result property="rDate" column="R_DATE"/>
-		<result property="rType" column="R_TYPE"/>
-		<result property="rAlarmYn" column="R_ALARM_YN"/>
+		<id property="rNo" column="R_NO" />
+		<result property="rChNo" column="R_CH_NO" />
+		<result property="rTargetUno" column="R_TARGET_UNO" />
+		<result property="rDate" column="R_DATE" />
+		<result property="rType" column="R_TYPE" />
+		<result property="rAlarmYn" column="R_ALARM_YN" />
 	</resultMap>
 	<!-- 특정회원의 금지어 설정 목록을 검색하는 sql문 -->
-	<select id="selectBanWord" resultMap="banWordResultSet" parameterType="java.lang.String">
-	SELECT F.* 
-	FROM MEMBER M 
-	JOIN CHANNEL C 
-	ON(M.M_UNO = C.CH_UNO) 
-	JOIN FILTER F 
-	ON (C.CH_NO = F.F_CH_NO) 
-	WHERE (M.M_ID=#{owner})
+	<select id="selectBanWord" resultMap="banWordResultSet"
+		parameterType="java.lang.String">
+		SELECT F.*
+		FROM MEMBER M
+		JOIN CHANNEL C
+		ON(M.M_UNO = C.CH_UNO)
+		JOIN FILTER F
+		ON (C.CH_NO = F.F_CH_NO)
+		WHERE (M.M_ID=#{owner})
 	</select>
 	<!-- 특정회원의 금지어 추가를 위해 채널 번호를 검색하는 sql문 -->
-	<select id="selectChannelNum" resultType="_int" parameterType="string">
-	SELECT 
-	C.CH_NO 
-	FROM MEMBER M 
-	JOIN CHANNEL C 
-	ON (M.M_UNO = C.CH_UNO) 
-	WHERE (M_ID=#{owner})
+	<select id="selectChannelNum" resultType="_int"
+		parameterType="string">
+		SELECT
+		C.CH_NO
+		FROM MEMBER M
+		JOIN CHANNEL C
+		ON (M.M_UNO = C.CH_UNO)
+		WHERE (M_ID=#{owner})
 	</select>
 	<!-- 금지어를 추가하는 sql문 -->
 	<insert id="insertBanWord" parameterType="BanWord">
-	INSERT 
-	INTO 
-	FILTER 
-	VALUES(SEQ_F_NO.NEXTVAL, ${fChNo}, '${fBan}', '${fReplace}', SYSDATE)
+		INSERT
+		INTO
+		FILTER
+		VALUES(SEQ_F_NO.NEXTVAL, ${fChNo}, '${fBan}', '${fReplace}', SYSDATE)
 	</insert>
 	<!-- 금지어를 삭제하는 sql문 -->
 	<delete id="deleteBanWord" parameterType="hashmap">
-	DELETE 
-	FROM FILTER 
-	WHERE F_NO IN
-		<foreach collection="fNoList" item="list"  open="(" close=")" separator=",">
+		DELETE
+		FROM FILTER
+		WHERE F_NO IN
+		<foreach collection="fNoList" item="list" open="(" close=")"
+			separator=",">
 			#{list}
-	 	</foreach>
-	</delete> 
+		</foreach>
+	</delete>
 	<!-- 멤버 리스트를 검색하는 sql문 -->
-	<select id="selectMember" resultMap="memberResultSet" parameterType="hashmap">
-	SELECT *
-	FROM MEMBER
-	WHERE M_ID IN
-		<foreach collection="userList" item="list"  open="(" close=")" separator=",">
+	<select id="selectMember" resultMap="memberResultSet"
+		parameterType="hashmap">
+		SELECT *
+		FROM MEMBER
+		WHERE M_ID IN
+		<foreach collection="userList" item="list" open="(" close=")"
+			separator=",">
 			#{list}
 		</foreach>
 	</select>
 	<!-- 리레이션을 검색하는 sql문 -->
-	<select id="selectRelation" resultMap="relationResultSet" parameterType="hashmap">
-	SELECT *
-	FROM RELATION
-	WHERE R_CH_NO = #{channelNum} 
-	AND R_TYPE ='SUBSCRIBE'
-	AND R_TARGET_UNO IN
-		<foreach collection="memberList" item="list"  open="(" close=")" separator=",">
-		 #{list.uno}
+	<select id="selectRelation" resultMap="relationResultSet"
+		parameterType="hashmap">
+		SELECT *
+		FROM RELATION
+		WHERE R_CH_NO = #{channelNum}
+		AND R_TYPE ='SUBSCRIBE'
+		AND R_TARGET_UNO IN
+		<foreach collection="memberList" item="list" open="("
+			close=")" separator=",">
+			#{list.uno}
 		</foreach>
 	</select>
 	<!-- 매니저 권한을 부여할 유저가 실존하는 유저인지 검색하는 sql문 -->
-	<select id="selectUser" resultMap="memberResultSet" parameterType="string">
-	SELECT * 
-	FROM MEMBER 
-	WHERE M_ID=#{addManagerId}
+	<select id="selectUser" resultMap="memberResultSet"
+		parameterType="string">
+		SELECT *
+		FROM MEMBER
+		WHERE M_ID=#{addManagerId}
 	</select>
 	<!-- 매니저 중복확인하는 sql문 -->
-	<select id="selectManager" resultMap="relationResultSet" parameterType="hashmap">
-	SELECT * 
-	FROM RELATION 
-	WHERE R_CH_NO=${channelNum} 
-	AND R_TARGET_UNO=${userNo} 
-	AND R_TYPE='MANAGER'
+	<select id="selectManager" resultMap="relationResultSet"
+		parameterType="hashmap">
+		SELECT *
+		FROM RELATION
+		WHERE R_CH_NO=${channelNum}
+		AND R_TARGET_UNO=${userNo}
+		AND R_TYPE='MANAGER'
 	</select>
 	<!-- 매니저를 추가하는 sql문 -->
 	<insert id="insertManager" parameterType="hashmap">
-		INSERT 
-		INTO RELATION 
-		VALUES (SEQ_R_NO.NEXTVAL, ${channelNum}, ${userNo}, SYSDATE, 'MANAGER', NULL)
+		INSERT
+		INTO RELATION
+		VALUES (SEQ_R_NO.NEXTVAL, ${channelNum}, ${userNo}, SYSDATE, 'MANAGER',
+		NULL)
 	</insert>
 	<!-- 자신의 채널의 매니저를 조회하는 sql문 -->
-	<select id="selectManagerRelation" resultMap="relationResultSet" parameterType="_int">
-	SELECT * 
-	FROM RELATION 
-	WHERE R_CH_NO=#{channelNum} 
-	AND R_TYPE='MANAGER'
+	<select id="selectManagerRelation" resultMap="relationResultSet"
+		parameterType="_int">
+		SELECT *
+		FROM RELATION
+		WHERE R_CH_NO=#{channelNum}
+		AND R_TYPE='MANAGER'
 	</select>
 	<!-- relationList를 바탕으로 MemberList를 반환하는 sql문 -->
-	<select id="selectMemberList" resultMap="memberResultSet" parameterType="hashmap">
-	SELECT * 
-	FROM MEMBER 
-	WHERE M_UNO IN 
-		<foreach collection="relationList" item="list"  open="(" close=")" separator=",">
-		 #{list.rTargetUno}
+	<select id="selectMemberList" resultMap="memberResultSet"
+		parameterType="hashmap">
+		SELECT *
+		FROM MEMBER
+		WHERE M_UNO IN
+		<foreach collection="relationList" item="list" open="("
+			close=")" separator=",">
+			#{list.rTargetUno}
 		</foreach>
 	</select>
 	<!-- 매니저의 권한을 회수(삭제)하는 sql문 -->
 	<delete id="deleteManager" parameterType="hashmap">
-	DELETE 
-	FROM RELATION 
-	WHERE R_TYPE='MANAGER'
-	AND R_NO IN 
-		<foreach collection="rNoList" item="list"  open="(" close=")" separator=",">
-		 #{list}
+		DELETE
+		FROM RELATION
+		WHERE R_TYPE='MANAGER'
+		AND R_NO IN
+		<foreach collection="rNoList" item="list" open="(" close=")"
+			separator=",">
+			#{list}
 		</foreach>
 	</delete>
 	<!-- 이미 채팅금지 되었는지 조회하는 sql문 -->
-	<select id="selectChatBanUser" resultMap="relationResultSet" parameterType="hashmap">
-	SELECT * 
-	FROM RELATION 
-	WHERE R_CH_NO=#{channelNum} 
-	AND R_TARGET_UNO=#{userNo} 
-	AND R_TYPE='CHAT'
+	<select id="selectChatBanUser" resultMap="relationResultSet"
+		parameterType="hashmap">
+		SELECT *
+		FROM RELATION
+		WHERE R_CH_NO=#{channelNum}
+		AND R_TARGET_UNO=#{userNo}
+		AND R_TYPE='CHAT'
 	</select>
 	<!-- 채팅금지 유저를 추가하는 sql문 -->
 	<insert id="insertChatBanUser" parameterType="hashmap">
-		INSERT 
-		INTO RELATION 
+		INSERT
+		INTO RELATION
 		VALUES (SEQ_R_NO.NEXTVAL, ${channelNum}, ${userNo}, SYSDATE, 'CHAT', NULL)
 	</insert>
 	<!-- 자신의 채팅금지 회원을 중복확인 하는 sql문 -->
-	<select id="selelctChatRelation" resultMap="relationResultSet" parameterType="_int">
-	SELECT * 
-	FROM RELATION 
-	WHERE R_CH_NO=#{channelNum} 
-	AND R_TYPE='CHAT'
+	<select id="selelctChatRelation" resultMap="relationResultSet"
+		parameterType="_int">
+		SELECT *
+		FROM RELATION
+		WHERE R_CH_NO=#{channelNum}
+		AND R_TYPE='CHAT'
 	</select>
-	<!-- 채팅금지된 회원을  해제(삭제)하는 sql문 -->
+	<!-- 채팅금지된 회원을 해제(삭제)하는 sql문 -->
 	<delete id="deleteChatBanUser" parameterType="hashmap">
-	DELETE 
-	FROM RELATION 
-	WHERE R_TYPE='CHAT'
-	AND R_NO IN 
-		<foreach collection="rNoList" item="list"  open="(" close=")" separator=",">
-		 #{list}
+		DELETE
+		FROM RELATION
+		WHERE R_TYPE='CHAT'
+		AND R_NO IN
+		<foreach collection="rNoList" item="list" open="(" close=")"
+			separator=",">
+			#{list}
 		</foreach>
 	</delete>
 	<!-- 구독여부를 조회하는 sql문 -->
-	<select id="selectSubscribe" resultMap="relationResultSet" parameterType="hashmap">
-	SELECT * 
-	FROM RELATION 
-	WHERE R_TARGET_UNO=#{userNo} 
-	AND R_CH_NO=#{channelNum}
-	AND R_TYPE='SUBSCRIBE'	
+	<select id="selectSubscribe" resultMap="relationResultSet"
+		parameterType="hashmap">
+		SELECT *
+		FROM RELATION
+		WHERE R_TARGET_UNO=#{userNo}
+		AND R_CH_NO=#{channelNum}
+		AND R_TYPE='SUBSCRIBE'
 	</select>
 	<!-- 구독자를 추가하는 sql문 -->
 	<insert id="insertSubscribe" parameterType="hashmap">
-		INSERT 
-		INTO RELATION 
-		VALUES (SEQ_R_NO.NEXTVAL, ${channelNum}, ${userNo}, SYSDATE, 'SUBSCRIBE', NULL)
+		INSERT
+		INTO RELATION
+		VALUES (SEQ_R_NO.NEXTVAL, ${channelNum}, ${userNo}, SYSDATE, 'SUBSCRIBE',
+		NULL)
 	</insert>
 	<!-- 구독을 취소(삭제)하는 sql문 -->
 	<delete id="deleteSubscribe" parameterType="hashmap">
-	DELETE 
-	FROM RELATION 
-	WHERE R_TARGET_UNO=#{userNo} 
-	AND R_CH_NO=#{channelNum}
-	AND R_TYPE='SUBSCRIBE'	
+		DELETE
+		FROM RELATION
+		WHERE R_TARGET_UNO=#{userNo}
+		AND R_CH_NO=#{channelNum}
+		AND R_TYPE='SUBSCRIBE'
 	</delete>
 	<!-- 회원 아이디로 특정 회원의 정보를 검색하는 sql문 -->
-	<select id="selectOneMember" resultMap="memberResultSet" parameterType="string">
-	SELECT * 
-	FROM MEMBER 
-	WHERE M_ID=#{owner}
+	<select id="selectOneMember" resultMap="memberResultSet"
+		parameterType="string">
+		SELECT *
+		FROM MEMBER
+		WHERE M_ID=#{owner}
 	</select>
 	<!-- 클로버를 주는 회원의 클로버를 minus하여 업데이트하는 sql문 -->
 	<update id="updateMinusClover" parameterType="hashmap">
-	UPDATE MEMBER 
-	SET M_TOTAL_CLOVER = M_TOTAL_CLOVER-#{clover} 
-	WHERE M_UNO=#{uno}
+		UPDATE MEMBER
+		SET M_TOTAL_CLOVER = M_TOTAL_CLOVER-#{clover}
+		WHERE M_UNO=#{uno}
 	</update>
 	<!-- 클로버를 받는 회원의 클로버를 plus하여 업데이트하는 sql문 -->
 	<update id="updatePlusClover" parameterType="hashmap">
-	UPDATE MEMBER 
-	SET M_TOTAL_CLOVER = M_TOTAL_CLOVER+#{clover} 
-	WHERE M_UNO=#{targetUno}
+		UPDATE MEMBER
+		SET M_TOTAL_CLOVER = M_TOTAL_CLOVER+#{clover}
+		WHERE M_UNO=#{targetUno}
 	</update>
 	<!-- 클로버 선물 내역을 PTClover 테이블에 insert하는 sql문 -->
 	<insert id="insertPTClover" parameterType="hashmap">
-		INSERT INTO PTCLOVER VALUES (SEQ_PC_NO.NEXTVAL, #{uno}, #{targetUno}, #{clover}, SYSDATE)
+		INSERT INTO PTCLOVER
+		VALUES (SEQ_PC_NO.NEXTVAL, #{uno}, #{targetUno}, #{clover}, SYSDATE)
 	</insert>
-	
+
 	<!-- 채널에서 금칙어 추가하는 sql문(은채) -->
 	<insert id="insertBanLan" parameterType="java.util.Map">
-		INSERT INTO FILTER VALUES(SEQ_F_NO.NEXTVAL,
+		INSERT INTO FILTER
+		VALUES(SEQ_F_NO.NEXTVAL,
 		#{ChNo},#{banLan},#{reLan},SYSDATE)
 	</insert>
+
+	<select id="listBCount" parameterType="int" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM FILTER
+		WHERE F_CH_NO=#{chNo}
+	</select>
+
+	<select id="listBan" parameterType="java.util.Map"
+		resultMap="banWordResultSet">
+		
+		SELECT RNUM,F_NO,F_CH_NO,F_BAN,F_REPLACE,F_DATE
+		FROM 
+        (SELECT ROWNUM AS RNUM,F_NO,F_CH_NO,F_BAN,F_REPLACE,F_DATE
+        FROM FILTER
+		WHERE F_CH_NO=#{chNo} ORDER BY F_NO DESC )
+        WHERE RNUM BETWEEN #{current} AND #{limit}
+
+	</select>
+	
+	<delete id="deleteBanW" parameterType="java.util.Map" >
+		DELETE FROM FILTER
+		WHERE F_CH_NO=#{ChNo}
+		AND F_NO=#{fNo}
+	</delete>
 </mapper>
