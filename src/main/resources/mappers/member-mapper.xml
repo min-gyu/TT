@@ -186,4 +186,5 @@
 		WHERE M_UNO=#{mUno}
 	</update>
 	
+	
 </mapper>

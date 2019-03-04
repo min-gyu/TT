@@ -22,6 +22,38 @@
     cursor: inherit;
     display: block;
 }
+input[type=text], select {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+input[type=submit] {
+	width: 100%;
+	background-color: orange;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+input[type=submit]:hover {
+	background-color: green;
+}
+
+input[type=text]:focus {
+	background-color: #FFF;
+	border: 3px solid #555;
+}
+div.formtag {
+	border-radius: 5px;
+	background-color: #f2f2f2;
+	padding: 40px;
+}
 </style>
 
 <script type="text/javascript">
@@ -55,46 +87,28 @@
 		</div>
 		
 		<div class="center-block">
-		
-			<form class="form-horizontal" name="myForm" action="/clientQuestion.me" method="post" encType="multipart/form-data">
-				
-				<div class="form-group">
-					<label for="inputReportReason" class="col-sm-2 control-label">문의사항</label>
-					<div class="col-sm-8">
-						<select class="form-control" name="cqClass">
+			<div class="formtag">
+				<form class="form-horizontal" name="myForm" action="/clientQuestion.me" method="post" encType="multipart/form-data">
+					<label for="inputReportReason">신고사항</label> 
+						<select id="cqClass" name="cqClass">
 							<option value="저작권침해">저작권 침해</option>
 							<option value="청소년유해">청소년 유해</option> 
 							<option value="불법문란">불법 & 문란</option> 
-							<option value="명예회손">명예 회손</option> 
+							<option value="명예훼손">명예 훼손</option> 
 							<option value="기타사항">기타 사항</option>
-						</select>
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label for="inputTitle" class="col-sm-2 control-label">제목</label>
-					<div class="col-sm-8">
-						<input type="text" class="form-control" id="title" name="cqTitle" placeholder="제목을 입력해주세요">
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label for="inputId" class="col-sm-2 control-label">아이디</label>
-					<div class="col-sm-3">
-						<input type="hidden"  name="uno" value="${ sessionScope.loginUser.uno }" >
-						<input type="text" class="form-control" id="userID" name="userID" value="${ sessionScope.loginUser.userId }" readonly>
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label for="inputContent" class="col-sm-2 control-label">내용</label>
-					<div class="col-sm-8">
-						<textarea class="form-control" id="content" name="cqContent" rows="3" placeholder="내용을 입력해주세요"></textarea>
-					</div>
-				</div>
-				
-				<div class="form-group">
-				<label for="inputContent" class="col-sm-2 control-label">첨부파일</label>
+						</select> 
+					
+					<label for="inputTitle">제목</label>
+					<input type="text" id="title" name="cqTitle" placeholder="제목을 입력해주세요">
+					
+					<label for="inputId">아이디</label> 
+					<input type="hidden"  name="uno" value="${ sessionScope.loginUser.uno }" >
+					<input type="text" id="userID" name="userID" value="${ sessionScope.loginUser.userId }" readonly>
+					
+					<label for="inputContent">내용</label> 
+					<input type="text" id="content" name="cqContent" placeholder="내용을 입력해주세요">
+					
+					<h5 style="color: green;">* 사진을 첨부해주세요</h5>
 					<div class="col-sm-8">
 						<div class="input-group">
 					    	<label class="input-group-btn">
@@ -102,20 +116,14 @@
 							    	<input type="file" name="photo" data-display-target="attachFile">
 							    </span>
 					    	</label>
-					    	 <input type="text" class="form-control" id="attachFile" readonly>
-  						</div>
+					    	<input type="text" class="form-control" readonly id="attachFile" >
+						</div>
 			    	</div>
-			    </div>
-			    <!-- <input type="file" name="photo"> -->
-				
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-8">
-						<button type="submit" class="btn btn-success">등록</button>
-						<button type="button" class="btn btn-warning">취소</button>
-					</div>
-				</div>
-			</form>
-
+					
+					<button type="submit" class="btn btn-success">등록</button>
+					<button type="button" class="btn btn-warning">취소</button>
+				</form>
+			</div>
 		</div>
 	</div>
 </section>

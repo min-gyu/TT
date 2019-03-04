@@ -5,8 +5,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="CQandAttach">
-	<resultMap type="com.kh.tt.member.model.vo.CQAndAttach" id="CQandAttachResultSet">
+	<resultMap type="com.kh.tt.member.model.vo.CQAndAttach" id="CQandAttachVO">
 		<id property="cqNo" 			column="CQ_NO"/>
+		<result property="rownum" 		column="ROW_NUMBER"/>
 		<result property="uno" 			column="CQ_UNO"/>
 		<result property="targetNo" 	column="CQ_TARGET_ID"/>
 		<result property="userId" 		column="M_ID"/>
@@ -17,7 +18,7 @@
 		<result property="cqDate" 		column="CQ_DATE"/>
 		<result property="level" 		column="CQ_LEVEL"/>
 		<result property="upperNo" 		column="CQ_UPPER_NO"/>
-		<result property="attachYn" 	column="CQ_ATTACH_YN"/>
+		<result property="attachYN" 	column="CQ_ATTACH_YN"/>
 		<result property="delStatus" 	column="CQ_DEL_STATUS"/>
 		<result property="cqType" 		column="CQ_TYPE"/>
 		
@@ -189,7 +190,6 @@
 			)
 	</insert>
 	
-	
 	<!-- 신고상세보기 > 첨부파일 -->
 	<select id="selectImgName" parameterType="_int" resultType="java.lang.String">
 		SELECT A.AT_MODIFY_NAME
@@ -197,12 +197,127 @@
 		WHERE C.CQ_NO=${value}
 	</select> 
 	
+
+	<!-- 신고 수 조회 용 쿼리 -->
+	<select id="selectClaimCount" resultType="int">
+		SELECT COUNT(*)
+		FROM CQBOARD
+		WHERE CQ_TYPE = 'CLAIM'
+	</select>
 	
+	<!-- 신고 전체 조회  -->
+	<select id="claimList" resultMap="CQandAttachVO">
+		SELECT ROWNUM AS ROW_NUMBER
+			 , CQ_NO
+			 , M_ID
+			 , CQ_CLASS
+			 , CQ_TITLE
+			 , CQ_DATE 
+		FROM
+		(SELECT CQ_NO
+			  , M_ID
+			  , CQ_CLASS
+			  , CQ_TITLE
+			  , CQ_DATE 
+		FROM CQBOARD
+		    JOIN MEMBER ON (CQ_UNO = M_UNO)
+		WHERE CQ_TYPE = 'CLAIM'
+		AND CQ_LEVEL = 1
+		ORDER BY CQ_DATE DESC)
+	</select>
 	
+	<!-- 신고 상세보기 -->
+	<select id="claimOne" parameterType="int" resultMap="CQandAttachVO">
+		SELECT CQ_NO
+			 , CQ_CLASS
+			 , CQ_UNO
+			 , CQ_TARGET_ID
+			 , M_ID
+			 , CQ_TITLE
+			 , CQ_CONTENT
+			 , AT_NO
+			 , AT_MODIFY_NAME
+		FROM CQBOARD
+		    JOIN ATTACHMENT ON (CQ_NO = AT_CQ_NO)
+		    JOIN MEMBER 	ON (CQ_TARGET_ID = M_UNO)
+		WHERE CQ_TYPE = 'CLAIM'
+		AND CQ_NO = #{no}
+	</select>
 	
+	<!-- 문의 수 조회 용 쿼리 -->
+	<select id="selectQCount" resultType="int">
+		SELECT COUNT(*)
+		FROM CQBOARD
+		WHERE CQ_TYPE = 'QUESTION'
+	</select>
 	
+	<!-- 문의 전체 조회  -->
+	<select id="questionList" resultMap="CQandAttachVO">
+		SELECT ROWNUM AS ROW_NUMBER
+			 , CQ_NO
+			 , M_ID
+			 , CQ_CLASS
+			 , CQ_TITLE
+			 , CQ_DATE 
+		FROM
+		(SELECT CQ_NO
+			  , M_ID
+			  , CQ_CLASS
+			  , CQ_TITLE
+			  , CQ_DATE 
+		FROM CQBOARD
+		    JOIN MEMBER ON (CQ_UNO = M_UNO)
+		WHERE CQ_TYPE = 'QUESTION'
+		AND CQ_LEVEL = 1
+		ORDER BY CQ_DATE DESC)
+	</select>
 	
+	<!-- 문의 상세보기 -->
+	<select id="questionOne" parameterType="int" resultMap="CQandAttachVO">
+		SELECT CQ_NO
+			 , CQ_CLASS
+			 , CQ_UNO
+			 , M_ID
+			 , CQ_TITLE
+			 , CQ_CONTENT
+			 , AT_NO
+			 , AT_MODIFY_NAME
+		FROM CQBOARD
+		    JOIN ATTACHMENT ON (CQ_NO = AT_CQ_NO)
+		    JOIN MEMBER 	ON (CQ_UNO = M_UNO)
+		WHERE CQ_TYPE = 'QUESTION'
+		AND CQ_NO = #{no}
+	</select>
 	
+	<!-- 문의 댓글 작성 -->
+	<insert id="questionReply" parameterType="java.util.Map">
+		INSERT INTO 
+		CQBOARD VALUES (
+			  SEQ_CQ_NO.NEXTVAL
+			, 1
+			, NULL
+			, NULL
+			, NULL
+			, NULL
+			, #{content}
+			, SYSDATE
+			, 2
+			, #{qno}
+			, 'N'
+			, 'N'
+			, 'QUESTION'
+		)
+	</insert>
 	
+	<select id="qReplyList" parameterType="int" resultMap="CQandAttachVO">
+		SELECT CQ_NO
+			 , CQ_UNO
+			 , CQ_CONTENT
+			 , CQ_DATE 
+		FROM CQBOARD
+		WHERE CQ_UPPER_NO = #{value}
+		ORDER BY CQ_DATE DESC
+	</select>
+
 </mapper>
 
