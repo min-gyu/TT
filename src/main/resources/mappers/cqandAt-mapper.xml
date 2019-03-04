@@ -188,5 +188,21 @@
 			  , 'CLAIM'
 			)
 	</insert>
+	
+	
+	<!-- 신고상세보기 > 첨부파일 -->
+	<select id="selectImgName" parameterType="_int" resultType="java.lang.String">
+		SELECT A.AT_MODIFY_NAME
+		FROM CQBOARD C JOIN ATTACHMENT A ON (C.CQ_NO = A.AT_CQ_NO)
+		WHERE C.CQ_NO=${value}
+	</select> 
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
 

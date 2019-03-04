@@ -10,6 +10,7 @@ import com.kh.tt.myPage.model.exception.MyPageException;
 import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
 import com.kh.tt.myPage.model.vo.Exchange;
+import com.kh.tt.myPage.model.vo.MyBroadCast;
 import com.kh.tt.myPage.model.vo.Payment;
 import com.kh.tt.myPage.model.vo.PtClover;
 
@@ -97,6 +98,15 @@ public interface MyPageService {
 	
 	//보유클로버 업데이트
 	int updateClover(HashMap<String, Object> hmap) throws MyPageException;
+
+	//게시글에 첨부된 파일 이름 가져오기
+	String selectImgName(int bid) throws MyPageException;
+
+	//방송통계 - 카운트
+	int btTotalCount(int cqUno) throws MyPageException;
+
+	//방송통계 - 리스트
+	List<MyBroadCast> selectbtTotal(PageInfo pi, int cqUno) throws MyPageException;
 
 
 }

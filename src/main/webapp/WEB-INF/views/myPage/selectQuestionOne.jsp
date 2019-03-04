@@ -34,11 +34,8 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">파일첨부</label>
 					<div class="col-sm-8" style="text-align: left;">
-						<input type="text" id="fileName" class="form-control" name="fileName" style="width: 70%; display: inline;" readonly="readonly">
-						<!-- <input id="fileInput" type="file" style="display: none;">
-						<label for="fileInput" class="btn btn-success">
-							<i class="fas fa-file-upload"></i>
-						</label> -->
+						<!-- <input type="text" id="fileName" class="form-control" name="fileName" style="width: 70%; display: inline;" readonly="readonly"> -->
+						<img style="width: 500px; " src="${ contextPath }/resources/uploadFiles/${ imgName}.jpg" ></img>						
 					</div>
 				</div>
 			</form>
