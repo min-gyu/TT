@@ -55,6 +55,8 @@ public interface BroadCastService{
 
 	int insertPTClover(HashMap<String, Object> hmap);
 
+	int insertBroadStart(HashMap<String, Object> map);
+
 
 	
 

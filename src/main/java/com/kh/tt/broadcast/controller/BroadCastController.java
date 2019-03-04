@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tt.broadcast.model.service.BroadCastService;
 import com.kh.tt.broadcast.model.vo.BanWord;
 import com.kh.tt.broadcast.model.vo.Relation;
+import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.member.model.vo.Member;
 
 @org.springframework.stereotype.Controller
@@ -356,6 +359,39 @@ public class BroadCastController {
 		@RequestMapping("test.bc")
 		public String goTest() {
 			return "broadcast/Test";
+		}
+		
+	//방송하기
+		@RequestMapping("broadStart.bc")
+		public String insertDet(Board db, HttpSession session, Member m,
+				@RequestParam(value = "userId") String userId, @RequestParam(value = "broadUrl") String broadUrl,
+				@RequestParam(value = "category") int category, @RequestParam(value = "broadTitle") String broadTitle) {
+			System.out.println("컨트롤러 왔다");
+			System.out.println(userId);
+			System.out.println(broadUrl);
+			System.out.println(category);
+			System.out.println(broadTitle);
+			
+			int ChNo = bcs.selectChannelNum(userId);
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("ChNo", ChNo);
+			map.put("broadUrl",broadUrl);
+			map.put("category", category);
+			map.put("broadTitle", broadTitle);
+
+			int result = bcs.insertBroadStart(map);
+			
+			System.out.println(result);
+			
+			/*System.out.println();
+
+			cs.insertDet(map);// 댓글 추가 완료
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("channel/vod_oneList");
+
+			return mav; */
+			return "성공";
 		}
 		
 }

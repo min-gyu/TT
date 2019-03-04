@@ -128,6 +128,11 @@ public class BroadCastDaoImpl implements BroadCastDao{
 	public int insertPTClover(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
 		return sqlSession.update("BanWord.insertPTClover", hmap);
 	}
+	//방송시작 정보 저장 메서드
+	@Override
+	public int inserBroadStart(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.insert("BanWord.insertBroadStart", map);
+	}
 
 	
 }

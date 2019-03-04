@@ -57,6 +57,8 @@ public interface BroadCastDao {
 
 	int insertPTClover(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
 
+	int inserBroadStart(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
 
 	
 

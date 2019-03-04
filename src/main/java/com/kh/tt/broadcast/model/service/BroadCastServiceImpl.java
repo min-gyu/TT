@@ -136,6 +136,11 @@ public class BroadCastServiceImpl implements BroadCastService{
 		return bcd.insertPTClover(sqlSession, hmap);
 	}
 
+	@Override
+	public int insertBroadStart(HashMap<String, Object> map) {
+		return bcd.inserBroadStart(sqlSession, map);
+	}
+
 
 	
 

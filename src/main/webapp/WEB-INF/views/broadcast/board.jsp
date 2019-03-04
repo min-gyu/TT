@@ -194,6 +194,7 @@ html, body{
 </style>
 <!-- jQuery CDN -->
 <script
+
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- axios -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -215,10 +216,9 @@ html, body{
 							<div class="col-lg-8 col-md-8 hidden-xs hidden-sm pull-right">
 								<ul class="nav-icons" id="optionUl">
 						 	<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner) }">
-							<li id="broadLi">
-								<a href="#"><i class="fas fa-video" id="broadCatsIcon"></i>
+							<li id="broadLi"><a href="#"><i class="fas fa-video" id="broadCatsIcon"></i>
 									<div>방송하기</div></a></li>
-							<li id="exitBroadLi"><a href="/goMain.bc"><i class="fas fa-times-circle" id="broadCastExitIcon"></i>
+							<li id="exitBroadLi"><a href="#"><i class="fas fa-times-circle" id="broadCastExitIcon"></i>
 									<div>방송종료</div></a></li>
 							<li id="iceChatLi"><a href="#"><i class="far fa-snowflake" id="freezeIcon"></i>
 									<div>채팅창 얼리기</div></a></li>
@@ -259,14 +259,20 @@ html, body{
 	<div class="row" id="bodyRowDiv">
 		<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" id="firstBodyCol">
 			<div id="broadCastWarpper">
-				<div id="broadCastDiv"></div>
+				<div id="broadCastDiv">
+					 <video id="localVideo" width="890" height="610" autoplay muted playsinline></video>
+				</div>
 					<div align="right" style="margin-right: 10px;">
+					<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner)}">
+						<button id="cam" onclick="aa();" disabled style="color:grey">캠 활성화</button>
+						<button id="screen" onclick="dd();" disabled style="color:grey; margin-right: 10px; margin-top: 5px;"  >화면공유</button>
+					</c:if>
 						<img alt="s" src="/resources/images/siren.png" width="20" height="20" id="report">
 					</div>
 				<hr>
 				<div id="broadCastInfo">
 					<div>
-						<span id="creator">${ param.owner }</span>
+						<span id="creator" style="color:green">${ param.owner }</span>
 					</div>
 					<div id="titleDiv">
 						<span id="title">방송 제목 적는 곳 입니다.</span>
@@ -458,7 +464,8 @@ html, body{
 
 </script>
 <!-- socket.io를 가져오는 스크립트 -->
-<script src="https://192.168.30.51:8010/socket.io/socket.io.js"></script>
+<!-- <script src="https://192.168.30.51:8010/socket.io/socket.io.js"></script> -->
+<script src="https://192.168.0.120:8090/socket.io/socket.io.js"></script>
 <script>
 	/* 소켓 통신 하는곳  */
 	$(function(){
@@ -510,15 +517,34 @@ html, body{
 			console.log("방송채널 주인인 유저!");		
 		}
 	});
+		
+		//방송시작 유저id, 방송주소, 카테고리번호, 방송제목
 		$("#broadLi").click(()=>{
+			/* $.ajax({
+				type : "post",
+				url : "/broadStart.bc",
+				data : "userId=" + "${loginUser.userId}" + "&broadUrl=" + document.location.href
+						+ "&category=" + 16 + "&broadTitle=" + "(생)",
+				success : function(result) {
+					alert("ajax성공");
+					console.log(result);
+				}
+				 error : function(error){
+					alert(error);
+					console.log(error);
+				} 
+			}); */
+			$('#cam').attr('disabled', false);
+			$('#cam').css("color", "black");
+			$('#screen').attr('disabled', false);
+			$('#screen').css('color', "black");
 			roomFunc();
 			setTimeout(() => {
 				chatFunc();
 			}, 1000);
 		})
 	
-	
-	//방만들기, 방송시작과 같음 채팅 방을 만드는 메서드
+	//방만들기, 방송시작과 같음 채asd팅 방을 만드는 메서드
 		function roomFunc() {
 			var socket = io.connect('https://192.168.30.51:8010/room', {
 				path : '/socket.io'	}); //localhost에 연결합니다.
@@ -953,5 +979,308 @@ html, body{
 					  
 				  });
 		    }) */
+		    
+		    /////////////////////////
+		    
+		    
+		    
+</script>
+
+<script>
+
+//방송종료
+$('#exitBroadLi').click(function(){
+	location.href="/goMain.bc";
+	sendMessage('End');
+});
+
+
+'use strict';
+
+var isChannelReady = false;
+var isInitiator = false;
+var isStarted = false;
+var localStream;
+var pc;
+var remoteStream;
+var turnReady;
+var flag= false;
+var id;
+var msg;
+
+var pcConfig = {
+		'iceServers': [
+			{
+				urls: 'stun:stun.l.google.com:19302'
+			}]
+};
+
+var sdpConstraints = {
+		  offerToReceiveAudio: true,
+		  offerToReceiveVideo: true
+		};
+
+/*var room = 'foo';*/
+// Could prompt for room name:
+// room = prompt('Enter room name:');
+/* var room = window.location.hash.substring(1); */
+var broadurl = document.location.href;
+var room = "${ param.owner }"
+
+var socket = io.connect('https://192.168.0.120:8090');
+
+
+if (room !== '') {
+  socket.emit('create or join', room);
+  console.log('Attempted to create or  join room', room);
+}
+
+socket.on('created', function(room) {
+  console.log('Created room ' + room);
+  isInitiator = true;
+  id = socket.id;
+  socket.emit('master',id);
+});
+
+socket.on('full', function(room) {
+  console.log('Room ' + room + ' is full');
+});
+
+socket.on('join', function (room){
+  console.log('Another peer made a request to join room ' + room);
+  console.log('This peer is the initiator of room ' + room + '!');
+  socket.emit('exchange', id);
+  isChannelReady = true;
+});
+
+socket.on('joined', function(room) {
+  console.log('joined: ' + room);
+  id = socket.id;
+  isChannelReady = true;
+  setTimeout(function() {
+	  socket.emit('sub', id);
+	  sendMessage('got user media');
+	  }, 4000);
+});
+
+socket.on('log', function(array) {
+  console.log.apply(console, array);
+});
+
+////////////////////////////////////////////////
+
+function sendMessage(message) {
+  console.log('Client sending message: ', message);
+  socket.emit('message', {msg:message, nick:id});
+  /*socket.emit('message', message);*/
+}
+
+// This client receives a message
+socket.on('message', function(message) {
+  console.log('Client received message받음:', message);
+  if (message=== 'got user media') {
+    maybeStart();
+  } else if (message.type === 'offer') {
+	  console.log('offer받음');
+    if (!isInitiator && !isStarted) {
+      maybeStart2();
+    }
+    console.log("받은 message: " + message);
+    pc.setRemoteDescription(new RTCSessionDescription(message));
+    doAnswer();
+  } else if (message.type === 'answer' && flag) {
+    pc.setRemoteDescription(new RTCSessionDescription(message));
+  } else if (message.type === 'candidate' && flag) {
+    var candidate = new RTCIceCandidate({
+      sdpMLineIndex: message.label,
+      candidate: message.candidate
+    });
+    pc.addIceCandidate(candidate);
+  } else if (message === 'End' && flag) {
+	 handleRemoteHangup();
+  }
+}); 
+
+////////////////////////////////////////////////////
+
+var localVideo = document.querySelector('#localVideo');
+var remoteVideo = document.querySelector('#Video');
+
+//캠화면
+function aa(){
+	$('#cam').attr('disabled', true);
+	$('#cam').css("color", "grey");
+	$('#screen').attr('disabled', false);
+	$('#screen').css('color', "black");
+	navigator.mediaDevices.getUserMedia({
+		  audio: true,
+		  video: true
+		})
+		.then(gotStream)
+		.catch(function(e) {
+		  alert('getUserMedia() error: ' + e.name);
+			$('#cam').attr('disabled', false);
+			$('#cam').css("color", "black");
+			$('#screen').attr('disabled', false);
+			$('#screen').css('color', "black");
+		});
+	
+}
+
+//화면공유
+function dd(){
+	 $('#cam').attr('disabled', false);
+	 $('#cam').css("color", "black");
+	 $('#screen').attr('disabled', true);
+	 $('#screen').css('color', "grey");
+	navigator.mediaDevices.getDisplayMedia(
+			)
+			.then(gotStream)
+			.catch(function(e){
+				$('#cam').attr('disabled', false);
+				$('#cam').css("color", "black");
+				$('#screen').attr('disabled', false);
+				$('#screen').css('color', "black");
+			});
+	
+}
+
+function gotStream(stream) {
+	  console.log('Adding local stream.');
+	  localStream = stream;
+	  localVideo.srcObject = stream;
+	  sendMessage('got user media');
+	  if (isInitiator) {
+	    maybeStart();
+	  }
+}
+
+function maybeStart() {
+  console.log('>>>>>>> maybeStart() ', isStarted, localStream, isChannelReady);
+  if (!isStarted && typeof localStream !== 'undefined' && isChannelReady) {
+    console.log('>>>>>> creating peer connection');
+    createPeerConnection();
+    /* localStream.getTracks().forEach((track) => pc.addTrack(track, localStream)); */
+    pc.addStream(localStream);
+    /*isStarted = true;*/
+    flag=true;
+    console.log('isInitiator', isInitiator);
+    if (isInitiator) {
+      doCall();
+    }
+  }
+}
+
+function maybeStart2(){
+	console.log('>>>>>>> maybeStart2() ', isStarted, localStream, isChannelReady);
+	if (!isStarted && isChannelReady) {
+	    console.log('>>>>>> creating peer connection');
+	    createPeerConnection();
+	   /* isStarted = true;*/
+	    flag=true;
+	}
+}
+
+window.onbeforeunload = function() {
+  sendMessage('bye');
+};
+
+/////////////////////////////////////////////////////////
+
+function createPeerConnection() {
+  try {
+    pc = new RTCPeerConnection(pcConfig);
+    pc.onicecandidate = handleIceCandidate;
+    /* pc.ontrack = bb; */
+    pc.onaddstream = handleRemoteStreamAdded;
+    pc.onremovestream = handleRemoteStreamRemoved;
+    console.log('Created RTCPeerConnnection');
+  } catch (e) {
+    console.log('Failed to create PeerConnection, exception: ' + e.message);
+    alert('Cannot create RTCPeerConnection object.');
+    return;
+  }
+}
+
+/* function bb(event){
+	console.log("aa 실행 : " + event.streams[0]);
+	console.log(event.streams[0]);
+	remoteVideo.srcObject = event.streams[0];
+} */
+
+function handleIceCandidate(event) {
+  console.log('icecandidate event: ', event);
+  if (event.candidate) {
+    sendMessage({
+      type: 'candidate',
+      label: event.candidate.sdpMLineIndex,
+      id: event.candidate.sdpMid,
+      candidate: event.candidate.candidate
+    });
+  } else {
+    console.log('End of candidates.');
+  }
+}
+
+function handleCreateOfferError(event) {
+  console.log('createOffer() error: ', event);
+}
+
+function doCall() {
+  console.log('Sending offer to peer');
+  pc.createOffer(setLocalAndSendMessage, handleCreateOfferError);
+}
+
+function doAnswer() {
+  console.log('Sending answer to peer.');
+  pc.createAnswer().then(
+    setLocalAndSendMessage,
+    onCreateSessionDescriptionError
+  );
+}
+
+function setLocalAndSendMessage(sessionDescription) {
+  pc.setLocalDescription(sessionDescription);
+  console.log('setLocalAndSendMessage sending message', sessionDescription);
+  sendMessage(sessionDescription);
+}
+
+function onCreateSessionDescriptionError(error) {
+  trace('Failed to create session description: ' + error.toString());
+}
+
+function handleRemoteStreamAdded(event) {
+  console.log('Remote stream added.');
+  remoteStream = event.stream;
+  localVideo.srcObject = remoteStream;
+}
+
+function handleRemoteStreamRemoved(event) {
+  console.log('Remote stream removed. Event: ', event);
+}
+
+function hangup() {
+  console.log('Hanging up.');
+  stop();
+  sendMessage('bye');
+}
+
+function handleRemoteHangup() {
+  console.log('Session terminated.');
+  stop();
+  isInitiator = false;
+  
+}
+
+function stop() {
+  isStarted = false;
+  pc.close();
+  pc = null;
+  console.log('stopppp : 실행');
+}
+
+function randomToken() {
+	  return Math.floor((1 + Math.random()) * 1e16).toString(16).substring(1);
+	}
 </script>
 </html>
