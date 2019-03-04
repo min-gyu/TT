@@ -24,6 +24,7 @@ import com.kh.tt.myPage.model.service.MyPageService;
 import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
 import com.kh.tt.myPage.model.vo.Exchange;
+import com.kh.tt.myPage.model.vo.MyBroadCast;
 import com.kh.tt.myPage.model.vo.Payment;
 import com.kh.tt.myPage.model.vo.PtClover;
 
@@ -592,6 +593,12 @@ public class MyPageController {
 			try {
 				CQBoard questionOne = mps.selectQuestionOne(bid);
 				
+				if(questionOne != null) {
+					//게시글에 첨부된 파일 이름 가져오기
+					String imgName = mps.selectImgName(bid);
+					model.addAttribute("imgName", imgName);
+				}
+				
 				model.addAttribute("questionOne", questionOne);
 				
 			} catch (MyPageException e) {
@@ -643,7 +650,14 @@ public class MyPageController {
 		int bid = Integer.parseInt(request.getParameter("bid"));
 		
 		try {
+			//게시글에대한 정보 가져오기
 			CQBoard claimOne = mps.selectClaimOne(bid);
+			
+			if(claimOne != null) {
+				//게시글에 첨부된 파일 이름 가져오기
+				String imgName = mps.selectImgName(bid);
+				model.addAttribute("imgName", imgName);
+			}
 			
 			model.addAttribute("claimOne", claimOne);
 			
@@ -659,7 +673,42 @@ public class MyPageController {
 	
 	//방송통계 페이지
 	@RequestMapping("broadcastTotal.me")
-	public String gobroadcastTotal() {
+	public String gobroadcastTotal(Model model,HttpServletRequest request, HttpServletResponse response) {
+		
+
+		int currentPage = 1;
+		List<MyBroadCast> bcTotalList;
+		int cqUno = Integer.parseInt(request.getParameter("cqUno"));
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			//방송통계 - 카운트
+			int listCount = mps.btTotalCount(cqUno);
+			System.out.println("방송통계 listCount : " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			//방송통계 - 리스트
+			bcTotalList = mps.selectbtTotal(pi, cqUno);
+			
+			
+			//평균방송시간 > 방송시간 총합 / 방송횟수(listCount)
+			
+			//최고시청자수 > 누적시청자수 중 가장 큰값
+			
+			//평균시청자수 > 누적시청자수 총합 / 방송횟수 (listCount)
+			
+			/* model에 담아서 jsp페이지로 넘겨주기 > jsp에서는 ${ list.get(0).getCloverCnt} 이런식으로 불러다 쓰기 */
+			model.addAttribute("bcTotalList", bcTotalList);
+			request.setAttribute("pi", pi);
+			
+		} catch (MyPageException e) {
+			e.printStackTrace();
+		} 
+		
 		return "myPage/broadcastTotal";
 	}
 	

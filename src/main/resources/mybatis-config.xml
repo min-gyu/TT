@@ -28,8 +28,10 @@
 		<typeAlias type="com.kh.tt.subscribe.model.vo.Subscribe" 		alias="Subscribe" />
    		<typeAlias type="com.kh.tt.admin.model.vo.AdClover"				alias="AdClover" />
    		<typeAlias type="com.kh.tt.category.model.vo.CategoryVod"		alias="Category" />
-   		
+
+   		<typeAlias type="com.kh.tt.myPage.model.vo.MyBroadCast"			alias="MyBroadCast" />
    		<typeAlias type="com.kh.tt.admin.model.vo.CorrectClaim"			alias="CorrectClaim" />
+
 	</typeAliases>
 	
 	<mappers>
@@ -57,7 +59,9 @@
 		<mapper resource="mappers/mainRanking-mapper.xml"/>
 		<mapper resource="mappers/category-mapper.xml"/>
 		
+		<mapper resource="mappers/mybroadcast-mapper.xml"/>
 		<mapper resource="mappers/correctClaim-mapper.xml"/>
+
 		
 	</mappers>
 

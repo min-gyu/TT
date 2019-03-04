@@ -44,7 +44,7 @@
 	                        <li><a href="/exchangeClover.me?mUno=${sessionScope.loginUser.uno}"><i class="leaf icon"></i> 환전 신청하기</a></li>
 	                        <li><a href="/question.me?cqUno=${sessionScope.loginUser.uno}"><i class="leaf icon"></i> My문의 페이지</a></li>
 	                        <li><a href="/claim.me?cqUno=${sessionScope.loginUser.uno}"><i class="leaf icon"></i>My신고 페이지</a></li>
-	                        <li><a href="/broadcastTotal.me"><i class="leaf icon"></i>방송 통계</a></li>
+	                        <li><a href="/broadcastTotal.me?cqUno=${sessionScope.loginUser.uno}"><i class="leaf icon"></i>방송 통계</a></li>
 	                        <!-- <li><a href="/note.me"><i class="leaf icon"></i>내 쪽지</a></li> -->
 	                        <li class="divider"></li>
 	                        <li><a href="/modifyMyPage.me?mUno=${sessionScope.loginUser.uno}"><i class="icon ion-person"></i> 내 정보 수정</a></li>

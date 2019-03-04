@@ -12,6 +12,7 @@ import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.dao.MyPageDao;
 import com.kh.tt.myPage.model.exception.MyPageException;
+import com.kh.tt.myPage.model.vo.MyBroadCast;
 import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
 import com.kh.tt.myPage.model.vo.Exchange;
@@ -240,6 +241,24 @@ public class MyPageServiceImpl implements MyPageService{
 		@Override
 		public int updateClover(HashMap<String, Object> hmap) throws MyPageException {
 			return mpd.updateClover(sqlSession, hmap);
+		}
+
+		//게시글에 첨부된 파일 이름 가져오기
+		@Override
+		public String selectImgName(int cqNo) throws MyPageException {
+			return mpd.selectImgName(sqlSession, cqNo);
+		}
+
+		//방송통계 - 카운트
+		@Override
+		public int btTotalCount(int cqUno) throws MyPageException {
+			return mpd.btTotalCount(sqlSession, cqUno);
+		}
+
+		//방송통계 - 리스트
+		@Override
+		public List<MyBroadCast> selectbtTotal(PageInfo pi, int cqUno) throws MyPageException {
+			return mpd.selectbtTotal(sqlSession, pi, cqUno);
 		}
 
 
