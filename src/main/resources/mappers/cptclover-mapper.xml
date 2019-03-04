@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cPtClover">
+	<resultMap type="com.kh.tt.channel.model.vo.cPtClover"
+		id="cptcloverResultSet">
+		<!-- property 필드명, column 컬럼명과 일치해야 한다 -->
+		<id property="pcNo" column="PC_NO" />
+		<result property="rnum" column="RANKNUM" />
+		<result property="pcUno" column="PC_UNO" />
+		<result property="pcTargetUno" column="PC_TARGET_UNO" />
+		<result property="pcCnt" column="PC_CNT" />
+		<result property="pcDate" column="PC_DATE" />
+
+
+		<result property="mUno" column="M_UNO" />
+		<result property="mNickName" column="M_NICKNAME" />
+	</resultMap>
+	<!-- 선물한 클로버 순위 (채널베너) -->
+	<select id="selectcInfo" parameterType="int"
+		resultMap="cptcloverResultSet">
+		SELECT ROW_NUMBER() OVER( ORDER BY SUM(PC_CNT) DESC) AS RANKNUM,PC_UNO,PC_TARGET_UNO,SUM(PC_CNT),M_UNO,M_NICKNAME
+		FROM PTCLOVER
+		JOIN MEMBER ON(PC_UNO=M_UNO)
+		WHERE PC_TARGET_UNO=#{uno}
+		GROUP BY PC_UNO,PC_TARGET_UNO,PC_CNT,M_UNO,M_NICKNAME
+		ORDER BY SUM(PC_CNT) DESC
+		
+	</select>
+
+
+
+
+
+
+
+
+</mapper>  
+  
+  
+  
+

@@ -10,7 +10,9 @@ import com.kh.tt.broadcast.model.vo.BanWord;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.channel.model.vo.Relation;
+import com.kh.tt.channel.model.vo.cPtClover;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.vo.PtClover;
 
 
 
@@ -78,6 +80,11 @@ public interface ChannelService{
 	int listBCount(int chNo);
 	List<BanWord> listBan(int chNo, int i, int j);
 	int deleteBanW(HashMap<String, Integer> map);
+	int insertBlack(HashMap<String, Object> map);
+	int listBlackCount(int chNo);
+	List<Relation> listBlack(int chNo, int i, int j);
+	List<cPtClover> selectcInfo(int uno);
+	int updateBlack(HashMap<String, Object> map);
 	
 	
 	

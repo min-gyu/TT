@@ -143,6 +143,12 @@
 		FROM CHANNEL
 		WHERE CH_NO=#{chNo}
 	</select>
+	
+	<select id="selectBuno" parameterType="java.util.Map"  resultMap="memberVO">
+		SELECT *
+		FROM MEMBER
+		WHERE M_ID=#{blackId}
+	</select>
 
 	<!-- 개인정보 수정하기전, 비밀번호 확인 및 아이디추출하기위해 객체 반환 -->	
 	<select id="checkMember" parameterType="_int" resultMap="memberVO">

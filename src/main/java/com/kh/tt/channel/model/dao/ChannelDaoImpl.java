@@ -11,6 +11,7 @@ import com.kh.tt.broadcast.model.vo.BanWord;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.channel.model.vo.Relation;
+import com.kh.tt.channel.model.vo.cPtClover;
 import com.kh.tt.member.model.vo.Member;
 
 @Repository
@@ -251,6 +252,36 @@ public class ChannelDaoImpl implements ChannelDao{
 	public int deleteBanW(HashMap<String, Integer> map, SqlSessionTemplate sqlSession) {
 		System.out.println(map);
 		return sqlSession.delete("BanWord.deleteBanW",map);
+	}
+	@Override
+	public int insertBlack(HashMap<String, Object> map, SqlSessionTemplate sqlSession) {
+		Member uno=sqlSession.selectOne("Member.selectBuno",map);
+		System.out.println("틀린 아이디 입력했을때 값 : "+uno);
+		if(uno == null) {
+			return 0;
+		}
+		else {
+		map.put("userId", uno.getUserId());
+		map.put("nickName", uno.getNickName());
+		map.put("uno", uno.getUno());
+		return sqlSession.insert("Relation2.insertBlack", map);
+		}
+	}
+	@Override
+	public int listBlackCount(int chNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Relation2.listBlackCount",chNo);
+	}
+	@Override
+	public List<Relation> listBlack(HashMap<Object, Integer> map, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Relation2.listBlack", map);
+	}
+	@Override
+	public List<cPtClover> selectcInfo(int uno, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("cPtClover.selectcInfo", uno);
+	}
+	@Override
+	public int updateBlack(HashMap<String, Object> map, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("Relation2.updateBlack",map);
 	}
 	
 	

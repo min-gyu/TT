@@ -19,13 +19,20 @@
 	</resultMap>
 
 
-
+	<delete id="updateBlack" parameterType="java.util.Map" >
+		DELETE FROM RELATION 
+		WHERE R_CH_NO=#{rchNo} AND
+		R_TARGET_UNO=#{rtargetuNo}
+		AND R_TYPE='BLACK'
+	
+	</delete>
 	<select id="selectSub" parameterType="java.util.Map"
 		resultMap="relationResultSet">
 		SELECT *
 		FROM RELATION
 		WHERE R_CH_NO=#{cuNo} AND
 		R_TARGET_UNO=#{uNo}
+		AND R_TYPE='SUBSCRIBE'
 
 	</select>
 
@@ -81,8 +88,43 @@
 		M_ID,
 		M_NICKNAME
 		FROM RELATION JOIN MEMBER ON(R_CH_NO=M_UNO)
-		WHERE R_CH_NO=#{cuNo} AND R_TYPE='MANAGER'
+		WHERE
+		R_CH_NO=#{cuNo} AND R_TYPE='MANAGER'
 
+	</select>
+
+	<insert id="insertBlack" parameterType="java.util.Map">
+		INSERT INTO
+		RELATION
+		VALUES (
+		SEQ_R_NO.NEXTVAL,
+		#{CuNo},
+		#{uno},
+		SYSDATE,
+		'BLACK',
+		NULL)
+	</insert>
+
+	<select id="listBlackCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM
+		RELATION
+		WHERE R_CH_NO=#{chNo} AND R_TYPE='BLACK'
+	</select>
+
+	<select id="listBlack" parameterType="java.util.Map"
+		resultMap="relationResultSet">
+		SELECT
+		RNUM,R_NO,R_CH_NO,R_TARGET_UNO,R_DATE,R_TYPE,M_ID,M_NICKNAME
+		FROM(
+		SELECT ROWNUM AS
+		RNUM,R_NO,R_CH_NO,R_TARGET_UNO,R_DATE,R_TYPE,M_ID,M_NICKNAME
+		FROM (SELECT R_NO,R_CH_NO,R_TARGET_UNO,R_DATE,R_TYPE
+		FROM RELATION
+		WHERE R_TYPE='BLACK' AND R_CH_NO=#{chNo}
+		ORDER BY R_NO DESC)
+		JOIN MEMBER ON(R_TARGET_UNO=M_UNO))
+		WHERE RNUM BETWEEN #{current} AND #{limit}
 	</select>
 
 </mapper>

@@ -45,7 +45,7 @@
 	href="/resources/channel/channel2/css/skins/all.css">
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
 <style type="text/css">
-#subsccriberNum{
+#subsccriberNum {
 	display: inline-block;
 }
 </style>
@@ -64,50 +64,76 @@
 					<div class="row">
 						<div class="col-ms-12">
 							<h6>블랙회원 추가</h6>
-							<input type="text" placeholder="회원 아이디를 입력하세요"><button class="btn btn-danger btn-sm">추가</button>
+							<input type="text" id="blackId" placeholder="회원 아이디를 입력하세요">
+							<button class="btn btn-danger btn-sm" id="blackBtn">추가</button>
+							<input type="hidden" id="CuNo" value="${CuNo}"> 
+							<input type="hidden" id="msg" value="${msg }">
+							
 						</div>
 					</div>
-					
-					<div class="row">
-						<table class="table table-bordered" style="text-align: center">
-							<thead>
-								<tr>
-									<th style="text-align: center">아이디</th>
-									<th style="text-align: center">닉네임</th>
-									<th style="text-align: center">날짜</th>
-									<th style="text-align: center">상태</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>글씨</td>
-									<td>이상해</td>
-									<td>ㅇㅇ</td>
-									<td><button class="btn btn-danger btn-sm">삭제</button></td>
-								</tr>
-								<tr>
-									<td>글씨</td>
-									<td>이상해</td>
-									<td>ㅇㅇ</td>
-									<td><button class="btn btn-danger btn-sm">삭제</button></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					
-					
+
+					<div id="listbReply"></div>
+
+
+
 				</div>
 
 
 				<!-- 오른쪽 사이드바 이동 -->
-			<!-- 관리자 사이드바 -->
-				<jsp:include page="/WEB-INF/views/channel_admin/channel_admin_sidebar.jsp" />
+				<!-- 관리자 사이드바 -->
+				<jsp:include
+					page="/WEB-INF/views/channel_admin/channel_admin_sidebar.jsp" />
 			</div>
 		</div>
 	</section>
 
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 	<!-- End post-content Area -->
+
+	<script type="text/javascript">
+	
+	
+	$("#blackBtn").click(
+			function(){
+				var blackId=$("#blackId").val();
+				var CuNo=$("#CuNo").val();
+				console.log(blackId);
+				console.log(CuNo);
+				
+				$.ajax({
+					type:"POST",
+					url:"${contextPath}/insertBlack.ch",
+					data : "blackId="+blackId+"&CuNo="+CuNo,
+					success:function(result){
+						$("#blackId").val("");
+						listbReply("1");
+						
+					},
+					error:function(data){
+						
+					}
+				});
+			});
+	
+	listbReply("1");
+	
+	 function listbReply(num){
+				
+		var CuNo=$("#CuNo").val();
+		console.log(CuNo);
+		$.ajax({
+			type : "get",
+			url : "${contextPath}/listBlack.ch",
+			data : "CuNo="+CuNo+"&curPage="+num,
+			success : function(result) {
+				$("#listbReply").html(result);
+			}
+		});
+	 };
+	 
+	
+</script>
+
 
 
 

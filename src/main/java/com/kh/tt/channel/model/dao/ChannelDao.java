@@ -10,6 +10,7 @@ import com.kh.tt.broadcast.model.vo.BanWord;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.channel.model.vo.Relation;
+import com.kh.tt.channel.model.vo.cPtClover;
 import com.kh.tt.member.model.vo.Member;
 
 public interface ChannelDao {
@@ -87,6 +88,16 @@ public interface ChannelDao {
 	List<BanWord> listBan(HashMap<Object, Integer> map, SqlSessionTemplate sqlSession);
 
 	int deleteBanW(HashMap<String, Integer> map, SqlSessionTemplate sqlSession);
+
+	int insertBlack(HashMap<String, Object> map, SqlSessionTemplate sqlSession);
+
+	int listBlackCount(int chNo, SqlSessionTemplate sqlSession);
+
+	List<Relation> listBlack(HashMap<Object, Integer> map, SqlSessionTemplate sqlSession);
+
+	List<cPtClover> selectcInfo(int uno, SqlSessionTemplate sqlSession);
+
+	int updateBlack(HashMap<String, Object> map, SqlSessionTemplate sqlSession);
 
 	
 

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.tt.admin.model.exception.AdminException;
 import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
+import com.kh.tt.admin.model.vo.VodLog;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
@@ -85,6 +86,10 @@ public interface AdminDao {
 	int deleteAvod(int[] arr, SqlSessionTemplate sqlSession);
 
 	int getAVod(SqlSessionTemplate sqlSession);
+
+	int getadminDVod(SqlSessionTemplate sqlSession);
+
+	List<VodLog> totalAdminD(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	
 	

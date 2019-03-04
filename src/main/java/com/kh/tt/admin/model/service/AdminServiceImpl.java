@@ -10,6 +10,7 @@ import com.kh.tt.admin.model.dao.AdminDao;
 import com.kh.tt.admin.model.exception.AdminException;
 import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
+import com.kh.tt.admin.model.vo.VodLog;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
@@ -165,16 +166,28 @@ public class AdminServiceImpl implements AdminService {
 	public int deleteAvod(int[] arr) {
 		return md.deleteAvod(arr,sqlSession);
 	}
-
+	
+//전체 VOD리스트 카운트 메소드
 	@Override
 	public int getAVod() {
 		// TODO Auto-generated method stub
 		return md.getAVod(sqlSession);
 	}
 
+	//전체 VOD출력 메소드
 	@Override
 	public List<Board> totalVod(PageInfo pi) {
 		return md.totalVod(sqlSession,pi);
+	}
+
+	@Override
+	public int getadminDVod() {
+		return md.getadminDVod(sqlSession);
+	}
+
+	@Override
+	public List<VodLog> totalAdminD(PageInfo pi) {
+		return md.totalAdminD(sqlSession,pi);
 	}
 	
 	

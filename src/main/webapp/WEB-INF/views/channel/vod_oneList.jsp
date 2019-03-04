@@ -221,10 +221,11 @@
 
 	$("#report").click(
 			function() {
-				window.open("/report.ch?bNo=${b.bNo}", "신고하기",
-						"width=550, height=550, left=100, top=100");
+				
+				window.open("/claimView.me", "신고하기",
+						"width=700, height=700, left=100, top=100");
 			});
-
+	
 	listReply("1");
 	$("#ReplyBtn").click(
 			function() {

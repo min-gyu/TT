@@ -57,7 +57,7 @@
 	style="
     background-color: white;
 ">
-		<div id="listReply">
+		<div id="listchatReply">
 			<table class="table table-bordered" style="text-align: center">
 				<thead>
 					<tr>
@@ -84,10 +84,10 @@
 
 			<div>
 				<c:if test="${pagination.curRange != 1 }">
-					<a href="javascript:listReply('1')">[처음]</a>
+					<a href="javascript:listchatReply('1')">[처음]</a>
 				</c:if>
 				<c:if test="${pagination.curPage != 1}">
-					<a href="javascript:listReply('${ pagination.prevPage}')">[이전]</a>
+					<a href="javascript:listchatReply('${ pagination.prevPage}')">[이전]</a>
 				</c:if>
 				<c:forEach var="num" begin="${pagination.startPage }"
 					end="${pagination.endPage }">
@@ -96,17 +96,17 @@
 							<span style="font-weight: bold;">${num}</span>
 						</c:when>
 						<c:otherwise>
-							<a href="javascript:listReply('${num }')">${num }</a>
+							<a href="javascript:listchatReply('${num }')">${num }</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if
 					test="${pagination.curPage <= pagination.pageCnt && pagination.pageCnt > 0}">
-					<a href="javascript:listReply('${pagination.nextPage }')">[다음]</a>
+					<a href="javascript:listchatReply('${pagination.nextPage }')">[다음]</a>
 				</c:if>
 				<c:if
 					test="${pagination.curRange <= pagination.rangeCnt && pagination.rangeCnt > 0}">
-					<a href="javascript:listReply('${pagination.pageCnt }')">[끝]</a>
+					<a href="javascript:listchatReply('${pagination.pageCnt }')">[끝]</a>
 				</c:if>
 			</div>
 		</div>

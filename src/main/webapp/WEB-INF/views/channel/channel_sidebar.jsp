@@ -85,71 +85,21 @@
 			</div>
 
 
-			<div class="single-sidebar-widget ads-widget">
-				<a href="#"><img class="img-fluid"
-					src="/resources/channel/img/blog/ads-banner.jpg" alt=""
-					style="width: 250px"></a>
-			</div>
-			<div class="single-sidebar-widget popular-post-widget">
-				<h4 class="popular-title">Write board</h4>
-				<div class="popular-post-list">
-					<div class="single-post-list d-flex flex-row align-items-center">
-					</div>
-				</div>
-			</div>
+			
 			<div class="single-sidebar-widget post-category-widget">
 				<div class="single-sidebar-widget newsletter-widget">
 
 
-					<p class="text-bottom">순위</p>
+					<p class="text-bottom">선물 순위</p>
 				</div>
+				<c:forEach var="row"  items="${listc}">
 				<ul class="cat-list">
 					<li><a href="#" class="d-flex justify-content-between">
-							<p>회장</p>
-							<p>내이름은</p>
-					</a></li>
-					<li><a href="#" class="d-flex justify-content-between">
-							<p>1등</p>
-							<p>내가 1등이다</p>
-					</a></li>
-					<li><a href="#" class="d-flex justify-content-between">
-							<p>2등</p>
-							<p>아앗2등</p>
-					</a></li>
-					<li><a href="#" class="d-flex justify-content-between">
-							<p>3등</p>
-							<p>29</p>
-					</a></li>
-					<li><a href="#" class="d-flex justify-content-between">
-							<p>4등</p>
-							<p>15</p>
-					</a></li>
-					<li><a href="#" class="d-flex justify-content-between">
-							<p>5등</p>
-							<p>09</p>
-					</a></li>
-					<li><a href="#" class="d-flex justify-content-between">
-							<p>6등</p>
-							<p>44</p>
-					</a></li>
-					<li><a href="#" class="d-flex justify-content-between">
-							<p>7등</p>
-							<p>44</p>
-					</a></li>
-					<li><a href="#" class="d-flex justify-content-between">
-							<p>8등</p>
-							<p>44</p>
-					</a></li>
-					<li><a href="#" class="d-flex justify-content-between">
-							<p>9등</p>
-							<p>44</p>
-					</a></li>
-					<li><a href="#" class="d-flex justify-content-between">
-							<p>10등</p>
-							<p>44</p>
+							<p>${row.rnum }등</p>
+							<p>${row.mNickName}</p>
 					</a></li>
 				</ul>
-
+				</c:forEach>
 
 
 
