@@ -1,22 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- 
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta name="description" content="Magz is a HTML5 & CSS3 magazine template is based on Bootstrap 3.">
-	<meta name="author" content="Kodinger">
-	<meta name="keyword" content="magz, html5, css3, template, magazine template">
-	Shareable
-	<meta property="og:title" content="HTML5 & CSS3 magazine template is based on Bootstrap 3" />
-	<meta property="og:type" content="article" />
-	<meta property="og:url" content="http://github.com/nauvalazhar/Magz" />
-	<meta property="og:image" content="https://raw.githubusercontent.com/nauvalazhar/Magz/master/images/preview.png" />
-	 -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 	
@@ -95,7 +81,6 @@
 							<div class="col-md-3 col-sm-12 text-right">
 								<ul class="nav-icons">
 									<li><a href="/loginView.me"><i class="ion-person"></i><div>Login</div></a></li>
-									<!-- <li><a href="/kakaoLogin.me"><div>Kakao</div></a></li> -->
 								</ul>
 							</div>
 						</c:when>

@@ -67,15 +67,15 @@
 			 , M_STATUS
 			 , M_LOGIN_TYPE 
 	 	FROM
-		(SELECT  M_NAME
-		        , M_ID
-		        , M_NICKNAME
-		        , M_GENDER
-		        , M_BANK
-		        , M_WARNING_NO
-		        , M_BAN_STATUS
-		        , M_STATUS
-		        , M_LOGIN_TYPE
+		(SELECT M_NAME
+		      , M_ID
+		      , M_NICKNAME
+		      , M_GENDER
+		      , M_BANK
+		      , M_WARNING_NO
+		      , M_BAN_STATUS
+		      , M_STATUS
+		      , M_LOGIN_TYPE
 		FROM MEMBER
 		WHERE M_ADMIN_YN = 'N'
 		ORDER BY M_ENROLL_DATE DESC)
@@ -102,15 +102,15 @@
 			 , M_STATUS
 			 , M_LOGIN_TYPE 
 	 	FROM
-		(SELECT  M_NAME
-		        , M_ID
-		        , M_NICKNAME
-		        , M_GENDER
-		        , M_BANK
-		        , M_WARNING_NO
-		        , M_BAN_STATUS
-		        , M_STATUS
-		        , M_LOGIN_TYPE
+		(SELECT M_NAME
+		      , M_ID
+		      , M_NICKNAME
+		      , M_GENDER
+		      , M_BANK
+		      , M_WARNING_NO
+		      , M_BAN_STATUS
+		      , M_STATUS
+		      , M_LOGIN_TYPE
 		FROM MEMBER
 		WHERE M_ADMIN_YN = 'N'
 		AND (#{value} IS NULL OR M_ID = #{value} )

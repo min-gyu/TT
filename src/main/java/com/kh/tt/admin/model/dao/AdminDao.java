@@ -1,5 +1,6 @@
 package com.kh.tt.admin.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,7 +10,9 @@ import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.common.PageInfo;
+import com.kh.tt.member.model.vo.CQAndAttach;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Exchange;
 import com.kh.tt.myPage.model.vo.Payment;
 
@@ -85,6 +88,38 @@ public interface AdminDao {
 	int deleteAvod(int[] arr, SqlSessionTemplate sqlSession);
 
 	int getAVod(SqlSessionTemplate sqlSession);
+
+	// 신고 수 카운트
+	int getClaimCount() throws AdminException;
+
+	// 페이징 신고 리스트
+	List<CQAndAttach> selectClaimList(PageInfo pi) throws AdminException;
+
+	// 신고 상세보기
+	CQAndAttach claimOne(int no);
+
+	// 타겟 회원 경고 증가
+	int targetBanCount(int cno);
+	
+	// 신고자 보상
+	int claimReward(int cno);
+	
+	// 보유 클로버 증가
+	int updateTotalClover(int cno);
+
+	
+	// 문의 수 카운트
+	int getQCount() throws AdminException;
+
+	// 페이징 문의 리스트
+	List<CQAndAttach> selectQuestionList(PageInfo pi) throws AdminException;
+	
+	// 문의 상세보기
+	CQAndAttach questionOne(int no);
+
+	Object questionReply(HashMap<String, Object> map);
+
+	List<CQAndAttach> qReplyList(int qno);
 
 	
 	

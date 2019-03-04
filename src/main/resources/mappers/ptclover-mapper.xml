@@ -7,16 +7,15 @@
 <mapper namespace="PtClover">
 	<resultMap type="com.kh.tt.myPage.model.vo.PtClover" id="ptcloverResultSet">
 		<!-- property 필드명, column 컬럼명과 일치해야 한다 -->
-		<id property="pcNo" column="PC_NO"/>
-		<result property="rnum" column="ROWNUM"/>
-		<result property="pcUno" column="PC_UNO"/>
-		<result property="pcTargetUno" column="PC_TARGET_UNO"/>
-		<result property="pcCnt" column="PC_CNT"/>
-		<result property="pcDate" column="PC_DATE"/>
+		<id property="pcNo" 			column="PC_NO"/>
+		<result property="rnum" 		column="ROWNUM"/>
+		<result property="pcUno" 		column="PC_UNO"/>
+		<result property="pcTargetUno" 	column="PC_TARGET_UNO"/>
+		<result property="pcCnt" 		column="PC_CNT"/>
+		<result property="pcDate" 		column="PC_DATE"/>
 		
-		
-		<result property="mUno" column="M_UNO"/>
-		<result property="mNickName" column="M_NICKNAME"/>
+		<result property="mUno" 		column="M_UNO"/>
+		<result property="mNickName" 	column="M_NICKNAME"/>
 	</resultMap>
 	
 	<!-- **선물한 클로버*** -->
@@ -55,10 +54,6 @@
 		        )
 	</select> 
 	
-	
-	
-	
-	
 	<!-- **선물받은 클로버*** -->
 	<!-- 선물받은 클로버 내역 - 카운트 -->
 	<select id="getAllTakePresent" parameterType="_int"  resultType="int">
@@ -76,10 +71,6 @@
 		        ORDER BY P.PC_DATE DESC
 		        )
 	</select> 
-	
-	
-	
-	
 	
 </mapper>  
   
