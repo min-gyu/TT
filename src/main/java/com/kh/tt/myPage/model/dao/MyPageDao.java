@@ -1,6 +1,7 @@
 package com.kh.tt.myPage.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -89,6 +90,15 @@ public interface MyPageDao {
 
 	//문의 - 카운트
 	int getQuestionCount(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException;
+
+	//계좌등록
+	int updateBank(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) throws MyPageException;
+
+	//계좌 삭제하기
+	int deleteBank(SqlSessionTemplate sqlSession, int mUno) throws MyPageException;
+
+	//보유클로버 업데이트
+	int updateClover(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) throws MyPageException;
 
 
 	

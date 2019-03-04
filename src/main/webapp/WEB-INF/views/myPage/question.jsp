@@ -20,6 +20,7 @@
 						  <table class="ui green table" id="questionTable">
 						  <thead>
 						    <th>No.</th>
+						    <th>접수번호</th>
 						    <th>문의유형</th>
 						    <th>제목</th>
 						    <th>내용</th>
@@ -29,10 +30,12 @@
 						 <c:forEach items="${ questionList }" var="ql"> 
 						   <tr>
 						      <td>${ql.rnum }</td>
+						      <td>${ql.cqNo }</td>
 						      <td>${ql.cqClass }</td>
 						      <td>${ql.cqTitle }</td>
 						      <td>${ql.cqContent}</td>
 						      <td>${ql.cqDate }</td>
+						      <td><input type="hidden" id="bid" value="${ql.cqNo }"></td>
 						    </tr> 
 						 </c:forEach>
 						    
@@ -49,8 +52,11 @@
 								}).mouseout(function(){
 									$(this).parents("tr").css({"background":"white","color":"black"});
 								}).click(function(){
-									var bid=$(this).parents().children("td").eq(0).text();
-									/* console.log(bid2); */
+									/* var bid=$(this).parents().children("td").eq(0).text(); */ 
+									
+									var bid = $(this).parents().children("td").eq(1).text(); 
+									console.log(bid);
+									
 									location.href="selectQuestionOne.me?bid="+bid;
 								});
 							});

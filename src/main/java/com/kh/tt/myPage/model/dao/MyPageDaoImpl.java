@@ -412,4 +412,47 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		return result;
 	}
+
+
+	//계좌등록
+	@Override
+	public int updateBank(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) throws MyPageException {
+		int result=0;
+		
+		result = sqlSession.update("Member.updateBank",hmap);
+		
+		if(result==0) {
+			throw new MyPageException("계좌 정보 변경 실패!");
+		}
+		
+		return result;
+	}
+
+	//계좌 삭제하기
+	@Override
+	public int deleteBank(SqlSessionTemplate sqlSession, int mUno) throws MyPageException {
+		int result=0;
+		
+		result = sqlSession.update("Member.deleteBank",mUno);
+		
+		if(result==0) {
+			throw new MyPageException("계좌 정보 삭제 실패!");
+		}
+		
+		return result;
+	}
+
+	//보유클로버 업데이트
+	@Override
+	public int updateClover(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) throws MyPageException {
+		int result=0;
+		
+		result = sqlSession.update("Member.updateClover",hmap);
+		
+		if(result==0) {
+			throw new MyPageException("보유클로버 업데이트 실패!");
+		}
+		
+		return result;
+	}
 }

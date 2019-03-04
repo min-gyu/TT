@@ -129,6 +129,7 @@
 		ON(CH_UNO=M_UNO)
 		WHERE M_UNO=#{uNo}
 	</select>
+	
 	<!-- 채널 설명 업데이트 메소드(은채) -->
 	<update id="updatecInfo" parameterType="java.util.Map" >
 		UPDATE CHANNEL
@@ -164,5 +165,25 @@
 		WHERE M_UNO=#{mUno}
 	</update>
 	
+	<!-- 계좌정보 등록 -->
+	<update id="updateBank" parameterType="java.util.Map" >
+		UPDATE MEMBER
+		SET M_BANK=#{mBank} , M_BANK_NO=#{mBankNo}
+		WHERE M_UNO=#{mUno}
+	</update>
+	
+	<!-- 계좌정보 삭제 -->
+	<update id="deleteBank" parameterType="java.util.Map" >
+		UPDATE MEMBER
+		SET M_BANK=null , M_BANK_NO=null
+		WHERE M_UNO=#{mUno}
+	</update>
+	
+	<!-- 보유클로버 수 업데이트 -->
+	<update id="updateClover" parameterType="java.util.Map" >
+		UPDATE MEMBER
+		SET M_TOTAL_CLOVER = M_TOTAL_CLOVER+${totalClover}
+		WHERE M_UNO=#{mUno}
+	</update>
 	
 </mapper>

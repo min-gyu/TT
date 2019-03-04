@@ -15,6 +15,16 @@
 
 
 $(function(){
+	
+	var res = ${ res};
+	if(res==0){
+		alert("계좌는 최대 1개만 등록가능합니다. \n\n (등록되어있는 계좌를 먼저 삭제해 주세요)");
+		
+		location.href="bankChk3.me?mUno="+${mUno};
+	}
+	
+	
+	
 	//계좌 인증
 	$("#checkBank").click(function(){
          $("#bank_code_std").val($("#bankcode").val());
@@ -90,7 +100,13 @@ $(function(){
 		                     	 data.bank_code_std == bank_code_std) {
 		                    	
 		                    	 alert("계좌 인증 성공");
-		                    	 console.log(data);
+		   		               	 console.log(data);
+		   		               	 
+		   		             	 var mUno = ${mUno};
+		 
+		    
+		                    	 location.href="bankChk2.me?mBank="+data.bank_code_std+"&mBankNo="+data.account_num+"&mUno="+mUno;
+		                    	 
 		                    	 /* window.location.reload(); */
 		                     } else {
 		                        alert("계좌 인증 실패");
@@ -111,7 +127,7 @@ $(function(){
 			<div class="box-wrapper">
 				<!-- 카테고리 -->	
 				<div class="ui top attached tabular menu">
-				   <a href="bankChk2.me?mUno=${sessionScope.loginUser.uno}" class="item">계좌 조회</a>
+				   <a href="bankChk3.me?mUno=${sessionScope.loginUser.uno}" class="item">계좌 조회</a>
 				   <a href="bankChk.me?mUno=${sessionScope.loginUser.uno}" class="active item">계좌 인증</a>
 				 </div>			
 				<div class="box box-border">
@@ -158,7 +174,7 @@ $(function(){
             <col style="width: *" />
          </colgroup>
          <tbody>
-           <tr>내가 넣음 tr
+           <tr>
                <form name="authCodeFrm" id="authCodeFrm" method="GET" action="https://testapi.open-platform.or.kr/oauth/2.0/authorize">
                   <input type="hidden" id="response_type" name="response_type" value="code" /> 
                   <input type="hidden" id="scope" name="scope" value="inquiry" /> 

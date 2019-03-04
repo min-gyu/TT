@@ -19,7 +19,7 @@
 						</div>
 						<!-- 보유클로버 현황 -->
 						<div class="ui segment">
-							<div class="ui segment">${ sessionScope.loginUser.userName}님이 보유중인 클로버는 ${ sessionScope.loginUser.totalClover} 개 입니다.
+							<div class="ui segment">${ sessionScope.loginUser.userName}님이 보유중인 클로버는 ${ m.getTotalClover()} 개 입니다.
 	  						<div class="ui fitted divider"></div>
 	  						<br>▶ 이미 선물한 클로버 : 12개<br></div>
 						</div><br>

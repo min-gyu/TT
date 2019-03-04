@@ -96,8 +96,8 @@
 			        //결제번호 담기
 			        var pay = rsp.apply_num;
 			        
-			        //결제번호, 클로버번호, 회원번호 
-			        location.href="payment.me?pno="+pay+"&pCloverCnt="+cno+"&pUno="+pUno;
+			        //결제번호, 클로버번호, 회원번호 , 충전클로버 개수
+			        location.href="payment.me?pno="+pay+"&pCloverCnt="+cno+"&pUno="+pUno+"&cnt="+cnt;
 			      } else {
 			        var msg = '결제에 실패하였습니다.';
 			        msg += '에러내용 : ' + rsp.error_msg;
