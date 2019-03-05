@@ -16,7 +16,7 @@
 
 	
 	
-	<!-- <security-constraint>
+	<security-constraint>
 
 		<web-resource-collection>
 			<web-resource-name>my-secure-app</web-resource-name>
@@ -27,7 +27,7 @@
 		</user-data-constraint>
 
 	</security-constraint> 
- -->
+ 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 
 	<listener>

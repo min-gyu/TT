@@ -272,4 +272,10 @@
 		WHERE F_CH_NO=#{ChNo}
 		AND F_NO=#{fNo}
 	</delete>
+	
+	<insert id="insertBroadStart" parameterType="java.util.Map">
+		INSERT INTO BROADCAST (BT_NO, BT_CH_NO, BT_CT_NO, BT_URL, BT_TITLE, BT_START_TIME)
+		VALUES(SEQ_BT_NO.NEXTVAL,
+		#{ChNo},#{category},#{broadUrl},#{broadTitle},SYSDATE)
+	</insert>
 </mapper>
