@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tt.common.CommonUtils;
 import com.kh.tt.common.LoginLoggin;
@@ -296,4 +297,32 @@ public class MemberController {
 		
 		return vList;
 	}
+	
+	// 메인페이지 생방송 리스트
+	@RequestMapping("/mainLiveList.me")
+	public @ResponseBody List<MainRanking> mainLiveList(Model model) {
+		List<MainRanking> lList = ms.mainLiveList();
+		
+		System.out.println("lList > " + lList);
+		System.out.println(" 조회 결과 리스트사이즈 > " + lList.size());
+		
+		return lList;
+	}
+	
+	
+	// 블랙회원 방송 입장 불가
+	@PostMapping(value = "/blackBlock.me")
+	public @ResponseBody HashMap<Object, Object> blackBlock(@RequestBody Map<Object, Object> requestBody){
+		Map<String, Object> reqMap = (Map)requestBody.get("params");
+		
+		System.out.println(reqMap);
+		
+		HashMap<Object, Object> resultMap = new HashMap<>();
+		
+		resultMap =  ms.blackBlock(reqMap);
+
+		return resultMap;
+	}
+	
+	
 }

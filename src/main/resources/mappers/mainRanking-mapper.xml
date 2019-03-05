@@ -15,12 +15,24 @@
 		<result property="bType" 		column="B_TYPE"/>
 		<result property="bDelStatus" 	column="B_DEL_STATUS"/>
 		<result property="bAttachYN" 	column="B_ATTACH_YN"/>
+		
 		<result property="uNo" 			column="M_UNO"/>
 		<result property="nickName" 	column="M_NICKNAME"/>
+		<result property="btYN" 		column="M_BT_YN"/>
+		
 		<result property="chNo" 		column="CH_NO"/>
+		
 		<result property="ctName" 		column="CT_NAME"/>
+		
 		<result property="atNo" 		column="AT_NO"/>
 		<result property="atModifyName" column="AT_MODIFY_NAME"/>
+		
+		<result property="btNo" 		column="BT_NO"/>
+		<result property="btUrl" 		column="BT_URL"/>
+		<result property="btTitle" 		column="BT_TITLE"/>
+		<result property="btCount" 		column="BT_COUNT"/>
+		<result property="btStartTime" 	column="BT_START_TIME"/>
+		<result property="btEndTime" 	column="BT_END_TIME"/>
 	</resultMap>
 	
 	<!-- 메인 페이지 vod 리스트 -->
@@ -39,6 +51,24 @@
 		    AND B_DEL_STATUS = 'N'
 		    ORDER BY B_COUNT DESC)
 		WHERE ROWNUM <![CDATA[ <= ]]> 3
+	</select>
+	
+	<!-- 메인 페이지 생방송 리스트 -->
+	<select id="mainLiveList" resultMap="MainRankingVO">
+		SELECT BT_NO
+			 , M_UNO
+			 , M_NICKNAME
+			 , CH_NO
+			 , CT_NAME
+			 , BT_URL
+			 , BT_TITLE
+			 , BT_START_TIME 
+		FROM BROADCAST
+		    JOIN MEMBER ON (BT_CH_NO = M_UNO)
+		    JOIN CATEGORY ON (BT_CT_NO = CT_NO)
+		    JOIN CHANNEL ON (BT_CH_NO = CH_NO)
+		WHERE M_BT_YN = 'Y'
+		AND BT_END_TIME IS NULL
 	</select>
 	
 </mapper>

@@ -5,17 +5,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Relation2">
-	<resultMap type="com.kh.tt.channel.model.vo.Relation"
-		id="relationResultSet">
-		<id property="rNo" column="R_NO" />
-		<result property="rchNo" column="R_CH_NO" />
-		<result property="rtargetuNo" column="R_TARGET_UNO" />
-		<result property="rDate" column="R_DATE" />
-		<result property="rType" column="R_TYPE" />
-		<result property="rAlarm" column="R_ALARM_YN" />
+	<resultMap type="com.kh.tt.channel.model.vo.Relation" id="relationResultSet">
+		<id property="rNo" 				column="R_NO" />
+		<result property="rchNo" 		column="R_CH_NO" />
+		<result property="rtargetuNo" 	column="R_TARGET_UNO" />
+		<result property="rDate" 		column="R_DATE" />
+		<result property="rType" 		column="R_TYPE" />
+		<result property="rAlarm" 		column="R_ALARM_YN" />
 
-		<result property="userId" column="M_ID" />
-		<result property="nickName" column="M_NICKNAME" />
+		<result property="userId" 		column="M_ID" />
+		<result property="nickName" 	column="M_NICKNAME" />
 	</resultMap>
 
 
@@ -125,6 +124,14 @@
 		ORDER BY R_NO DESC)
 		JOIN MEMBER ON(R_TARGET_UNO=M_UNO))
 		WHERE RNUM BETWEEN #{current} AND #{limit}
+	</select>
+	
+	<select id="blackBlock" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*)
+		FROM RELATION
+		WHERE R_TYPE = 'BLACK'
+		AND R_TARGET_UNO = #{uNo}
+		AND R_CH_NO = #{chNo}
 	</select>
 
 </mapper>
