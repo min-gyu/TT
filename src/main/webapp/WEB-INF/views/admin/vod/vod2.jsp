@@ -48,7 +48,9 @@
 </script>
 <section class="home">
 	<div class="container">
-		<div class="row" >
+		<div class="row" style="
+    width: 1000px;
+">
 				<div class="form-inline">
 				<h3><image src="/resources/images/clover/clover.jpg" width="50px" height="50px">
 				VOD 관리</h3>

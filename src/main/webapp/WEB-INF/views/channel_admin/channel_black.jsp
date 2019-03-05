@@ -58,20 +58,30 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-					<div class="row">
-						<h5>블랙리스트 관리</h5>
+					<div class="line top">
+						<div>
+							<h5>블랙리스트 관리</h5>
+						</div>
 					</div>
+					<br>
+					<br>
+					
 					<div class="row">
-						<div class="col-ms-12">
+						<div class="col-ms-12" style="width: 300px;">
 							<h6>블랙회원 추가</h6>
-							<input type="text" id="blackId" placeholder="회원 아이디를 입력하세요">
-							<button class="btn btn-danger btn-sm" id="blackBtn">추가</button>
+							<input type="text" id="blackId" placeholder="회원 아이디를 입력하세요"
+							style="
+  
+    width: 189px;
+    height: 39px;
+    border: 1px solid #ced4da;
+">
+							<button class="btn btn-success" id="blackBtn" style="background-color: #6ac169;">추가</button>
 							<input type="hidden" id="CuNo" value="${CuNo}"> 
 							<input type="hidden" id="msg" value="${msg }">
 							
 						</div>
 					</div>
-
 					<div id="listbReply"></div>
 
 
@@ -109,13 +119,14 @@
 					alert(data);
 						$("#blackId").val("");
 						listbReply("1");
-						
 					},
+					
 					error:function(data){
 						
 					}
 				});
 			});
+	
 	
 	listbReply("1");
 	

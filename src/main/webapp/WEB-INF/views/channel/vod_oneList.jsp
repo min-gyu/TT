@@ -133,7 +133,7 @@
 										</div>
 									</div>
 								</div> -->
-								<div id="listReply"></div>
+								<div id="listReply"></div> 
 							</div>
 
 							<!-- 댓글란 : 로그인 했을때 보이기! -->

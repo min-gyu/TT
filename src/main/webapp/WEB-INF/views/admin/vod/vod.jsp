@@ -48,7 +48,9 @@
 </script>
 <section class="home">
 	<div class="container">
-		<div class="row" >
+		<div class="row"  style="
+    width: 1000px;
+">
 				<div class="form-inline">
 				<h3><image src="/resources/images/clover/clover.jpg" width="50px" height="50px">
 				VOD 관리</h3>
@@ -78,7 +80,8 @@
 						<td>${list.userId}</td>
 						<td>${list.bTitle}</td>
 						<td>${list.bwDate }</td>
-						<td><button id="morebtn" onclick="moreVod(${list.buNo},${list.bNo });" >더보기</button></td>
+						<td><button id="morebtn" onclick="moreVod(${list.buNo},${list.bNo });" 
+						class="btn btn-success" style="background-color: #6ac169;">더보기</button></td>
 					<tr>
 					</c:forEach>
 				</table>
