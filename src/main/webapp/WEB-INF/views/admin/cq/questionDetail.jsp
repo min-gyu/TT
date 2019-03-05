@@ -48,6 +48,7 @@ div.formtag {
 		 				},
 		 	success :	function(data){
 		 					alert("댓글이 등록되었습니다.");
+		 					window.location.reload();
 		 				}
 		 });
 		 
@@ -58,7 +59,7 @@ div.formtag {
 		
 		$.ajax({
 			url			:	"/qReplyList.ad",
-			type		:	"post",
+			type		:	"get",
 			data		:	{ qno : qno },
 			success		:	function(data) {
 							console.log(data);

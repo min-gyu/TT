@@ -542,9 +542,9 @@ int currentPage = 1;
 	public String correctClaim(@RequestParam int cno, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println(cno);
 		
-		as.targetBanCount(cno);		// 경고 +1
+		as.targetBanCount(cno);			// 경고 +1
 		as.claimReward(cno);			// 보상 +10
-		as.updateTotalClover(cno);	// 총 클로버 +10
+		as.updateTotalClover(cno);		// 총 클로버 +10
 		
 		return "redirect:/claimList.ad";
 	}
