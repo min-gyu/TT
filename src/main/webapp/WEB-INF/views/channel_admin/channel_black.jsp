@@ -103,8 +103,10 @@
 				$.ajax({
 					type:"POST",
 					url:"${contextPath}/insertBlack.ch",
-					data : "blackId="+blackId+"&CuNo="+CuNo,
-					success:function(result){
+					//data : "blackId="+blackId+"&CuNo="+CuNo,
+					data : {blackId:blackId,CuNo:CuNo},
+					success:function(data){
+					alert(data);
 						$("#blackId").val("");
 						listbReply("1");
 						

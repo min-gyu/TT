@@ -213,9 +213,20 @@ public class ChannelDaoImpl implements ChannelDao{
 	}
 	@Override
 	public int insertBanLan(HashMap<String, Object> map, SqlSessionTemplate sqlSession) {
-		int result= sqlSession.insert("BanWord.insertBanLan", map);
-		System.out.println(result);
-		return result;
+		
+		int result=0;
+		//삽입한 이력이 있는지 조회
+		int result1=sqlSession.selectOne("BanWord.selectBanLan", map);
+		//이력이 있는 경우 0반환
+		if(result1==1) {
+			return result=0;
+		}else {
+			int result2= sqlSession.insert("BanWord.insertBanLan", map);
+			return result=1;
+		}
+		
+		
+		
 	}
 	//메인 채널 VOD출력용 메소드
 	@Override

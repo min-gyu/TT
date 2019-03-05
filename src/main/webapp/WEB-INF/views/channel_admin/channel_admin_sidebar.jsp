@@ -81,10 +81,6 @@
 									style="text-align: center;">
 										<p>채널 소개 설정</p>
 								</a></li>
-								<li><a href="/manage_Cate.ch?CuNo=${m.uno }" class="" style="text-align: center;">
-										<p>주력 카테고리 설정</p>
-
-								</a></li>
 								<li><a href="/goBannerProfile.ch?CuNo=${m.uno }" class=""
 									style="text-align: center;">
 										<p>베너 & 프로필 사진 설정</p>

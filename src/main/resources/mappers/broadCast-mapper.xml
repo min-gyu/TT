@@ -278,4 +278,10 @@
 		VALUES(SEQ_BT_NO.NEXTVAL,
 		#{ChNo},#{category},#{broadUrl},#{broadTitle},SYSDATE)
 	</insert>
+	
+	<select id="selectBanLan" parameterType="java.util.Map" resultType="int">
+		SELECT count(*)
+		FROM FILTER
+		WHERE F_BAN=#{banLan}
+	</select>
 </mapper>

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -597,33 +598,32 @@ public class ChannelController {
 	}
 	
 	@RequestMapping("insertBlack.ch")
-	public ModelAndView insertBlack(Member m,@RequestParam(value = "blackId") String blackId,@RequestParam(value = "CuNo") int CuNo,Model model, HttpServletRequest request, HttpServletResponse response) {
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("channel_admin/blacklist");
-		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+	public @ResponseBody String insertBlack(@RequestParam(value = "blackId") String blackId,@RequestParam(value = "CuNo") int CuNo,Model model, HttpServletRequest request, HttpServletResponse response) {
+	
 		System.out.println(blackId);
 		System.out.println(CuNo);
 		
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		map.put("blackId", blackId);
 		map.put("CuNo", CuNo);
+		
 		int result=cs.insertBlack(map);
 		System.out.println("블랙추가 결과 : "+result);
+		
+		String message = null;
 		
 		
 		try {
 			if(result!=0) {
-				mav.addObject("msg", "성공");
+				message="블랙리스트 추가 완료!";
 			}else {
-				mav.addObject("msg", "실패");
+				message="아이디를 다시 확인해주세요";
 			}
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
-		mav.addObject("m",  m);
-		mav.addObject("CuNo", m.getUno());
-		return  mav;
+		
+		return  message;
 	}
 	
 	@RequestMapping("listBlack.ch")
@@ -701,38 +701,27 @@ public class ChannelController {
 	}
 
 	@RequestMapping("insertBanLan.ch")
-	public ModelAndView insertBanLan(@RequestParam(value = "banLan") String banLan,
+	public @ResponseBody String insertBanLan(@RequestParam(value = "banLan") String banLan,
 			@RequestParam(value = "reLan") String reLan, @RequestParam(value = "CuNo") int CuNo, Member m,Attachment pi,Member ti) {
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
-		ModelAndView mav = new ModelAndView();
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("ChNo", m.getChNo());
 		map.put("banLan", banLan);
 		map.put("reLan", reLan);
-		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
-		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
-		
-		if (pi != null) {
-			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
-			mav.addObject("ext2", ext2);
-			mav.addObject("pi", pi);
-			
-		}
-
-		if (ti != null) {
-			mav.addObject("title", ti.getChName());
-		}
-		
 		
 		int result = cs.insertBanLan(map);
-		System.out.println("금칙어 추가 결과 : " + result);
-		mav.setViewName("channel_admin/channel_chat");
-		mav.addObject("CuNo", CuNo);
-		mav.addObject("m", m);
-
-		return mav;
+		
+		String message=null;
+		
+		if(result!=0) {
+			message="금칙어 추가 성공!";
+		}
+		else {
+			message="이미 추가된 금칙어입니당~";
+		}
+		return message;
 	}
 
 	@RequestMapping("listBanC.ch")
