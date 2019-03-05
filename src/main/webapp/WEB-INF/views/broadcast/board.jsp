@@ -464,8 +464,8 @@ html, body{
 
 </script>
 <!-- socket.io를 가져오는 스크립트 -->
-<!-- <script src="https://192.168.30.51:8010/socket.io/socket.io.js"></script> -->
-<script src="https://192.168.0.120:8090/socket.io/socket.io.js"></script>
+<script src="https://192.168.30.51:8010/socket.io/socket.io.js"></script> 
+<!-- <script src="https://192.168.0.120:8090/socket.io/socket.io.js"></script> -->
 <script>
 	/* 소켓 통신 하는곳  */
 	$(function(){
@@ -588,7 +588,7 @@ html, body{
 				    	socket.disconnect();
 			    		var $div = $("<div>");
 						$div.addClass("system");
-			      		$div.text("방송이 종료되었습니다.");
+			      		$div.text("<< 방송이 종료되었습니다. >>");
 				    	$("#chattingDiv").append($div);
 				    	 $("#sendBtn").attr('onclick', 'notSend()');
 						  swal({
@@ -674,7 +674,7 @@ html, body{
 						  }else{
 					   		//서버에 참여할 RoomId를 전송하면서 joinRoom 이벤트를 실행하라고 전달함.
 					  		socket.emit('joinRoom',{roomId:response.data.roomId, owner:"${param.owner}",userSocketId:response.data.userSocketId,userId:"${ loginUser.userId }",userNickName:"${loginUser.nickName}"});		  		
-					  		var $conDiv = $("<div>").text("<<채팅방에 입장했습니다.>>");
+					  		var $conDiv = $("<div>").text("<< 채팅방에 입장했습니다. >>");
 					  		//채팅방에 정상적으로 입력되고나서 send 버튼에 메세지 전송 버튼 메서드를 추가해줌
 					  	  	$("#sendBtn").attr('onclick', 'msgSend()');
 					  		$conDiv.addClass("system");
@@ -693,7 +693,7 @@ html, body{
 		 	  	console.log(data);
 		 		var $div = $("<div>");
 				$div.addClass("system");
-		      	$div.text("관리자가 채팅창을 얼렸습니다!");
+		      	$div.text("<< 관리자가 채팅창을 얼렸습니다! >>");
 		      	$("#chattingDiv").append("<br>");
 		     	$("#chattingDiv").append($div);
 		     	$("#chattingDiv").append("<br>");
@@ -705,7 +705,7 @@ html, body{
 		 	  	console.log(data);
 		 		var $div = $("<div>");
 				$div.addClass("system");
-		      	$div.text("관리자가 채팅창을 녹였습니다.");
+		      	$div.text("<< 관리자가 채팅창을 녹였습니다. >>");
 		      	$("#chattingDiv").append("<br>");
 		     	$("#chattingDiv").append($div);	  
 		     	$("#chattingDiv").append("<br>");

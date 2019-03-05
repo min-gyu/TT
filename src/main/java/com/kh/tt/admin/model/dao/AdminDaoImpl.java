@@ -393,6 +393,7 @@ public class AdminDaoImpl implements AdminDao {
 		System.out.println(list);
 		return list;
 	}
+
 	
 	@Override
 	public int getClaimCount() throws AdminException {

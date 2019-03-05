@@ -37,9 +37,50 @@
 }
 </style>
 
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+     <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
 
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', '평균방송시간', '최고시청자수', '평균시청자수'],
+          ['2014', 1000, 400, 200],
+          ['2015', 1170, 460, 250],
+          ['2016', 660, 1120, 300],
+          ['2017', 1030, 540, 350]
+        ]);
 
+        var options = {
+          chart: {
+            title: '방송 통계',
+            subtitle: '평균방송시간, 최고시청자수, 평균 시청자수',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+      
+      $(function(){
+    	  $.ajax({
+				url : "/statostocsBroadCast.bc",
+				type : "get",
+				success : function(data) {
+					console.log(data);
+				},
+				error : function(data) {
+					console.log("실패")
+				}	
+			});
+      });
+    </script>
+  </head>
+ <body>
 <section class="home">
+
 	<div class="container">
 		<div class="row">
 			<div class="form-inline">
@@ -48,43 +89,22 @@
 			<div class="line"></div>
 			<div align="right"></div>
 
-			<div class="center-block">
+			<div class="center-block" style="padding-left: 15%">
 				<div id="Wrap">
 					<!-- Wrap S -->
 
 
 					<div id="container">
-						<!-- container S -->
-
-
-						<div class="contBox mt30">
-							<!-- contBox S -->
-
-							<jsp:include page="/WEB-INF/views/admin/statistics/tab_statistics.jsp" />
-
-						</div>
-						<!--// contBox E-->
-						<div style="text-align: left;">
-							&nbsp&nbsp&nbsp<span style="font-weight: bold">오늘방문수 : </span>&nbsp;&nbsp;&nbsp;&nbsp;
-							<span style="font-weight: bold">어제방문수 : </span>&nbsp&nbsp&nbsp&nbsp
-							<span style="font-weight: bold">누적방문수 : </span>
-						</div>
-						<div class="numb pb10" align="left">
-							&nbsp&nbsp&nbsp<span><a class="num1"><</a></span>
-							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span
-								style="font-weight: bold; font-size: 23px;"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-							<span><a class="num2" href="#" disable>></a></span>&nbsp&nbsp&nbsp
-							
-						</div>
+					  <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
 					</div>
+					
+					
 					<!--// container E-->
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-<br>
-<br>
-<br>
-<br>
+</body>
+
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />

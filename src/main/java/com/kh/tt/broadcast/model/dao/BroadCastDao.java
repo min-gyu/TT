@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.tt.broadcast.model.vo.BanWord;
+import com.kh.tt.broadcast.model.vo.BroadCast;
 import com.kh.tt.broadcast.model.vo.Relation;
 import com.kh.tt.member.model.vo.Member;
 
@@ -58,6 +59,8 @@ public interface BroadCastDao {
 	int insertPTClover(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
 
 	int inserBroadStart(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
+	ArrayList<BroadCast> selectBroadCast(SqlSessionTemplate sqlSession);
 
 
 	

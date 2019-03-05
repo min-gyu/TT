@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tt.broadcast.model.vo.BanWord;
+import com.kh.tt.broadcast.model.vo.BroadCast;
 import com.kh.tt.broadcast.model.vo.Relation;
 import com.kh.tt.member.model.vo.Member;
 @Repository
@@ -132,6 +133,12 @@ public class BroadCastDaoImpl implements BroadCastDao{
 	@Override
 	public int inserBroadStart(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return sqlSession.insert("BanWord.insertBroadStart", map);
+	}
+	
+	//방송통계 받기위한 메서드
+	@Override
+	public ArrayList<BroadCast> selectBroadCast(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("");
 	}
 
 	

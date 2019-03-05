@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tt.broadcast.model.service.BroadCastService;
 import com.kh.tt.broadcast.model.vo.BanWord;
+import com.kh.tt.broadcast.model.vo.BroadCast;
 import com.kh.tt.broadcast.model.vo.Relation;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.member.model.vo.Member;
@@ -393,5 +394,10 @@ public class BroadCastController {
 			return mav; */
 			return "성공";
 		}
-		
+		//방송통계
+		@RequestMapping("statostocsBroadCast.bc")
+		public HashMap<String, Object> statostocsBroadCast(){
+			ArrayList<BroadCast> broadList = bcs.selectBroadCast();
+			return null;
+		}
 }

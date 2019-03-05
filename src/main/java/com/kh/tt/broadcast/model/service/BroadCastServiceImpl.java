@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.tt.broadcast.model.dao.BroadCastDao;
 import com.kh.tt.broadcast.model.vo.BanWord;
+import com.kh.tt.broadcast.model.vo.BroadCast;
 import com.kh.tt.broadcast.model.vo.Relation;
 import com.kh.tt.member.model.vo.Member;
 @Service
@@ -139,6 +140,11 @@ public class BroadCastServiceImpl implements BroadCastService{
 	@Override
 	public int insertBroadStart(HashMap<String, Object> map) {
 		return bcd.inserBroadStart(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<BroadCast> selectBroadCast() {
+		return bcd.selectBroadCast(sqlSession);
 	}
 
 

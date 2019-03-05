@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.tt.broadcast.model.vo.BanWord;
+import com.kh.tt.broadcast.model.vo.BroadCast;
 import com.kh.tt.broadcast.model.vo.Relation;
 import com.kh.tt.member.model.vo.Member;
 
@@ -56,6 +57,8 @@ public interface BroadCastService{
 	int insertPTClover(HashMap<String, Object> hmap);
 
 	int insertBroadStart(HashMap<String, Object> map);
+
+	ArrayList<BroadCast> selectBroadCast();
 
 
 	
