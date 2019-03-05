@@ -64,7 +64,7 @@
 					</div>
 					<div class="row">
 						<div class="col-ms-12">
-							<h6>매니저 목록</h6>
+							<h6>현재 등록된 매니저 목록</h6>
 						</div>
 					</div>
 					<div class="row">
@@ -87,31 +87,7 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="row">
-						<div class="col-ms-12">
-							<h6>매니저 활동내역</h6>
-						</div>
-					</div>
-					<div class="row">
-						<table class="table table-bordered" style="text-align: center">
-							<thead>
-								<tr>
-									<th style="text-align: center">매니저 아이디</th>
-									<th style="text-align: center">날짜</th>
-									<th style="text-align: center">시청자 아이디</th>
-									<th style="text-align: center">활동내역</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>비워두면</td>
-									<td>이상해</td>
-									<td>ㅇㅇ</td>
-									<td>ㅇㅇ</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+			
 				</div>
 
 

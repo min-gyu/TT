@@ -27,6 +27,7 @@
 			<c:set var="bcuNo" value="${sessionScope.loginUser.uno }" />
 				<c:set var="loginUser" value="${sessionScope.loginUser.userId}" />
 			<input type="text" name="id" size="48" style="font-size:16px; height:30px; width:86%;" value="${loginUser}" readonly>
+			<input type="hidden" name="cqUno" value="${sessionScope.loginUser.uno }"/>
 			<input type="hidden" name="bctargetNo" value="${bNo }">
 			<input type="hidden" name="bcuNo" value="${bcuNo }">
 		</div>
@@ -37,7 +38,7 @@
 		</div>
 		<br>
 		<div align="center">
-			<button type="submit" class="btn btn-success" value="신고하기"></button>&nbsp;
+			<button type="submit" class="btn btn-success" value="신고하기">신고하기</button>&nbsp;
 			<input type="button" id="aa" class="btn btn-light" value="취소"> 
 		</div>
 	</form> 

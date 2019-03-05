@@ -6,6 +6,7 @@ import java.util.List;
 import com.kh.tt.admin.model.exception.AdminException;
 import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
+import com.kh.tt.admin.model.vo.VodLog;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.CQAndAttach;
@@ -90,6 +91,9 @@ public interface AdminService {
 
 	int getAVod();
 
+	int getadminDVod();
+
+	List<VodLog> totalAdminD(PageInfo pi);
 	
 	// 신고 수 카운트
 	int getClaimCount() throws AdminException;
@@ -122,6 +126,7 @@ public interface AdminService {
 	Object questionReply(HashMap<String, Object> map);
 
 	List<CQAndAttach> qReplyList(int qno);
+
 
 
 }

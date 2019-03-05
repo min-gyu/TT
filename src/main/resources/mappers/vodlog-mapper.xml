@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="VodLog">
+	<resultMap type="com.kh.tt.admin.model.vo.VodLog"
+		id="VodLogResultSet">
+		<id property="vlNo" column="VL_NO" />
+		<result property="vlDelNo" column="VL_DEL_NO" />
+		<result property="vlDate" column="VL_DATE" />
+
+		<result property="bTitle" column="B_TITLE" />
+		<result property="bContent" column="B_CONTENT" />
+
+
+		<result property="userId" column="M_ID" />
+		<result property="nickName" column="M_NICKNAME" />
+	</resultMap>
+
+	<insert id="insertAdminV" parameterType="int">
+
+		INSERT INTO VODLOG
+		VALUES(SEQ_VL_NO.NEXTVAL,
+		${value},
+		SYSDATE)
+	</insert>
+	<select id="getadminC" resultType="int">
+		SELECT COUNT(*)
+		FROM VODLOG
+
+	</select>
+
+	<select id="totalAdminD" resultMap="VodLogResultSet">
+		SELECT ROWNUM AS
+		RNUM,VL_NO,VL_DEL_NO,VL_DATE,B_TITLE,B_CONTENT,M_ID,M_NICKNAME
+		FROM VODLOG
+		JOIN BOARD ON(VL_DEL_NO=B_NO)
+		JOIN MEMBER ON(B_UNO=M_UNO)
+		ORDER BY RNUM DESC
+	</select>
+
+
+</mapper>

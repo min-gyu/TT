@@ -19,6 +19,7 @@ import com.kh.tt.admin.model.exception.AdminException;
 import com.kh.tt.admin.model.service.AdminService;
 import com.kh.tt.admin.model.vo.AdClover;
 import com.kh.tt.admin.model.vo.Category;
+import com.kh.tt.admin.model.vo.VodLog;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.common.Pagination;
 import com.kh.tt.member.model.vo.CQAndAttach;
@@ -272,7 +273,8 @@ public class AdminController {
 		
 		return cloverPath + "exchangeClover";
 	}
-	
+
+	/*
 	//VOD 다중삭제 메소드-관리자
 	@RequestMapping("/deleteAvod")
 		public String deleteAvod(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -308,6 +310,7 @@ public class AdminController {
 		
 		return vodPath+"vod"; 
 	}
+*/
 	
 	//환전 수락
 	@RequestMapping("/okayExchange")
@@ -382,6 +385,38 @@ public class AdminController {
 	public String Statistics() {
 		return "admin/statistics/statisticsday";
 	}
+	//VOD 다중삭제 메소드-관리자
+	@RequestMapping("deleteAvod.ad")
+		public String deleteAvod(Model model, HttpServletRequest request, HttpServletResponse response) {
+		String[] ar=request.getParameterValues("arr1[]");
+		System.out.println("String배열 크기 : "+ ar.length);
+		
+		int[] arr = new int[ar.length]; //정수배열 초기화-게시판 번호 목록임
+		
+		for(int i=0;i<ar.length;i++) {
+			//int형으로 변환 후 배열에 담기
+			arr[i] = Integer.parseInt(ar[i]);
+		}
+		
+		for(int i=0;i<ar.length;i++) {
+			System.out.println("arr["+i+"] : "+arr[i]);
+		}
+		
+		
+		int result;
+		result=as.deleteAvod(arr);
+		System.out.println("결과 확인 : "+result);
+		try {
+		if(result!=0) {
+			response.getWriter().print("성공");
+		}else {
+			response.getWriter().print("실패");
+		}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vodPath+"vod"; 
+	}
 	
 	//VOD 전체 VOD 출력 메소드
 	@RequestMapping("/adminVod")
@@ -411,6 +446,36 @@ public class AdminController {
 		}
 		
 		return "admin/vod/vod";
+	}
+	
+	@RequestMapping("adminDeleteVod")
+	public String adminDeleteVod(Model model, HttpServletRequest request, HttpServletResponse response) {
+int currentPage = 1;
+		
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			//리스트 카운트
+			int listCount = as.getadminDVod();//관리자가 삭제한 vod이력
+			System.out.println("listCount : " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			//vod - 리스트
+			List<VodLog> list;
+			list=as.totalAdminD(pi);
+			System.out.println("삭제 리스트 : "+list);
+			model.addAttribute("list", list);
+			
+			request.setAttribute("pi", pi);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "admin/vod/vod2";
 	}
 	
 	

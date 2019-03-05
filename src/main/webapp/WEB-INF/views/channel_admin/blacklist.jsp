@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -47,116 +45,91 @@
 <link rel="stylesheet"
 	href="/resources/channel/channel2/css/skins/all.css">
 <link rel="stylesheet" href="/resources/channel/channel2/css/demo.css">
+<style type="text/css">
+#subsccriberNum{
+	display: inline-block;
+}
+</style>
 </head>
 <body>
-
 	<jsp:include page="/WEB-INF/views/channel/channel_header.jsp" />
 
 	<!-- Start post-content Area -->
-	<section class="post-content-area single-post-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 posts-list" style="background-color: white;">
-					<div class="single-post row">
-						<div class="col-lg-12">
-							<div class="feature-img" align="center">
-								<c:choose>
-									<c:when test="${not empty bi.atMName}">
-										<img class="img-fluid"
-											src="${ contextPath }/resources/uploadFiles/banner/${bi.atMName}${ext1}"
-											style="padding-left: 0%; width: 700px; height: 300px;">
-									</c:when>
-									<c:otherwise>
-										<img class="img-fluid"
-											src="/resources/uploadFiles/banner/banner.png"
-											style="padding-left: 0%; width: 700px; height: 300px;">
-									</c:otherwise>
-								</c:choose>
-							</div>
-						</div>
-						<div class="col-lg-12">
-							<div class="info"
-								style="padding-top: 20px; padding-bottom: 20px;">
-								<!-- VOD 게시판 번호 전송 -->
-								<button onclick="location.href='vod_List.ch?CuNo=${m.uno }'"
-									class="genric-btn info circle arrow">
-									VOD<span class="lnr lnr-arrow-right"></span>
-								</button>
-							</div>
-						</div>
-
-
-						<!-- 편집부분 -->
-						<div class="col-lg-9 col-md-9">
-
-							<div class="row">
-								<c:forEach var="row" items="${vlist}">
-									<article class="col-md-12 article-list">
-										<div class="inner">
-											<figure>
-												<video class="img-fluid"
-													src="${ contextPath }/resources/uploadFiles/${row.atMName}.mp4"
-													type="video/mp4"  style="padding-left: 0%;"></video>
-											</figure>
-											<div class="details"
-												style="width: 410px; border-bottom: 1px solid #eee;">
-												<div class="detail">
-													<div class="category">
-														<a>VOD</a>
-													</div>
-													<div class="time">${row.bwDate }
-														<input type="hidden" name="bNo" value="${row.bNo }">
-													</div>
-												</div>
-												<h1>
-													<a
-														href="${contextPath}/vod_oneList.ch?bNo=${row.bNo}&&CuNo=${m.uno }">${row.bTitle }</a>
-												</h1>
-												<p>${row.bContent }</p>
-												<footer>
-													<a class="love active"><i class="ion-android-favorite"></i>
-														<div>${row.bCount }</div></a> <a class="btn btn-primary more"
-														href="${contextPath}/vod_oneList.ch?bNo=${row.bNo}&&CuNo=${m.uno }">
-														<div>More</div>
-														<div>
-															<i class="ion-ios-arrow-thin-right"></i>
-														</div>
-													</a>
-												</footer>
-											</div>
-										</div>
-									</article>
-
+	<section class="post-content-area single-post-area" style="
+    background-color: white;
+">
+	
+					
+					
+					<div class="row" id="listbReply">
+						<table class="table table-bordered" style="text-align: center">
+							<thead>
+								<tr>
+									<th style="text-align: center">아이디</th>
+									<th style="text-align: center">닉네임</th>
+									<th style="text-align: center">날짜</th>
+									<th style="text-align: center">상태</th>
+								</tr>
+							</thead>
+							<c:forEach var="row" items="${list}">
+							<tbody>
+								<tr>
+									<td>${row.userId}</td>
+									<td>${row.nickName }</td>
+									<td>${row.rDate}</td>
+									<td><a class="btn btn-danger btn-sm"
+									href="${contextPath }/deleteBlack.ch?rchNo=${row.rchNo}&&rtargetuNo=${row.rtargetuNo}">삭제</a></td>
+								</tr>
+								</tbody>
 								</c:forEach>
-						
-							</div>
-
-							
-							<div class="col-lg-9 col-md-9" style="padding-left: 0px;">
-								<div class="row">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- 오른쪽 사이드바 이동 -->
-
-				<jsp:include page="/WEB-INF/views/channel/channel_sidebar.jsp"/>
+						</table>
+								<div>
+				<c:if test="${pagination.curRange != 1 }">
+					<a href="javascript:listbReply('1')">[처음]</a>
+				</c:if>
+				<c:if test="${pagination.curPage != 1}">
+					<a href="javascript:listbReply('${ pagination.prevPage}')">[이전]</a>
+				</c:if>
+				<c:forEach var="num" begin="${pagination.startPage }"
+					end="${pagination.endPage }">
+					<c:choose>
+						<c:when test="${num ==  pagination.curPage}">
+							<span style="font-weight: bold;">${num}</span>
+						</c:when>
+						<c:otherwise>
+							<a href="javascript:listbReply('${num }')">${num }</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if
+					test="${pagination.curPage <= pagination.pageCnt && pagination.pageCnt > 0}">
+					<a href="javascript:listbReply('${pagination.nextPage }')">[다음]</a>
+				</c:if>
+				<c:if
+					test="${pagination.curRange <= pagination.rangeCnt && pagination.rangeCnt > 0}">
+					<a href="javascript:listbReply('${pagination.pageCnt }')">[끝]</a>
+				</c:if>
 			</div>
-		</div>
+					</div>
+					
+					
 	</section>
 
-	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+	
 	<!-- End post-content Area -->
 
-	<script>
-		function matchId() {
-			$("#manage").hide();
-		}
-		
-		console.log(${title});
-	</script>
+
+<script type="text/javascript">
+var msg = '<c:out value="${msg}"/>';
+console.log(msg);
+
+$(function() {
+	if (msg) {
+		alert(msg);
+	}
+});
+</script>
+
 
 	<script src="/resources/channel/js/vendor/jquery-2.2.4.min.js"></script>
 	<script

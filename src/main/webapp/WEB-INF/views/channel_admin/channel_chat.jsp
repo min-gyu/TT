@@ -81,7 +81,7 @@
 
 
 
-			<div id="listReply"></div>
+			<div id="listchatReply"></div>
 
 
 				</div>
@@ -113,13 +113,13 @@
 						success : function(result) {
 							$("#banLan").val("");
 							$("#reLan").val("");
-							listReply("1");
+							listchatReply("1");
 
 						}
 					});
 				});
-		listReply("1");
-		function listReply(num) {
+		listchatReply("1");
+		function listchatReply(num) {
 			var CuNo=$("#CuNo").val();
 			console.log(num);
 			$.ajax({
@@ -127,7 +127,7 @@
 				url : "${contextPath}/listBanC.ch",
 				data : "CuNo="+CuNo+"&curPage="+num,
 				success : function(result) {
-					$("#listReply").html(result);
+					$("#listchatReply").html(result);
 				}
 			});
 		}

@@ -10,8 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tt.admin.model.exception.AdminException;
-import com.kh.tt.admin.model.vo.AdClover;
+
 import com.kh.tt.admin.model.vo.Category;
+import com.kh.tt.admin.model.vo.VodLog;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.CQAndAttach;
@@ -333,17 +334,22 @@ public class AdminDaoImpl implements AdminDao {
 	public int deleteAvod(int[] arr, SqlSessionTemplate sqlSession) {
 		
 		int sum=0;
+		int sum2=0;
 		int result=0;
 		int[] resultArr = new int[arr.length];
+		int[] resultArr2=new int[arr.length];
 		for(int i=0;i<arr.length;i++) {
 			
 			int bNo = arr[i];
-			System.out.println(bNo);
-			resultArr[i] = sqlSession.update("Board.updateAdminV",bNo);
+			resultArr[i] = sqlSession.update("Board.updateAdminV",bNo);//vod 삭제
+			List<Board> list=sqlSession.selectList("Board.selectAVod", bNo);
+			System.out.println("list : "+list);
+			resultArr2[i]=sqlSession.insert("VodLog.insertAdminV",bNo);
 			sum+=resultArr[i];			
+			sum2+=resultArr2[i];
 		}
 		
-		if(sum/resultArr.length==1) {
+		if(sum/resultArr.length==1&&sum2/resultArr2.length==1) {
 			result = 1;
 		}else {
 			result = 0;
@@ -352,6 +358,8 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return result;
 	}
+	
+	
 
 	@Override
 	public int getAVod(SqlSessionTemplate sqlSession) {
@@ -371,6 +379,21 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
+
+	public int getadminDVod(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("VodLog.getadminC");
+	}
+
+	@Override
+	public List<VodLog> totalAdminD(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<VodLog> list = sqlSession.selectList("VodLog.totalAdminD", null , rowBounds);
+
+		System.out.println(list);
+		return list;
+
 	public int getClaimCount() throws AdminException {
 		int result = sqlSession.selectOne("CQandAttach.selectClaimCount");
 		
@@ -393,6 +416,7 @@ public class AdminDaoImpl implements AdminDao {
 		}
 		
 		return cList;
+
 	}
 	
 	// 신고 상세보기

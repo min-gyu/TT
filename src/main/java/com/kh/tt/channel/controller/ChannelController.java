@@ -22,12 +22,14 @@ import com.kh.tt.common.CommonUtils;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.service.MemberService;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.vo.PtClover;
 import com.kh.tt.broadcast.model.vo.BanWord;
 import com.kh.tt.channel.model.service.ChannelService;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.channel.model.vo.BoardClaim;
 import com.kh.tt.channel.model.vo.Relation;
+import com.kh.tt.channel.model.vo.cPtClover;
 import com.kh.tt.channel.model.vo.pagination;
 
 @Controller
@@ -49,35 +51,41 @@ public class ChannelController {
 		m = cs.selectmInfo(uNo);// 채널 주인 정보 출력
 		System.out.println(m);
 		
+		List<cPtClover>listc;
+		listc=cs.selectcInfo(m.getUno());
+		
+		if(listc!=null) {
+			System.out.println(listc);
+		mav.addObject("listc", listc);
+		}
+		
+		
 		int listCount = cs.getLisCount(m.getChNo());//VOD리스트 카운트
 		
 		List<Board> list=cs.getMainVList(m.getChNo());
 		mav.addObject("vlist", list);
 		
-
-
 		mav.setViewName("channel/channel");
 		bi = cs.selectbInfo(m.getChNo());// 베너 사진 정보 출력
 		pi = cs.selectpInfo(m.getChNo()); // 프로필 사진 정보 출력
 		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
 		if (bi != null) {
 			String ext1 = bi.getAtName().substring(bi.getAtName().lastIndexOf("."));
-			mav.addObject("m", m);
 			mav.addObject("bi", bi);
 			mav.addObject("ext1", ext1);
 		}
 		if (pi != null) {
 			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
-			mav.addObject("m", m);
+			
 			mav.addObject("pi", pi);
 			mav.addObject("ext2", ext2);
 		}
 		if (ti != null) {
 			mav.addObject("title", ti.getChName());
-			mav.addObject("m", m);
-		}
 		
-	
+		}
+		mav.addObject("m", m);
+
 		return mav;
 	}
 
@@ -99,6 +107,13 @@ public class ChannelController {
 
 		System.out.println("vod_list : " + pagination);
 		System.out.println("vod_list : " + curPage);
+		
+		List<cPtClover>listc;
+		listc=cs.selectcInfo(m.getUno());
+		
+		if(listc!=null) {
+		mav.addObject("listc", listc);
+		}
 
 		List<Board> list;
 
@@ -143,6 +158,13 @@ public class ChannelController {
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		pi = cs.selectpInfo(m.getChNo()); // 프로필 사진 정보 출력
 		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
+		
+		List<cPtClover>listc;
+		listc=cs.selectcInfo(m.getUno());
+		
+		if(listc!=null) {
+		mav.addObject("listc", listc);
+		}
 
 		if (pi != null) {
 			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
@@ -216,9 +238,10 @@ public class ChannelController {
 			list = cs.listDet(bNo, pagination.getStartIndex() + 1,
 					(pagination.getPageSize() + pagination.getStartIndex()));
 		}
-
+		
+		
 		System.out.println("list출력전 : " + list);
-		mav.setViewName("channel/chatelist");
+		mav.setViewName("channel/replyPage");
 		mav.addObject("list", list);
 		mav.addObject("count", count);
 		mav.addObject("pagination", pagination);
@@ -255,14 +278,13 @@ public class ChannelController {
 	public String deleteDet(Member m, @RequestParam(value = "CuNo") int CuNo, @RequestParam(value = "bNo") int bNo,
 			@RequestParam(value = "buId") String buId) {
 		System.out.println("삭제 : " + buId);
-		System.out.println("삭제 : " + CuNo);
 		System.out.println("삭제 : " + bNo);
 
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		int ChNo = m.getChNo();// 채널 주인 채널 번호
 
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("ChNo", CuNo);
+		map.put("ChNo", ChNo);
 		map.put("bNo", bNo);
 		cs.deleteDet(map);
 		System.out.println(cs.deleteDet(map));
@@ -368,7 +390,7 @@ public class ChannelController {
 
 	// 배너프로필 설정 페이지로 이동하는 메서드(관리자 메인)
 	@RequestMapping("/goBannerProfile.ch")
-	public ModelAndView goBannerProfile(int CuNo, Member m, Member ti, Attachment pi) {
+	public ModelAndView goBannerProfile(PtClover pc,int CuNo, Member m, Member ti, Attachment pi) {
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		System.out.println("채널 주인 정보 : " + m);
 		ModelAndView mav = new ModelAndView();
@@ -376,6 +398,7 @@ public class ChannelController {
 
 		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
 		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
+		
 		if (ti != null) {
 			mav.addObject("title", ti.getChName());
 		}
@@ -387,6 +410,7 @@ public class ChannelController {
 			mav.addObject("pi", pi);
 			return mav;
 		}
+		
 
 		mav.addObject("m", m);
 		return mav;
@@ -558,7 +582,99 @@ public class ChannelController {
 		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
 		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
 		
+		if (pi != null) {
+			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
+			mav.addObject("ext2", ext2);
+			mav.addObject("pi", pi);
+		}
+
+		if (ti != null) {
+			mav.addObject("title", ti.getChName());
+		}
+		mav.addObject("m", m);
+		mav.addObject("CuNo", m.getUno());
 		return mav;
+	}
+	
+	@RequestMapping("insertBlack.ch")
+	public ModelAndView insertBlack(Member m,@RequestParam(value = "blackId") String blackId,@RequestParam(value = "CuNo") int CuNo,Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("channel_admin/blacklist");
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		System.out.println(blackId);
+		System.out.println(CuNo);
+		
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("blackId", blackId);
+		map.put("CuNo", CuNo);
+		int result=cs.insertBlack(map);
+		System.out.println("블랙추가 결과 : "+result);
+		
+		
+		try {
+			if(result!=0) {
+				mav.addObject("msg", "성공");
+			}else {
+				mav.addObject("msg", "실패");
+			}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		mav.addObject("m",  m);
+		mav.addObject("CuNo", m.getUno());
+		return  mav;
+	}
+	
+	@RequestMapping("listBlack.ch")
+	public ModelAndView listBlack(Member m,@RequestParam int CuNo, @RequestParam(defaultValue = "1") int curPage,
+			HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
+		int ChNo = m.getChNo();// 채널 주인 채널 번호
+		System.out.println(CuNo);
+		System.out.println(curPage);
+		mav.setViewName("channel_admin/blacklist");
+		
+		int count=cs.listBlackCount(ChNo);
+		System.out.println("블랙 개수 : "+count);
+		
+		pagination pagination = new pagination(count, curPage);
+		
+		List<Relation> list;
+		
+		if (curPage == 1) {
+			list = cs.listBlack(ChNo, pagination.getStartIndex() + 1,
+					pagination.getPageSize() + pagination.getStartIndex());
+		} else {
+			list = cs.listBlack(ChNo, pagination.getStartIndex() + 1,
+					(pagination.getPageSize() + pagination.getStartIndex()));
+		}
+		System.out.println("블랙 list"+list);
+		mav.addObject("list", list);
+		mav.addObject("count", count);
+		mav.addObject("pagination", pagination);
+		mav.addObject("m", m);
+		
+		return mav;
+	}
+	
+	@RequestMapping("deleteBlack.ch")
+	public String deleteBlack(Member m,@RequestParam(value="rchNo") int rchNo,
+			@RequestParam(value="rtargetuNo") int rtargetuNo)
+	{
+		System.out.println("삭제 블랙  : "+rchNo);//채널 정보
+		System.out.println("삭제 블랙  : "+rtargetuNo);//블랙된 회원 번호
+		
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("rchNo", rchNo);
+		map.put("rtargetuNo", rtargetuNo);
+		int result=cs.updateBlack(map);
+		System.out.println("삭제 결과 : "+result);
+		
+		
+		return "redirect:manage_black.ch" + "?CuNo=" +rchNo ;
+	
 	}
 
 	// 관리자-채팅필터 관리 메소드

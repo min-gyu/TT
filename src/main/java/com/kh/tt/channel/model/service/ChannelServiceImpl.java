@@ -15,7 +15,9 @@ import com.kh.tt.channel.model.dao.ChannelDao;
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.channel.model.vo.Relation;
+import com.kh.tt.channel.model.vo.cPtClover;
 import com.kh.tt.member.model.vo.Member;
+import com.kh.tt.myPage.model.vo.PtClover;
 
 @Service
 public class ChannelServiceImpl implements ChannelService {
@@ -272,6 +274,35 @@ public class ChannelServiceImpl implements ChannelService {
 		@Override
 		public int deleteBanW(HashMap<String, Integer> map) {
 			return cd.deleteBanW(map,sqlSession);
+		}
+
+		@Override
+		public int insertBlack(HashMap<String, Object> map) {
+			return cd.insertBlack(map,sqlSession);
+		}
+
+		@Override
+		public int listBlackCount(int chNo) {
+			return cd.listBlackCount(chNo,sqlSession);
+		}
+
+		@Override
+		public List<Relation> listBlack(int chNo, int i, int j) {
+			HashMap<Object, Integer> map = new HashMap<Object, Integer>(); // MAP을 이용해 담기
+			map.put("chNo", chNo);
+			map.put("current", i);
+			map.put("limit", j);
+			return cd.listBlack(map,sqlSession);
+		}
+
+		@Override
+		public List<cPtClover> selectcInfo(int uno) {
+			return cd.selectcInfo(uno,sqlSession);
+		}
+
+		@Override
+		public int updateBlack(HashMap<String, Object> map) {
+			return cd.updateBlack(map,sqlSession);
 		}
 
 		

@@ -56,29 +56,25 @@
 				<button class="btn btn-success" id="searchBtn">Search</button> -->
 			</div>
 			<div class="ui tabular menu">
-					  <a href="adminVod.ad" class="active item" >VOD 전체 목록</a>
-					  <a href="adminDeleteVod.ad" class="item" >VOD 삭제 내역</a>
+					  <a href="adminVod.ad" class=" item" >VOD 전체 목록</a>
+					  <a href="adminDeleteVod.ad" class="active item" >VOD 삭제 내역</a>
 			</div>
-			<div align="right">
-				<button style="margin-bottom: 5px;" id="deletebtn">삭제</button>
-			</div>
+			
 			
 			<div class="center-block">
 				<table class="table" id= "listArea"  >
 					<tr id="listHeader">
-						<th style="text-align: center;">No</th>
 						<th style="text-align: center;">작성자 아이디</th>
 						<th style="text-align: center;">제목</th>
-						<th style="text-align: center;">VOD등록 날짜</th>
-						<th style="text-align: center;">상세보기</th>
+						<th style="text-align: center;">VOD관리자 삭제 날짜</th>
+						
 					</tr>
 					<c:forEach var="list" items="${list}">
 					<tr>
-						<td><input type="checkbox" id="check"  value="${list.bNo }"></td>
 						<td>${list.userId}</td>
 						<td>${list.bTitle}</td>
-						<td>${list.bwDate }</td>
-						<td><button id="morebtn" onclick="moreVod(${list.buNo},${list.bNo });" >더보기</button></td>
+						<td>${list.vlDate }</td>
+						
 					<tr>
 					</c:forEach>
 				</table>
