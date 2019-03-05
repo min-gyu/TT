@@ -379,7 +379,6 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-
 	public int getadminDVod(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("VodLog.getadminC");
 	}
@@ -393,7 +392,9 @@ public class AdminDaoImpl implements AdminDao {
 
 		System.out.println(list);
 		return list;
-
+	}
+	
+	@Override
 	public int getClaimCount() throws AdminException {
 		int result = sqlSession.selectOne("CQandAttach.selectClaimCount");
 		

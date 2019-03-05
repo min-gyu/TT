@@ -183,6 +183,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<VodLog> totalAdminD(PageInfo pi) {
 		return md.totalAdminD(sqlSession,pi);
+	}
 
 	// 신고 수 카운트
 	@Override

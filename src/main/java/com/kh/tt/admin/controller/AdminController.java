@@ -274,43 +274,6 @@ public class AdminController {
 		return cloverPath + "exchangeClover";
 	}
 
-	/*
-	//VOD 다중삭제 메소드-관리자
-	@RequestMapping("/deleteAvod")
-		public String deleteAvod(Model model, HttpServletRequest request, HttpServletResponse response) {
-		String[] ar=request.getParameterValues("arr1[]");
-		System.out.println("String배열 크기 : "+ ar.length);
-		
-		int[] arr = new int[ar.length]; //정수배열 초기화-게시판 번호 목록임
-		
-		for(int i=0;i<ar.length;i++) {
-			//int형으로 변환 후 배열에 담기
-			arr[i] = Integer.parseInt(ar[i]);
-		}
-		
-		for(int i=0;i<ar.length;i++) {
-			System.out.println("arr["+i+"] : "+arr[i]);
-		}
-		
-		int result;
-		
-		result=as.deleteAvod(arr);
-		
-		System.out.println("결과 확인 : "+result);
-		
-		try {
-		if(result!=0) {
-			response.getWriter().print("성공");
-		}else {
-			response.getWriter().print("실패");
-		}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return vodPath+"vod"; 
-	}
-*/
 	
 	//환전 수락
 	@RequestMapping("/okayExchange")
@@ -385,6 +348,7 @@ public class AdminController {
 	public String Statistics() {
 		return "admin/statistics/statisticsday";
 	}
+	
 	//VOD 다중삭제 메소드-관리자
 	@RequestMapping("deleteAvod.ad")
 		public String deleteAvod(Model model, HttpServletRequest request, HttpServletResponse response) {

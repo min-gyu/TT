@@ -5,23 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="PtClover">
-	<resultMap type="com.kh.tt.myPage.model.vo.PtClover"
-		id="ptcloverResultSet">
-
-    <!-- property 필드명, column 컬럼명과 일치해야 한다 -->
-<!--
-   
-		<id property="pcNo" column="PC_NO" />
-		<result property="rnum" column="ROWNUM" />
-		<result property="pcUno" column="PC_UNO" />
-		<result property="pcTargetUno" column="PC_TARGET_UNO" />
-		<result property="pcCnt" column="PC_CNT" />
-		<result property="pcDate" column="PC_DATE" />
-
-
-		<result property="mUno" column="M_UNO" />
-		<result property="mNickName" column="M_NICKNAME" />
-------------------------
+	<resultMap type="com.kh.tt.myPage.model.vo.PtClover" id="ptcloverResultSet">
 		<id property="pcNo" 			column="PC_NO"/>
 		<result property="rnum" 		column="ROWNUM"/>
 		<result property="pcUno" 		column="PC_UNO"/>
@@ -31,8 +15,6 @@
 		
 		<result property="mUno" 		column="M_UNO"/>
 		<result property="mNickName" 	column="M_NICKNAME"/>
-
- -->
 	</resultMap>
 
 
@@ -66,8 +48,6 @@
 	</select>
 
 	<!-- java.lang.String -->
-  <!--
- <<<<<<< eunchae_0305_5
 	<!-- 선물한 클로버 검색 내역 - 리스트 -->
 	<select id="searchAllGiveCloverList" parameterType="_int"
 		resultMap="ptcloverResultSet">
@@ -79,23 +59,6 @@
 		)
 	</select>
 
-
-
-
-
-
-	<!-- 선물한 클로버 검색 내역 - 리스트  -->
-	<select id="searchAllGiveCloverList"  parameterType="_int" resultMap="ptcloverResultSet" >
-  		SELECT ROWNUM,M_NICKNAME,PC_CNT,PC_DATE
-		 FROM(	SELECT M.M_NICKNAME,P.PC_CNT,P.PC_DATE
-				FROM PTCLOVER P JOIN MEMBER M ON (P.PC_TARGET_UNO=M.M_UNO)
-				WHERE P.PC_UNO=#{ptUno} AND P.PCDATE=TO_DATE(#{date1})
-		        ORDER BY P.PC_DATE DESC
-		        )
-	</select> 
-	
-
-  -->
 	<!-- **선물받은 클로버*** -->
 	<!-- 선물받은 클로버 내역 - 카운트 -->
 	<select id="getAllTakePresent" parameterType="_int"
@@ -106,8 +69,6 @@
 	</select>
 
 	<!-- 선물받은 클로버 내역 -리스트 -->
-  <!--
- <<<<<<< eunchae_0305_5
 	<select id="selectTakePresentList" parameterType="_int"
 		resultMap="ptcloverResultSet">
 		SELECT ROWNUM,M_NICKNAME,PC_CNT,PC_DATE
@@ -118,22 +79,6 @@
 		)
 	</select>
 
-
-
-
-
- =======
-	<select id="selectTakePresentList"  parameterType="_int" resultMap="ptcloverResultSet" >
-  		 SELECT ROWNUM,M_NICKNAME,PC_CNT,PC_DATE
-		 FROM(	SELECT M.M_NICKNAME,P.PC_CNT,P.PC_DATE
-				FROM PTCLOVER P JOIN MEMBER M ON (P.PC_UNO=M.M_UNO)
-				WHERE P.PC_TARGET_UNO=#{ptUno} 
-		        ORDER BY P.PC_DATE DESC
-		        )
-	</select> 
- 	
- >>>>>>> master
--->
 </mapper>  
   
   
