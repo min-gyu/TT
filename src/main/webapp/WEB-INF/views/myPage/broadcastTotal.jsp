@@ -24,6 +24,11 @@
 		      <button class="button button-blue" id="short">Short</button>
 		    </div> -->
 		    <script>
+		 
+		    	var total = '${ bcTotalList[0]}';
+		    	console.log(total);
+		    	
+		    
 		      google.charts.load('current', {'packages':['bar']});
 		      google.charts.setOnLoadCallback(drawChart);
 		     
@@ -31,14 +36,14 @@
 		      function drawChart() {
 		        var data = google.visualization.arrayToDataTable([
 		          ['', '평균방송시간', '최고시청자수', '평균 시청자수'],
-		          ['Today', 1200 , 400, 200],
+		          ['Today',2000, 400, 200],
 		          ['Total', 1000, 400, 200]
 		        ]);
 
 		        var options = {
 		          chart: {
 		            title: '방송통계',
-		            subtitle: '평균방송시간, 최고시청자수, 평균 시청자수',
+		            subtitle: '평균방송시간(분), 최고시청자수, 평균 시청자수',
 		          },
 		          bars: 'vertical',
 		          vAxis: {format: 'decimal'},
@@ -88,6 +93,7 @@
 							      <td>${bcTotalList.btStartDate }</td>
 							      <td>${bcTotalList.btEndDate } </td>
 							      <td>${bcTotalList.btTotalCount } </td>
+							       <%-- ${bcTotalList.btTotalCount } --%>
 							    </tr> 
 							 </c:forEach>
 						  </tbody>
