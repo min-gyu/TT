@@ -393,6 +393,7 @@ public class AdminDaoImpl implements AdminDao {
 
 		System.out.println(list);
 		return list;
+	}
 
 	public int getClaimCount() throws AdminException {
 		int result = sqlSession.selectOne("CQandAttach.selectClaimCount");

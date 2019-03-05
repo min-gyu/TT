@@ -66,7 +66,6 @@ public class AdminController {
 		
 		try {
 			int listCount = as.getAllCount();
-			
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
 			List<Member> mList = as.selectMemberList(pi);
