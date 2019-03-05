@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MyBroadCast">
+	<resultMap type="com.kh.tt.myPage.model.vo.MyBroadCast" id="broadCastResultSet">
+		<id property="btNo" column="BT_NO"/>
+		<result property="rnum" column="ROWNUM"/>
+		<result property="btChNo" column="BT_CH_NO"/>
+		<result property="btCtno" column="BT_CT_NO"/>
+		<result property="btUrl" column="BT_URL"/>
+		<result property="btTitle" column="BT_TITLE"/>
+		<result property="btCount" column="BT_COUNT"/>
+		<result property="btTotalCount" column="BT_TOTAL_COUNT"/>
+		<result property="btStartDate" column="BT_START_TIME"/>
+		<result property="btEndDate" column="BT_END_TIME"/>
+	</resultMap>
+	
+	
+	<!-- 방송내역 조회 - 카운트 -->
+	<select id="btTotalCount" parameterType="_int"  resultType="int">
+		SELECT COUNT(*)
+		FROM BROADCAST
+		WHERE BT_CH_NO=#{value}
+	</select> 
+	
+	<!--방송 내역 조회 - 리스트 -->
+	<select id="selectbtTotal" parameterType="_int"  resultMap="broadCastResultSet" >
+	SELECT ROWNUM, BT_NO, BT_CH_NO,BT_CT_NO,BT_URL,BT_TITLE,BT_COUNT,BT_TOTAL_COUNT,BT_START_TIME,BT_END_TIME
+	FROM   ( SELECT BT_NO, BT_CH_NO,BT_CT_NO,BT_URL,BT_TITLE,BT_COUNT,BT_TOTAL_COUNT,BT_START_TIME,BT_END_TIME
+	        FROM BROADCAST
+	        WHERE BT_CH_NO = #{value}
+	        ORDER BY BT_END_TIME DESC
+	        )
+	</select> 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CorrectClaim">
+	<resultMap type="com.kh.tt.admin.model.vo.CorrectClaim" id="CorrectClaimVO">
+		<id property="cqNo" 			column="CQ_NO"/>
+		<result property="cqUno" 		column="CQ_UNO"/>
+		<result property="cqTargetId" 	column="CQ_TARGET_ID"/>
+		<result property="mUno" 		column="M_UNO"/>
+		<result property="mWarningNo" 	column="M_WARNING_NO"/>
+		<result property="mTotalClover" column="M_TOTAL_CLOVER"/>
+	</resultMap>
+	
+	<update id="targetBanCount" parameterType="int">
+		UPDATE MEMBER 
+		SET M_WARNING_NO = M_WARNING_NO + 1 
+		WHERE M_UNO = (SELECT CQ_TARGET_ID 
+					   FROM CQBOARD
+					   WHERE CQ_NO = #{value})
+	</update>
+	
+	<insert id="claimReward" parameterType="int">
+		INSERT INTO 
+		PTCLOVER VALUES 
+			(SEQ_PC_NO.NEXTVAL
+			, 1
+			, (SELECT CQ_UNO 
+			   FROM CQBOARD
+			   WHERE CQ_NO = #{value})
+			, 10
+			, SYSDATE)
+	</insert>
+	
+	<update id="updateTotalClover" parameterType="int">
+		UPDATE MEMBER 
+		SET M_TOTAL_CLOVER = M_TOTAL_CLOVER + 10 
+		WHERE M_UNO = (SELECT CQ_UNO 
+					   FROM CQBOARD
+					   WHERE CQ_NO = #{value})
+	</update>
+	
+</mapper>
+

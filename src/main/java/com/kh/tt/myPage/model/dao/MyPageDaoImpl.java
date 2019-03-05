@@ -13,6 +13,7 @@ import com.kh.tt.admin.model.exception.AdminException;
 import com.kh.tt.common.PageInfo;
 import com.kh.tt.member.model.vo.Member;
 import com.kh.tt.myPage.model.exception.MyPageException;
+import com.kh.tt.myPage.model.vo.MyBroadCast;
 import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Clover;
 import com.kh.tt.myPage.model.vo.Exchange;
@@ -454,5 +455,54 @@ public class MyPageDaoImpl implements MyPageDao{
 		}
 		
 		return result;
+	}
+
+
+	//게시글에 첨부된 파일 이름 가져오기
+	@Override
+	public String selectImgName(SqlSessionTemplate sqlSession, int cqNo) throws MyPageException {
+		
+		System.out.println("DaoImpl에서받은 cqNo : "+cqNo);
+
+		String imgName = sqlSession.selectOne("CQandAttach.selectImgName", cqNo);
+		
+		System.out.println("DaoImpl에서받은 imgName : "+imgName);
+		
+		if(imgName==null) {
+			throw new MyPageException("첨부파일 조회 실패!");
+		}
+		return imgName;
+	}
+
+	//방송통계 - 카운트
+	@Override
+	public int btTotalCount(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException {
+		
+		
+		int result = sqlSession.selectOne("MyBroadCast.btTotalCount", cqUno);
+		System.out.println("result값 : "+result);
+		
+		if (result < 0) {
+			result=0;
+		}
+		//혹은 result=0으로 세팅해주는것이 맞나?
+		
+		return result;
+	}
+
+	//방송통계 - 리스트
+	@Override
+	public List<MyBroadCast> selectbtTotal(SqlSessionTemplate sqlSession, PageInfo pi, int cqUno) throws MyPageException {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<MyBroadCast> bcTotalList = sqlSession.selectList("MyBroadCast.selectbtTotal", cqUno, rowBounds);
+
+		if(bcTotalList == null) {
+			throw new MyPageException("선물한 클로버 페이징 처리 실패!");
+		}
+		
+		return bcTotalList;
 	}
 }

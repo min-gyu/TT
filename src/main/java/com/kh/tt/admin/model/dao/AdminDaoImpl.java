@@ -1,6 +1,7 @@
 package com.kh.tt.admin.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -14,8 +15,10 @@ import com.kh.tt.admin.model.vo.Category;
 import com.kh.tt.admin.model.vo.VodLog;
 import com.kh.tt.channel.model.vo.Board;
 import com.kh.tt.common.PageInfo;
+import com.kh.tt.member.model.vo.CQAndAttach;
 import com.kh.tt.member.model.vo.Member;
-
+import com.kh.tt.myPage.model.exception.MyPageException;
+import com.kh.tt.myPage.model.vo.CQBoard;
 import com.kh.tt.myPage.model.vo.Exchange;
 import com.kh.tt.myPage.model.vo.Payment;
 
@@ -376,6 +379,7 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
+
 	public int getadminDVod(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("VodLog.getadminC");
 	}
@@ -389,7 +393,96 @@ public class AdminDaoImpl implements AdminDao {
 
 		System.out.println(list);
 		return list;
+
+	public int getClaimCount() throws AdminException {
+		int result = sqlSession.selectOne("CQandAttach.selectClaimCount");
+		
+		if (result <= 0) {
+			throw new AdminException("신고 수 조회 실패");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<CQAndAttach> selectClaimList(PageInfo pi) throws AdminException {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<CQAndAttach> cList = sqlSession.selectList("CQandAttach.claimList", null, rowBounds);
+
+		if(cList == null) {
+			throw new AdminException("신고 조회 실패");
+		}
+		
+		return cList;
+
 	}
 	
+	// 신고 상세보기
+	@Override
+	public CQAndAttach claimOne(int no) {
+		return sqlSession.selectOne("CQandAttach.claimOne", no);
+	}
+
+	// 타겟 회원 경고 증가
+	@Override
+	public int targetBanCount(int cno) {
+		return sqlSession.update("CorrectClaim.targetBanCount", cno);
+	}
+	
+	// 신고자 보상
+	@Override
+	public int claimReward(int cno) {
+		return sqlSession.insert("CorrectClaim.claimReward", cno);
+	}
+	
+	// 보유 클로버 증가
+	@Override
+	public int updateTotalClover(int cno) {
+		return sqlSession.update("CorrectClaim.updateTotalClover", cno);
+	}
+
+	// 문의 수 카운트
+	@Override
+	public int getQCount() throws AdminException {
+		int result = sqlSession.selectOne("CQandAttach.selectQCount");
+		
+		if (result <= 0) {
+			throw new AdminException("문의 수 조회 실패");
+		}
+		
+		return result;
+	}
+
+	// 페이징 문의 리스트
+	@Override
+	public List<CQAndAttach> selectQuestionList(PageInfo pi) throws AdminException {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<CQAndAttach> qList = sqlSession.selectList("CQandAttach.questionList", null, rowBounds);
+
+		if(qList == null) {
+			throw new AdminException("문의 조회 실패");
+		}
+		return qList;
+	}
+
+	// 문의 상세보기
+	@Override
+	public CQAndAttach questionOne(int no) {
+		return sqlSession.selectOne("CQandAttach.questionOne", no);
+	}
+
+	@Override
+	public Object questionReply(HashMap<String, Object> map) {
+		return sqlSession.insert("CQandAttach.questionReply", map);
+	}
+
+	@Override
+	public List<CQAndAttach> qReplyList(int qno) {
+		return sqlSession.selectList("CQandAttach.qReplyList", qno);
+	}
 
 }
