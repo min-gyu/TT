@@ -68,7 +68,6 @@
 							<h6>금칙어</h6>
 							<input type="text" id="banLan">
 							<input type="hidden" id="CuNo" value="${CuNo }">
-							
 						</div>
 					</div>
 					<div class="row">
@@ -108,9 +107,11 @@
 					$.ajax({
 						type : "post",
 						url : "${contextPath}/insertBanLan.ch",
-						data : "banLan=" + banLan + "&reLan=" + reLan
-								+ "&CuNo=" + CuNo,
-						success : function(result) {
+						/* data : "banLan=" + banLan + "&reLan=" + reLan
+								+ "&CuNo=" + CuNo, */
+						data:{banLan:banLan,reLan:reLan,CuNo:CuNo},
+						success : function(data) {
+							alert(data);
 							$("#banLan").val("");
 							$("#reLan").val("");
 							listchatReply("1");
