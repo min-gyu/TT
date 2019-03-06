@@ -249,5 +249,15 @@ public class AdminServiceImpl implements AdminService {
 		return md.qReplyList(qno);
 	}
 
+	@Override
+	public int insertbanMember(String[] ids, String select)  throws AdminException{
+		return md.insertbanMember(ids, select);
+	}
+
+	@Override
+	public int updateBanMember(String[] ids)  throws AdminException{
+		return md.updateBanMember(ids);
+	}
+
 
 }

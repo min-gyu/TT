@@ -2,6 +2,7 @@ package com.kh.tt.broadcast.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,6 +146,42 @@ public class BroadCastServiceImpl implements BroadCastService{
 	@Override
 	public ArrayList<BroadCast> selectBroadCast() {
 		return bcd.selectBroadCast(sqlSession);
+	}
+
+	@Override
+	public int broadEnd(int chNo) {
+		return bcd.braodEnd(sqlSession, chNo);
+	}
+
+	@Override
+	public int updateMember(String userId) {
+		return bcd.updateMember(sqlSession, userId);
+	}
+
+	@Override
+	public int updateNMember(String owner) {
+		return bcd.updateNMember(sqlSession, owner);
+	}
+
+	@Override
+	public int broadTitleUpdate(int chNo, String broadTitle) {
+		return bcd.broadTitleUpdate(sqlSession, chNo, broadTitle);
+	}
+
+	@Override
+	public List<String> searchCategory() {
+		return bcd.searchCategory(sqlSession);
+	}
+
+	@Override
+	public List<String> searchCategory1(String category) {
+		return bcd.searchCategory1(sqlSession, category);
+	}
+
+	@Override
+	public int broadCategoryUpdate(int chNo, String data) {
+		
+		return bcd.broadCategoryUpdate(sqlSession, chNo, data);
 	}
 
 

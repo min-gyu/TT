@@ -284,4 +284,47 @@
 		FROM FILTER
 		WHERE F_BAN=#{banLan}
 	</select>
+	
+	<update id="broadEnd" parameterType="int">
+		UPDATE BROADCAST
+		SET BT_END_TIME = SYSDATE
+		WHERE BT_CH_NO=#{chNo}
+		AND BT_END_TIME IS NULL
+	</update>
+	
+	<update id="updateMember" parameterType="String">
+		UPDATE MEMBER 
+		SET M_BT_YN = 'Y' 
+		WHERE M_ID = #{userId}
+	</update>
+	
+	<update id="updateNMember" parameterType="String">
+		UPDATE MEMBER 
+		SET M_BT_YN = 'N' 
+		WHERE M_ID = #{userId}
+	</update>
+	
+	<update id="broadTitleUpdate" parameterType="java.util.Map">
+		UPDATE BROADCAST 
+		SET BT_TITLE = #{broadTitle}
+		WHERE BT_CH_NO = #{chNo}
+		AND BT_END_TIME IS NULL
+	</update>
+	
+	<select id="searchCategory" resultType="String">
+    select CT_NAME 
+    from CATEGORY
+    WHERE CT_UPPER_NO IS NULL AND CT_NAME != 'VOD'
+  </select>
+  
+  <select id="searchCategory1" resultType="String" parameterType="String">
+    select CT_NAME 
+    from CATEGORY
+    WHERE CT_UPPER_NO = (SELECT CT_NO FROM CATEGORY WHERE CT_NAME = #{category} AND CT_UPPER_NO IS NULL)
+  </select>
+  
+  <update id="broadCategoryUpdate" parameterType="java.util.Map">
+		 UPDATE BROADCAST 
+		SET BT_CT_NO = (select CT_NO from category where  ct_name = #{data} AND CT_NO != 12 and CT_NO != 13 and CT_NO != 14 and CT_NO != 15 and CT_NO != 16) WHERE BT_CH_NO = #{chNo} AND BT_END_TIME IS NULL
+	</update>
 </mapper>

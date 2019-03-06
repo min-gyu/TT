@@ -127,6 +127,10 @@ public interface AdminDao {
 
 	List<CQAndAttach> qReplyList(int qno);
 
+	int insertbanMember(String[] ids, String select)  throws AdminException;
+
+	int updateBanMember(String[] ids)  throws AdminException;
+
 
 	
 	

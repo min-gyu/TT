@@ -595,4 +595,31 @@ int currentPage = 1;
 		return rList;
 	}
 	
+	
+	@RequestMapping("banPopOpen.ad")
+	public String banPopOpen(Model model, HttpServletRequest request, HttpServletResponse response) {
+		String id = request.getParameter("userId");
+		System.out.println(id);
+		System.out.println("ㅅㄹ행됨");
+		model.addAttribute("userId",id);
+		return memberPath + "banPop";
+	}
+	
+	@RequestMapping("banMember.ad")
+	public String banMember(Model model, HttpServletRequest request, HttpServletResponse response) throws AdminException {
+		String id = request.getParameter("userId");
+		System.out.println("컨트롤러 id :"+id);
+		String select = request.getParameter("select");
+		String[] ids = id.split(",");
+		int result = as.insertbanMember(ids, select);
+		
+		for(int i=0;i<ids.length;i++) {
+			System.out.println("ids["+i+"] : "+ids[i]);
+		}
+		
+		System.out.println("컨트롤러 ids : "+ids);
+		int result2 = as.updateBanMember(ids);
+		return memberPath + "banPop";
+	}
+	
 }

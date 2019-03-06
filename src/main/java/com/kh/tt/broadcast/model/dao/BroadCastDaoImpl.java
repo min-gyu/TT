@@ -2,6 +2,8 @@ package com.kh.tt.broadcast.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -139,6 +141,41 @@ public class BroadCastDaoImpl implements BroadCastDao{
 	@Override
 	public ArrayList<BroadCast> selectBroadCast(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("");
+	}
+	@Override
+	public int braodEnd(SqlSessionTemplate sqlSession, int chNo) {
+		return sqlSession.update("BanWord.broadEnd", chNo);
+	}
+	@Override
+	public int updateMember(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.update("BanWord.updateMember", userId);
+	}
+	@Override
+	public int updateNMember(SqlSessionTemplate sqlSession, String owner) {
+		return sqlSession.update("BanWord.updateNMember", owner);
+	}
+	@Override
+	public int broadTitleUpdate(SqlSessionTemplate sqlSession, int chNo, String broadTitle) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("chNo", chNo);
+		map.put("broadTitle", broadTitle);
+		
+		return sqlSession.update("BanWord.broadTitleUpdate", map);
+	}
+	@Override
+	public List<String> searchCategory(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("BanWord.searchCategory");
+	}
+	@Override
+	public List<String> searchCategory1(SqlSessionTemplate sqlSession, String category) {
+		return sqlSession.selectList("BanWord.searchCategory1", category);
+	}
+	@Override
+	public int broadCategoryUpdate(SqlSessionTemplate sqlSession, int chNo, String data) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("chNo", chNo);
+		map.put("data", data);
+		return sqlSession.update("BanWord.broadCategoryUpdate", map);
 	}
 
 	

@@ -65,49 +65,91 @@
 			<div class="ui grid">
 				<div class="six wide column">
 					<div class="ui input" id="inputBroadCastName">
-						<input type="text" placeholder="방송 제목을 입력하세요">
+						<input id="broadTitle" type="text" placeholder="방송 제목을 입력하세요">
 					</div>
 				</div>
 				<div class="two wide column">
-					<button class="ui secondary button">설정</button>
+					<button id="broadTitleBtn" class="ui secondary button">설정</button>
 				</div>
 			</div>
 		</div>
 		<div id="broadCastCategGrid">
-			<h3>방송 카테고리 설정</h3>
+			<h3>방송 카테고리 설정}</h3>
 			<div class="ui grid">
 				<div class="three wide column">
-					<div class="ui selection dropdown">
-						<input type="hidden" name="gender"> <i
-							class="dropdown icon"></i>
-						<div class="default text">Gender</div>
-						<div class="menu">
-							<div class="item" data-value="1">Male</div>
-							<div class="item" data-value="0">Female</div>
-						</div>
-					</div>
+					<select id="category1" class="ui selection dropdown" style="height: 50px;">
+					 <c:forEach items="${ result }" var="result"> 
+						<option value="${result}">${result}</option>
+						 </c:forEach>
+					</select>
 				</div>
 				<div class="one wide column" align="center">
 					<i class="angle double right icon" id="icon"></i>
 				</div>
 				<div class="three wide column">
-					<div class="ui selection dropdown">
-						<input type="hidden" name="gender"> <i
-							class="dropdown icon"></i>
-						<div class="default text">Gender</div>
-						<div class="menu">
-							<div class="item" data-value="1">Male</div>
-							<div class="item" data-value="0">Female</div>
-						</div>
-					</div>
+					<select id="category2" class="ui selection dropdown" style="height: 50px;">
+					
+					</select>
 				</div>
 				<div class="two wide column">
-					<button class="ui secondary button">설정</button>
+					<button id="btnbtn" class="ui secondary button">설정</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script type="text/javascript">
+	/* $('#btnbtn').click(function */
+		$('#category1').change(function(){
+		var i = $('#category1 option:selected').val();
+		var owner = "${param.owner}";
+		 $.ajax({
+	            type : "GET",
+	            url : "/searchCategory.bc",
+	           	data : {data:i},
+	            error : function(){
+	                alert('통신실패!!');
+	            },
+	            success : function(data){
+	            	$("#category2").empty().data('options');
+	            	$.each(data, function(i){
+	            	$("#category2").append("<option value='"+data[i]+"'>"+data[i]+"</option>")
+	            	});
+	            }
+	        });
+	});
+	
+	$('#btnbtn').click(function(){
+		console.log('실행');
+		var i = $('#category1 option:selected').val();
+		var k = $('#category2 option:selected').val();
+		var owner = "${param.owner}";
+		if(k==null){
+			 $.ajax({
+		            type : "GET",
+		            url : "/selectCategory.bc",
+		           	data : {data:i, owner:owner},
+		            error : function(){
+		                alert('통신실패!!');
+		            },
+		            success : function(data){
+		            	alert("카테고리가 설정 되었습니다.");
+		            	}
+		            });
+		}else{
+			$.ajax({
+	            type : "GET",
+	            url : "/selectCategory.bc",
+	           	data : {data:k, owner:owner},
+	            error : function(){
+	                alert('통신실패!!');
+	            },
+	            success : function(data){
+	            	alert("카테고리가 설정 되었습니다.");
+	            	}
+	            });
+		}
+	});
+	
 	$(function(){
 		if(${empty loginUser}){
 			swal({
@@ -132,9 +174,47 @@
 						window.self.close(); //팝업 창을 닫는다
 					});	
 			}
-			
 		}
-	})
+	});
+	
+	//방송제목 설정
+	$('#broadTitleBtn').click(function(){
+		console.log("실행");
+		var i = $('#broadTitle').val();
+		var owner = "${param.owner}";
+		if(i==''){
+			alert('제목을 입력해주세요');
+		}else{
+			/* location.href="/broadTitleUpdate.bc?owner="+owner+"&broadTitle=" + i; */
+		
+			 /* $.ajax({
+				url : "/broadTitleUpdate.bc",
+				type : "get",
+				data : {owner:"${param.owner}",
+						broadTitle:i},
+				success : function(data) {
+					alert("ajax성공");
+					console.log(data);
+				}
+			});  */
+			
+			$.ajax({
+	            type : "GET",
+	            url : "/broadTitleUpdate.bc",
+	           	data : {owner:"${param.owner}",
+						broadTitle:i},
+	            error : function(){
+	                alert('통신실패!!');
+	            },
+	            success : function(data){
+	            	alert("제목이 설정되었습니다.");
+	            	$('#broadTitle').val('');
+	            	
+	            }
+	        });
+		}
+	});
+	
 	</script>
 </body>
 </html>

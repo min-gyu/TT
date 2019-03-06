@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <jsp:include page="/WEB-INF/views/layout/admin/ad_header.jsp" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <style type="text/css">
 	#listArea th {
@@ -16,6 +16,7 @@
 		console.log(searchValue);
 		
 		location.href = "searchAll.ad?searchValue=" + searchValue;
+		
 	}
 </script>
 
@@ -37,10 +38,15 @@
 			</div>
 			
 			<div class="line"></div>
+			<div align="right">
+			<button onclick="ban();">정지</button>
+			<button id="leave">탈퇴</button>
+			</div>
 			<h5 style="color: orangered;">* 신규 등록 순</h5>
 			<div class="center-block">
 				<table class="table" id= "listArea">
 					<tr id="listHeader">
+						<th> </th>
 						<th>No.</th>
 						<th>이름</th>
 						<th>아이디</th>
@@ -55,6 +61,7 @@
 					
 					<c:forEach var="m" items="${mList}">
 					<tr>
+						<td><input id = "check" type="checkbox" value=${m.userId}></td>
 						<td>${m.rownum}</td>
 						<td>${m.userName}</td>
 						<td>${m.userId}</td>
@@ -133,5 +140,21 @@
 		</div>
 	</div>
 </section>
+<script>
+	function ban(){
+		var exchangeList = new Array;
+		//체크박스중 선택된값 있으면 배열에 담기
+		$("#check:checked").each(function(){
+			exchangeList.push($(this).val());	
+		});
 		
+		var arr1=new Array;
+		arr1 = exchangeList;
+		console.log(arr1);
+		
+	 	window.open("/banPopOpen.ad?userId="+arr1, "방송 설정",
+		"top=50,left=500,width=300,height=250"); 
+	
+	}
+</script>
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
