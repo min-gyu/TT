@@ -39,37 +39,35 @@
 
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-     <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', '평균방송시간', '최고시청자수', '평균시청자수'],
-          ['2014', 1000, 400, 200],
-          ['2015', 1170, 460, 250],
-          ['2016', 660, 1120, 300],
-          ['2017', 1030, 540, 350]
-        ]);
-
-        var options = {
-          chart: {
-            title: '방송 통계',
-            subtitle: '평균방송시간, 최고시청자수, 평균 시청자수',
-          }
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
-      
+     <script type="text/javascript">   
       $(function(){
     	  $.ajax({
-				url : "/statostocsBroadCast.bc",
+				url : "/totalBroadCast.bc",
 				type : "get",
-				success : function(data) {
-					console.log(data);
+				success : function(data) {	
+						console.log(data);
+				      function drawChart() {
+				        var data = google.visualization.arrayToDataTable([
+				          ['Year', '누적방송시간', '최고시청자수', '누적시청자수'],
+				          ['2017' , data[2017].btTime, data[2017].btCount, data[2017].totalCount],
+				          ['2018', 1170, 460, 250],
+				          ['2019', 660, 1120, 300],
+				        ]);
+
+				        var options = {
+				          chart: {
+				            title: '방송 통계',
+				            subtitle: '평균방송시간, 최고시청자수, 평균 시청자수',
+				          }
+				        };
+
+				        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+				        chart.draw(data, google.charts.Bar.convertOptions(options));
+				      }
+				      
+				      google.charts.load('current', {'packages':['bar']});
+				      google.charts.setOnLoadCallback(drawChart);
 				},
 				error : function(data) {
 					console.log("실패")

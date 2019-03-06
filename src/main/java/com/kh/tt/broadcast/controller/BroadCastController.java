@@ -395,9 +395,14 @@ public class BroadCastController {
 			return "성공";
 		}
 		//방송통계
-		@RequestMapping("statostocsBroadCast.bc")
-		public HashMap<String, Object> statostocsBroadCast(){
+		@RequestMapping("totalBroadCast.bc")
+		public @ResponseBody HashMap<String, Object> totalBroadCast(){
 			ArrayList<BroadCast> broadList = bcs.selectBroadCast();
-			return null;
+			HashMap<String, Object> hmap = new HashMap<String, Object>();
+			for(int i = 0; i< broadList.size(); i++) {
+				hmap.put(broadList.get(i).getYear(), broadList.get(i));
+			}
+			System.out.println(hmap);
+			return hmap;
 		}
 }
