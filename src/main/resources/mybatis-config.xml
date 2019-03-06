@@ -28,11 +28,11 @@
 		<typeAlias type="com.kh.tt.subscribe.model.vo.Subscribe" 		alias="Subscribe" />
    		<typeAlias type="com.kh.tt.admin.model.vo.AdClover"				alias="AdClover" />
    		<typeAlias type="com.kh.tt.category.model.vo.CategoryVod"		alias="Category" />
-   		<typeAlias type="com.kh.tt.channel.model.vo.cPtClover" 				alias="cPtClover" />
+   		<typeAlias type="com.kh.tt.channel.model.vo.cPtClover" 			alias="cPtClover" />
    		<typeAlias type="com.kh.tt.admin.model.vo.VodLog"				alias="VodLog" />
    		<typeAlias type="com.kh.tt.myPage.model.vo.MyBroadCast"			alias="MyBroadCast" />
    		<typeAlias type="com.kh.tt.admin.model.vo.CorrectClaim"			alias="CorrectClaim" />
-
+		<typeAlias type="com.kh.tt.broadcast.model.vo.BroadCast"		alias="BroadCastB"/>
 	</typeAliases>
 	
 	<mappers>

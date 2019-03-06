@@ -505,4 +505,127 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		return bcTotalList;
 	}
+
+	//관리자 답변 가져오기
+	@Override
+	public String selectMngQuestion(SqlSessionTemplate sqlSession, int bid) throws MyPageException {
+		
+		String mngQuestion = sqlSession.selectOne("CQBoard.selectMngQuestion", bid);
+		
+		System.out.println("DaoImpl에서받은 mngQuestion : "+mngQuestion);
+		
+		if(mngQuestion==null) {
+			throw new MyPageException("관리자 답변 조회 실패!");
+		}
+		return mngQuestion;
+	}
+
+
+	//평균방송시간 > 방송시간 총합 / 방송횟수 (total)
+	@Override
+	public int selectTotalTime(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException {
+
+		int totalTime = 0 ;
+		int totalSumTime = sqlSession.selectOne("MyBroadCast.selectTotalSumTime", cqUno);
+		int totalCount =  sqlSession.selectOne("MyBroadCast.selectTotalCount", cqUno);
+		
+		System.out.println("DaoImpl에서받은 방송시간총합 : "+totalSumTime);
+		System.out.println("DaoImpl에서받은 방송 횟수 : "+totalCount);
+		
+		totalTime = (int)totalSumTime/totalCount;
+		
+		if(totalTime<0) {
+			totalTime=0;
+		}
+		return totalTime;
+	}
+
+	//최고시청자수 > 누적시청자수 중 가장 큰값(total)
+	@Override
+	public int selectTotalMax(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException {
+		
+		int totalMax =  sqlSession.selectOne("MyBroadCast.selectTotalMax", cqUno);
+		
+		System.out.println("DaoImpl에서받은 totalMax : "+totalMax);
+		
+		
+		if(totalMax<0) {
+			totalMax=0;
+		}
+		return totalMax;
+	}
+
+	//평균시청자수 > 누적시청자수 총합 / 방송횟수 (total)
+	@Override
+	public int selectTotalAvg(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException {
+
+		int totalAvg =  0;
+				
+		int totalTime=sqlSession.selectOne("MyBroadCast.selectTotalAvg", cqUno);
+		int totalCnt = sqlSession.selectOne("MyBroadCast.selectTotalCount", cqUno);
+		
+		totalAvg = (int)totalTime/totalCnt;
+		
+		System.out.println("DaoImpl에서받은 totalAvg : "+totalAvg);
+		
+		
+		if(totalAvg<0) {
+			totalAvg=0;
+		}
+		return totalAvg;
+	}
+
+	//평균방송시간 > 방송시간 총합 / 방송횟수 (today)
+	@Override
+	public int selectTodayTime(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException {
+
+		int todayTime = 0 ;
+		int todaySumTime = sqlSession.selectOne("MyBroadCast.selectTodaySumTime", cqUno);
+		int todayCount =  sqlSession.selectOne("MyBroadCast.selectTodayCount", cqUno);
+		
+		System.out.println("DaoImpl에서받은 방송시간총합(today) : "+todaySumTime);
+		System.out.println("DaoImpl에서받은 방송 횟수(today) : "+todayCount);
+		
+		todayTime = (int)todaySumTime/todayCount;
+		
+		if(todayTime<0) {
+			todayTime=0;
+		}
+		return todayTime;
+	}
+
+	//최고시청자수 > 누적시청자수 중 가장 큰값(today)
+	@Override
+	public int selectTodayMax(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException {
+
+		int todayMax =  sqlSession.selectOne("MyBroadCast.selectTodayMax", cqUno);
+		
+		System.out.println("DaoImpl에서받은 todayMax : "+todayMax);
+		
+		
+		if(todayMax<0) {
+			todayMax=0;
+		}
+		return todayMax;
+	}
+
+	//평균시청자수 > 누적시청자수 총합 / 방송횟수 (today)
+	@Override
+	public int selectTodayAvg(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException {
+
+		int todayAvg =  0;
+				
+		int todayTime=sqlSession.selectOne("MyBroadCast.selectTodayAvg", cqUno);
+		int todayCnt = sqlSession.selectOne("MyBroadCast.selectTodayCount", cqUno);
+		
+		todayAvg = (int)todayTime/todayCnt;
+		
+		System.out.println("DaoImpl에서받은 totalAvg : "+todayAvg);
+		
+		
+		if(todayAvg<0) {
+			todayAvg=0;
+		}
+		return todayAvg;
+	}
 }

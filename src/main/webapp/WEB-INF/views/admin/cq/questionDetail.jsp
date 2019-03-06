@@ -122,13 +122,13 @@ div.formtag {
 				<label>첨부파일</label>
 				<div class="center-block">
 					<img src="${ contextPath }/resources/uploadFiles/${ca.getModifyName()}.jpg"
-						style="height: 200px; width: 300px;"></img>
+						style="height: 200px; width: 400px;"
+						onerror='this.src="${ contextPath }/resources/uploadFiles/b702d1b7d43c4ddcb674ddc8f5f686d4.png"'></img>
 				</div>
 				
 				<br><br>
 				
 				<div class="center-block">
-					<!-- <button type="button" class="btn btn-success" onclick="validClaim();">유효한 신고</button> -->
 					<button type="button" class="btn btn-light" onclick="goList();">목록으로</button>
 				</div>
 			</form>

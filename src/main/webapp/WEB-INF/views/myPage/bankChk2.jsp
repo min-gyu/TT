@@ -27,7 +27,7 @@
 					if(result==true){
 						console.log("confirm 창 true");
 						//계좌삭제하기
-						location.href="deleteBank.me?mUno=${sessionScope.loginUser.uno}";
+						location.href="deleteBank.me?mUno=${ m.getUno()}";
 					} 
 				}
 			});
@@ -62,7 +62,7 @@
 							</div>
 							<div class="form-group">
 								<label class="fw">생년월일</label>
-								<input type="date" name="birthday" class="form-control" value="${ m.getBirth()}" readonly>
+								<input type="String" name="birthday" class="form-control" value="${ m.getBirth()}" readonly>
 							</div>
 							<div class="form-group text-right">
 								<a class="btn btn-primary btn-block" id="deleteBank">삭제</a>

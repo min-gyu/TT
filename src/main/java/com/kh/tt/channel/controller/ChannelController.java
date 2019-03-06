@@ -418,38 +418,48 @@ public class ChannelController {
 	}
 
 	@RequestMapping("updateBimg.ch")
-	public ModelAndView updateBimg(Model model, HttpSession session, int CuNo, Attachment a, Attachment bi,
+	public ModelAndView updateBimg(Attachment pi,Member ti,Model model, HttpSession session, int CuNo, Attachment a, Attachment bi,
 			HttpServletRequest request, Member m,
 			@RequestParam(value = "banner", required = false) MultipartFile image) {
-
+		ModelAndView mav = new ModelAndView();
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		int ChNo = m.getChNo();// 채널 주인 채널 번호
 		bi = cs.selectbInfo(m.getChNo()); // 채널 프로필 정보 출력
-	
+		pi = cs.selectpInfo(m.getChNo()); // 채널 프로필 정보 출력
+		if (pi != null) {
+			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
+			mav.addObject("ext2", ext2);
+			mav.addObject("pi", pi);
+		}
+		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
+		if (ti != null) {
+			mav.addObject("title", ti.getChName());
+		}
 
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String filePath = root + "\\uploadFiles\\banner";
-		ModelAndView mav = new ModelAndView();
+		
 
 		String originFileName = image.getOriginalFilename();
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 
 		// 사진 형식이 아닐시 alert전송-------------------------
 		if (!ext.equals(".jpg") && !ext.equals(".png") && !ext.equals(".jpeg")) {
-			if (bi != null) {
-				String ext2 = bi.getAtName().substring(bi.getAtName().lastIndexOf("."));
+			
+			if (pi != null) {
+				String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
 				mav.addObject("ext2", ext2);
-				mav.addObject("pi", bi);
-				mav.addObject("msg", "사진이 아닌 파일입니다.(jpg,png.jpeg)");
-				mav.setViewName("channel_admin/bannerAndProfile");
-				mav.addObject("m", m);
-				return mav;
-			} else {
-				mav.addObject("msg", "사진이 아닌 파일입니다.(jpg,png.jpeg)");
-				mav.setViewName("channel_admin/bannerAndProfile");
-				mav.addObject("m", m);
-				return mav;
+				mav.addObject("pi", pi);
 			}
+			if (ti != null) {
+				mav.addObject("title", ti.getChName());
+			}
+			
+			
+			mav.addObject("msg", "사진이 아닌 파일입니다.(jpg,png.jpeg)");
+			mav.setViewName("channel_admin/bannerAndProfile");
+			mav.addObject("m", m);
+			return mav;
 		}
 		// -------------------------------------
 
@@ -471,22 +481,17 @@ public class ChannelController {
 				cs.updateBimg(a);
 				System.out.println("베너 삽입  : " + cs.updateBimg(a));
 			}
-			if (bi != null) {
-				String ext2 = bi.getAtName().substring(bi.getAtName().lastIndexOf("."));
-				mav.addObject("ext2", ext2);
-				mav.addObject("a", a);
-				mav.addObject("pi", bi);
-				mav.addObject("m", m);
-				mav.addObject("ext", ext);
-				mav.setViewName("channel_admin/bannerAndProfile");
-				return mav;
-			} else {
-				mav.addObject("a", a);
-				mav.addObject("m", m);
-				mav.addObject("ext", ext);
-				mav.setViewName("channel_admin/bannerAndProfile");
-				return mav;
-			}
+			
+			String ext3 = bi.getAtName().substring(bi.getAtName().lastIndexOf("."));
+			mav.addObject("ext3", ext3);//아래 출력되는 베너 사진
+			mav.addObject("a", a);
+			mav.addObject("pi", bi);
+			mav.addObject("m", m);
+			mav.addObject("ext", ext);
+			mav.setViewName("channel_admin/bannerAndProfile");
+			String ext2 = pi.getAtName().substring(pi.getAtName().lastIndexOf("."));
+			mav.addObject("ext2", ext2);
+			mav.addObject("pi", pi);
 		} catch (Exception e) {
 
 			new File(filePath + "\\" + changeName + ext).delete();
@@ -495,6 +500,7 @@ public class ChannelController {
 			mav.setViewName("common/errorPage");
 			return mav;
 		}
+		return mav;
 	}
 
 	@RequestMapping("updatePimg.ch")
@@ -598,7 +604,10 @@ public class ChannelController {
 	}
 	
 	@RequestMapping("insertBlack.ch")
-	public @ResponseBody String insertBlack(@RequestParam(value = "blackId") String blackId,@RequestParam(value = "CuNo") int CuNo,Model model, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody String insertBlack(
+			@RequestParam(value = "blackId") String blackId,
+			@RequestParam(value = "CuNo") int CuNo,Model model, 
+			HttpServletRequest request, HttpServletResponse response) {
 	
 		System.out.println(blackId);
 		System.out.println(CuNo);
@@ -701,8 +710,11 @@ public class ChannelController {
 	}
 
 	@RequestMapping("insertBanLan.ch")
-	public @ResponseBody String insertBanLan(@RequestParam(value = "banLan") String banLan,
-			@RequestParam(value = "reLan") String reLan, @RequestParam(value = "CuNo") int CuNo, Member m,Attachment pi,Member ti) {
+	public @ResponseBody String insertBanLan(
+			@RequestParam(value = "banLan") String banLan,
+			@RequestParam(value = "reLan") String reLan,
+			@RequestParam(value = "CuNo") int CuNo,
+			Member m,Attachment pi,Member ti) {
 		m = cs.selectmInfo(CuNo);// 채널 주인 정보 출력
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -1101,6 +1113,9 @@ public class ChannelController {
 		map.put("cin", cin);
 		// 채널 제목 업데이트
 		int result1 = cs.updatecInfo(map);
+		
+		
+		
 		ti = cs.selecttInfo(m.getChNo());// 제목 정보 출력
 		if (ti != null) {
 			mav.addObject("title", ti.getChName());

@@ -54,6 +54,7 @@
 	
 	
 	
+	
 	<!-- My신고 내역 조회 - 카운트 -->
 	<select id="getClaimCount" resultType="_int">
 		SELECT COUNT(*)
@@ -78,6 +79,18 @@
 		SELECT *
 		FROM CQBOARD
 		WHERE CQ_NO=#{bid}
+	</select> 
+	
+	
+	
+	
+	
+	
+	<!-- 문의내역 관리자 답변 -->
+	<select id="selectMngQuestion" parameterType="_int" resultType="java.lang.String">
+		SELECT C2.CQ_CONTENT
+		FROM CQBOARD C1 JOIN CQBOARD C2 ON (C1.CQ_NO=C2.CQ_UPPER_NO)
+		WHERE C1.CQ_NO=#{value}
 	</select> 
 
 </mapper>

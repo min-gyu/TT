@@ -1,8 +1,9 @@
 package com.kh.tt.member.model.vo;
 
 public class MainRanking implements java.io.Serializable {
-	private int uNo;
-	private String nickName;		// member
+	private int uNo;				// member
+	private String nickName;	
+	private String btYN;
 	
 	private int chNo;				// channel
 	
@@ -21,14 +22,23 @@ public class MainRanking implements java.io.Serializable {
 	private int atNo;				// attachment
 	private String atModifyName;	
 	
+	private int btNo;
+	private String btUrl;
+	private String btTitle;
+	private int btCount;
+	private String btStartTime;
+	private String btEndTime;
+	
 	public MainRanking() {}
 
-	public MainRanking(int uNo, String nickName, int chNo, int bNo, String bTitle, String bContent, String bWriteDate,
-			int bCount, int bLevel, String bType, String bDelStatus, String bAttachYN, String ctName, int atNo,
-			String atModifyName) {
+	public MainRanking(int uNo, String nickName, String btYN, int chNo, int bNo, String bTitle, String bContent,
+			String bWriteDate, int bCount, int bLevel, String bType, String bDelStatus, String bAttachYN, String ctName,
+			int atNo, String atModifyName, int btNo, String btUrl, String btTitle, int btCount, String btStartTime,
+			String btEndTime) {
 		super();
 		this.uNo = uNo;
 		this.nickName = nickName;
+		this.btYN = btYN;
 		this.chNo = chNo;
 		this.bNo = bNo;
 		this.bTitle = bTitle;
@@ -42,6 +52,12 @@ public class MainRanking implements java.io.Serializable {
 		this.ctName = ctName;
 		this.atNo = atNo;
 		this.atModifyName = atModifyName;
+		this.btNo = btNo;
+		this.btUrl = btUrl;
+		this.btTitle = btTitle;
+		this.btCount = btCount;
+		this.btStartTime = btStartTime;
+		this.btEndTime = btEndTime;
 	}
 
 	public int getuNo() {
@@ -58,6 +74,14 @@ public class MainRanking implements java.io.Serializable {
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
+	}
+
+	public String getBtYN() {
+		return btYN;
+	}
+
+	public void setBtYN(String btYN) {
+		this.btYN = btYN;
 	}
 
 	public int getChNo() {
@@ -164,14 +188,63 @@ public class MainRanking implements java.io.Serializable {
 		this.atModifyName = atModifyName;
 	}
 
-	@Override
-	public String toString() {
-		return "MainRanking [uNo=" + uNo + ", nickName=" + nickName + ", chNo=" + chNo + ", bNo=" + bNo + ", bTitle="
-				+ bTitle + ", bContent=" + bContent + ", bWriteDate=" + bWriteDate + ", bCount=" + bCount + ", bLevel="
-				+ bLevel + ", bType=" + bType + ", bDelStatus=" + bDelStatus + ", bAttachYN=" + bAttachYN + ", ctName="
-				+ ctName + ", atNo=" + atNo + ", atModifyName=" + atModifyName + "]";
+	public int getBtNo() {
+		return btNo;
 	}
 
-	
+	public void setBtNo(int btNo) {
+		this.btNo = btNo;
+	}
+
+	public String getBtUrl() {
+		return btUrl;
+	}
+
+	public void setBtUrl(String btUrl) {
+		this.btUrl = btUrl;
+	}
+
+	public String getBtTitle() {
+		return btTitle;
+	}
+
+	public void setBtTitle(String btTitle) {
+		this.btTitle = btTitle;
+	}
+
+	public int getBtCount() {
+		return btCount;
+	}
+
+	public void setBtCount(int btCount) {
+		this.btCount = btCount;
+	}
+
+	public String getBtStartTime() {
+		return btStartTime;
+	}
+
+	public void setBtStartTime(String btStartTime) {
+		this.btStartTime = btStartTime;
+	}
+
+	public String getBtEndTime() {
+		return btEndTime;
+	}
+
+	public void setBtEndTime(String btEndTime) {
+		this.btEndTime = btEndTime;
+	}
+
+	@Override
+	public String toString() {
+		return "MainRanking [uNo=" + uNo + ", nickName=" + nickName + ", btYN=" + btYN + ", chNo=" + chNo + ", bNo="
+				+ bNo + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bWriteDate=" + bWriteDate + ", bCount="
+				+ bCount + ", bLevel=" + bLevel + ", bType=" + bType + ", bDelStatus=" + bDelStatus + ", bAttachYN="
+				+ bAttachYN + ", ctName=" + ctName + ", atNo=" + atNo + ", atModifyName=" + atModifyName + ", btNo="
+				+ btNo + ", btUrl=" + btUrl + ", btTitle=" + btTitle + ", btCount=" + btCount + ", btStartTime="
+				+ btStartTime + ", btEndTime=" + btEndTime + "]";
+	}
+
 	
 }

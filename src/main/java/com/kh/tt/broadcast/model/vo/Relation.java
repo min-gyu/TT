@@ -10,12 +10,13 @@ public class Relation implements Serializable{
 	private Date rDate;
 	private String rType;
 	private String rAlarmYn;
+	private String year;
 	
 	public Relation() {
 		super();
 	}
 
-	public Relation(int rNo, int rChNo, int rTargetUno, Date rDate, String rType, String rAlarmYn) {
+	public Relation(int rNo, int rChNo, int rTargetUno, Date rDate, String rType, String rAlarmYn, String year) {
 		super();
 		this.rNo = rNo;
 		this.rChNo = rChNo;
@@ -23,12 +24,7 @@ public class Relation implements Serializable{
 		this.rDate = rDate;
 		this.rType = rType;
 		this.rAlarmYn = rAlarmYn;
-	}
-
-	@Override
-	public String toString() {
-		return "Relation [rNo=" + rNo + ", rChNo=" + rChNo + ", rTargetUno=" + rTargetUno + ", rDate=" + rDate
-				+ ", rType=" + rType + ", rAlarmYn=" + rAlarmYn + "]";
+		this.year = year;
 	}
 
 	public int getrNo() {
@@ -78,6 +74,20 @@ public class Relation implements Serializable{
 	public void setrAlarmYn(String rAlarmYn) {
 		this.rAlarmYn = rAlarmYn;
 	}
-	
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	@Override
+	public String toString() {
+		return "Relation [rNo=" + rNo + ", rChNo=" + rChNo + ", rTargetUno=" + rTargetUno + ", rDate=" + rDate
+				+ ", rType=" + rType + ", rAlarmYn=" + rAlarmYn + ", year=" + year + "]";
+	}
+
 	
 }

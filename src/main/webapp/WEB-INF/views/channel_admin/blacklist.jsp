@@ -62,6 +62,15 @@
 					
 					
 					<div class="row" id="listbReply">
+					<div class="form-inline">
+						<input class="form-control mr-sm-3" type="search" id="search"
+							placeholder="아이디를 입력하세요">
+						<button class="btn btn-success" id="searchBtn" style="background-color: #6ac169;"
+							onclick="searchBoard();">Search</button>
+					</div>
+					<br>
+					<br>
+					<br>
 						<table class="table table-bordered" style="text-align: center">
 							<thead>
 								<tr>
@@ -77,7 +86,7 @@
 									<td>${row.userId}</td>
 									<td>${row.nickName }</td>
 									<td>${row.rDate}</td>
-									<td><a class="btn btn-danger btn-sm"
+									<td><a class="btn btn-success" style="background-color: #6ac169;"
 									href="${contextPath }/deleteBlack.ch?rchNo=${row.rchNo}&&rtargetuNo=${row.rtargetuNo}">삭제</a></td>
 								</tr>
 								</tbody>

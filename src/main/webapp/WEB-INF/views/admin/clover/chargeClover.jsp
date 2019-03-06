@@ -6,8 +6,8 @@
 <section class="home">
 	<div class="container">
 		<div class="row" >
-			<div class="col-lg-8 posts-list">
-			<div class="single-post row">
+			<div class="col-lg-8 posts-list" >
+			<div class="single-post row" >
 			<div class="ui tabular menu">
 			  <a href="chargeClover.ad" class="active item" >충전 내역</a>
 			  <a href="exchangeClover.ad" class="item" >환전 내역</a>
@@ -26,7 +26,7 @@
 				<table class="table" id= "listArea">
 					<tr id="listHeader">
 						<th>No.</th>
-						<th>아이디</th>
+						<th>회원번호</th>
 						<th>충전클로버(개)</th>
 						<th>결제금액</th>
 						<th>결제번호</th>

@@ -2,6 +2,7 @@ package com.kh.tt.member.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.kh.tt.channel.model.vo.Attachment;
 import com.kh.tt.member.model.exception.LoginException;
@@ -50,7 +51,11 @@ public interface MemberService {
 	// 메인 페이지 vod 랭킹
 	List<MainRanking> mainVodList();
 
-	
+	// 메인페이지 생방송 리스트
+	List<MainRanking> mainLiveList();
+
+	HashMap<Object, Object> blackBlock(Map<String, Object> reqMap);
+
 
 	
 

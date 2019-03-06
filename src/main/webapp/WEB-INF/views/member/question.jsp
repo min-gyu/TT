@@ -89,7 +89,7 @@ div.formtag {
 		<div class="center-block">
 			<div class="formtag">
 				<form class="form-horizontal" name="myForm" action="/clientQuestion.me" method="post" encType="multipart/form-data">
-					<label for="inputReportReason">신고사항</label> 
+					<label for="inputReportReason">문의사항</label> 
 						<select id="cqClass" name="cqClass">
 							<option value="저작권침해">저작권 침해</option>
 							<option value="청소년유해">청소년 유해</option> 

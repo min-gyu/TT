@@ -108,5 +108,26 @@ public interface MyPageService {
 	//방송통계 - 리스트
 	List<MyBroadCast> selectbtTotal(PageInfo pi, int cqUno) throws MyPageException;
 
+	//관리자 답변 가져오기
+	String selectMngQuestion(int bid) throws MyPageException;
+	
+	//평균방송시간 > 방송시간 총합 / 방송횟수 (total)
+	int selectTotalTime(int cqUno) throws MyPageException;
+
+	//최고시청자수 > 누적시청자수 중 가장 큰값(total)
+	int selectTotalMax(int cqUno) throws MyPageException;
+
+	//평균시청자수 > 누적시청자수 총합 / 방송횟수 (total)
+	int selectTotalAvg(int cqUno) throws MyPageException;
+
+	//평균방송시간 > 방송시간 총합 / 방송횟수 (today)
+	int selectTodayTime(int cqUno) throws MyPageException;
+
+	//최고시청자수 > 누적시청자수 중 가장 큰값(today)
+	int selectTodayMax(int cqUno) throws MyPageException;
+
+	//평균시청자수 > 누적시청자수 총합 / 방송횟수 (today)
+	int selectTodayAvg(int cqUno) throws MyPageException;
+
 
 }

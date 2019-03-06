@@ -59,15 +59,26 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-					<div class="row">
-						<h5>매니저 관리</h5>
-					</div>
-					<div class="row">
-						<div class="col-ms-12">
-							<h6>현재 등록된 매니저 목록</h6>
+					<div class="line top">
+						<div>
+							<h5>매니저 관리</h5>
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-ms-12">
+							<h6>  현재 등록된 매니저 목록  </h6>
+						</div>
+					</div>
+					<div class="row">
+					<div class="form-inline">
+						<input class="form-control mr-sm-3" type="search" id="search"
+							placeholder="아이디를 입력하세요">
+						<button class="btn btn-success" id="searchBtn" style="background-color: #6ac169;"
+							onclick="searchBoard();">Search</button>
+					</div>
+					<br>
+					<br>
+					<br>
 						<table class="table table-bordered" style="text-align: center">
 							<thead>
 								<tr>

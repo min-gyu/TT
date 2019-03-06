@@ -59,8 +59,10 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-					<div class="row">
-						<h5>채팅 필터 관리</h5>
+					<div class="line top">
+						<div>
+							<h5>채팅 필터 설정</h5>
+						</div>
 					</div>
 
 					<div class="row">
@@ -74,7 +76,7 @@
 						<div class="col-ms-12">
 							<h6>대체어</h6>
 							<input type="text" id="reLan">
-							<button class="btn btn-danger btn-sm" id="banBtn">추가</button>
+							<button class="btn btn-success" style="background-color: #6ac169;" id="banBtn">추가</button>
 						</div>
 					</div>
 
