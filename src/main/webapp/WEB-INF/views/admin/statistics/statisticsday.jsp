@@ -44,14 +44,14 @@
     	  $.ajax({
 				url : "/totalBroadCast.bc",
 				type : "get",
-				success : function(data) {	
-						console.log(data);
+				success : function(mapData) {	
+					console.log(mapData);
 				      function drawChart() {
 				        var data = google.visualization.arrayToDataTable([
 				          ['Year', '누적방송시간', '최고시청자수', '누적시청자수'],
-				          ['2017' , data[2017].btTime, data[2017].btCount, data[2017].totalCount],
-				          ['2018', 1170, 460, 250],
-				          ['2019', 660, 1120, 300],
+				          ['2017', mapData[2017].btTime, mapData[2017].btCount, mapData[2017].totalCount],
+				          ['2018', mapData[2018].btTime, mapData[2018].btCount, mapData[2018].totalCount],
+				          ['2019', mapData[2019].btTime, mapData[2019].btCount, mapData[2019].totalCount],
 				        ]);
 
 				        var options = {
