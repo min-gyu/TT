@@ -13,7 +13,7 @@
 			<h2>My문의</h2>
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-					<div class="single-post row">
+					<div class="single-post row" style="width:900px;">
 						<br>
 						<!-- My문의 내역 조회 -->
 						<div>

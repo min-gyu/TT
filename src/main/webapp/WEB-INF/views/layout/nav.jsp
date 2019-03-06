@@ -6,13 +6,22 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<style>
+	.menu{
+		/* background-color:#a3eab54d; */
+		 background:linear-gradient(180deg,#fff,#b0f3c14d);
+	}
+
+</style>
+
+
 <nav class="menu">
-	<div class="container">
+	<div class="container" id="menuColor">
 		<div class="brand">
 			<a href="#"> <img src="/resources/images/logo.png" alt="Today's TV"></a>
 		</div>
 		<div class="mobile-toggle">
-			<a href="#" data-toggle="menu" data-target="#menu-list"><i class="ion-navicon-round"></i></a>
+			<a href="#" data-toggle="menu" id="menuColor" data-target="#menu-list"><i class="ion-navicon-round"></i></a>
 		</div>
 		<div class="mobile-toggle">
 			<a href="#" data-toggle="sidebar" data-target="#sidebar"><i class="ion-ios-arrow-left"></i></a>
