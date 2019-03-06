@@ -264,8 +264,8 @@ html, body{
 				</div>
 					<div align="right" style="margin-right: 10px;">
 					<c:if test="${ (!empty loginUser) and (loginUser.userId eq param.owner)}">
-						<button id="cam" onclick="aa();" disabled style="color:grey">캠 활성화</button>
-						<button id="screen" onclick="dd();" disabled style="color:grey; margin-right: 10px; margin-top: 5px;"  >화면공유</button>
+						<button id="cam" onclick="aa();" disabled style="color:grey">캠 송출</button>
+						<button id="screen" onclick="dd();" disabled style="color:grey; margin-right: 10px; margin-top: 5px;"  >화면 송출</button>
 					</c:if>
 						<img alt="s" src="/resources/images/siren.png" width="20" height="20" id="report">
 					</div>
@@ -275,7 +275,7 @@ html, body{
 						<span id="creator" style="color:green">${ param.owner }</span>
 					</div>
 					<div id="titleDiv">
-						<span id="title">방송 제목 적는 곳 입니다.</span>
+						<span id="title">(생)</span>
 					</div>
 				</div>				
 			</div>
@@ -520,28 +520,24 @@ html, body{
 		
 		//방송시작 유저id, 방송주소, 카테고리번호, 방송제목
 		$("#broadLi").click(()=>{
-			/* $.ajax({
+			$.ajax({
 				type : "post",
 				url : "/broadStart.bc",
 				data : "userId=" + "${loginUser.userId}" + "&broadUrl=" + document.location.href
 						+ "&category=" + 16 + "&broadTitle=" + "(생)",
-				success : function(result) {
+				success : function(data) {
 					alert("ajax성공");
-					console.log(result);
+					console.log(data);
 				}
-				 error : function(error){
-					alert(error);
-					console.log(error);
-				} 
-			}); */
+			}); 
 			$('#cam').attr('disabled', false);
 			$('#cam').css("color", "black");
 			$('#screen').attr('disabled', false);
 			$('#screen').css('color', "black");
-			roomFunc();
+			/* roomFunc();
 			setTimeout(() => {
 				chatFunc();
-			}, 1000);
+			}, 1000); */
 		})
 	
 	//방만들기, 방송시작과 같음 채asd팅 방을 만드는 메서드
@@ -990,8 +986,10 @@ html, body{
 
 //방송종료
 $('#exitBroadLi').click(function(){
-	location.href="/goMain.bc";
-	sendMessage('End');
+	
+	location.href="/broadEnd.bc?owner=${param.owner}";
+	/* location.href="/goMain.bc"; */
+	/* sendMessage('End'); */
 });
 
 

@@ -244,5 +244,18 @@
 			AND (#{value} IS NULL OR M_ID = #{value} )
 			ORDER BY M_LEAVE_DATE DESC)
 	</select>
+
+	<insert id="insertbanMember" parameterType="java.util.Map">
+		 INSERT
+		INTO
+		MEMBERBAN
+		VALUES(SEQ_MB_NO.NEXTVAL, (SELECT M_UNO FROM MEMBER WHERE M_ID=#{id}), SYSDATE, SYSDATE+#{select}, #{reason})
+	</insert>
+	
+	<update id="updateBanMember" parameterType="java.lang.String">
+		UPDATE MEMBER 
+		SET M_BAN_STATUS = 'Y' 
+		WHERE M_ID = #{value}
+	</update>
 	
 </mapper>

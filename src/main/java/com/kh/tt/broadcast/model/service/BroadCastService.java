@@ -2,6 +2,7 @@ package com.kh.tt.broadcast.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.kh.tt.broadcast.model.vo.BanWord;
 import com.kh.tt.broadcast.model.vo.BroadCast;
@@ -59,6 +60,20 @@ public interface BroadCastService{
 	int insertBroadStart(HashMap<String, Object> map);
 
 	ArrayList<BroadCast> selectBroadCast();
+
+	int broadEnd(int chNo);
+
+	int updateMember(String userId);
+
+	int updateNMember(String owner);
+
+	int broadTitleUpdate(int chNo, String broadTitle);
+
+	List<String> searchCategory();
+
+	List<String> searchCategory1(String category);
+
+	int broadCategoryUpdate(int chNo, String data);
 
 
 	

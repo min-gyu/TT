@@ -2,11 +2,13 @@ package com.kh.tt.broadcast.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,8 +43,22 @@ public class BroadCastController {
 		return "broadcast/userList";
 	}
 	@RequestMapping("broadCastSetting.bc")
-	public String broadCastSetting(){
+	public String broadCastSetting(Model model){
+		List<String> result = bcs.searchCategory();
+		model.addAttribute("result",result);
 		return "broadcast/broadCastSetting";
+	}
+	@RequestMapping("searchCategory.bc")
+	public  @ResponseBody List<String> searchCategory(@RequestParam("data") String category, Model model) {
+		System.out.println("실행");
+		ModelAndView mav = new ModelAndView();
+		
+		List<String> result = bcs.searchCategory1(category);
+		System.out.println(result);
+
+		/*mav.setViewName("broadcast/broadCastSetting");*/
+		mav.addObject("result", result);
+		return result;
 	}
 	@RequestMapping("broadTest.bc")
 	public String broadtest() {
@@ -367,11 +383,7 @@ public class BroadCastController {
 		public String insertDet(Board db, HttpSession session, Member m,
 				@RequestParam(value = "userId") String userId, @RequestParam(value = "broadUrl") String broadUrl,
 				@RequestParam(value = "category") int category, @RequestParam(value = "broadTitle") String broadTitle) {
-			System.out.println("컨트롤러 왔다");
-			System.out.println(userId);
-			System.out.println(broadUrl);
-			System.out.println(category);
-			System.out.println(broadTitle);
+			System.out.println("브로드 스타트 컨트롤러");
 			
 			int ChNo = bcs.selectChannelNum(userId);
 			
@@ -382,8 +394,9 @@ public class BroadCastController {
 			map.put("broadTitle", broadTitle);
 
 			int result = bcs.insertBroadStart(map);
-			
-			System.out.println(result);
+			int result1 = bcs.updateMember(userId);
+			System.out.println("1: "+result);
+			System.out.println("2: "+result1);
 			
 			/*System.out.println();
 
@@ -404,5 +417,46 @@ public class BroadCastController {
 			}
 			System.out.println(hmap);
 			return hmap;
+		}
+		
+		//방송종료
+		@RequestMapping("broadEnd.bc")
+		public String broadEnd(Board db, HttpSession session, Member m,
+				@RequestParam(value = "owner") String owner) {
+			System.out.println("브로드엔드 컨트롤러");
+			int ChNo = bcs.selectChannelNum(owner);
+			
+			int result = bcs.broadEnd(ChNo);
+			int result1 = bcs.updateNMember(owner);
+			
+			return "main/mainPage";
+		}
+		
+		@RequestMapping("broadTitleUpdate.bc")
+		public String broadTitleUpdate(Board db, HttpSession session, Member m,
+				@RequestParam(value = "owner") String owner, @RequestParam(value = "broadTitle") String broadTitle) {
+			System.out.println("브로드타이들업데이트");
+			System.out.println(owner);
+			System.out.println(broadTitle);
+			int ChNo = bcs.selectChannelNum(owner);
+			
+			int result = bcs.broadTitleUpdate(ChNo, broadTitle);
+			System.out.println(result);
+//			int result1 = bcs.updateNMember(owner);
+			
+			return "broadcast/broadCastSetting";
+		}
+		
+		@RequestMapping("selectCategory.bc")
+		public @ResponseBody String selectCategory(HttpSession session,
+				@RequestParam(value = "data") String data, @RequestParam(value = "owner") String owner){
+			System.out.println("selectCate");
+			System.out.println(owner);
+			System.out.println(data);
+			int ChNo = bcs.selectChannelNum(owner);
+			
+			int result = bcs.broadCategoryUpdate(ChNo, data);
+			
+			return "broadcast/broadCastSetting";
 		}
 }

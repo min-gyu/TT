@@ -487,4 +487,56 @@ public class AdminDaoImpl implements AdminDao {
 		return sqlSession.selectList("CQandAttach.qReplyList", qno);
 	}
 
+	@Override
+	public int insertbanMember(String[] ids, String select) {
+		int result =0;
+		String a="";
+		System.out.println(select);
+		if(select.equals("3")) {
+			a= "누적신고5회";
+			System.out.println(a);
+		}else if(select.equals("7")) {
+			a= "누적신고10회";
+		}else if(select.equals("15")) {
+			a="누적신고20회";
+		}else if(select.equals("30")) {
+			a="누적신고30회";
+		}
+		for(int i=0;i<ids.length;i++) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("id", ids[i]);
+			map.put("select", select);
+			map.put("reason",a);
+			System.out.println(map);
+			result = sqlSession.insert("Admin.insertbanMember", map);
+		}
+		return result;
+	}
+
+	@Override
+	public int updateBanMember(String[] ids) {
+		int[] resultArr= null;
+		int sum = 0;
+		int result=0;
+		String id = "";
+		
+		System.out.println("Daoimpl 에서 받은 길이 : "+ids.length);
+		
+		for(int i=0;i<ids.length;i++) {
+			id = ids[i];
+			System.out.println("담긴 id = "+id);
+			resultArr[i]=sqlSession.update("Admin.updateBanMember", id);
+			
+			sum += resultArr[i];
+		}
+		
+		if(sum/(ids.length-1)==1) {
+			result = 1;
+		}else {
+			result=0;
+		}
+		
+		return result;
+	}
+
 }

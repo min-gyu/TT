@@ -2,6 +2,7 @@ package com.kh.tt.broadcast.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -61,6 +62,21 @@ public interface BroadCastDao {
 	int inserBroadStart(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
 	ArrayList<BroadCast> selectBroadCast(SqlSessionTemplate sqlSession);
+
+	int braodEnd(SqlSessionTemplate sqlSession, int chNo);
+
+	int updateMember(SqlSessionTemplate sqlSession, String userId);
+
+	int updateNMember(SqlSessionTemplate sqlSession, String owner);
+
+	int broadTitleUpdate(SqlSessionTemplate sqlSession, int chNo, String broadTitle);
+
+	List<String> searchCategory(SqlSessionTemplate sqlSession);
+
+	List<String> searchCategory1(SqlSessionTemplate sqlSession, String category);
+
+	int broadCategoryUpdate(SqlSessionTemplate sqlSession, int chNo, String data);
+
 
 
 	
