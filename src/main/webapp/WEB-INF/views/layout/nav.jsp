@@ -6,13 +6,12 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<style>
+<!-- <style>
 	.menu{
-		/* background-color:#a3eab54d; */
 		 background:linear-gradient(180deg,#fff,#b0f3c14d);
 	}
 
-</style>
+</style> -->
 
 
 <nav class="menu">

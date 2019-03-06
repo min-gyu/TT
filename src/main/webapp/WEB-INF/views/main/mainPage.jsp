@@ -87,6 +87,7 @@
 								
 								htmlCode += '<input type="hidden" id="uNo" value="'+ ${sessionScope.loginUser.uno} +'">';
 								htmlCode += '<input type="hidden" id="chNo" value="'+ chNo +'">';
+								htmlCode += '<input type="hidden" id="nickName" value="'+ nickName +'">';
 								htmlCode += '<div class="col-md-6 col-sm-6 col-xs-12" style="margin-left: 25%">';
 								htmlCode += '<div class="row">';
 								htmlCode += '<article class="article col-md-12">';
@@ -104,7 +105,7 @@
 								htmlCode += '<h2><a href="/goBroadCast.bc?owner='+ nickName +'" target="_blank">'+ title +'</a></h2>';
 								htmlCode += '<footer>';
 								//htmlCode += '<a href="/goBroadCast.bc?owner='+ nickName +'" target="_blank">';
-								htmlCode += '<button type="button" class="btn btn-primary more" onclick="blackCheck();">More</button>';
+								htmlCode += '<button type="button" class="btn btn-primary more" onclick="goUser01();">More</button>';
 								//htmlCode += '</a>';
 								htmlCode += '</footer>';
 								htmlCode += '</div>';
@@ -130,6 +131,7 @@
 	function blackCheck(){
 		var uNo = $("#uNo").val();
 		var chNo = $("#chNo").val();
+		var nickName = $("#nickName").val();
 		
 		console.log(uNo);
 		console.log(chNo);
@@ -150,7 +152,7 @@
 				        	switch (ret_code) {
 								case "E":
 									alert(ret_message);
-									//location.href="/goBroadCast.bc?owner=user01";
+									location.href="/goBroadCast.bc?owner=" + nickName;
 								break;
 								
 								case "S":
@@ -172,7 +174,7 @@
 		<div class="row" >
 			<div class="center-block">
 			
-				<div class="line">
+				<!-- <div class="line">
 					<div>인기 방송</div>
 				</div>
 				
@@ -202,7 +204,7 @@
 							</article>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				
 				<!-- 생방송 -->
 				<div class="line top">

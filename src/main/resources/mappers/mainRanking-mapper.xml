@@ -55,20 +55,16 @@
 	
 	<!-- 메인 페이지 생방송 리스트 -->
 	<select id="mainLiveList" resultMap="MainRankingVO">
-		SELECT BT_NO
-			 , M_UNO
-			 , M_NICKNAME
-			 , CH_NO
-			 , CT_NAME
-			 , BT_URL
-			 , BT_TITLE
-			 , BT_START_TIME 
-		FROM BROADCAST
-		    JOIN MEMBER ON (BT_CH_NO = M_UNO)
-		    JOIN CATEGORY ON (BT_CT_NO = CT_NO)
-		    JOIN CHANNEL ON (BT_CH_NO = CH_NO)
-		WHERE M_BT_YN = 'Y'
-		AND BT_END_TIME IS NULL
+		SELECT BT_NO, M_UNO, M_NICKNAME, BT_CH_NO, CT_NAME, BT_URL, BT_TITLE, BT_START_TIME 
+		FROM
+		    (SELECT BT_NO, M_UNO, M_NICKNAME, BT_CH_NO, CT_NAME, BT_URL, BT_TITLE, BT_START_TIME 
+		    FROM BROADCAST
+		        JOIN MEMBER ON (BT_CH_NO = M_UNO)
+		        JOIN CATEGORY ON (BT_CT_NO = CT_NO)
+		    WHERE M_BT_YN = 'Y'
+		    AND BT_END_TIME IS NULL
+		    ORDER BY BT_START_TIME DESC)
+		WHERE ROWNUM <![CDATA[ <= ]]> 1 
 	</select>
 	
 </mapper>
