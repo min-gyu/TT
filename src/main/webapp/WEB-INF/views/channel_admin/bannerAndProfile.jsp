@@ -118,9 +118,9 @@ div.upload-btn_wrap button { /*버튼 div*/
 
 									</tr>
 									<tr>
-										<td colspan="2" align="center"><button type="submit"
-												class="btn btn-primary more" id="saveBtn"
-												style="padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; width: 102px; height: 32px;">저장</button></td>
+										<td colspan="2" align="center"><button type="submit" id="saveBtn"
+												class="btn btn-success" style="background-color: #6ac169;
+												padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; width: 102px; height: 32px;">저장</button></td>
 									</tr>
 								</tbody>
 							</table>
@@ -154,8 +154,9 @@ div.upload-btn_wrap button { /*버튼 div*/
 								</tr>
 								<tr>
 									<td colspan="2" align="center"><button type="submit"
-											class="btn btn-primary more" id="saveBtn"
-											style="padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; width: 102px; height: 32px;">저장</button></td>
+											id="saveBtn"
+												class="btn btn-success" style="background-color: #6ac169;
+												padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; width: 102px; height: 32px;">저장</button></td>
 								</tr>
 							</tbody>
 						</table>

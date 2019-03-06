@@ -80,7 +80,7 @@
 												</tr>
 												<tr>
 													<td colspan="2" align="center"><button type="submit"
-															class="btn btn-danger btn-sm" id="saveBtn">저장</button></td>
+															class="btn btn-success" style="background-color: #6ac169;" id="saveBtn">저장</button></td>
 												</tr>
 											</tbody>
 										</table>

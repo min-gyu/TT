@@ -65,11 +65,20 @@
 							<h5>구독자 관리</h5>
 						</div>
 					</div>
+					<br>
+					<br>
+					<div class="form-inline">
+						<input class="form-control mr-sm-3" type="search" id="search"
+							placeholder="아이디를 입력하세요">
+						<button class="btn btn-success" id="searchBtn" style="background-color: #6ac169;"
+							onclick="searchBoard();">Search</button>
+					</div>
 					<div class="row">
 						<table class="table table-bordered" style="text-align: center">
 							<thead>
 								<tr>
-									<th colspan="3" style="text-align: right;">총 구독자 수 <i class="ion-android-favorite"> : </i>
+									<th colspan="3" style="text-align: right;">총 구독자 수 <i
+										class="ion-android-favorite"> : </i>
 										<div id="subsccriberNum">${listCount }</div>
 									</th>
 								</tr>
@@ -128,8 +137,9 @@
 
 
 
-<!-- 관리자 사이드바 -->
-				<jsp:include page="/WEB-INF/views/channel_admin/channel_admin_sidebar.jsp" />
+				<!-- 관리자 사이드바 -->
+				<jsp:include
+					page="/WEB-INF/views/channel_admin/channel_admin_sidebar.jsp" />
 			</div>
 		</div>
 	</section>
@@ -138,7 +148,7 @@
 	<!-- End post-content Area -->
 	<script>
 		function fn_paging(curPage) {
-			location.href = "/subscriberAdmin.ch?curPage=" + curPage + "&CuNo="+${m.uno};
+			location.href = "/subscriberAdmin.ch?curPage=" + curPage + "&CuNo="+ ${m.uno};
 		}
 	</script>
 
