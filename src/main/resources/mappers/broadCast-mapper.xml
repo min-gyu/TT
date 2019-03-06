@@ -43,6 +43,13 @@
 		<result property="rType" column="R_TYPE" />
 		<result property="rAlarmYn" column="R_ALARM_YN" />
 	</resultMap>
+	
+	<resultMap type="BroadCastB" id="broadCastResultSet">
+		<result property="btTime" column="BT_TIME" />
+		<result property="totalCount" column="TOTAL_COUNT" />
+		<result property="btCount" column="BT_COUNT" />
+		<result property="year" column="YEAR" />
+	</resultMap>
 	<!-- 특정회원의 금지어 설정 목록을 검색하는 sql문 -->
 	<select id="selectBanWord" resultMap="banWordResultSet"
 		parameterType="java.lang.String">
@@ -283,5 +290,20 @@
 		SELECT count(*)
 		FROM FILTER
 		WHERE F_BAN=#{banLan}
+	</select>
+	
+	<!-- 방송통계용 조회 -->
+	<select id="selectBroadCast" resultMap="broadCastResultSet">
+		SELECT SUM(ROUND((BT_END_TIME-BT_START_TIME)*24*60)) AS BT_TIME, SUM(BT_TOTAL_COUNT) AS TOTAL_COUNT, MAX(BT_COUNT) AS BT_COUNT, YEAR FROM 
+		(SELECT BT_NO,
+		BT_CH_NO,
+		BT_CT_NO,
+		BT_URL,
+		BT_TITLE,
+		BT_COUNT,
+		BT_TOTAL_COUNT,
+		BT_START_TIME,
+		BT_END_TIME,
+		TO_CHAR(BT_START_TIME, 'YYYY') AS YEAR FROM BROADCAST) GROUP BY YEAR
 	</select>
 </mapper>

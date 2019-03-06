@@ -138,7 +138,7 @@ public class BroadCastDaoImpl implements BroadCastDao{
 	//방송통계 받기위한 메서드
 	@Override
 	public ArrayList<BroadCast> selectBroadCast(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("");
+		return (ArrayList)sqlSession.selectList("BanWord.selectBroadCast");
 	}
 
 	
