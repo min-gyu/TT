@@ -1,6 +1,8 @@
 package com.kh.tt.member.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,6 +116,19 @@ public class MemberDaoImpl implements MemberDao {
 	public List<MainRanking> mainVodList() {
 		return sqlSession.selectList("MainRank.mainVodList");
 	}
+
+	// 메인페이지 생방송 리스트
+	@Override
+	public List<MainRanking> mainLiveList() {
+		return sqlSession.selectList("MainRank.mainLiveList");
+	}
+
+	@Override
+	public int blackBlock(SqlSessionTemplate sqlSession, Map<String, Object> reqMap) {
+		return sqlSession.selectOne("Relation2.blackBlock", reqMap);
+	}
+
+
 
 	
 

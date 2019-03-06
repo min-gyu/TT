@@ -65,8 +65,8 @@
 
 <section class="container">
 	<div class="subscribe-nav">
-		<a data-target="#live" 		href="javascript:void(0);">구독</a>
-		<a data-target="#vod" 		href="javascript:void(0);">최근 본 방송</a>
+		<a data-target="#live" 		href="javascript:void(0);">Live</a>
+		<a data-target="#vod" 		href="javascript:void(0);">VOD</a>
 		<a data-target="#channel" 	href="javascript:void(0);">채널</a>
 		
 		<div class="sub-nav-top" style="height: 0px;">

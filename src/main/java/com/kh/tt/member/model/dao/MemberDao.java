@@ -2,6 +2,7 @@ package com.kh.tt.member.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -52,8 +53,13 @@ public interface MemberDao {
 	// 신고 아이디 체크
 	int targetIdCheck(SqlSessionTemplate sqlSession, String targetId);
 
-	// 구독한 생방송 리스트
+	// 메인 페이지 vod 랭킹
 	List<MainRanking> mainVodList();
+
+	// 메인페이지 생방송 리스트
+	List<MainRanking> mainLiveList();
+
+	int blackBlock(SqlSessionTemplate sqlSession, Map<String, Object> reqMap);
 
 	
 

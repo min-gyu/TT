@@ -36,6 +36,7 @@
 		var cno = $("#cno").val();
 		console.log(cno);
 		location.href="/correctClaim.ad?cno=" + cno;
+		alert("신고가 정상 처리되었습니다.\n신고자에게 클로버 10개가 지급됩니다.");
 	}
 </script>
 

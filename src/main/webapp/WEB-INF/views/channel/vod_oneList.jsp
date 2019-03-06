@@ -70,8 +70,7 @@
 					<div class="single-post row">
 						<div class="col-lg-12">
 							<div class="feature-img">
-								<video class="img-fluid"
-									src="${ contextPath }/resources/uploadFiles/${a.atMName}.mp4"
+								<video class="img-fluid" src="${ contextPath }/resources/uploadFiles/${a.atMName}.mp4"
 									type="video/mp4" controls style="padding-left: 0%;"></video>
 							</div>
 						</div>

@@ -2,6 +2,7 @@ package com.kh.tt.member.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -190,5 +191,41 @@ public class MemberServiceImpl implements MemberService {
 	public List<MainRanking> mainVodList() {
 		return md.mainVodList();
 	}
+
+	// 메인페이지 생방송 리스트
+	@Override
+	public List<MainRanking> mainLiveList() {
+		return md.mainLiveList();
+	}
+
+	@Override
+	public HashMap<Object, Object> blackBlock(Map<String, Object> reqMap) {
+		HashMap<Object, Object> resultMap = new HashMap<Object, Object>();
+		
+		try {
+			int count = md.blackBlock(sqlSession, reqMap);
+
+			switch (count) {
+				case 1 :
+					resultMap.put("ret_code", "S");	
+					resultMap.put("ret_message", "블랙회원은 방송에 참여할 수 없습니다");
+				break;
+				
+				case 0 :
+					resultMap.put("ret_code", "E");
+					resultMap.put("ret_message", "방송 입장");
+				break;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+		}
+		
+		return resultMap;
+	}
+	
+
+
 
 }
