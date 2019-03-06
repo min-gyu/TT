@@ -25,19 +25,22 @@
 		    </div> -->
 		    <script>
 		 
-		    	var total = '${ bcTotalList[0]}';
-		    	console.log(total);
-		    	
-		    
+	    	var total = ${ totalTime};
+	    	var totalMax = ${ totalMax};
+	    	var totalAvg = ${ totalAvg};
+	    	
+	    	var todayTime = ${ todayTime};
+	    	var todayMax = ${ todayMax};
+	    	var todayAvg = ${ todayAvg};
+	    	
 		      google.charts.load('current', {'packages':['bar']});
 		      google.charts.setOnLoadCallback(drawChart);
 		     
-
 		      function drawChart() {
 		        var data = google.visualization.arrayToDataTable([
 		          ['', '평균방송시간', '최고시청자수', '평균 시청자수'],
-		          ['Today',2000, 400, 200],
-		          ['Total', 1000, 400, 200]
+		          ['Today',todayTime, todayMax, todayAvg],
+		          ['Total', total, totalMax, totalAvg]
 		        ]);
 
 		        var options = {

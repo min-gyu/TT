@@ -152,7 +152,7 @@ public class MyPageController {
 		}
 		
 		
-		return "myPage/bankChk";
+		return "redirect:bankChk.me?mUno="+mUno;
 	}
 	
 	//회원탈퇴하기
@@ -450,7 +450,7 @@ public class MyPageController {
 			e.printStackTrace();
 		}
 		
-		return "myPage/bankChk2";
+		return "redirect:bankChk3.me?mUno="+mUno;
 	}
 	
 	//계좌조회 페이지
@@ -541,7 +541,7 @@ public class MyPageController {
 		}
 		
 		if(result>0) {
-			return "redirect:goMain.me";
+			return "redirect:exchangeClover.me?mUno="+mUno;
 		}else {
 			model.addAttribute("msg","환전정보 insert 실패!");
 			return "common/errorPage";
@@ -593,6 +593,9 @@ public class MyPageController {
 			try {
 				CQBoard questionOne = mps.selectQuestionOne(bid);
 				
+				//관리자 답변 가져오기
+				String mngQuestion = mps.selectMngQuestion(bid);
+				
 				if(questionOne != null) {
 					//게시글에 첨부된 파일 이름 가져오기
 					String imgName = mps.selectImgName(bid);
@@ -600,6 +603,7 @@ public class MyPageController {
 				}
 				
 				model.addAttribute("questionOne", questionOne);
+				model.addAttribute("mngQuestion", mngQuestion);
 				
 			} catch (MyPageException e) {
 				e.printStackTrace();
@@ -693,16 +697,41 @@ public class MyPageController {
 			
 			//방송통계 - 리스트
 			bcTotalList = mps.selectbtTotal(pi, cqUno);
+		
+			//평균방송시간 > 방송시간 총합 / 방송횟수 (total)
+			int totalTime = mps.selectTotalTime(cqUno);
+			
+			//최고시청자수 > 누적시청자수 중 가장 큰값(total)
+			int totalMax = mps.selectTotalMax(cqUno);
+			
+			//평균시청자수 > 누적시청자수 총합 / 방송횟수 (total)
+			int totalAvg = mps.selectTotalAvg(cqUno);
 			
 			
-			//평균방송시간 > 방송시간 총합 / 방송횟수(listCount)
+			//평균방송시간 > 방송시간 총합 / 방송횟수 (today)
+			int todayTime = mps.selectTodayTime(cqUno);
 			
-			//최고시청자수 > 누적시청자수 중 가장 큰값
+			//최고시청자수 > 누적시청자수 중 가장 큰값(today)
+			int todayMax = mps.selectTodayMax(cqUno);
 			
-			//평균시청자수 > 누적시청자수 총합 / 방송횟수 (listCount)
+			//평균시청자수 > 누적시청자수 총합 / 방송횟수 (today)
+			int todayAvg = mps.selectTodayAvg(cqUno);
+			
+			
 			
 			/* model에 담아서 jsp페이지로 넘겨주기 > jsp에서는 ${ list.get(0).getCloverCnt} 이런식으로 불러다 쓰기 */
 			model.addAttribute("bcTotalList", bcTotalList);
+			
+			//total 부분
+			model.addAttribute("totalTime", totalTime);
+			model.addAttribute("totalMax", totalMax);
+			model.addAttribute("totalAvg", totalAvg);
+			
+			//today부분
+			model.addAttribute("todayTime", todayTime);
+			model.addAttribute("todayMax", todayMax);
+			model.addAttribute("todayAvg", todayAvg);
+			
 			request.setAttribute("pi", pi);
 			
 		} catch (MyPageException e) {

@@ -261,5 +261,48 @@ public class MyPageServiceImpl implements MyPageService{
 			return mpd.selectbtTotal(sqlSession, pi, cqUno);
 		}
 
+		//관리자 답변 가져오기
+		@Override
+		public String selectMngQuestion(int bid) throws MyPageException {
+			return mpd.selectMngQuestion(sqlSession, bid);
+		}
+
+		//평균방송시간 > 방송시간 총합 / 방송횟수 (total)
+		@Override
+		public int selectTotalTime(int cqUno) throws MyPageException {
+			return mpd.selectTotalTime(sqlSession, cqUno);
+		}
+
+
+		//최고시청자수 > 누적시청자수 중 가장 큰값(total)
+		@Override
+		public int selectTotalMax(int cqUno) throws MyPageException {
+			return mpd.selectTotalMax(sqlSession, cqUno);
+		}
+
+		//평균시청자수 > 누적시청자수 총합 / 방송횟수 (total)
+		@Override
+		public int selectTotalAvg(int cqUno) throws MyPageException {
+			return mpd.selectTotalAvg(sqlSession, cqUno);
+		}
+
+		//평균방송시간 > 방송시간 총합 / 방송횟수 (today)
+		@Override
+		public int selectTodayTime(int cqUno) throws MyPageException {
+			return mpd.selectTodayTime(sqlSession, cqUno);
+		}
+
+		//최고시청자수 > 누적시청자수 중 가장 큰값(today)
+		@Override
+		public int selectTodayMax(int cqUno) throws MyPageException {
+			return mpd.selectTodayMax(sqlSession, cqUno);
+		}
+
+		//평균시청자수 > 누적시청자수 총합 / 방송횟수 (today)
+		@Override
+		public int selectTodayAvg(int cqUno) throws MyPageException {
+			return mpd.selectTodayAvg(sqlSession, cqUno);
+		}
+
 
 }

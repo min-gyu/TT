@@ -110,6 +110,27 @@ public interface MyPageDao {
 	//방송통계 - 리스트
 	List<MyBroadCast> selectbtTotal(SqlSessionTemplate sqlSession,  PageInfo pi, int cqUno) throws MyPageException;
 
+	//관리자 답변 가져오기
+	String selectMngQuestion(SqlSessionTemplate sqlSession, int bid) throws MyPageException;
+
+	//평균방송시간 > 방송시간 총합 / 방송횟수 (total)
+	int selectTotalTime(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException;
+
+	//최고시청자수 > 누적시청자수 중 가장 큰값(total)
+	int selectTotalMax(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException;
+
+	//평균시청자수 > 누적시청자수 총합 / 방송횟수 (total)
+	int selectTotalAvg(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException;
+
+	//평균방송시간 > 방송시간 총합 / 방송횟수 (today)
+	int selectTodayTime(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException;
+
+	//최고시청자수 > 누적시청자수 중 가장 큰값(today)
+	int selectTodayMax(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException;
+
+	//평균시청자수 > 누적시청자수 총합 / 방송횟수 (today)
+	int selectTodayAvg(SqlSessionTemplate sqlSession, int cqUno) throws MyPageException;
+
 
 	
 

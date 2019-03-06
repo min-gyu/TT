@@ -51,8 +51,9 @@
 	</script>
 
 </head>
-
 <div id="fakeLoader"></div>
+
+
 
 <body class="skin-orange">
 	<header class="primary">
@@ -67,7 +68,7 @@
 					</div>
 					<div class="col-md-6 col-sm-12">
 						<form class="search" autocomplete="off">
-							<div class="form-group">
+							<div class="form-group" >
 								<div class="input-group">
 									<input type="text" name="q" class="form-control" placeholder="검색어를 입력해주세요">
 									<div class="input-group-btn">

@@ -37,14 +37,70 @@
 	</select> 
 	
 	
+	<!-- 여기는 Total통계 -->
+	<!--평균방송시간(total) > 총 방송시간 -->
+	<select id="selectTotalSumTime" parameterType="_int"  resultType="_int">
+	SELECT SUM(ROUND((BT_END_TIME-BT_START_TIME)*24*60)) 
+	FROM BROADCAST
+	WHERE BT_CH_NO = #{value}
+	</select> 
+	
+	<!--평균방송시간(total) > 총 방송횟수 -->
+	<select id="selectTotalCount" parameterType="_int"  resultType="int">
+	SELECT COUNT(*)
+	FROM BROADCAST 
+	WHERE BT_CH_NO=#{value}
+	</select> 
+	
+	
+	<!--방송 최대 시청자수(total) -->
+	<select id="selectTotalMax" parameterType="_int"  resultType="int">
+	SELECT MAX(BT_TOTAL_COUNT)
+	FROM BROADCAST
+	WHERE BT_CH_NO=#{value}
+	</select> 
+	
+	
+	<!--방송 누적 시청자수(total) -->
+	<select id="selectTotalAvg" parameterType="_int"  resultType="int">
+	SELECT SUM(BT_TOTAL_COUNT)
+	FROM BROADCAST
+	WHERE BT_CH_NO=#{value}
+	</select> 
 	
 	
 	
 	
 	
+	<!-- 여기부턴 Today통계 -->
+	<!--평균방송시간(today) > 총 방송시간 -->
+	<select id="selectTodaySumTime" parameterType="_int"  resultType="_int">
+	SELECT SUM(ROUND((BT_END_TIME-BT_START_TIME)*24*60)) 
+	FROM BROADCAST
+	WHERE BT_CH_NO = #{value} AND  TO_CHAR(BT_END_TIME,'YYYY-MM-DD')= TO_CHAR(SYSDATE,'YYYY-MM-DD')
+	</select> 
+	
+	<!--평균방송시간(today) > 총 방송횟수 -->
+	<select id="selectTodayCount" parameterType="_int"  resultType="int">
+	SELECT COUNT(*)
+	FROM BROADCAST 
+	WHERE BT_CH_NO=#{value} AND  TO_CHAR(BT_END_TIME,'YYYY-MM-DD')= TO_CHAR(SYSDATE,'YYYY-MM-DD')
+	</select> 
 	
 	
+	<!--방송 최대 시청자수(today) -->
+	<select id="selectTodayMax" parameterType="_int"  resultType="int">
+	SELECT MAX(BT_TOTAL_COUNT)
+	FROM BROADCAST
+	WHERE BT_CH_NO=#{value} AND TO_CHAR(BT_END_TIME,'YYYY-MM-DD')= TO_CHAR(SYSDATE,'YYYY-MM-DD')
+	</select> 
 	
+	<!--방송 누적 시청자수(total) -->
+	<select id="selectTodayAvg" parameterType="_int"  resultType="int">
+	SELECT SUM(BT_TOTAL_COUNT)
+	FROM BROADCAST
+	WHERE BT_CH_NO=#{value} AND TO_CHAR(BT_END_TIME,'YYYY-MM-DD')= TO_CHAR(SYSDATE,'YYYY-MM-DD')
+	</select> 
 	
 	
 </mapper>
